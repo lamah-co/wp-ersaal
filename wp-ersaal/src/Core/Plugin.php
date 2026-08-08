@@ -26,6 +26,7 @@ class Plugin
         $this->registry->registerModule(new \Ersaal\Modules\ManualSend\ManualSendModule($this->options, $messageService));
         
         $this->registry->registerModule(new \Ersaal\Modules\WooCommerce\WooCommerceModule($this->options, $messageService));
+        $this->registry->registerModule(new \Ersaal\Modules\Help\HelpModule($this->options));
         
         $this->registry->boot();
     }

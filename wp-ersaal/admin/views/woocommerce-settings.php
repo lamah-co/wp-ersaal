@@ -42,7 +42,10 @@ if (!defined('ABSPATH')) {
     </table>
 
     <hr>
-    <h2><?php esc_html_e('Event Templates', 'ersaal'); ?></h2>
+    <div style="display:flex; align-items:center;">
+        <h2><?php esc_html_e('Event Templates', 'ersaal'); ?></h2>
+        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#woocommerce')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
+    </div>
     <p class="description">
         <?php esc_html_e('Available variables:', 'ersaal'); ?> 
         <code>{customer_name}</code>, <code>{order_number}</code>, <code>{order_total}</code>, <code>{order_status}</code>, <code>{site_name}</code>, <code>{billing_first_name}</code>, <code>{billing_last_name}</code>

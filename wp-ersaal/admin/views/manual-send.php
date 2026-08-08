@@ -4,7 +4,10 @@ if (!defined('ABSPATH')) {
 }
 ?>
 <div class="wrap ersaal-manual-wrap">
-    <h1 class="wp-heading-inline"><?php esc_html_e('Send SMS Message', 'ersaal'); ?></h1>
+    <div style="display:flex; align-items:center;">
+        <h1 class="wp-heading-inline"><?php esc_html_e('Send SMS Message', 'ersaal'); ?></h1>
+        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#send-sms')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
+    </div>
     <p><?php esc_html_e('Send a manual SMS message via the connected Ersaal project.', 'ersaal'); ?></p>
     <hr class="wp-header-end">
     

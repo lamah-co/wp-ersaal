@@ -28,7 +28,10 @@ class SettingsPage
 
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e('Ersaal Settings', 'ersaal'); ?></h1>
+            <div style="display:flex; align-items:center;">
+                <h1><?php esc_html_e('Ersaal Settings', 'ersaal'); ?></h1>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
+            </div>
             <h2 class="nav-tab-wrapper">
                 <?php foreach ($tabs as $tab_id => $tab_name): ?>
                     <a href="?page=ersaal-settings&tab=<?php echo esc_attr($tab_id); ?>" class="nav-tab <?php echo $active_tab === $tab_id ? 'nav-tab-active' : ''; ?>">
