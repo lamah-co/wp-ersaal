@@ -8,18 +8,16 @@ $current_status = $args['status'] ?? 'all';
 $current_source = $args['source'] ?? 'all';
 $search_query = $args['search'] ?? '';
 
-// Badges colors
-$status_colors = [
-    'processing' => ['#e5f5fa', '#00a0d2'],
-    'accepted' => ['#e6ffed', '#22863a'],
-    'retry_scheduled' => ['#fff3e0', '#ff9800'],
-    'failed' => ['#ffebe9', '#cb2431'],
-    'error' => ['#ffebe9', '#cb2431'],
-];
-
-function get_status_badge(string $status, array $colors): string {
-    $c = $colors[$status] ?? ['#f1f1f1', '#444'];
-    return sprintf('<span style="background: %s; color: %s; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase;">%s</span>', esc_attr($c[0]), esc_attr($c[1]), esc_html($status));
+function get_status_badge(string $status): string {
+    $map = [
+        'processing' => 'info',
+        'accepted' => 'success',
+        'retry_scheduled' => 'warning',
+        'failed' => 'danger',
+        'error' => 'danger'
+    ];
+    $type = $map[$status] ?? 'info';
+    return sprintf('<span class="ersaal-badge ersaal-badge-%s">%s</span>', esc_attr($type), esc_html(strtoupper($status)));
 }
 
 function get_reference_html(object $log): string {
@@ -27,33 +25,40 @@ function get_reference_html(object $log): string {
         if (function_exists('get_edit_post_link')) {
             $link = get_edit_post_link((int)$log->source_id);
             if ($link) {
-                return sprintf('<a href="%s" style="font-weight:bold;">Order #%s</a>', esc_url($link), esc_html($log->source_id));
+                return sprintf('<a href="%s" style="font-weight:var(--ersaal-fw-bold);">Order #%s</a>', esc_url($link), esc_html($log->source_id));
             }
         }
-        return sprintf('<strong>Order #%s</strong>', esc_html($log->source_id));
+        return sprintf('<strong style="font-weight:var(--ersaal-fw-bold);">Order #%s</strong>', esc_html($log->source_id));
     }
     return esc_html(ucfirst($log->source));
 }
 ?>
 
-<div class="wrap ersaal-logs-wrap">
-    <div style="display:flex; align-items:center;">
-        <h1 class="wp-heading-inline"><?php esc_html_e('SMS Logs', 'ersaal'); ?></h1>
-        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#logs')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
+<div class="wrap ersaal-admin ersaal-page">
+    <div class="ersaal-page-header">
+        <div>
+            <h1 class="ersaal-page-title"><?php esc_html_e('SMS Logs', 'ersaal'); ?></h1>
+            <p class="ersaal-page-description"><?php esc_html_e('Track SMS requests sent through Ersaal.', 'ersaal'); ?></p>
+        </div>
+        <div>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#logs')); ?>" class="ersaal-btn ersaal-btn-ghost">
+                <span class="dashicons dashicons-editor-help"></span>
+                <?php esc_html_e('Need help?', 'ersaal'); ?>
+            </a>
+        </div>
     </div>
-    <p><?php esc_html_e('Track SMS requests sent through Ersaal.', 'ersaal'); ?></p>
 
     <?php settings_errors('ersaal_logs'); ?>
 
     <!-- Summary Cards -->
-    <div style="display: flex; gap: 15px; margin: 20px 0;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--ersaal-space-md); margin-block-end: var(--ersaal-space-xl);">
         <?php
         $cards = [
-            ['label' => 'Total', 'key' => 'total', 'color' => '#444'],
-            ['label' => 'Accepted', 'key' => 'accepted', 'color' => '#22863a'],
-            ['label' => 'Failed/Error', 'keys' => ['failed', 'error'], 'color' => '#cb2431'],
-            ['label' => 'Retry', 'key' => 'retry_scheduled', 'color' => '#ff9800'],
-            ['label' => 'Processing', 'key' => 'processing', 'color' => '#00a0d2'],
+            ['label' => 'Total', 'key' => 'total', 'color' => 'var(--ersaal-text-primary)'],
+            ['label' => 'Accepted', 'key' => 'accepted', 'color' => 'var(--ersaal-color-success)'],
+            ['label' => 'Failed/Error', 'keys' => ['failed', 'error'], 'color' => 'var(--ersaal-color-danger)'],
+            ['label' => 'Retry', 'key' => 'retry_scheduled', 'color' => 'var(--ersaal-color-warning)'],
+            ['label' => 'Processing', 'key' => 'processing', 'color' => 'var(--ersaal-color-info)'],
         ];
         
         foreach ($cards as $card): 
@@ -64,19 +69,19 @@ function get_reference_html(object $log): string {
                 $count = $stats[$card['key']] ?? 0;
             }
         ?>
-            <div style="flex: 1; background: #fff; padding: 15px; border: 1px solid #ccd0d4; border-left: 4px solid <?php echo esc_attr($card['color']); ?>; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 13px; color: #666; font-weight: 600; text-transform: uppercase;"><?php echo esc_html($card['label']); ?></div>
-                <div style="font-size: 24px; font-weight: 300; margin-top: 5px; color: #222;"><?php echo number_format_i18n($count); ?></div>
+            <div class="ersaal-card" style="padding: var(--ersaal-space-lg); border-inline-start: 4px solid <?php echo esc_attr($card['color']); ?>; box-shadow: var(--ersaal-shadow-sm);">
+                <div style="font-size: var(--ersaal-text-sm); color: var(--ersaal-text-secondary); font-weight: var(--ersaal-fw-semibold); text-transform: uppercase; letter-spacing: 0.5px;"><?php echo esc_html($card['label']); ?></div>
+                <div style="font-size: 28px; font-weight: var(--ersaal-fw-light); margin-top: var(--ersaal-space-xs); color: var(--ersaal-text-primary);"><?php echo number_format_i18n($count); ?></div>
             </div>
         <?php endforeach; ?>
     </div>
 
     <!-- Filters & Search -->
-    <div style="background: #fff; padding: 15px; border: 1px solid #ccd0d4; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-        <form method="get" action="admin.php" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+    <div class="ersaal-card" style="margin-block-end: var(--ersaal-space-xl); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--ersaal-space-md); padding: var(--ersaal-space-md);">
+        <form method="get" action="admin.php" style="display: flex; gap: var(--ersaal-space-sm); align-items: center; flex-wrap: wrap; margin: 0;">
             <input type="hidden" name="page" value="ersaal-logs">
             
-            <select name="status">
+            <select name="status" class="ersaal-select" style="min-width: 140px; padding-block: 4px; height: auto;">
                 <option value="all" <?php selected($current_status, 'all'); ?>><?php esc_html_e('All Statuses', 'ersaal'); ?></option>
                 <option value="processing" <?php selected($current_status, 'processing'); ?>><?php esc_html_e('Processing', 'ersaal'); ?></option>
                 <option value="accepted" <?php selected($current_status, 'accepted'); ?>><?php esc_html_e('Accepted', 'ersaal'); ?></option>
@@ -85,14 +90,14 @@ function get_reference_html(object $log): string {
                 <option value="error" <?php selected($current_status, 'error'); ?>><?php esc_html_e('Error', 'ersaal'); ?></option>
             </select>
             
-            <select name="source">
+            <select name="source" class="ersaal-select" style="min-width: 140px; padding-block: 4px; height: auto;">
                 <option value="all" <?php selected($current_source, 'all'); ?>><?php esc_html_e('All Sources', 'ersaal'); ?></option>
                 <option value="manual" <?php selected($current_source, 'manual'); ?>><?php esc_html_e('Manual', 'ersaal'); ?></option>
                 <option value="woocommerce" <?php selected($current_source, 'woocommerce'); ?>><?php esc_html_e('WooCommerce', 'ersaal'); ?></option>
             </select>
 
             <?php if (!empty($events)): ?>
-            <select name="event">
+            <select name="event" class="ersaal-select" style="min-width: 140px; padding-block: 4px; height: auto;">
                 <option value="all" <?php selected($_GET['event'] ?? 'all', 'all'); ?>><?php esc_html_e('All Events', 'ersaal'); ?></option>
                 <?php foreach ($events as $evt): 
                     $label = ucwords(str_replace('_', ' ', $evt));
@@ -102,36 +107,42 @@ function get_reference_html(object $log): string {
             </select>
             <?php endif; ?>
 
-            <input type="date" name="date_from" value="<?php echo esc_attr($_GET['date_from'] ?? ''); ?>" placeholder="<?php esc_attr_e('From Date', 'ersaal'); ?>">
-            <input type="date" name="date_to" value="<?php echo esc_attr($_GET['date_to'] ?? ''); ?>" placeholder="<?php esc_attr_e('To Date', 'ersaal'); ?>">
+            <input type="date" name="date_from" value="<?php echo esc_attr($_GET['date_from'] ?? ''); ?>" class="ersaal-input" placeholder="<?php esc_attr_e('From Date', 'ersaal'); ?>" style="padding-block: 4px; height: auto;">
+            <input type="date" name="date_to" value="<?php echo esc_attr($_GET['date_to'] ?? ''); ?>" class="ersaal-input" placeholder="<?php esc_attr_e('To Date', 'ersaal'); ?>" style="padding-block: 4px; height: auto;">
             
-            <?php submit_button(__('Filter', 'ersaal'), 'secondary', '', false); ?>
+            <button type="submit" class="ersaal-btn ersaal-btn-secondary" style="padding-block: 4px; height: auto;"><?php esc_html_e('Filter', 'ersaal'); ?></button>
+            
             <?php if (isset($_GET['status']) || isset($_GET['source']) || isset($_GET['event']) || !empty($_GET['date_from']) || !empty($_GET['date_to']) || !empty($_GET['s'])): ?>
-                <a href="<?php echo esc_url($page_url); ?>" class="button"><?php esc_html_e('Clear Filters', 'ersaal'); ?></a>
+                <a href="<?php echo esc_url($page_url); ?>" class="ersaal-btn ersaal-btn-ghost" style="padding-block: 4px; height: auto;"><?php esc_html_e('Clear Filters', 'ersaal'); ?></a>
             <?php endif; ?>
         </form>
         
-        <form method="get" action="admin.php" style="display: flex; gap: 10px; align-items: center;">
-            <input type="hidden" name="page" value="ersaal-logs">
-            <input type="hidden" name="status" value="<?php echo esc_attr($current_status); ?>">
-            <input type="hidden" name="source" value="<?php echo esc_attr($current_source); ?>">
-            <input type="search" name="s" value="<?php echo esc_attr($search_query); ?>" placeholder="<?php esc_attr_e('ID, Msg ID, Order, Phone', 'ersaal'); ?>" style="width: 250px;">
-            <?php submit_button(__('Search Logs', 'ersaal'), 'secondary', '', false); ?>
-        </form>
+        <div style="display: flex; gap: var(--ersaal-space-md); align-items: center; flex-wrap: wrap;">
+            <form method="get" action="admin.php" style="display: flex; gap: var(--ersaal-space-sm); align-items: center; margin: 0;">
+                <input type="hidden" name="page" value="ersaal-logs">
+                <input type="hidden" name="status" value="<?php echo esc_attr($current_status); ?>">
+                <input type="hidden" name="source" value="<?php echo esc_attr($current_source); ?>">
+                <input type="search" name="s" value="<?php echo esc_attr($search_query); ?>" class="ersaal-input" placeholder="<?php esc_attr_e('ID, Msg ID, Order, Phone', 'ersaal'); ?>" style="min-width: 200px; padding-block: 4px; height: auto;">
+                <button type="submit" class="ersaal-btn ersaal-btn-secondary" style="padding-block: 4px; height: auto;"><?php esc_html_e('Search', 'ersaal'); ?></button>
+            </form>
 
-        <form method="get" action="admin.php">
-            <input type="hidden" name="page" value="ersaal-logs">
-            <?php 
-            foreach ($_GET as $k => $v) {
-                if (!in_array($k, ['page', 'ersaal_export_csv', '_wpnonce'])) {
-                    echo '<input type="hidden" name="' . esc_attr($k) . '" value="' . esc_attr($v) . '">';
+            <form method="get" action="admin.php" style="margin: 0;">
+                <input type="hidden" name="page" value="ersaal-logs">
+                <?php 
+                foreach ($_GET as $k => $v) {
+                    if (!in_array($k, ['page', 'ersaal_export_csv', '_wpnonce'])) {
+                        echo '<input type="hidden" name="' . esc_attr($k) . '" value="' . esc_attr($v) . '">';
+                    }
                 }
-            }
-            wp_nonce_field('ersaal_export_csv');
-            ?>
-            <input type="hidden" name="ersaal_export_csv" value="1">
-            <?php submit_button(__('Export CSV', 'ersaal'), 'secondary', '', false); ?>
-        </form>
+                wp_nonce_field('ersaal_export_csv');
+                ?>
+                <input type="hidden" name="ersaal_export_csv" value="1">
+                <button type="submit" class="ersaal-btn ersaal-btn-secondary" style="padding-block: 4px; height: auto;">
+                    <span class="dashicons dashicons-download" style="margin-right: 4px;"></span>
+                    <?php esc_html_e('Export CSV', 'ersaal'); ?>
+                </button>
+            </form>
+        </div>
     </div>
 
     <!-- Data Table -->
@@ -206,8 +217,8 @@ function get_reference_html(object $log): string {
                                 <span title="<?php echo esc_attr($log->message_id); ?>" style="font-family:monospace; font-size:12px;">
                                     <?php echo esc_html(substr($log->message_id, 0, 8)) . '...'; ?>
                                 </span>
-                                <button type="button" class="button button-small copy-msg-id" data-clipboard="<?php echo esc_attr($log->message_id); ?>" title="Copy ID">
-                                    <span class="dashicons dashicons-admin-page" style="font-size: 14px; width:14px; height:14px; margin-top: 2px;"></span>
+                                <button type="button" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm copy-msg-id" data-clipboard="<?php echo esc_attr($log->message_id); ?>" title="Copy ID" style="padding: 0 4px; height: 24px;">
+                                    <span class="dashicons dashicons-admin-page" style="font-size: 14px; width:14px; height:14px; margin: 0;"></span>
                                 </button>
                             </div>
                         <?php else: ?>
@@ -224,12 +235,12 @@ function get_reference_html(object $log): string {
                         ?>
                     </td>
                     <td>
-                        <div style="display: flex; gap: 5px;">
-                            <button type="button" class="button view-log-details" data-log='<?php echo esc_attr(json_encode($log)); ?>'>
+                        <div style="display: flex; gap: var(--ersaal-space-sm);">
+                            <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm view-log-details" data-log='<?php echo esc_attr(json_encode($log)); ?>'>
                                 <?php esc_html_e('Details', 'ersaal'); ?>
                             </button>
-                            <button type="button" class="button" style="color: #a00;" onclick="if(confirm('<?php esc_attr_e('Are you sure you want to delete this log? This only deletes the local record.', 'ersaal'); ?>')) { document.getElementById('ersaal-single-delete-id').value = <?php echo esc_attr($log->id); ?>; document.getElementById('ersaal-single-delete-form').submit(); }">
-                                <?php esc_html_e('Delete', 'ersaal'); ?>
+                            <button type="button" class="ersaal-btn ersaal-btn-danger ersaal-btn-sm ersaal-btn-ghost" onclick="if(confirm('<?php esc_attr_e('Are you sure you want to delete this log? This only deletes the local record.', 'ersaal'); ?>')) { document.getElementById('ersaal-single-delete-id').value = <?php echo esc_attr($log->id); ?>; document.getElementById('ersaal-single-delete-form').submit(); }">
+                                <span class="dashicons dashicons-trash" style="margin:0; font-size:14px; width:14px; height:14px;"></span>
                             </button>
                         </div>
                     </td>
@@ -298,14 +309,14 @@ function get_reference_html(object $log): string {
 </form>
 
 <!-- Details Modal -->
-<div id="ersaal-log-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
-    <div style="background:#fff; width: 600px; max-width: 90%; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); max-height: 90vh; display: flex; flex-direction: column;">
-        <div style="padding: 15px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; background: #fcfcfc;">
-            <h2 style="margin: 0; font-size: 18px;"><?php esc_html_e('Log Details', 'ersaal'); ?></h2>
-            <button type="button" id="ersaal-close-modal" style="background: none; border: none; cursor: pointer; font-size: 20px; color: #666;">&times;</button>
+<div id="ersaal-log-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center; backdrop-filter: blur(2px);">
+    <div class="ersaal-card" style="width: 600px; max-width: 90%; max-height: 90vh; display: flex; flex-direction: column; padding: 0; overflow: hidden; box-shadow: var(--ersaal-shadow-lg);">
+        <div style="padding: var(--ersaal-space-md) var(--ersaal-space-lg); border-bottom: 1px solid var(--ersaal-border-color); display: flex; justify-content: space-between; align-items: center; background: var(--ersaal-bg-surface-2);">
+            <h2 class="ersaal-card-title" style="margin: 0; font-size: var(--ersaal-text-lg);"><?php esc_html_e('Log Details', 'ersaal'); ?></h2>
+            <button type="button" id="ersaal-close-modal" class="ersaal-btn ersaal-btn-ghost" style="padding: 0; width: 32px; height: 32px; font-size: 24px; display: flex; align-items: center; justify-content: center; line-height: 1;">&times;</button>
         </div>
-        <div style="padding: 20px; overflow-y: auto;">
-            <table class="form-table" role="presentation">
+        <div style="padding: var(--ersaal-space-lg); overflow-y: auto;">
+            <table class="form-table" role="presentation" style="margin: 0;">
                 <tbody id="ersaal-log-modal-body">
                 </tbody>
             </table>
@@ -391,8 +402,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (messageText === null || messageText === undefined || messageText === '') {
                 messageText = '&mdash;';
             } else {
-                messageText = `<div style="background: #f9f9f9; padding: 10px; border: 1px solid #e2e4e7; border-radius: 4px; white-space: pre-wrap; word-break: break-word; font-family: monospace; font-size: 13px; line-height: 1.5;">${escapeHtml(String(messageText))}</div>
-                               <button type="button" class="button button-small copy-msg-text" style="margin-top: 5px;" data-clipboard="${escapeHtml(String(messageText))}">
+                messageText = `<div style="background: var(--ersaal-bg-surface-2); padding: var(--ersaal-space-md); border: 1px solid var(--ersaal-border-color); border-radius: var(--ersaal-radius-sm); white-space: pre-wrap; word-break: break-word; font-family: monospace; font-size: var(--ersaal-text-sm); line-height: 1.5; color: var(--ersaal-text-primary);">${escapeHtml(String(messageText))}</div>
+                               <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm copy-msg-text" style="margin-top: var(--ersaal-space-sm);" data-clipboard="${escapeHtml(String(messageText))}">
+                                   <span class="dashicons dashicons-admin-page" style="margin-right: 4px; font-size: 14px; width: 14px; height: 14px; display: inline-block;"></span>
                                    <?php esc_attr_e('Copy Message', 'ersaal'); ?>
                                </button>`;
             }
