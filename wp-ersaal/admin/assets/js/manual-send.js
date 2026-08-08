@@ -83,8 +83,8 @@ jQuery(document).ready(function($) {
             
             if (response.success) {
                 currentIdempotencyKey = generateUUID();
-                $responseArea.addClass('success');
-                var html = '<strong>' + ersaalManualSend.i18n.success + '</strong><br/>';
+                $responseArea.removeClass('ersaal-alert-danger').addClass('ersaal-alert-success');
+                var html = '<div style="display: flex; align-items: center; gap: 8px;"><strong>' + ersaalManualSend.i18n.success + '</strong></div><br/>';
                 if (response.data.message_id) {
                     html += 'Message ID: ' + response.data.message_id + '<br/>';
                 }
@@ -98,9 +98,9 @@ jQuery(document).ready(function($) {
                 $responseArea.html(html).show();
                 $messageArea.val('').trigger('input');
             } else {
-                $responseArea.addClass('error');
+                $responseArea.removeClass('ersaal-alert-success').addClass('ersaal-alert-danger');
                 var msg = response.data.message || ersaalManualSend.i18n.error;
-                $responseArea.html('<strong>Error:</strong> ' + msg).show();
+                $responseArea.html('<div style="display: flex; align-items: center; gap: 8px;"><strong>Error:</strong> ' + msg + '</div>').show();
             }
         }).fail(function(jqXHR) {
             $submitBtn.prop('disabled', false).text(ersaalManualSend.i18n.send);
@@ -109,7 +109,7 @@ jQuery(document).ready(function($) {
             if (jqXHR && jqXHR.responseJSON && jqXHR.responseJSON.data && jqXHR.responseJSON.data.message) {
                 msg = jqXHR.responseJSON.data.message;
             }
-            $responseArea.addClass('error').html('<strong>Error:</strong> ' + msg).show();
+            $responseArea.removeClass('ersaal-alert-success').addClass('ersaal-alert-danger').html('<div style="display: flex; align-items: center; gap: 8px;"><strong>Error:</strong> ' + msg + '</div>').show();
         });
     });
 });
