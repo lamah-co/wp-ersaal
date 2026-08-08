@@ -42,6 +42,7 @@ class Database
             api_http_code smallint(5) DEFAULT NULL,
             api_error varchar(255) DEFAULT NULL,
             message_excerpt varchar(150) DEFAULT NULL,
+            message_text text DEFAULT NULL,
             attempts tinyint(3) unsigned NOT NULL DEFAULT 0,
             parts_estimated tinyint(3) unsigned DEFAULT NULL,
             cost_estimated decimal(10,3) DEFAULT NULL,

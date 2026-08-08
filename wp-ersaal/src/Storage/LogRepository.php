@@ -41,6 +41,7 @@ class LogRepository
             'source_event'    => $data['source_event'],
             'recipient_type'  => $data['recipient_type'],
             'message_excerpt' => substr($data['message'] ?? '', 0, 150),
+            'message_text'    => $data['message'] ?? '',
             'status'          => 'processing',
             'locked_at'       => $now,
             'created_at'      => $now,
@@ -226,9 +227,14 @@ class LogRepository
         $table = $this->getTableName();
         
         $page = isset($args['page']) ? max(1, (int)$args['page']) : 1;
-        $perPage = isset($args['per_page']) ? max(1, (int)$args['per_page']) : 20;
+        $perPage = isset($args['per_page']) ? (int)$args['per_page'] : 20;
+        if ($perPage === 0) $perPage = 20;
+
         $status = isset($args['status']) ? sanitize_text_field($args['status']) : '';
         $source = isset($args['source']) ? sanitize_text_field($args['source']) : '';
+        $event = isset($args['event']) ? sanitize_text_field($args['event']) : '';
+        $dateFrom = isset($args['date_from']) ? sanitize_text_field($args['date_from']) : '';
+        $dateTo = isset($args['date_to']) ? sanitize_text_field($args['date_to']) : '';
         $search = isset($args['search']) ? sanitize_text_field($args['search']) : '';
         $orderby = isset($args['orderby']) ? sanitize_text_field($args['orderby']) : 'created_at';
         $order = isset($args['order']) ? strtoupper(sanitize_text_field($args['order'])) : 'DESC';
@@ -244,6 +250,21 @@ class LogRepository
         if ($source && $source !== 'all') {
             $where[] = "source = %s";
             $params[] = $source;
+        }
+
+        if ($event && $event !== 'all') {
+            $where[] = "source_event = %s";
+            $params[] = $event;
+        }
+
+        if ($dateFrom && preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateFrom)) {
+            $where[] = "created_at >= %s";
+            $params[] = $dateFrom . ' 00:00:00';
+        }
+
+        if ($dateTo && preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateTo)) {
+            $where[] = "created_at <= %s";
+            $params[] = $dateTo . ' 23:59:59';
         }
         
         if ($search) {
@@ -266,11 +287,24 @@ class LogRepository
         $order = ($order === 'ASC') ? 'ASC' : 'DESC';
         $offset = ($page - 1) * $perPage;
         
-        if (!empty($params)) {
-            $query = $wpdb->prepare("SELECT * FROM {$table} WHERE {$where_sql} ORDER BY {$orderby} {$order} LIMIT %d OFFSET %d", array_merge($params, [$perPage, $offset]));
-            $total_query = $wpdb->prepare("SELECT COUNT(id) FROM {$table} WHERE {$where_sql}", $params);
+        if ($perPage > 0) {
+            $limit_sql = "LIMIT %d OFFSET %d";
+            $query_params = array_merge($params, [$perPage, $offset]);
         } else {
-            $query = $wpdb->prepare("SELECT * FROM {$table} WHERE {$where_sql} ORDER BY {$orderby} {$order} LIMIT %d OFFSET %d", $perPage, $offset);
+            // -1 for all
+            $limit_sql = "";
+            $query_params = $params;
+        }
+        
+        if (!empty($query_params)) {
+            $query = $wpdb->prepare("SELECT * FROM {$table} WHERE {$where_sql} ORDER BY {$orderby} {$order} {$limit_sql}", ...$query_params);
+        } else {
+            $query = "SELECT * FROM {$table} WHERE {$where_sql} ORDER BY {$orderby} {$order} {$limit_sql}";
+        }
+        
+        if (!empty($params)) {
+            $total_query = $wpdb->prepare("SELECT COUNT(id) FROM {$table} WHERE {$where_sql}", ...$params);
+        } else {
             $total_query = "SELECT COUNT(id) FROM {$table} WHERE {$where_sql}";
         }
         
@@ -280,9 +314,41 @@ class LogRepository
         return [
             'items' => $items,
             'total' => $total_items,
-            'pages' => ceil($total_items / $perPage),
+            'pages' => $perPage > 0 ? ceil($total_items / $perPage) : 1,
             'page' => $page,
             'per_page' => $perPage
         ];
+    }
+
+    public function deleteById(int $id): bool
+    {
+        global $wpdb;
+        $table = $this->getTableName();
+        $deleted = $wpdb->delete($table, ['id' => $id], ['%d']);
+        return $deleted !== false && $deleted > 0;
+    }
+
+    public function deleteBulk(array $ids): int
+    {
+        global $wpdb;
+        if (empty($ids)) {
+            return 0;
+        }
+
+        $table = $this->getTableName();
+        $placeholders = implode(',', array_fill(0, count($ids), '%d'));
+        
+        $sql = $wpdb->prepare("DELETE FROM {$table} WHERE id IN ($placeholders)", ...$ids);
+        $deleted = $wpdb->query($sql);
+        
+        return $deleted !== false ? $deleted : 0;
+    }
+
+    public function getDistinctEvents(): array
+    {
+        global $wpdb;
+        $table = $this->getTableName();
+        $results = $wpdb->get_col("SELECT DISTINCT source_event FROM {$table} WHERE source_event != '' AND source_event IS NOT NULL ORDER BY source_event ASC");
+        return $results ?: [];
     }
 }

@@ -37,8 +37,13 @@ function get_reference_html(object $log): string {
 ?>
 
 <div class="wrap ersaal-logs-wrap">
-    <h1 class="wp-heading-inline"><?php esc_html_e('SMS Logs', 'ersaal'); ?></h1>
+    <div style="display:flex; align-items:center;">
+        <h1 class="wp-heading-inline"><?php esc_html_e('SMS Logs', 'ersaal'); ?></h1>
+        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#logs')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
+    </div>
     <p><?php esc_html_e('Track SMS requests sent through Ersaal.', 'ersaal'); ?></p>
+
+    <?php settings_errors('ersaal_logs'); ?>
 
     <!-- Summary Cards -->
     <div style="display: flex; gap: 15px; margin: 20px 0;">
@@ -68,7 +73,7 @@ function get_reference_html(object $log): string {
 
     <!-- Filters & Search -->
     <div style="background: #fff; padding: 15px; border: 1px solid #ccd0d4; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-        <form method="get" action="admin.php" style="display: flex; gap: 10px; align-items: center;">
+        <form method="get" action="admin.php" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <input type="hidden" name="page" value="ersaal-logs">
             
             <select name="status">
@@ -85,8 +90,25 @@ function get_reference_html(object $log): string {
                 <option value="manual" <?php selected($current_source, 'manual'); ?>><?php esc_html_e('Manual', 'ersaal'); ?></option>
                 <option value="woocommerce" <?php selected($current_source, 'woocommerce'); ?>><?php esc_html_e('WooCommerce', 'ersaal'); ?></option>
             </select>
+
+            <?php if (!empty($events)): ?>
+            <select name="event">
+                <option value="all" <?php selected($_GET['event'] ?? 'all', 'all'); ?>><?php esc_html_e('All Events', 'ersaal'); ?></option>
+                <?php foreach ($events as $evt): 
+                    $label = ucwords(str_replace('_', ' ', $evt));
+                ?>
+                <option value="<?php echo esc_attr($evt); ?>" <?php selected($_GET['event'] ?? '', $evt); ?>><?php echo esc_html($label); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <?php endif; ?>
+
+            <input type="date" name="date_from" value="<?php echo esc_attr($_GET['date_from'] ?? ''); ?>" placeholder="<?php esc_attr_e('From Date', 'ersaal'); ?>">
+            <input type="date" name="date_to" value="<?php echo esc_attr($_GET['date_to'] ?? ''); ?>" placeholder="<?php esc_attr_e('To Date', 'ersaal'); ?>">
             
             <?php submit_button(__('Filter', 'ersaal'), 'secondary', '', false); ?>
+            <?php if (isset($_GET['status']) || isset($_GET['source']) || isset($_GET['event']) || !empty($_GET['date_from']) || !empty($_GET['date_to']) || !empty($_GET['s'])): ?>
+                <a href="<?php echo esc_url($page_url); ?>" class="button"><?php esc_html_e('Clear Filters', 'ersaal'); ?></a>
+            <?php endif; ?>
         </form>
         
         <form method="get" action="admin.php" style="display: flex; gap: 10px; align-items: center;">
@@ -95,9 +117,20 @@ function get_reference_html(object $log): string {
             <input type="hidden" name="source" value="<?php echo esc_attr($current_source); ?>">
             <input type="search" name="s" value="<?php echo esc_attr($search_query); ?>" placeholder="<?php esc_attr_e('ID, Msg ID, Order, Phone', 'ersaal'); ?>" style="width: 250px;">
             <?php submit_button(__('Search Logs', 'ersaal'), 'secondary', '', false); ?>
-            <?php if ($search_query): ?>
-                <a href="<?php echo esc_url($page_url); ?>" class="button"><?php esc_html_e('Clear', 'ersaal'); ?></a>
-            <?php endif; ?>
+        </form>
+
+        <form method="get" action="admin.php">
+            <input type="hidden" name="page" value="ersaal-logs">
+            <?php 
+            foreach ($_GET as $k => $v) {
+                if (!in_array($k, ['page', 'ersaal_export_csv', '_wpnonce'])) {
+                    echo '<input type="hidden" name="' . esc_attr($k) . '" value="' . esc_attr($v) . '">';
+                }
+            }
+            wp_nonce_field('ersaal_export_csv');
+            ?>
+            <input type="hidden" name="ersaal_export_csv" value="1">
+            <?php submit_button(__('Export CSV', 'ersaal'), 'secondary', '', false); ?>
         </form>
     </div>
 
@@ -110,28 +143,63 @@ function get_reference_html(object $log): string {
             </p>
         </div>
     <?php else: ?>
+        <form method="post" id="ersaal-logs-form">
+        <?php wp_nonce_field('ersaal_bulk_logs'); ?>
+        
+        <div class="tablenav top">
+            <div class="alignleft actions bulkactions">
+                <label for="bulk-action-selector-top" class="screen-reader-text"><?php esc_html_e('Select bulk action', 'ersaal'); ?></label>
+                <select name="action" id="bulk-action-selector-top">
+                    <option value="-1"><?php esc_html_e('Bulk actions', 'ersaal'); ?></option>
+                    <option value="delete"><?php esc_html_e('Delete', 'ersaal'); ?></option>
+                </select>
+                <input type="submit" id="doaction" class="button action" value="<?php esc_attr_e('Apply', 'ersaal'); ?>" name="ersaal_bulk_action" onclick="return confirm('<?php esc_attr_e('Are you sure you want to delete selected logs?', 'ersaal'); ?>');">
+            </div>
+            
+            <div class="tablenav-pages">
+                <span class="displaying-num"><?php printf(_n('%s item', '%s items', $logsData['total'], 'ersaal'), number_format_i18n($logsData['total'])); ?></span>
+            </div>
+        </div>
+
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
+                    <td id="cb" class="manage-column column-cb check-column">
+                        <label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e('Select All', 'ersaal'); ?></label>
+                        <input id="cb-select-all-1" type="checkbox">
+                    </td>
                     <th style="width: 60px;">ID</th>
                     <th style="width: 100px;">Status</th>
                     <th style="width: 120px;">Reference</th>
                     <th style="width: 140px;">Phone</th>
+                    <th style="width: 200px;">Message</th>
                     <th style="width: 150px;">Message ID</th>
                     <th style="width: 60px;" class="hidden-on-mobile">Parts</th>
                     <th style="width: 80px;" class="hidden-on-mobile">Cost</th>
                     <th style="width: 80px;" class="hidden-on-mobile">Attempts</th>
                     <th style="width: 150px;">Created</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th style="width: 150px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($logsData['items'] as $log): ?>
                 <tr>
+                    <th scope="row" class="check-column">
+                        <input type="checkbox" name="log_ids[]" value="<?php echo esc_attr($log->id); ?>">
+                    </th>
                     <td><?php echo esc_html($log->id); ?></td>
                     <td><?php echo get_status_badge($log->status, $status_colors); ?></td>
                     <td><?php echo get_reference_html($log); ?></td>
                     <td><code style="background:none;padding:0;"><?php echo esc_html($log->phone_masked); ?></code></td>
+                    <td>
+                        <?php 
+                        if (!empty($log->message_excerpt)) {
+                            echo esc_html(mb_strlen($log->message_excerpt) > 50 ? mb_substr($log->message_excerpt, 0, 50) . '...' : $log->message_excerpt);
+                        } else {
+                            echo '&mdash;';
+                        }
+                        ?>
+                    </td>
                     <td>
                         <?php if ($log->message_id): ?>
                             <div style="display:flex;align-items:center;gap:5px;">
@@ -146,8 +214,8 @@ function get_reference_html(object $log): string {
                             &mdash;
                         <?php endif; ?>
                     </td>
-                    <td class="hidden-on-mobile"><?php echo $log->parts !== null ? esc_html((string)$log->parts) : '&mdash;'; ?></td>
-                    <td class="hidden-on-mobile"><?php echo $log->cost !== null ? esc_html((string)$log->cost) : '&mdash;'; ?></td>
+                    <td class="hidden-on-mobile"><?php echo isset($log->parts_final) && $log->parts_final !== null ? esc_html((string)$log->parts_final) : '&mdash;'; ?></td>
+                    <td class="hidden-on-mobile"><?php echo isset($log->cost_final) && $log->cost_final !== null ? esc_html((string)$log->cost_final) : '&mdash;'; ?></td>
                     <td class="hidden-on-mobile"><?php echo esc_html((string)$log->attempts); ?></td>
                     <td>
                         <?php 
@@ -156,17 +224,52 @@ function get_reference_html(object $log): string {
                         ?>
                     </td>
                     <td>
-                        <button type="button" class="button view-log-details" data-log='<?php echo esc_attr(json_encode($log)); ?>'>
-                            <?php esc_html_e('Details', 'ersaal'); ?>
-                        </button>
+                        <div style="display: flex; gap: 5px;">
+                            <button type="button" class="button view-log-details" data-log='<?php echo esc_attr(json_encode($log)); ?>'>
+                                <?php esc_html_e('Details', 'ersaal'); ?>
+                            </button>
+                            <form method="post" style="display:inline;" onsubmit="return confirm('<?php esc_attr_e('Are you sure you want to delete this log? This only deletes the local record.', 'ersaal'); ?>');">
+                                <?php wp_nonce_field('ersaal_delete_log'); ?>
+                                <input type="hidden" name="log_id" value="<?php echo esc_attr($log->id); ?>">
+                                <button type="submit" name="ersaal_delete_log" class="button" style="color: #a00;"><?php esc_html_e('Delete', 'ersaal'); ?></button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td class="manage-column column-cb check-column">
+                        <label class="screen-reader-text" for="cb-select-all-2"><?php esc_html_e('Select All', 'ersaal'); ?></label>
+                        <input id="cb-select-all-2" type="checkbox">
+                    </td>
+                    <th>ID</th>
+                    <th>Status</th>
+                    <th>Reference</th>
+                    <th>Phone</th>
+                    <th>Message</th>
+                    <th>Message ID</th>
+                    <th class="hidden-on-mobile">Parts</th>
+                    <th class="hidden-on-mobile">Cost</th>
+                    <th class="hidden-on-mobile">Attempts</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </tfoot>
         </table>
 
         <!-- Pagination -->
         <div class="tablenav bottom">
+            <div class="alignleft actions bulkactions">
+                <label for="bulk-action-selector-bottom" class="screen-reader-text"><?php esc_html_e('Select bulk action', 'ersaal'); ?></label>
+                <select name="action2" id="bulk-action-selector-bottom">
+                    <option value="-1"><?php esc_html_e('Bulk actions', 'ersaal'); ?></option>
+                    <option value="delete"><?php esc_html_e('Delete', 'ersaal'); ?></option>
+                </select>
+                <input type="submit" id="doaction2" class="button action" value="<?php esc_attr_e('Apply', 'ersaal'); ?>" name="ersaal_bulk_action" onclick="return confirm('<?php esc_attr_e('Are you sure you want to delete selected logs?', 'ersaal'); ?>');">
+            </div>
+
             <div class="tablenav-pages">
                 <span class="displaying-num"><?php printf(_n('%s item', '%s items', $logsData['total'], 'ersaal'), number_format_i18n($logsData['total'])); ?></span>
                 
@@ -185,6 +288,7 @@ function get_reference_html(object $log): string {
                 endif; ?>
             </div>
         </div>
+        </form>
     <?php endif; ?>
 </div>
 
@@ -262,15 +366,50 @@ document.addEventListener('DOMContentLoaded', function() {
             ];
 
             fields.forEach(f => {
-                if (log[f.key] !== null && log[f.key] !== '') {
-                    const val = f.format ? f.format(log[f.key]) : log[f.key];
-                    const style = f.style ? ` style="${f.style}"` : '';
-                    html += `<tr><th scope="row"><strong>${f.label}</strong></th><td${style}>${escapeHtml(String(val))}</td></tr>`;
+                let val = log[f.key];
+                if (val === null || val === undefined || val === '') {
+                    val = '&mdash;';
+                } else if (f.format) {
+                    val = escapeHtml(String(f.format(val)));
+                } else {
+                    val = escapeHtml(String(val));
                 }
+                
+                const style = f.style ? ` style="${f.style}"` : '';
+                html += `<tr><th scope="row"><strong>${f.label}</strong></th><td${style}>${val}</td></tr>`;
             });
+            
+            let messageText = log['message_text'];
+            if (messageText === null || messageText === undefined || messageText === '') {
+                messageText = log['message_excerpt'];
+            }
+            if (messageText === null || messageText === undefined || messageText === '') {
+                messageText = '&mdash;';
+            } else {
+                messageText = `<div style="background: #f9f9f9; padding: 10px; border: 1px solid #e2e4e7; border-radius: 4px; white-space: pre-wrap; word-break: break-word; font-family: monospace; font-size: 13px; line-height: 1.5;">${escapeHtml(String(messageText))}</div>
+                               <button type="button" class="button button-small copy-msg-text" style="margin-top: 5px;" data-clipboard="${escapeHtml(String(messageText))}">
+                                   <?php esc_attr_e('Copy Message', 'ersaal'); ?>
+                               </button>`;
+            }
+            html += `<tr><th scope="row"><strong>${escapeHtml('Message')}</strong></th><td>${messageText}</td></tr>`;
 
             modalBody.innerHTML = html;
             modal.style.display = 'flex';
+            
+            // Attach copy event for the new button
+            const copyMsgBtn = modalBody.querySelector('.copy-msg-text');
+            if (copyMsgBtn) {
+                copyMsgBtn.addEventListener('click', function() {
+                    const text = this.getAttribute('data-clipboard');
+                    navigator.clipboard.writeText(text).then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<?php esc_attr_e('Copied!', 'ersaal'); ?>';
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            }
         });
     });
 

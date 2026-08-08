@@ -71,7 +71,122 @@ assertTestLogs('woocommerce_reference', $logs['total'] >= 1 && $logs['items'][0]
 $logs = $repo->getLogs(['per_page' => 1]);
 assertTestLogs('log_pagination', count($logs['items']) === 1 && $logs['pages'] >= 2);
 
+// 7. Message text saving and rendering tests
+$wpdb->insert($table, [
+    'idempotency_key' => 'test_log_3',
+    'phone_hash' => 'hash',
+    'phone_masked' => '+21891****333',
+    'status' => 'accepted',
+    'source' => 'manual',
+    'message_text' => "Line 1\nLine 2",
+    'message_excerpt' => "Line 1 Line 2",
+    'parts_estimated' => null,
+    'cost_estimated' => null,
+    'created_at' => current_time('mysql', true)
+]);
+
+$wpdb->insert($table, [
+    'idempotency_key' => 'test_log_4',
+    'phone_hash' => 'hash',
+    'phone_masked' => '+21891****444',
+    'status' => 'accepted',
+    'source' => 'manual',
+    'message_text' => "<script>alert(1)</script>",
+    'message_excerpt' => "<script>alert(1)</script>",
+    'parts_estimated' => null,
+    'cost_estimated' => null,
+    'created_at' => current_time('mysql', true)
+]);
+
+// Verify saving in repository
+$log3 = $repo->getLogByKey('test_log_3');
+assertTestLogs('message_saved', $log3 !== null && strpos($log3->message_text, "Line 2") !== false);
+assertTestLogs('message_multiline', $log3 !== null && strpos($log3->message_text, "\n") !== false);
+
+// Capture HTML rendering
+$_GET['page'] = 'ersaal-logs';
+ob_start();
+$page = new \Ersaal\Admin\LogsPage($repo);
+$page->render();
+$html = ob_get_clean();
+
+assertTestLogs('message_rendered', strpos($html, 'Line 1 Line 2') !== false);
+assertTestLogs('message_missing_shows_dash', strpos($html, '&mdash;') !== false); // for log 1 and 2
+assertTestLogs('no_html_injection', strpos($html, '&lt;script&gt;alert(1)&lt;/script&gt;') !== false && strpos($html, '<script>alert(1)</script>') === false);
+assertTestLogs('parts_missing_shows_dash', strpos($html, '<td class="hidden-on-mobile">&mdash;</td>') !== false);
+assertTestLogs('cost_missing_shows_dash', strpos($html, '<td class="hidden-on-mobile">&mdash;</td>') !== false);
+
+// 8. Test Delete Single
+$wpdb->insert($table, [
+    'idempotency_key' => 'test_log_delete',
+    'phone_hash' => 'hash',
+    'phone_masked' => '+21891****555',
+    'status' => 'accepted',
+    'source' => 'manual',
+    'created_at' => current_time('mysql', true)
+]);
+$delete_id = $wpdb->insert_id;
+$deleted = $repo->deleteById((int)$delete_id);
+assertTestLogs('delete_single', $deleted === true && $repo->getLogByKey('test_log_delete') === null);
+
+// 9. Test Invalid Delete
+assertTestLogs('delete_invalid_id', $repo->deleteById(9999999) === false);
+
+// 10. Test Bulk Delete
+$wpdb->insert($table, ['idempotency_key' => 'test_log_b1', 'phone_hash' => 'hash', 'phone_masked' => '+218', 'status' => 'accepted', 'source' => 'manual', 'created_at' => current_time('mysql', true)]);
+$b1 = $wpdb->insert_id;
+$wpdb->insert($table, ['idempotency_key' => 'test_log_b2', 'phone_hash' => 'hash', 'phone_masked' => '+218', 'status' => 'accepted', 'source' => 'manual', 'created_at' => current_time('mysql', true)]);
+$b2 = $wpdb->insert_id;
+$bulkDeleted = $repo->deleteBulk([(int)$b1, (int)$b2]);
+assertTestLogs('bulk_delete', $bulkDeleted === 2 && $repo->getLogByKey('test_log_b1') === null);
+assertTestLogs('bulk_delete_empty', $repo->deleteBulk([]) === 0);
+
+// 11. Test Date Filters
+$wpdb->insert($table, ['idempotency_key' => 'test_date_1', 'phone_hash' => 'hash', 'phone_masked' => '+218', 'status' => 'accepted', 'source' => 'manual', 'created_at' => '2025-01-01 12:00:00']);
+$wpdb->insert($table, ['idempotency_key' => 'test_date_2', 'phone_hash' => 'hash', 'phone_masked' => '+218', 'status' => 'accepted', 'source' => 'manual', 'created_at' => '2025-01-15 12:00:00']);
+
+$logsFrom = $repo->getLogs(['date_from' => '2025-01-10', 'date_to' => '']);
+$hasDate2 = false; $hasDate1 = false;
+foreach ($logsFrom['items'] as $it) { if ($it->idempotency_key === 'test_date_1') $hasDate1 = true; if ($it->idempotency_key === 'test_date_2') $hasDate2 = true; }
+assertTestLogs('date_filter_from', !$hasDate1 && $hasDate2);
+
+$logsTo = $repo->getLogs(['date_from' => '', 'date_to' => '2025-01-10']);
+$hasDate2 = false; $hasDate1 = false;
+foreach ($logsTo['items'] as $it) { if ($it->idempotency_key === 'test_date_1') $hasDate1 = true; if ($it->idempotency_key === 'test_date_2') $hasDate2 = true; }
+assertTestLogs('date_filter_to', $hasDate1 && !$hasDate2);
+
+$logsRange = $repo->getLogs(['date_from' => '2025-01-01', 'date_to' => '2025-01-15']);
+$hasDate2 = false; $hasDate1 = false;
+foreach ($logsRange['items'] as $it) { if ($it->idempotency_key === 'test_date_1') $hasDate1 = true; if ($it->idempotency_key === 'test_date_2') $hasDate2 = true; }
+assertTestLogs('date_filter_range', $hasDate1 && $hasDate2);
+
+// 12. Test Event Filter
+$wpdb->insert($table, ['idempotency_key' => 'test_event_1', 'phone_hash' => 'hash', 'phone_masked' => '+218', 'status' => 'accepted', 'source' => 'woocommerce', 'source_event' => 'completed', 'created_at' => current_time('mysql', true)]);
+$logsEvent = $repo->getLogs(['event' => 'completed']);
+$hasEvent = false;
+foreach ($logsEvent['items'] as $it) { if ($it->idempotency_key === 'test_event_1') $hasEvent = true; }
+assertTestLogs('event_filter', $hasEvent);
+
+// Check distinct events
+$distinct = $repo->getDistinctEvents();
+assertTestLogs('distinct_events', in_array('completed', $distinct));
+
+// Capture HTML for clear filters (ensuring button appears)
+$_GET['status'] = 'accepted';
+ob_start();
+$page = new \Ersaal\Admin\LogsPage($repo);
+$page->render();
+$html2 = ob_get_clean();
+assertTestLogs('clear_filters_url', strpos($html2, 'Clear Filters') !== false);
+
+// 13. CSV Export Check (simulated)
+// The actual export ends script via `exit`, so we just test the log fetching part of CSV logic
+$csvLogs = $repo->getLogs(['per_page' => -1, 'event' => 'completed']);
+assertTestLogs('csv_respects_filters', count($csvLogs['items']) > 0);
+$testLogCsv = $csvLogs['items'][0];
+assertTestLogs('csv_no_sensitive_data', !isset($testLogCsv->api_key) && !isset($testLogCsv->authorization));
+
 // Clean up
-$wpdb->query("DELETE FROM {$table} WHERE idempotency_key IN ('test_log_1', 'test_log_2')");
+$wpdb->query("DELETE FROM {$table} WHERE idempotency_key IN ('test_log_1', 'test_log_2', 'test_log_3', 'test_log_4', 'test_date_1', 'test_date_2', 'test_event_1')");
 
 echo "\nAll Logs tests finished.\n";
