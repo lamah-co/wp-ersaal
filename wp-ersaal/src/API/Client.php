@@ -43,7 +43,7 @@ class Client
 
     private function request(string $method, string $endpoint, array $body = [], array $headers = []): Response
     {
-        $baseUrl = rtrim((string) $this->options->get('api_url', 'http://localhost'), '/');
+        $baseUrl = rtrim((string) $this->options->get('api_url', 'https://api.ersaal.com'), '/');
         if (empty($baseUrl) || !filter_var($baseUrl, FILTER_VALIDATE_URL)) {
             throw new ConnectionException("Invalid Base URL configured.");
         }
