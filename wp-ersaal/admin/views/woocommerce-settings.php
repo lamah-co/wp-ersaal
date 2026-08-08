@@ -46,10 +46,18 @@ if (!defined('ABSPATH')) {
         <h2><?php esc_html_e('Event Templates', 'ersaal'); ?></h2>
         <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#woocommerce')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
     </div>
-    <p class="description">
-        <?php esc_html_e('Available variables:', 'ersaal'); ?> 
-        <code>{customer_name}</code>, <code>{order_number}</code>, <code>{order_total}</code>, <code>{order_status}</code>, <code>{site_name}</code>, <code>{billing_first_name}</code>, <code>{billing_last_name}</code>
-    </p>
+    
+    <div style="margin-bottom: 20px; padding: 15px; background: #fff; border: 1px solid #ccd0d4; border-left: 4px solid #00a0d2;">
+        <h4 style="margin-top: 0;"><?php esc_html_e('Available Variables (Click to insert into selected template):', 'ersaal'); ?></h4>
+        <div id="ersaal-variables-list" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <?php 
+            $vars = ['{customer_name}', '{order_number}', '{order_total}', '{order_status}', '{site_name}', '{billing_first_name}', '{billing_last_name}'];
+            foreach($vars as $v) {
+                echo '<button type="button" class="button ersaal-var-btn" data-var="' . esc_attr($v) . '">' . esc_html($v) . '</button>';
+            }
+            ?>
+        </div>
+    </div>
 
     <?php
     $events = [
@@ -175,9 +183,9 @@ if (!defined('ABSPATH')) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const dummyData = {
+    const mockData = {
         '{customer_name}': 'أحمد محمد',
-        '{order_number}': '1025',
+        '{order_number}': '1042',
         '{order_total}': '150.00',
         '{order_status}': 'مكتمل',
         '{site_name}': 'متجري',
@@ -185,22 +193,64 @@ document.addEventListener('DOMContentLoaded', function() {
         '{billing_last_name}': 'محمد'
     };
 
-    const inputs = document.querySelectorAll('.ersaal-template-input');
-    
-    inputs.forEach(function(input) {
-        const previewId = input.getAttribute('data-preview');
+    function updatePreview(textarea) {
+        const previewId = textarea.getAttribute('data-preview');
         const previewEl = document.getElementById(previewId);
-        
-        function updatePreview() {
-            let val = input.value;
-            for (const [key, value] of Object.entries(dummyData)) {
-                val = val.replace(new RegExp(key, 'g'), value);
-            }
-            previewEl.textContent = val;
-        }
+        if (!previewEl) return;
 
-        input.addEventListener('input', updatePreview);
-        updatePreview();
+        let text = textarea.value;
+        for (const [key, val] of Object.entries(mockData)) {
+            text = text.replaceAll(key, val);
+        }
+        previewEl.textContent = text;
+        
+        let isArabic = /[\u0600-\u06FF]/.test(text);
+        let charLimit = isArabic ? 70 : 160;
+        let nextLimit = isArabic ? 67 : 153;
+        
+        let length = text.length;
+        let parts = 1;
+        if (length > charLimit) {
+            parts = Math.ceil(length / nextLimit);
+        }
+        
+        let statsEl = previewEl.nextElementSibling;
+        if (!statsEl || !statsEl.classList.contains('ersaal-template-stats')) {
+            statsEl = document.createElement('div');
+            statsEl.className = 'ersaal-template-stats';
+            statsEl.style.marginTop = '10px';
+            statsEl.style.fontSize = '12px';
+            statsEl.style.color = '#666';
+            previewEl.parentNode.appendChild(statsEl);
+        }
+        statsEl.innerHTML = `Characters: <strong>${length}</strong> | Estimated Parts: <strong>${parts}</strong> | Encoding: <strong>${isArabic ? 'Unicode' : 'GSM'}</strong>`;
+    }
+
+    let lastFocused = null;
+    document.querySelectorAll('.ersaal-template-input').forEach(textarea => {
+        textarea.addEventListener('input', () => updatePreview(textarea));
+        textarea.addEventListener('focus', () => lastFocused = textarea);
+        updatePreview(textarea);
+    });
+
+    document.querySelectorAll('.ersaal-var-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!lastFocused) {
+                alert('<?php esc_attr_e('Please click inside a message template field first.', 'ersaal'); ?>');
+                return;
+            }
+            const variable = this.getAttribute('data-var');
+            const start = lastFocused.selectionStart;
+            const end = lastFocused.selectionEnd;
+            const text = lastFocused.value;
+            lastFocused.value = text.substring(0, start) + variable + text.substring(end);
+            lastFocused.selectionStart = lastFocused.selectionEnd = start + variable.length;
+            lastFocused.focus();
+            updatePreview(lastFocused);
+        });
     });
 });
 </script>
+
+
