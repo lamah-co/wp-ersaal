@@ -16,6 +16,10 @@ class Plugin
     
     public function boot(): void
     {
+        if (is_admin()) {
+            add_action('admin_enqueue_scripts', [$this, 'enqueueGlobalAdminAssets']);
+        }
+        
         $this->registry->registerModule(new \Ersaal\Modules\Dashboard\DashboardModule($this->options));
         $this->registry->registerModule(new \Ersaal\Modules\Settings\SettingsModule($this->options));
         $this->registry->registerModule(new \Ersaal\Modules\Logs\LogsModule($this->options));
@@ -30,6 +34,21 @@ class Plugin
         $this->registry->registerModule(new \Ersaal\Modules\Help\HelpModule($this->options));
         
         $this->registry->boot();
+    }
+    
+    public function enqueueGlobalAdminAssets(string $hook): void
+    {
+        $isErsaalPage = strpos($hook, 'ersaal') !== false;
+        $isWooCommerceSettings = ($hook === 'woocommerce_page_wc-settings' && isset($_GET['tab']) && $_GET['tab'] === 'ersaal');
+        
+        if ($isErsaalPage || $isWooCommerceSettings) {
+            wp_enqueue_style(
+                'ersaal-tokens',
+                ERSAAL_PLUGIN_URL . 'admin/assets/css/ersaal-tokens.css',
+                [],
+                ERSAAL_VERSION
+            );
+        }
     }
     
     public function getOptions(): Options

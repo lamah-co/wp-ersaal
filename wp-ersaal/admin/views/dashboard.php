@@ -3,74 +3,96 @@ if (!defined('ABSPATH')) {
     exit;
 }
 ?>
-<div class="wrap ersaal-dashboard-wrap">
-    <h1><?php esc_html_e('Ersaal SMS Dashboard', 'ersaal'); ?></h1>
-    
-    <div style="display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
-        <!-- Card 1 -->
-        <div style="background: #fff; border: 1px solid #ccd0d4; padding: 20px; flex: 1; min-width: 200px; border-radius: 4px; border-left: 4px solid #00a0d2;">
-            <h3 style="margin-top: 0; color: #555; font-size: 14px;"><?php esc_html_e('Messages Today', 'ersaal'); ?></h3>
-            <div style="font-size: 32px; font-weight: bold; color: #222;"><?php echo esc_html(number_format_i18n($stats['total_today'])); ?></div>
+<div class="wrap ersaal-admin ersaal-page">
+    <div class="ersaal-page-header">
+        <div>
+            <h1 class="ersaal-page-title"><?php esc_html_e('Ersaal SMS Overview', 'ersaal'); ?></h1>
+            <p class="ersaal-page-description"><?php esc_html_e('Monitor your SMS activity and system performance.', 'ersaal'); ?></p>
         </div>
-        
-        <!-- Card 2 -->
-        <div style="background: #fff; border: 1px solid #ccd0d4; padding: 20px; flex: 1; min-width: 200px; border-radius: 4px; border-left: 4px solid #46b450;">
-            <h3 style="margin-top: 0; color: #555; font-size: 14px;"><?php esc_html_e('Accepted', 'ersaal'); ?></h3>
-            <div style="font-size: 32px; font-weight: bold; color: #46b450;"><?php echo esc_html(number_format_i18n($stats['accepted_today'])); ?></div>
-        </div>
-        
-        <!-- Card 3 -->
-        <div style="background: #fff; border: 1px solid #ccd0d4; padding: 20px; flex: 1; min-width: 200px; border-radius: 4px; border-left: 4px solid #dc3232;">
-            <h3 style="margin-top: 0; color: #555; font-size: 14px;"><?php esc_html_e('Failed / Error', 'ersaal'); ?></h3>
-            <div style="font-size: 32px; font-weight: bold; color: #dc3232;"><?php echo esc_html(number_format_i18n($stats['failed_today'])); ?></div>
-        </div>
-        
-        <!-- Card 4 -->
-        <div style="background: #fff; border: 1px solid #ccd0d4; padding: 20px; flex: 1; min-width: 200px; border-radius: 4px; border-left: 4px solid #ffb900;">
-            <h3 style="margin-top: 0; color: #555; font-size: 14px;"><?php esc_html_e('Processing / Retry', 'ersaal'); ?></h3>
-            <div style="font-size: 32px; font-weight: bold; color: #ffb900;"><?php echo esc_html(number_format_i18n($stats['retry_today'])); ?></div>
+        <div>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-manual-send')); ?>" class="ersaal-btn ersaal-btn-primary">
+                <span class="dashicons dashicons-email-alt"></span>
+                <?php esc_html_e('Send SMS', 'ersaal'); ?>
+            </a>
         </div>
     </div>
     
-    <h2 style="margin-top: 30px;"><?php esc_html_e('Recent Messages', 'ersaal'); ?></h2>
-    <div style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px;">
-        <table class="wp-list-table widefat fixed striped">
-            <thead>
-                <tr>
-                    <th style="width: 100px;">Status</th>
-                    <th style="width: 140px;">Phone</th>
-                    <th>Message</th>
-                    <th style="width: 150px;">Created</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (empty($recent['items'])): ?>
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
-                        <?php esc_html_e('No messages found.', 'ersaal'); ?>
-                    </td>
-                </tr>
-                <?php else: ?>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--ersaal-grid-gap); margin-block-end: var(--ersaal-space-xxl);">
+        <!-- Card 1 -->
+        <div class="ersaal-card-stat">
+            <h3 class="ersaal-card-title" style="margin-top: 0; color: var(--ersaal-text-secondary); font-size: var(--ersaal-text-sm); font-weight: var(--ersaal-fw-medium);"><?php esc_html_e('Messages Today', 'ersaal'); ?></h3>
+            <div style="font-size: 32px; font-weight: var(--ersaal-fw-bold); color: var(--ersaal-text-primary);"><?php echo esc_html(number_format_i18n($stats['total_today'])); ?></div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="ersaal-card-stat">
+            <h3 class="ersaal-card-title" style="margin-top: 0; color: var(--ersaal-text-secondary); font-size: var(--ersaal-text-sm); font-weight: var(--ersaal-fw-medium);"><?php esc_html_e('Accepted', 'ersaal'); ?></h3>
+            <div style="font-size: 32px; font-weight: var(--ersaal-fw-bold); color: var(--ersaal-color-success);"><?php echo esc_html(number_format_i18n($stats['accepted_today'])); ?></div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="ersaal-card-stat">
+            <h3 class="ersaal-card-title" style="margin-top: 0; color: var(--ersaal-text-secondary); font-size: var(--ersaal-text-sm); font-weight: var(--ersaal-fw-medium);"><?php esc_html_e('Failed / Error', 'ersaal'); ?></h3>
+            <div style="font-size: 32px; font-weight: var(--ersaal-fw-bold); color: var(--ersaal-color-danger);"><?php echo esc_html(number_format_i18n($stats['failed_today'])); ?></div>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="ersaal-card-stat">
+            <h3 class="ersaal-card-title" style="margin-top: 0; color: var(--ersaal-text-secondary); font-size: var(--ersaal-text-sm); font-weight: var(--ersaal-fw-medium);"><?php esc_html_e('Processing / Retry', 'ersaal'); ?></h3>
+            <div style="font-size: 32px; font-weight: var(--ersaal-fw-bold); color: var(--ersaal-color-warning);"><?php echo esc_html(number_format_i18n($stats['retry_today'])); ?></div>
+        </div>
+    </div>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-block-end: var(--ersaal-space-md);">
+        <h2 class="ersaal-card-title" style="margin: 0; font-size: var(--ersaal-text-xl);"><?php esc_html_e('Recent Messages', 'ersaal'); ?></h2>
+        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm">
+            <?php esc_html_e('View All Logs', 'ersaal'); ?>
+        </a>
+    </div>
+
+    <div class="ersaal-card" style="padding: 0; overflow-x: auto;">
+        <?php if (empty($recent['items'])): ?>
+            <div class="ersaal-empty-state">
+                <p class="ersaal-empty-state-title"><?php esc_html_e('No SMS activity yet.', 'ersaal'); ?></p>
+                <p class="ersaal-empty-state-text"><?php esc_html_e('Messages sent through Ersaal will appear here.', 'ersaal'); ?></p>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-manual-send')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php esc_html_e('Send your first SMS', 'ersaal'); ?></a>
+            </div>
+        <?php else: ?>
+            <table class="wp-list-table widefat fixed striped ersaal-table" style="border: none; box-shadow: none;">
+                <thead>
+                    <tr>
+                        <th style="width: 120px;"><?php esc_html_e('Status', 'ersaal'); ?></th>
+                        <th style="width: 140px;"><?php esc_html_e('Phone', 'ersaal'); ?></th>
+                        <th><?php esc_html_e('Message', 'ersaal'); ?></th>
+                        <th style="width: 150px;"><?php esc_html_e('Created', 'ersaal'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
                     <?php 
-                    $status_colors = [
-                        'accepted' => 'background:#d4edda;color:#155724;border:1px solid #c3e6cb;',
-                        'processing' => 'background:#cce5ff;color:#004085;border:1px solid #b8daff;',
-                        'error' => 'background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;',
-                        'failed' => 'background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;',
-                        'retry_scheduled' => 'background:#fff3cd;color:#856404;border:1px solid #ffeeba;'
+                    $status_badges = [
+                        'accepted' => 'ersaal-badge-success',
+                        'delivered' => 'ersaal-badge-success',
+                        'sent' => 'ersaal-badge-success',
+                        'processing' => 'ersaal-badge-info',
+                        'pending' => 'ersaal-badge-info',
+                        'error' => 'ersaal-badge-danger',
+                        'failed' => 'ersaal-badge-danger',
+                        'rejected' => 'ersaal-badge-danger',
+                        'retry_scheduled' => 'ersaal-badge-warning',
+                        'queued' => 'ersaal-badge-warning'
                     ];
                     
                     foreach ($recent['items'] as $log): 
-                        $color = $status_colors[$log->status] ?? 'background:#e2e3e5;color:#383d41;border:1px solid #d6d8db;';
+                        $badge_class = $status_badges[$log->status] ?? 'ersaal-badge-muted';
                     ?>
                     <tr>
                         <td>
-                            <span style="display:inline-block; padding:3px 8px; border-radius:3px; font-size:12px; font-weight:500; <?php echo $color; ?>">
+                            <span class="ersaal-badge <?php echo esc_attr($badge_class); ?>">
                                 <?php echo esc_html(strtoupper($log->status)); ?>
                             </span>
                         </td>
-                        <td><code style="background:none;padding:0;"><?php echo esc_html($log->phone_masked); ?></code></td>
-                        <td>
+                        <td><code style="background:none;padding:0; direction: ltr; unicode-bidi: isolate; display: inline-block; font-size: var(--ersaal-text-md);"><?php echo esc_html($log->phone_masked); ?></code></td>
+                        <td style="color: var(--ersaal-text-secondary);">
                             <?php 
                             if (!empty($log->message_excerpt)) {
                                 echo esc_html(mb_strlen($log->message_excerpt) > 60 ? mb_substr($log->message_excerpt, 0, 60) . '...' : $log->message_excerpt);
@@ -80,21 +102,17 @@ if (!defined('ABSPATH')) {
                             ?>
                         </td>
                         <td>
-                            <?php 
-                            $date = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($log->created_at));
-                            echo esc_html($date); 
-                            ?>
+                            <span style="direction: ltr; unicode-bidi: isolate; display: inline-block; color: var(--ersaal-text-muted); font-size: var(--ersaal-text-sm);">
+                                <?php 
+                                $date = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($log->created_at));
+                                echo esc_html($date); 
+                                ?>
+                            </span>
                         </td>
                     </tr>
                     <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-    
-    <div style="margin-top: 15px;">
-        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="button button-secondary">
-            <?php esc_html_e('View All Logs', 'ersaal'); ?>
-        </a>
+                </tbody>
+            </table>
+        <?php endif; ?>
     </div>
 </div>
