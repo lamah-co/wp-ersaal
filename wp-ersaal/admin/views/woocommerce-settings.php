@@ -129,6 +129,47 @@ if (!defined('ABSPATH')) {
         </table>
     </div>
 
+    <?php if (function_exists('wc_get_order_statuses')): ?>
+        <hr>
+        <h2><?php esc_html_e('Additional Order Statuses', 'ersaal'); ?></h2>
+        <?php
+        $statuses = wc_get_order_statuses();
+        foreach ($statuses as $slug => $label):
+            $event = str_replace('wc-', '', $slug);
+            if (in_array($event, ['processing', 'completed', 'cancelled'], true)) {
+                continue;
+            }
+            $enabled = get_option("ersaal_wc_event_{$event}_enable", false);
+            $template = get_option("ersaal_wc_event_{$event}_template", '');
+        ?>
+        <div class="ersaal-card" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background: #fff;">
+            <h3><?php echo esc_html($label); ?></h3>
+            <table class="form-table" role="presentation">
+                <tr>
+                    <th scope="row"><?php esc_html_e('Enable', 'ersaal'); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="ersaal_wc_event_<?php echo esc_attr($event); ?>_enable" value="1" <?php checked(1, $enabled); ?> />
+                            <?php printf(esc_html__('Send SMS on %s', 'ersaal'), esc_html($label)); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="ersaal_wc_event_<?php echo esc_attr($event); ?>_template"><?php esc_html_e('Message Template', 'ersaal'); ?></label></th>
+                    <td>
+                        <textarea id="ersaal_wc_event_<?php echo esc_attr($event); ?>_template" name="ersaal_wc_event_<?php echo esc_attr($event); ?>_template" rows="3" class="large-text ersaal-template-input" data-preview="preview_<?php echo esc_attr($event); ?>"><?php echo esc_textarea($template); ?></textarea>
+                        
+                        <div style="margin-top: 10px; background: #f9f9f9; padding: 10px; border-left: 4px solid #00a0d2;">
+                            <strong><?php esc_html_e('Preview:', 'ersaal'); ?></strong><br/>
+                            <span id="preview_<?php echo esc_attr($event); ?>" style="white-space: pre-wrap;"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php submit_button(); ?>
 </form>
 

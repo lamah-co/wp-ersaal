@@ -29,10 +29,13 @@ class OrderEventHandler
         // New order hooks (support both checkout and admin/API creation)
         add_action('woocommerce_new_order', [$this, 'handleNewOrder'], 10, 2);
 
-        // Status change hooks
+        // Status change hooks (Core specific)
         add_action('woocommerce_order_status_processing', [$this, 'handleProcessing'], 10, 2);
         add_action('woocommerce_order_status_completed', [$this, 'handleCompleted'], 10, 2);
         add_action('woocommerce_order_status_cancelled', [$this, 'handleCancelled'], 10, 2);
+        
+        // Catch-all for dynamic custom statuses
+        add_action('woocommerce_order_status_changed', [$this, 'handleStatusChange'], 10, 4);
     }
 
     public function handleNewOrder($order_id, $order = null): void
@@ -103,6 +106,16 @@ class OrderEventHandler
     public function handleCancelled($order_id, $order = null): void
     {
         $this->processEvent($order_id, 'cancelled');
+    }
+
+    public function handleStatusChange($order_id, $old_status, $new_status, $order): void
+    {
+        // Core statuses are already handled by explicit hooks to avoid breaking compatibility
+        if (in_array($new_status, ['processing', 'completed', 'cancelled'], true)) {
+            return;
+        }
+        
+        $this->processEvent($order_id, $new_status);
     }
 
     private function processEvent($order_id, string $event): void

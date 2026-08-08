@@ -50,6 +50,27 @@ class WooCommerceSettings
             ]);
         }
 
+        if (function_exists('wc_get_order_statuses')) {
+            $statuses = wc_get_order_statuses();
+            foreach ($statuses as $slug => $label) {
+                $status_key = str_replace('wc-', '', $slug);
+                if (in_array($status_key, ['processing', 'completed', 'cancelled'], true)) {
+                    continue;
+                }
+                
+                register_setting('ersaal_woocommerce_settings', "ersaal_wc_event_{$status_key}_enable", [
+                    'type' => 'boolean',
+                    'sanitize_callback' => 'rest_sanitize_boolean',
+                    'default' => false
+                ]);
+                register_setting('ersaal_woocommerce_settings', "ersaal_wc_event_{$status_key}_template", [
+                    'type' => 'string',
+                    'sanitize_callback' => 'sanitize_textarea_field',
+                    'default' => ''
+                ]);
+            }
+        }
+
         register_setting('ersaal_woocommerce_settings', 'ersaal_wc_admin_new_order_enable', [
             'type' => 'boolean',
             'sanitize_callback' => 'rest_sanitize_boolean',
