@@ -221,6 +221,44 @@ class LogRepository
         return $stats;
     }
 
+    public function getDashboardStats(): array
+    {
+        global $wpdb;
+        $table = $this->getTableName();
+        
+        $today = current_time('Y-m-d');
+        
+        $stats = [
+            'total_today' => 0,
+            'accepted_today' => 0,
+            'failed_today' => 0,
+            'retry_today' => 0,
+        ];
+        
+        $sql = $wpdb->prepare(
+            "SELECT status, COUNT(*) as count FROM {$table} WHERE DATE(created_at) = %s GROUP BY status",
+            $today
+        );
+        
+        $results = $wpdb->get_results($sql);
+        
+        if ($results) {
+            foreach ($results as $row) {
+                $count = (int)$row->count;
+                $stats['total_today'] += $count;
+                if (in_array($row->status, ['accepted', 'delivered'], true)) {
+                    $stats['accepted_today'] += $count;
+                } elseif (in_array($row->status, ['failed', 'error', 'rejected'], true)) {
+                    $stats['failed_today'] += $count;
+                } elseif (in_array($row->status, ['retry_scheduled', 'processing'], true)) {
+                    $stats['retry_today'] += $count;
+                }
+            }
+        }
+        
+        return $stats;
+    }
+
     public function getLogs(array $args = []): array
     {
         global $wpdb;

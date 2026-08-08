@@ -16,6 +16,7 @@ class Plugin
     
     public function boot(): void
     {
+        $this->registry->registerModule(new \Ersaal\Modules\Dashboard\DashboardModule($this->options));
         $this->registry->registerModule(new \Ersaal\Modules\Settings\SettingsModule($this->options));
         $this->registry->registerModule(new \Ersaal\Modules\Logs\LogsModule($this->options));
         

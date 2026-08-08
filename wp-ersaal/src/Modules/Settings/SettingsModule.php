@@ -41,20 +41,8 @@ class SettingsModule implements ModuleInterface
 
     public function addAdminMenu(): void
     {
-        // Main menu
-        add_menu_page(
-            __('Ersaal SMS', 'ersaal'),
-            __('Ersaal SMS', 'ersaal'),
-            'manage_options',
-            'ersaal-settings',
-            [$this, 'renderSettingsPage'],
-            'dashicons-email-alt',
-            56
-        );
-
-        // Rename the default first submenu item
         add_submenu_page(
-            'ersaal-settings',
+            'ersaal-dashboard',
             __('Settings', 'ersaal'),
             __('Settings', 'ersaal'),
             'manage_options',

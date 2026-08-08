@@ -46,7 +46,7 @@ class ManualSendModule implements ModuleInterface
     public function addAdminMenu(): void
     {
         add_submenu_page(
-            'ersaal-settings',
+            'ersaal-dashboard',
             __('Send SMS', 'ersaal'),
             __('Send SMS', 'ersaal'),
             'manage_options',

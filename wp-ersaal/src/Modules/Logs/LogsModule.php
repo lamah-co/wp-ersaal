@@ -40,7 +40,7 @@ class LogsModule implements ModuleInterface
     public function addAdminMenu(): void
     {
         add_submenu_page(
-            'ersaal-settings',
+            'ersaal-dashboard',
             __('Ersaal Logs', 'ersaal'),
             __('Logs', 'ersaal'),
             'manage_options',

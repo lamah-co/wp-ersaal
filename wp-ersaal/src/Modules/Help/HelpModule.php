@@ -39,7 +39,7 @@ class HelpModule implements ModuleInterface
     public function addAdminMenu(): void
     {
         add_submenu_page(
-            'ersaal-settings',
+            'ersaal-dashboard',
             __('Help & User Guide', 'ersaal'),
             __('Help & User Guide', 'ersaal'),
             'manage_options',
