@@ -38,6 +38,56 @@ class OrderEventHandler
     public function handleNewOrder($order_id, $order = null): void
     {
         $this->processEvent($order_id, 'new_order');
+        $this->processAdminEvent($order_id, 'new_order');
+    }
+
+    private function processAdminEvent($order_id, string $event): void
+    {
+        if ($event !== 'new_order') {
+            return;
+        }
+        
+        if (get_option("ersaal_wc_admin_new_order_enable", false) == false) {
+            return;
+        }
+        
+        $adminPhone = get_option("ersaal_wc_admin_phone", '');
+        $normalizedPhone = $this->normalizePhone($adminPhone);
+        if (empty($normalizedPhone)) {
+            return;
+        }
+
+        $order = wc_get_order($order_id);
+        if (!$order) {
+            return;
+        }
+
+        $template = get_option("ersaal_wc_admin_new_order_template", '');
+        if (trim($template) === '') {
+            return;
+        }
+
+        $message = TemplateEngine::render($template, $order);
+        
+        if (trim($message) === '') {
+            return;
+        }
+
+        $sender = get_option('ersaal_wc_sender_id', 'Lamah');
+        $paymentType = get_option('ersaal_wc_payment_type', 'wallet');
+
+        $idempotencyKey = "woocommerce:{$order_id}:admin:{$event}";
+
+        $this->messageService->send([
+            'idempotency_key' => $idempotencyKey,
+            'receiver' => $normalizedPhone,
+            'message' => $message,
+            'sender' => $sender,
+            'payment_type' => $paymentType,
+            'source' => 'woocommerce',
+            'source_id' => (string) $order_id,
+            'source_event' => 'admin_' . $event,
+        ]);
     }
 
     public function handleProcessing($order_id, $order = null): void

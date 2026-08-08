@@ -87,8 +87,47 @@ if (!defined('ABSPATH')) {
                 </td>
             </tr>
         </table>
-    </div>
     <?php endforeach; ?>
+
+    <hr>
+    <h2><?php esc_html_e('Admin Notifications', 'ersaal'); ?></h2>
+    <?php
+    $admin_enabled = get_option('ersaal_wc_admin_new_order_enable', false);
+    $admin_phone = get_option('ersaal_wc_admin_phone', '');
+    $admin_template = get_option('ersaal_wc_admin_new_order_template', 'New order #{order_number} from {customer_name}. Total: {order_total}');
+    ?>
+    <div class="ersaal-card" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background: #fafafa;">
+        <h3><?php esc_html_e('New Order Notification', 'ersaal'); ?></h3>
+        <table class="form-table" role="presentation">
+            <tr>
+                <th scope="row"><?php esc_html_e('Enable', 'ersaal'); ?></th>
+                <td>
+                    <label>
+                        <input type="checkbox" name="ersaal_wc_admin_new_order_enable" value="1" <?php checked(1, $admin_enabled); ?> />
+                        <?php esc_html_e('Send SMS to store admin on new order', 'ersaal'); ?>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="ersaal_wc_admin_phone"><?php esc_html_e('Admin Phone Number', 'ersaal'); ?></label></th>
+                <td>
+                    <input type="text" id="ersaal_wc_admin_phone" name="ersaal_wc_admin_phone" value="<?php echo esc_attr($admin_phone); ?>" class="regular-text" placeholder="e.g. 218911234567" />
+                    <p class="description"><?php esc_html_e('The phone number to receive admin notifications.', 'ersaal'); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="ersaal_wc_admin_new_order_template"><?php esc_html_e('Message Template', 'ersaal'); ?></label></th>
+                <td>
+                    <textarea id="ersaal_wc_admin_new_order_template" name="ersaal_wc_admin_new_order_template" rows="3" class="large-text ersaal-template-input" data-preview="preview_admin_new_order"><?php echo esc_textarea($admin_template); ?></textarea>
+                    
+                    <div style="margin-top: 10px; background: #e5f5fa; padding: 10px; border-left: 4px solid #00a0d2;">
+                        <strong><?php esc_html_e('Preview:', 'ersaal'); ?></strong><br/>
+                        <span id="preview_admin_new_order" style="white-space: pre-wrap;"></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <?php submit_button(); ?>
 </form>

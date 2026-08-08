@@ -49,6 +49,22 @@ class WooCommerceSettings
                 'default' => $this->getDefaultTemplate($event)
             ]);
         }
+
+        register_setting('ersaal_woocommerce_settings', 'ersaal_wc_admin_new_order_enable', [
+            'type' => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default' => false
+        ]);
+        register_setting('ersaal_woocommerce_settings', 'ersaal_wc_admin_phone', [
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default' => ''
+        ]);
+        register_setting('ersaal_woocommerce_settings', 'ersaal_wc_admin_new_order_template', [
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_textarea_field',
+            'default' => 'New order #{order_number} from {customer_name}. Total: {order_total}'
+        ]);
     }
 
     private function getDefaultTemplate(string $event): string
