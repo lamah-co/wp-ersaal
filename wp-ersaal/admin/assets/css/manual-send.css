@@ -1,0 +1,66 @@
+.ersaal-manual-container {
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.ersaal-card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.ersaal-card h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.ersaal-status-success {
+    color: #46b450;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ersaal-status-error {
+    color: #dc3232;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ersaal-message-stats {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f0f0f1;
+    border-radius: 4px;
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+}
+
+.ersaal-response-area {
+    margin-top: 15px;
+    padding: 15px;
+    border-left: 4px solid transparent;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.ersaal-response-area.success {
+    border-left-color: #46b450;
+}
+
+.ersaal-response-area.error {
+    border-left-color: #dc3232;
+}
+
+.ltr {
+    direction: ltr;
+    text-align: left;
+}
