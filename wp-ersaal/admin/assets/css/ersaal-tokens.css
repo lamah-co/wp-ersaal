@@ -1,0 +1,655 @@
+/**
+ * Ersaal Admin — Design System Tokens
+ *
+ * Source of truth: Ersaal Landing Page (ersaal-landingpage/src/config/theme.tsx)
+ * All values extracted from the official brand theme. Do NOT override arbitrarily.
+ *
+ * Scope: .ersaal-admin
+ * Purpose: Provide consistent visual language across all wp-ersaal admin screens.
+ */
+
+/* ==========================================================================
+   1. BRAND COLOR PALETTE
+   Source: theme.tsx → colors
+   ========================================================================== */
+
+:root {
+  /* --- Blue Palette (Primary Brand — Light Mode) --- */
+  /* blue[0..9] from theme.tsx */
+  --ersaal-blue-0: #E2E4F8;
+  --ersaal-blue-1: #C6CAF0;
+  --ersaal-blue-2: #A4A9D6;
+  --ersaal-blue-3: #8388BD;
+  --ersaal-blue-4: #40478A;
+  --ersaal-blue-5: #1E2670; /* Primary brand color — titles, main actions */
+  --ersaal-blue-6: #181E5A;
+  --ersaal-blue-7: #121743;
+  --ersaal-blue-8: #0C0F2D;
+  --ersaal-blue-9: #060816;
+
+  /* --- Yellow Palette (Accent / CTA / Active State) --- */
+  /* yellow[0..9] from theme.tsx */
+  --ersaal-yellow-0: #FFF9E7;
+  --ersaal-yellow-1: #FFECB7;
+  --ersaal-yellow-2: #FFE69F;
+  --ersaal-yellow-3: #FFDA6E;
+  --ersaal-yellow-4: #FFCD3E;
+  --ersaal-yellow-5: #FFC10E; /* Active tab bg, progress bar, CTA accent */
+  --ersaal-yellow-6: #CC9A0B;
+  --ersaal-yellow-7: #997408;
+  --ersaal-yellow-8: #664D06;
+  --ersaal-yellow-9: #332703;
+
+  /* --- Gray Palette (Neutral / Surface / Border) --- */
+  /* gray[0..9] from theme.tsx */
+  --ersaal-gray-0: #F8F9FA; /* Page background, disabled bg */
+  --ersaal-gray-1: #F1F3F5; /* Card surface, hover bg */
+  --ersaal-gray-2: #E9ECEF; /* Track bg (inactive), soft divider */
+  --ersaal-gray-3: #DEE2E6; /* Default border color */
+  --ersaal-gray-4: #CED4DA; /* Input border */
+  --ersaal-gray-5: #ADB5BD; /* Placeholder text */
+  --ersaal-gray-6: #868E96; /* Dimmed/muted text */
+  --ersaal-gray-7: #495057; /* Secondary text */
+  --ersaal-gray-8: #343A40; /* Strong secondary text */
+  --ersaal-gray-9: #212529; /* Default/primary text */
+
+  /* --- Status Colors --- */
+  /* teal = success */
+  --ersaal-teal-0: #E6FCF5;
+  --ersaal-teal-5: #20C997;
+  --ersaal-teal-6: #12B886; /* Success text/border */
+  --ersaal-teal-7: #0CA678;
+
+  /* red = error/danger */
+  --ersaal-red-0: #FFF5F5;
+  --ersaal-red-5: #FF6B6B;
+  --ersaal-red-6: #FA5252; /* Error text/border/danger */
+  --ersaal-red-7: #F03E3E;
+
+  /* yellow = warning (reuse yellow palette) */
+  --ersaal-warning-bg: #FFF9E7;
+  --ersaal-warning-text: #CC9A0B; /* yellow[6] — warning text color (from textStates.json) */
+
+  /* ==========================================================================
+     2. SEMANTIC TOKENS — mapped from raw palette
+     ========================================================================== */
+
+  /* Primary */
+  --ersaal-color-primary:        var(--ersaal-blue-5);
+  --ersaal-color-primary-hover:  var(--ersaal-blue-4);
+  --ersaal-color-primary-light:  var(--ersaal-blue-0);
+
+  /* Accent (CTA, active states) */
+  --ersaal-color-accent:         var(--ersaal-yellow-5);
+  --ersaal-color-accent-hover:   var(--ersaal-yellow-6);
+  --ersaal-color-accent-light:   var(--ersaal-yellow-0);
+
+  /* Status */
+  --ersaal-color-success:        var(--ersaal-teal-6);
+  --ersaal-color-success-light:  var(--ersaal-teal-0);
+  --ersaal-color-danger:         var(--ersaal-red-6);
+  --ersaal-color-danger-light:   var(--ersaal-red-0);
+  --ersaal-color-warning:        var(--ersaal-warning-text);
+  --ersaal-color-warning-light:  var(--ersaal-warning-bg);
+
+  /* Text */
+  --ersaal-text-primary:         var(--ersaal-gray-9);  /* #212529 */
+  --ersaal-text-secondary:       var(--ersaal-gray-7);  /* #495057 */
+  --ersaal-text-muted:           var(--ersaal-gray-6);  /* #868E96 */
+  --ersaal-text-placeholder:     var(--ersaal-gray-5);  /* #ADB5BD */
+  --ersaal-text-disabled:        var(--ersaal-gray-5);
+  --ersaal-text-on-primary:      #ffffff;
+  --ersaal-text-on-accent:       #ffffff;
+  --ersaal-text-title:           var(--ersaal-blue-5);  /* Titles use brand blue */
+  --ersaal-text-link:            var(--ersaal-blue-5);
+  --ersaal-text-error:           var(--ersaal-red-6);
+  --ersaal-text-success:         var(--ersaal-teal-6);
+  --ersaal-text-warning:         var(--ersaal-warning-text);
+
+  /* Backgrounds */
+  --ersaal-bg-page:              #ffffff;
+  --ersaal-bg-surface:           var(--ersaal-gray-0);  /* #F8F9FA — cards, panels */
+  --ersaal-bg-surface-2:         var(--ersaal-gray-1);  /* #F1F3F5 — hover, nested */
+  --ersaal-bg-disabled:          var(--ersaal-gray-2);  /* #E9ECEF */
+
+  /* Borders */
+  --ersaal-border-color:         var(--ersaal-gray-3);  /* #DEE2E6 — default border */
+  --ersaal-border-input:         var(--ersaal-gray-4);  /* #CED4DA */
+  --ersaal-border-primary:       var(--ersaal-blue-5);
+  --ersaal-border-success:       var(--ersaal-teal-6);
+  --ersaal-border-danger:        var(--ersaal-red-6);
+  --ersaal-border-warning:       var(--ersaal-yellow-6);
+
+  /* ==========================================================================
+     3. TYPOGRAPHY
+     Source: theme.tsx → fontFamily, fontSizes, headings
+     ========================================================================== */
+
+  /* Font Families */
+  --ersaal-font-ar:     "SST Arabic", "DINNextLTArabic", system-ui, -apple-system, sans-serif;
+  --ersaal-font-en:     "SST Arabic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ersaal-font-base:   "SST Arabic", system-ui, -apple-system, sans-serif;
+
+  /*
+   * Font NOTES for implementation team:
+   * Primary font: SST Arabic (weights: 300 Light, 500 Medium, 700 Bold)
+   * Secondary Arabic font: DINNextLTArabic (available in Light and Medium)
+   * Both are present in ersaal-landingpage/src/assets/font/ — evaluate license
+   * before bundling with wp-ersaal. Until confirmed, use system-ui as safe fallback.
+   *
+   * TODO v1.1: Bundle SST Arabic woff files inside admin/assets/fonts/ once
+   * licensing is cleared, and load via @font-face in ersaal-tokens.css.
+   */
+
+  /* Admin-scale font sizes (adapted from Landing Page, reduced for compact admin UI) */
+  /* Source: theme.tsx → fontSizes (xxs..xxl) */
+  --ersaal-text-xs:     11px;  /* meta, timestamps */
+  --ersaal-text-sm:     12px;  /* helper text, small labels */
+  --ersaal-text-base:   13px;  /* body / table cells (WordPress admin standard) */
+  --ersaal-text-md:     14px;  /* normal body, form labels */
+  --ersaal-text-lg:     15px;  /* section labels, card titles */
+  --ersaal-text-xl:     18px;  /* page section headers */
+  --ersaal-text-2xl:    22px;  /* page titles */
+
+  /* Font weights */
+  --ersaal-fw-light:    300;
+  --ersaal-fw-normal:   400;
+  --ersaal-fw-medium:   500;
+  --ersaal-fw-semibold: 600;
+  --ersaal-fw-bold:     700;
+
+  /* Line heights — from theme.tsx → lineHeights */
+  --ersaal-lh-tight:   1.4;
+  --ersaal-lh-normal:  1.5;
+  --ersaal-lh-relaxed: 1.6;
+
+  /* ==========================================================================
+     4. SPACING SYSTEM
+     Source: theme.tsx → spacing
+     xxs:2 xs:4 sm:8 md:12 lg:16 xl:24 xxl:32
+     ========================================================================== */
+
+  --ersaal-space-1:   2px;
+  --ersaal-space-2:   4px;
+  --ersaal-space-3:   8px;
+  --ersaal-space-4:  12px;
+  --ersaal-space-5:  16px;
+  --ersaal-space-6:  20px;
+  --ersaal-space-7:  24px;
+  --ersaal-space-8:  32px;
+  --ersaal-space-9:  40px;
+
+  /* Named aliases for readability */
+  --ersaal-space-xxs: var(--ersaal-space-1);  /* 2px */
+  --ersaal-space-xs:  var(--ersaal-space-2);  /* 4px */
+  --ersaal-space-sm:  var(--ersaal-space-3);  /* 8px */
+  --ersaal-space-md:  var(--ersaal-space-4);  /* 12px */
+  --ersaal-space-lg:  var(--ersaal-space-5);  /* 16px */
+  --ersaal-space-xl:  var(--ersaal-space-7);  /* 24px */
+  --ersaal-space-xxl: var(--ersaal-space-8);  /* 32px */
+
+  /* Card and form-specific spacing */
+  --ersaal-card-padding:   var(--ersaal-space-xl);   /* 24px */
+  --ersaal-form-gap:       var(--ersaal-space-lg);   /* 16px */
+  --ersaal-section-gap:    var(--ersaal-space-xxl);  /* 32px */
+  --ersaal-grid-gap:       var(--ersaal-space-lg);   /* 16px */
+
+  /* ==========================================================================
+     5. BORDER RADIUS
+     Source: theme.tsx → radius
+     none:0 xs:2 sm:4 md:8 lg:16 xl:24 xxl:32
+     Note: Input uses radius:xl (24px) on Landing Page.
+     In Admin, use more restrained radii.
+     ========================================================================== */
+
+  --ersaal-radius-none: 0;
+  --ersaal-radius-xs:   2px;
+  --ersaal-radius-sm:   4px;   /* Badges, small chips */
+  --ersaal-radius-md:   8px;   /* Cards, modals, inputs (admin-friendly) */
+  --ersaal-radius-lg:  16px;   /* Larger containers */
+  --ersaal-radius-pill: 9999px; /* Pills, toggles, rounded CTAs */
+
+  /* Component defaults */
+  --ersaal-radius-card:   var(--ersaal-radius-md);
+  --ersaal-radius-input:  var(--ersaal-radius-md);
+  --ersaal-radius-button: var(--ersaal-radius-pill); /* Pill buttons match Landing Page */
+  --ersaal-radius-badge:  var(--ersaal-radius-sm);
+  --ersaal-radius-tab:    var(--ersaal-radius-pill); /* Tabs use pill shape per tabs.module.css */
+
+  /* ==========================================================================
+     6. SHADOWS
+     Source: theme.tsx → shadows
+     md: "1px 1px 3px rgba(0,0,0,.25)"
+     xl: "5px 5px 3px rgba(0,0,0,.25)"
+     Admin: subtle only — no heavy floating effects
+     ========================================================================== */
+
+  --ersaal-shadow-none:  none;
+  --ersaal-shadow-sm:    0 1px 2px rgba(0, 0, 0, 0.06);
+  --ersaal-shadow-md:    1px 1px 3px rgba(0, 0, 0, 0.12);
+  --ersaal-shadow-focus: 0 0 0 2px rgba(30, 38, 112, 0.25); /* Blue focus ring */
+  --ersaal-shadow-focus-accent: 0 0 0 2px rgba(255, 193, 14, 0.4); /* Yellow focus ring */
+
+  /* ==========================================================================
+     7. TRANSITIONS (Motion — Admin-safe only)
+     ========================================================================== */
+
+  --ersaal-transition-fast:   150ms ease;
+  --ersaal-transition-normal: 200ms ease;  /* tabs.module.css uses 0.2s ease */
+  --ersaal-transition-slow:   250ms ease;
+
+  /* ==========================================================================
+     8. LAYOUT
+     ========================================================================== */
+
+  --ersaal-content-max-width-narrow:  640px;  /* Settings pages */
+  --ersaal-content-max-width-normal:  960px;  /* General pages */
+  --ersaal-content-max-width-wide:   1200px;  /* Logs, Dashboard */
+}
+
+
+/* ==========================================================================
+   COMPONENT STYLES — Scoped under .ersaal-admin
+   All selectors must be prefixed to avoid wp-admin conflicts.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ersaal-space-sm);
+  height: 36px;
+  padding-inline: var(--ersaal-space-xl);
+  font-size: var(--ersaal-text-md);
+  font-weight: var(--ersaal-fw-medium);
+  font-family: var(--ersaal-font-base);
+  border-radius: var(--ersaal-radius-button);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--ersaal-transition-normal),
+    border-color var(--ersaal-transition-normal),
+    color var(--ersaal-transition-normal),
+    box-shadow var(--ersaal-transition-normal);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.ersaal-admin .ersaal-btn:focus-visible {
+  outline: 2px solid var(--ersaal-color-primary);
+  outline-offset: 2px;
+}
+
+.ersaal-admin .ersaal-btn:disabled,
+.ersaal-admin .ersaal-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary Button */
+.ersaal-admin .ersaal-btn-primary {
+  background-color: var(--ersaal-color-primary);
+  color: var(--ersaal-text-on-primary);
+}
+.ersaal-admin .ersaal-btn-primary:hover {
+  background-color: var(--ersaal-color-primary-hover);
+  color: var(--ersaal-text-on-primary);
+}
+.ersaal-admin .ersaal-btn-primary:active {
+  background-color: var(--ersaal-blue-6);
+}
+
+/* Secondary / Outline Button */
+.ersaal-admin .ersaal-btn-secondary {
+  background-color: transparent;
+  color: var(--ersaal-color-primary);
+  border: 1px solid var(--ersaal-border-color);
+}
+.ersaal-admin .ersaal-btn-secondary:hover {
+  background-color: var(--ersaal-bg-surface);
+  border-color: var(--ersaal-color-primary);
+  color: var(--ersaal-color-primary);
+}
+
+/* Ghost Button */
+.ersaal-admin .ersaal-btn-ghost {
+  background-color: transparent;
+  color: var(--ersaal-text-secondary);
+  border: none;
+}
+.ersaal-admin .ersaal-btn-ghost:hover {
+  background-color: var(--ersaal-bg-surface);
+  color: var(--ersaal-text-primary);
+}
+
+/* Danger Button */
+.ersaal-admin .ersaal-btn-danger {
+  background-color: var(--ersaal-color-danger);
+  color: #ffffff;
+}
+.ersaal-admin .ersaal-btn-danger:hover {
+  background-color: var(--ersaal-red-7);
+  color: #ffffff;
+}
+
+/* Small variant */
+.ersaal-admin .ersaal-btn-sm {
+  height: 28px;
+  padding-inline: var(--ersaal-space-md);
+  font-size: var(--ersaal-text-sm);
+}
+
+/* --------------------------------------------------------------------------
+   INPUTS & FORM FIELDS
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ersaal-space-xs);
+}
+
+.ersaal-admin .ersaal-label {
+  display: block;
+  font-size: var(--ersaal-text-md);
+  font-weight: var(--ersaal-fw-semibold);
+  color: var(--ersaal-text-primary);
+  margin-block-end: var(--ersaal-space-xs);
+}
+
+.ersaal-admin .ersaal-input,
+.ersaal-admin .ersaal-select,
+.ersaal-admin .ersaal-textarea {
+  width: 100%;
+  padding-block: var(--ersaal-space-sm);
+  padding-inline: var(--ersaal-space-md);
+  font-size: var(--ersaal-text-md);
+  font-family: var(--ersaal-font-base);
+  color: var(--ersaal-text-primary);
+  background-color: var(--ersaal-bg-page);
+  border: 1px solid var(--ersaal-border-input);
+  border-radius: var(--ersaal-radius-input);
+  transition: border-color var(--ersaal-transition-normal), box-shadow var(--ersaal-transition-normal);
+  line-height: var(--ersaal-lh-normal);
+}
+
+.ersaal-admin .ersaal-input:focus,
+.ersaal-admin .ersaal-select:focus,
+.ersaal-admin .ersaal-textarea:focus {
+  border-color: var(--ersaal-color-primary);
+  box-shadow: var(--ersaal-shadow-focus);
+  outline: none;
+}
+
+.ersaal-admin .ersaal-input::placeholder {
+  color: var(--ersaal-text-placeholder);
+}
+
+.ersaal-admin .ersaal-input:disabled,
+.ersaal-admin .ersaal-select:disabled,
+.ersaal-admin .ersaal-textarea:disabled {
+  background-color: var(--ersaal-bg-disabled);
+  color: var(--ersaal-text-disabled);
+  cursor: not-allowed;
+}
+
+.ersaal-admin .ersaal-input.ersaal-input-error {
+  border-color: var(--ersaal-border-danger);
+}
+
+.ersaal-admin .ersaal-textarea {
+  resize: vertical;
+  min-height: 80px;
+  border-radius: var(--ersaal-radius-md);
+}
+
+.ersaal-admin .ersaal-field-help {
+  font-size: var(--ersaal-text-sm);
+  color: var(--ersaal-text-muted);
+  margin-block-start: var(--ersaal-space-xs);
+}
+
+.ersaal-admin .ersaal-field-error {
+  font-size: var(--ersaal-text-sm);
+  color: var(--ersaal-text-error);
+  margin-block-start: var(--ersaal-space-xs);
+}
+
+/* --------------------------------------------------------------------------
+   CARDS
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-card {
+  background-color: var(--ersaal-bg-page);
+  border: 1px solid var(--ersaal-border-color);
+  border-radius: var(--ersaal-radius-card);
+  padding: var(--ersaal-card-padding);
+  box-shadow: var(--ersaal-shadow-sm);
+}
+
+.ersaal-admin .ersaal-card-title {
+  font-size: var(--ersaal-text-lg);
+  font-weight: var(--ersaal-fw-semibold);
+  color: var(--ersaal-text-title);
+  margin-block-end: var(--ersaal-space-md);
+}
+
+/* Stats Card variant */
+.ersaal-admin .ersaal-card-stat {
+  background-color: var(--ersaal-bg-surface);
+  border: 1px solid var(--ersaal-border-color);
+  border-radius: var(--ersaal-radius-card);
+  padding: var(--ersaal-space-lg);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   STATUS BADGES
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--ersaal-space-xxs);
+  padding-inline: var(--ersaal-space-sm);
+  font-size: var(--ersaal-text-xs);
+  font-weight: var(--ersaal-fw-medium);
+  border-radius: var(--ersaal-radius-badge);
+  line-height: 1.5;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* Success */
+.ersaal-admin .ersaal-badge-success {
+  background-color: var(--ersaal-color-success-light);
+  color: var(--ersaal-color-success);
+}
+/* Danger/Error */
+.ersaal-admin .ersaal-badge-danger {
+  background-color: var(--ersaal-color-danger-light);
+  color: var(--ersaal-color-danger);
+}
+/* Warning */
+.ersaal-admin .ersaal-badge-warning {
+  background-color: var(--ersaal-color-warning-light);
+  color: var(--ersaal-color-warning);
+}
+/* Processing / Info */
+.ersaal-admin .ersaal-badge-info {
+  background-color: var(--ersaal-color-primary-light);
+  color: var(--ersaal-color-primary);
+}
+/* Muted / Unknown */
+.ersaal-admin .ersaal-badge-muted {
+  background-color: var(--ersaal-gray-2);
+  color: var(--ersaal-gray-6);
+}
+
+/* --------------------------------------------------------------------------
+   ALERTS / NOTICES
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-alert {
+  padding: var(--ersaal-space-md) var(--ersaal-space-lg);
+  border-radius: var(--ersaal-radius-md);
+  border-inline-start: 4px solid transparent;
+  font-size: var(--ersaal-text-md);
+}
+
+.ersaal-admin .ersaal-alert-success {
+  background-color: var(--ersaal-color-success-light);
+  border-inline-start-color: var(--ersaal-color-success);
+  color: #087F5B;
+}
+.ersaal-admin .ersaal-alert-danger {
+  background-color: var(--ersaal-color-danger-light);
+  border-inline-start-color: var(--ersaal-color-danger);
+  color: #C92A2A;
+}
+.ersaal-admin .ersaal-alert-warning {
+  background-color: var(--ersaal-color-warning-light);
+  border-inline-start-color: var(--ersaal-color-warning);
+  color: var(--ersaal-color-warning);
+}
+.ersaal-admin .ersaal-alert-info {
+  background-color: var(--ersaal-color-primary-light);
+  border-inline-start-color: var(--ersaal-color-primary);
+  color: var(--ersaal-color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   TABS
+   Source: tabs.module.css — pill shape, yellow active bg, 0.2s transitions
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ersaal-space-sm);
+  border-bottom: 1px solid var(--ersaal-border-color);
+  padding-block-end: var(--ersaal-space-sm);
+  margin-block-end: var(--ersaal-space-lg);
+}
+
+.ersaal-admin .ersaal-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ersaal-space-xs);
+  padding-block: var(--ersaal-space-sm);
+  padding-inline: var(--ersaal-space-lg);
+  font-size: var(--ersaal-text-md);
+  font-weight: var(--ersaal-fw-normal);
+  color: var(--ersaal-text-secondary);
+  background-color: var(--ersaal-gray-0);
+  border-radius: var(--ersaal-radius-tab);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--ersaal-transition-normal),
+    color var(--ersaal-transition-normal);
+}
+
+.ersaal-admin .ersaal-tab:hover {
+  opacity: 0.8;
+}
+
+.ersaal-admin .ersaal-tab:focus-visible {
+  outline: 2px solid var(--ersaal-color-primary);
+  outline-offset: 2px;
+}
+
+.ersaal-admin .ersaal-tab[aria-selected="true"],
+.ersaal-admin .ersaal-tab.ersaal-tab-active {
+  background-color: var(--ersaal-color-accent);  /* Yellow #FFC10E */
+  color: #ffffff;
+  font-weight: var(--ersaal-fw-medium);
+}
+
+/* --------------------------------------------------------------------------
+   PAGE LAYOUT
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-page {
+  max-width: var(--ersaal-content-max-width-wide);
+  padding: var(--ersaal-space-lg) var(--ersaal-space-xl);
+}
+
+.ersaal-admin .ersaal-page-narrow {
+  max-width: var(--ersaal-content-max-width-narrow);
+}
+
+.ersaal-admin .ersaal-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--ersaal-space-md);
+  margin-block-end: var(--ersaal-space-lg);
+}
+
+.ersaal-admin .ersaal-page-title {
+  font-size: var(--ersaal-text-2xl);
+  font-weight: var(--ersaal-fw-bold);
+  color: var(--ersaal-text-title);
+  line-height: var(--ersaal-lh-tight);
+  margin: 0;
+}
+
+.ersaal-admin .ersaal-page-description {
+  font-size: var(--ersaal-text-md);
+  color: var(--ersaal-text-muted);
+  margin-block-start: var(--ersaal-space-xs);
+}
+
+/* --------------------------------------------------------------------------
+   EMPTY STATE
+   -------------------------------------------------------------------------- */
+
+.ersaal-admin .ersaal-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ersaal-space-xxl) var(--ersaal-space-xl);
+  text-align: center;
+  color: var(--ersaal-text-muted);
+  gap: var(--ersaal-space-md);
+}
+
+.ersaal-admin .ersaal-empty-state-title {
+  font-size: var(--ersaal-text-lg);
+  font-weight: var(--ersaal-fw-medium);
+  color: var(--ersaal-text-secondary);
+}
+
+.ersaal-admin .ersaal-empty-state-text {
+  font-size: var(--ersaal-text-md);
+  color: var(--ersaal-text-muted);
+  max-width: 400px;
+}
+
+/* --------------------------------------------------------------------------
+   RTL / LTR — Logical Properties enforced
+   -------------------------------------------------------------------------- */
+
+/*
+ * All spacing and alignment in ersaal-admin components MUST use
+ * CSS Logical Properties. These base rules enforce the pattern.
+ *
+ * ✅ Use: margin-inline-start, padding-inline-end, inset-inline-start
+ * ✅ Use: text-align: start / end
+ * ❌ Avoid: margin-left, padding-right, text-align: left (except in code/LTR-only blocks)
+ */
+
+[dir="rtl"] .ersaal-admin .ersaal-page-header {
+  flex-direction: row-reverse;
+}
