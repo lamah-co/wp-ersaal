@@ -1,0 +1,13 @@
+{
+    "name": "lamah-co/wp-ersaal",
+    "description": "Ersaal SMS Gateway Integration for WordPress and WooCommerce",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ersaal\\": "src/"
+        }
+    }
+}
