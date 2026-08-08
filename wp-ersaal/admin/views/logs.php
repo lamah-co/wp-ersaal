@@ -143,7 +143,7 @@ function get_reference_html(object $log): string {
             </p>
         </div>
     <?php else: ?>
-        <form method="post" id="ersaal-logs-form">
+        <form method="post" action="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" id="ersaal-logs-form">
         <?php wp_nonce_field('ersaal_bulk_logs'); ?>
         
         <div class="tablenav top">
@@ -228,11 +228,9 @@ function get_reference_html(object $log): string {
                             <button type="button" class="button view-log-details" data-log='<?php echo esc_attr(json_encode($log)); ?>'>
                                 <?php esc_html_e('Details', 'ersaal'); ?>
                             </button>
-                            <form method="post" style="display:inline;" onsubmit="return confirm('<?php esc_attr_e('Are you sure you want to delete this log? This only deletes the local record.', 'ersaal'); ?>');">
-                                <?php wp_nonce_field('ersaal_delete_log'); ?>
-                                <input type="hidden" name="log_id" value="<?php echo esc_attr($log->id); ?>">
-                                <button type="submit" name="ersaal_delete_log" class="button" style="color: #a00;"><?php esc_html_e('Delete', 'ersaal'); ?></button>
-                            </form>
+                            <button type="button" class="button" style="color: #a00;" onclick="if(confirm('<?php esc_attr_e('Are you sure you want to delete this log? This only deletes the local record.', 'ersaal'); ?>')) { document.getElementById('ersaal-single-delete-id').value = <?php echo esc_attr($log->id); ?>; document.getElementById('ersaal-single-delete-form').submit(); }">
+                                <?php esc_html_e('Delete', 'ersaal'); ?>
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -291,6 +289,13 @@ function get_reference_html(object $log): string {
         </form>
     <?php endif; ?>
 </div>
+
+<!-- Hidden form for single delete -->
+<form method="post" id="ersaal-single-delete-form" style="display:none;">
+    <?php wp_nonce_field('ersaal_delete_log'); ?>
+    <input type="hidden" name="ersaal_delete_log" value="1">
+    <input type="hidden" name="log_id" id="ersaal-single-delete-id" value="">
+</form>
 
 <!-- Details Modal -->
 <div id="ersaal-log-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
