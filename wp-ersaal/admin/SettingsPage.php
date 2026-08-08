@@ -27,20 +27,29 @@ class SettingsPage
         $tabs = apply_filters('ersaal_settings_tabs', $tabs);
 
         ?>
-        <div class="wrap">
-            <div style="display:flex; align-items:center;">
-                <h1><?php esc_html_e('Ersaal Settings', 'ersaal'); ?></h1>
-                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
+        <div class="wrap ersaal-admin ersaal-page ersaal-page-narrow">
+            <div class="ersaal-page-header">
+                <div>
+                    <h1 class="ersaal-page-title"><?php esc_html_e('Ersaal Settings', 'ersaal'); ?></h1>
+                    <p class="ersaal-page-description"><?php esc_html_e('Manage API connection, defaults, and system preferences.', 'ersaal'); ?></p>
+                </div>
+                <div>
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" class="ersaal-btn ersaal-btn-ghost">
+                        <span class="dashicons dashicons-editor-help"></span>
+                        <?php esc_html_e('Need help?', 'ersaal'); ?>
+                    </a>
+                </div>
             </div>
-            <h2 class="nav-tab-wrapper">
+
+            <div class="ersaal-tabs-list" role="tablist">
                 <?php foreach ($tabs as $tab_id => $tab_name): ?>
-                    <a href="?page=ersaal-settings&tab=<?php echo esc_attr($tab_id); ?>" class="nav-tab <?php echo $active_tab === $tab_id ? 'nav-tab-active' : ''; ?>">
+                    <a href="?page=ersaal-settings&tab=<?php echo esc_attr($tab_id); ?>" class="ersaal-tab <?php echo $active_tab === $tab_id ? 'ersaal-tab-active' : ''; ?>" role="tab" aria-selected="<?php echo $active_tab === $tab_id ? 'true' : 'false'; ?>">
                         <?php echo esc_html($tab_name); ?>
                     </a>
                 <?php endforeach; ?>
-            </h2>
+            </div>
 
-            <div class="ersaal-settings-content" style="margin-top: 20px; background: #fff; padding: 20px; border: 1px solid #ccd0d4; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
+            <div class="ersaal-settings-content ersaal-card">
                 <?php
                 if ($active_tab === 'general') {
                     $this->renderGeneral();

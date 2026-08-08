@@ -4,36 +4,36 @@ if (!defined('ABSPATH')) {
 }
 /** @var array $status */
 ?>
-<table class="widefat striped">
+<table class="wp-list-table widefat fixed striped ersaal-table" style="border: none; box-shadow: none;">
     <thead>
         <tr>
             <th><?php esc_html_e('Component', 'ersaal'); ?></th>
-            <th><?php esc_html_e('Status', 'ersaal'); ?></th>
+            <th style="width: 150px;"><?php esc_html_e('Status', 'ersaal'); ?></th>
             <th><?php esc_html_e('Notes', 'ersaal'); ?></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><strong>Action Scheduler</strong></td>
+            <td style="font-weight: var(--ersaal-fw-medium); color: var(--ersaal-text-primary);">Action Scheduler</td>
             <td>
                 <?php if ($status['action_scheduler']): ?>
-                    <span style="color:green; font-weight:bold;">✔ <?php esc_html_e('Active', 'ersaal'); ?></span>
+                    <span class="ersaal-badge ersaal-badge-success"><?php esc_html_e('Active', 'ersaal'); ?></span>
                 <?php else: ?>
-                    <span style="color:red; font-weight:bold;">✘ <?php esc_html_e('Missing', 'ersaal'); ?></span>
+                    <span class="ersaal-badge ersaal-badge-danger"><?php esc_html_e('Missing', 'ersaal'); ?></span>
                 <?php endif; ?>
             </td>
-            <td><?php esc_html_e('WooCommerce includes Action Scheduler. Without it, WP-Cron will be used.', 'ersaal'); ?></td>
+            <td style="color: var(--ersaal-text-secondary);"><?php esc_html_e('WooCommerce includes Action Scheduler. Without it, WP-Cron will be used.', 'ersaal'); ?></td>
         </tr>
         <tr>
-            <td><strong>WP-Cron</strong></td>
+            <td style="font-weight: var(--ersaal-fw-medium); color: var(--ersaal-text-primary);">WP-Cron</td>
             <td>
                 <?php if ($status['wp_cron_disabled']): ?>
-                    <span style="color:orange; font-weight:bold;">⚠ <?php esc_html_e('Disabled via Constant', 'ersaal'); ?></span>
+                    <span class="ersaal-badge ersaal-badge-warning"><?php esc_html_e('Disabled via Constant', 'ersaal'); ?></span>
                 <?php else: ?>
-                    <span style="color:green; font-weight:bold;">✔ <?php esc_html_e('Enabled', 'ersaal'); ?></span>
+                    <span class="ersaal-badge ersaal-badge-success"><?php esc_html_e('Enabled', 'ersaal'); ?></span>
                 <?php endif; ?>
             </td>
-            <td>
+            <td style="color: var(--ersaal-text-secondary);">
                 <?php esc_html_e('If WP-Cron is disabled, ensure you have a server-level cron job configured to trigger wp-cron.php.', 'ersaal'); ?>
             </td>
         </tr>
