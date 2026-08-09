@@ -35,7 +35,7 @@ class SettingsPage
                     <p class="ersaal-page-description"><?php esc_html_e('Manage API connection, defaults, and system preferences.', 'ersaal'); ?></p>
                 </div>
                 <div class="ersaal-page-actions">
-                    <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" class="ersaal-btn ersaal-btn-ghost">
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" class="ersaal-btn ersaal-btn-secondary">
                         <?php echo ersaal_admin_icon('help'); ?>
                         <?php esc_html_e('Need help?', 'ersaal'); ?>
                     </a>

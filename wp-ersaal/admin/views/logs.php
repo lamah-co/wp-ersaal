@@ -165,7 +165,7 @@ $notices = get_settings_errors('ersaal_logs');
                     <input id="ersaal-log-date-to" type="date" name="date_to" value="<?php echo esc_attr($dateTo); ?>" class="ersaal-input ersaal-ltr" />
                 </div>
                 <div class="ersaal-filter-actions">
-                    <button type="submit" class="ersaal-btn ersaal-btn-primary ersaal-btn-sm"><?php esc_html_e('Apply filters', 'ersaal'); ?></button>
+                    <button type="submit" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('search'); ?><?php esc_html_e('Apply filters', 'ersaal'); ?></button>
                     <?php if ($hasFilters): ?>
                         <a href="<?php echo esc_url($pageUrl); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm"><?php esc_html_e('Reset', 'ersaal'); ?></a>
                     <?php endif; ?>
@@ -207,7 +207,7 @@ $notices = get_settings_errors('ersaal_logs');
                             <option value="-1"><?php esc_html_e('Bulk actions', 'ersaal'); ?></option>
                             <option value="delete"><?php esc_html_e('Delete', 'ersaal'); ?></option>
                         </select>
-                        <button type="submit" class="ersaal-btn ersaal-btn-danger ersaal-btn-sm" name="ersaal_bulk_action" value="1" data-confirm="<?php esc_attr_e('Are you sure you want to delete selected logs?', 'ersaal'); ?>"><?php esc_html_e('Apply', 'ersaal'); ?></button>
+                        <button type="submit" class="ersaal-btn ersaal-btn-secondary ersaal-btn-bulk-apply" name="ersaal_bulk_action" value="1" data-confirm="<?php esc_attr_e('Are you sure you want to delete selected logs?', 'ersaal'); ?>" disabled><?php echo ersaal_admin_icon('check'); ?><?php esc_html_e('Apply', 'ersaal'); ?></button>
                     </div>
                     <span class="ersaal-table-meta"><?php printf(esc_html(_n('%s item', '%s items', $logsData['total'], 'ersaal')), esc_html(number_format_i18n($logsData['total']))); ?></span>
                 </div>

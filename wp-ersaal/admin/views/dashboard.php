@@ -63,7 +63,8 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                 </div>
             </dl>
 
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm">
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent ersaal-connection-settings-action">
+                <?php echo ersaal_admin_icon('settings'); ?>
                 <?php esc_html_e('Connection settings', 'ersaal'); ?>
             </a>
         </div>
@@ -112,7 +113,8 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                 <h2 id="ersaal-recent-title" class="ersaal-section-title"><?php esc_html_e('Recent activity', 'ersaal'); ?></h2>
                 <p class="ersaal-section-description"><?php esc_html_e('The latest messages across manual and WooCommerce sources.', 'ersaal'); ?></p>
             </div>
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm">
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm ersaal-view-all-logs">
+                <?php echo ersaal_admin_icon('logs'); ?>
                 <?php esc_html_e('View all logs', 'ersaal'); ?>
                 <?php echo ersaal_admin_icon('arrow'); ?>
             </a>
@@ -165,9 +167,9 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
             </div>
         </div>
         <div class="ersaal-quick-actions">
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary"><?php echo ersaal_admin_icon('send'); ?><?php esc_html_e('Send SMS', 'ersaal'); ?></a>
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary"><?php echo ersaal_admin_icon('logs'); ?><?php esc_html_e('View logs', 'ersaal'); ?></a>
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-ghost"><?php echo ersaal_admin_icon('settings'); ?><?php esc_html_e('Settings', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('send'); ?><?php esc_html_e('Send SMS', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('logs'); ?><?php esc_html_e('View logs', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('settings'); ?><?php esc_html_e('Settings', 'ersaal'); ?></a>
         </div>
     </section>
 </div>

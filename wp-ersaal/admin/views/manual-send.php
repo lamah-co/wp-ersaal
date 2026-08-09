@@ -23,7 +23,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
             <p class="ersaal-page-description"><?php esc_html_e('Send one message through the connected Ersaal project.', 'ersaal'); ?></p>
         </div>
         <div class="ersaal-page-actions">
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#send-sms')); ?>" class="ersaal-btn ersaal-btn-ghost">
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#send-sms')); ?>" class="ersaal-btn ersaal-btn-secondary">
                 <?php echo ersaal_admin_icon('help'); ?>
                 <?php esc_html_e('Need help?', 'ersaal'); ?>
             </a>
@@ -105,7 +105,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
 
                 <div class="ersaal-send-actions">
                     <span class="spinner ersaal-send-spinner" id="ersaal_spinner" aria-hidden="true"></span>
-                    <button type="submit" id="ersaal_submit_btn" class="ersaal-btn ersaal-btn-primary">
+                    <button type="submit" id="ersaal_submit_btn" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent">
                         <?php echo ersaal_admin_icon('send'); ?>
                         <?php esc_html_e('Send SMS', 'ersaal'); ?>
                     </button>
@@ -137,7 +137,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                         <span id="ersaal_result_parts" class="ersaal-result-value"></span>
                     </div>
                 </div>
-                <a id="ersaal_response_logs_link" href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm">
+                <a id="ersaal_response_logs_link" href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm">
                     <?php esc_html_e('View in logs', 'ersaal'); ?>
                     <?php echo ersaal_admin_icon('arrow'); ?>
                 </a>

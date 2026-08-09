@@ -40,14 +40,54 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const bulkButton = document.querySelector('[name="ersaal_bulk_action"]');
+    const bulkAction = document.getElementById('ersaal-bulk-action');
+    const selectAll = document.getElementById('cb-select-all-1');
+    const rowCheckboxes = Array.from(document.querySelectorAll('input[name="log_ids[]"]'));
+
+    function updateBulkState() {
+        if (!bulkButton || !bulkAction) {
+            return;
+        }
+
+        const selectedCount = rowCheckboxes.filter(function(checkbox) { return checkbox.checked; }).length;
+        const isDelete = bulkAction.value === 'delete';
+        bulkButton.disabled = !isDelete || selectedCount === 0;
+        bulkButton.classList.toggle('ersaal-btn-danger', isDelete);
+        bulkButton.classList.toggle('ersaal-btn-secondary', !isDelete);
+
+        if (selectAll) {
+            selectAll.checked = rowCheckboxes.length > 0 && selectedCount === rowCheckboxes.length;
+            selectAll.indeterminate = selectedCount > 0 && selectedCount < rowCheckboxes.length;
+        }
+    }
+
+    if (bulkAction) {
+        bulkAction.addEventListener('change', updateBulkState);
+    }
+
+    if (selectAll) {
+        selectAll.addEventListener('change', function() {
+            rowCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = selectAll.checked;
+            });
+            updateBulkState();
+        });
+    }
+
+    rowCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', updateBulkState);
+    });
+
     if (bulkButton) {
         bulkButton.addEventListener('click', function(event) {
-            const action = document.getElementById('ersaal-bulk-action').value;
+            const action = bulkAction.value;
             if (action === 'delete' && !window.confirm(bulkButton.dataset.confirm)) {
                 event.preventDefault();
             }
         });
     }
+
+    updateBulkState();
 
     function addDetail(label, value) {
         const term = document.createElement('dt');
