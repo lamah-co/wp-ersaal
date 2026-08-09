@@ -315,6 +315,10 @@
   gap: var(--ersaal-section-gap);
 }
 
+.ersaal-admin .ersaal-woocommerce-form > .ersaal-section {
+  margin-block-start: 0;
+}
+
 .ersaal-admin .ersaal-wc-general-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(180px, 0.75fr) minmax(180px, 0.75fr);
