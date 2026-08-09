@@ -525,6 +525,20 @@
   gap: var(--ersaal-space-sm);
 }
 
+.ersaal-admin .ersaal-bulk-actions .ersaal-select {
+  width: auto;
+  min-width: 150px;
+}
+
+.ersaal-admin .ersaal-pagination {
+  justify-content: flex-end;
+  margin-block-start: var(--ersaal-space-md);
+}
+
+.ersaal-admin #ersaal-copy-message {
+  margin-block-start: var(--ersaal-space-md);
+}
+
 .ersaal-admin .ersaal-modal {
   position: fixed;
   inset: 0;

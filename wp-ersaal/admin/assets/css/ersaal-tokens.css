@@ -703,6 +703,15 @@
   gap: var(--ersaal-space-sm);
 }
 
+.ersaal-admin .ersaal-page-actions form {
+  margin: 0;
+}
+
+.ersaal-admin .ersaal-page-header + .ersaal-alert,
+.ersaal-admin .ersaal-alert + .ersaal-alert {
+  margin-block-start: var(--ersaal-space-sm);
+}
+
 .ersaal-admin .ersaal-page-title {
   font-size: var(--ersaal-text-2xl);
   font-weight: var(--ersaal-fw-bold);
