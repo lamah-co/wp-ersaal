@@ -276,8 +276,17 @@
 }
 
 .ersaal-admin .ersaal-send-result {
-  display: none;
   margin-block-start: var(--ersaal-space-lg);
+}
+
+.ersaal-admin .ersaal-send-result[hidden],
+.ersaal-admin .ersaal-send-result [hidden] {
+  display: none;
+}
+
+.ersaal-admin .ersaal-send-spinner {
+  float: none;
+  margin: 0;
 }
 
 .ersaal-admin .ersaal-result-grid {
