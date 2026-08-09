@@ -740,7 +740,8 @@
 
 .ersaal-admin .ersaal-detail-list dt {
   color: var(--ersaal-text-muted);
-  font-size: var(--ersaal-text-sm);
+  /* font-size: var(--ersaal-text-sm);
+  font-weight: 400; */
 }
 
 .ersaal-admin .ersaal-detail-list dd {
