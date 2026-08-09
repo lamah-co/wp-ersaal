@@ -81,16 +81,20 @@ class OrderEventHandler
 
         $idempotencyKey = "woocommerce:{$order_id}:admin:{$event}";
 
-        $this->messageService->send([
-            'idempotency_key' => $idempotencyKey,
-            'receiver' => $normalizedPhone,
-            'message' => $message,
-            'sender' => $sender,
-            'payment_type' => $paymentType,
-            'source' => 'woocommerce',
-            'source_id' => (string) $order_id,
-            'source_event' => 'admin_' . $event,
-        ]);
+        try {
+            $this->messageService->send([
+                'idempotency_key' => $idempotencyKey,
+                'receiver' => $normalizedPhone,
+                'message' => $message,
+                'sender' => $sender,
+                'payment_type' => $paymentType,
+                'source' => 'woocommerce',
+                'source_id' => (string) $order_id,
+                'source_event' => 'admin_' . $event,
+            ]);
+        } catch (\Throwable $e) {
+            error_log('Ersaal SMS Admin Notification Failed: ' . $e->getMessage());
+        }
     }
 
     public function handleProcessing($order_id, $order = null): void
@@ -154,16 +158,20 @@ class OrderEventHandler
 
         $idempotencyKey = "woocommerce:{$order_id}:{$event}";
 
-        $this->messageService->send([
-            'idempotency_key' => $idempotencyKey,
-            'receiver' => $normalizedPhone,
-            'message' => $message,
-            'sender' => $sender,
-            'payment_type' => $paymentType,
-            'source' => 'woocommerce',
-            'source_id' => (string) $order_id,
-            'source_event' => $event,
-        ]);
+        try {
+            $this->messageService->send([
+                'idempotency_key' => $idempotencyKey,
+                'receiver' => $normalizedPhone,
+                'message' => $message,
+                'sender' => $sender,
+                'payment_type' => $paymentType,
+                'source' => 'woocommerce',
+                'source_id' => (string) $order_id,
+                'source_event' => $event,
+            ]);
+        } catch (\Throwable $e) {
+            error_log('Ersaal SMS Customer Notification Failed: ' . $e->getMessage());
+        }
     }
 
     private function normalizePhone(string $phone): string

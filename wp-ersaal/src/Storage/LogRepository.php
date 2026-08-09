@@ -48,12 +48,22 @@ class LogRepository
             'updated_at'      => $now,
         ];
 
-        // wpdb->insert returns false if insertion fails (e.g. duplicate key)
+        // wpdb->insert returns false if insertion fails (e.g. duplicate key or schema error)
         $suppress = $wpdb->suppress_errors(true);
         $result = $wpdb->insert($table, $insert_data);
+        $last_error = $wpdb->last_error;
         $wpdb->suppress_errors($suppress);
 
-        return $result !== false;
+        if ($result === false) {
+            if (!empty($last_error) && stripos($last_error, 'Duplicate entry') === false) {
+                // It's a real database error (e.g. missing column), not a race condition
+                error_log('Ersaal DB Insert Failed: ' . $last_error);
+                throw new \RuntimeException('Unable to create message log.');
+            }
+            return false;
+        }
+
+        return true;
     }
 
     /**

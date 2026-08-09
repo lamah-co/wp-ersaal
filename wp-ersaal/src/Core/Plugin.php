@@ -16,6 +16,13 @@ class Plugin
     
     public function boot(): void
     {
+        // Automatically check and run schema upgrades on boot if outdated (no need for reactivation)
+        add_action('plugins_loaded', function () {
+            if (class_exists(\Ersaal\Core\Database::class)) {
+                (new \Ersaal\Core\Database())->upgrade();
+            }
+        });
+
         if (is_admin()) {
             add_action('admin_enqueue_scripts', [$this, 'enqueueGlobalAdminAssets']);
         }

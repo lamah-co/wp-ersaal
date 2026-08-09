@@ -138,6 +138,12 @@ class ManualSendHandler
             // 4. Build response from final DB state
             return $this->buildResponseFromLog($log, $paymentType);
 
+        } catch (\RuntimeException $e) {
+            return [
+                'success'     => false,
+                'status_code' => 500,
+                'data'        => ['message' => $e->getMessage()],
+            ];
         } catch (\Throwable $e) {
             return [
                 'success'     => false,
