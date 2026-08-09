@@ -14,6 +14,12 @@ class HelpPage
         wp_enqueue_style('ersaal-help-style', ERSAAL_PLUGIN_URL . 'admin/assets/css/help.css', [], ERSAAL_VERSION);
         wp_enqueue_script('ersaal-help-script', ERSAAL_PLUGIN_URL . 'admin/assets/js/help.js', [], ERSAAL_VERSION, true);
 
+        wp_localize_script('ersaal-help-script', 'ersaalHelp', [
+            'i18n' => [
+                'results' => __('Matching sections: %d', 'ersaal'),
+            ],
+        ]);
+
         $lang_override = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : '';
         
         $locale = get_user_locale();

@@ -1,40 +1,116 @@
-/* Accordion base styles not handled by inline tokens */
-.ersaal-accordion-btn {
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    outline: none;
-    transition: 0.3s;
-    margin-top: -1px;
-}
-html[dir="rtl"] .ersaal-accordion-btn {
-    text-align: right;
+.ersaal-admin .ersaal-help-quick-start {
+  padding: var(--ersaal-space-lg);
+  margin-block-end: var(--ersaal-space-xl);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-color-info-light);
+  border-inline-start: 4px solid var(--ersaal-color-info);
+  border-radius: var(--ersaal-radius-md);
 }
 
-.ersaal-accordion-btn:after {
-    content: '\002B';
-    color: var(--ersaal-text-secondary, #777);
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-}
-html[dir="rtl"] .ersaal-accordion-btn:after {
-    float: left;
-    margin-left: 0;
-    margin-right: 5px;
+.ersaal-admin .ersaal-help-section-body :where(h3, h4) {
+  color: var(--ersaal-text-primary);
+  margin-block: var(--ersaal-space-xl) var(--ersaal-space-sm);
 }
 
-.ersaal-accordion-btn.active:after {
-    content: "\2212";
+.ersaal-admin .ersaal-help-section-body p {
+  margin-block: 0 var(--ersaal-space-md);
 }
 
-.ersaal-accordion-panel {
-    padding: 0 15px;
-    background-color: var(--ersaal-bg-surface, #fff);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    border: 1px solid transparent;
-    border-top: none;
+.ersaal-admin .ersaal-help-section-body :where(ul, ol) {
+  padding-inline-start: var(--ersaal-space-xl);
+  margin-block: var(--ersaal-space-md) var(--ersaal-space-lg);
 }
 
+.ersaal-admin .ersaal-help-section-body li + li {
+  margin-block-start: var(--ersaal-space-xs);
+}
+
+.ersaal-admin .ersaal-help-section-body .notice {
+  padding: var(--ersaal-space-md) var(--ersaal-space-lg);
+  margin: var(--ersaal-space-lg) 0;
+  color: var(--ersaal-warning-text);
+  background: var(--ersaal-color-warning-light);
+  border: 0;
+  border-inline-start: 4px solid var(--ersaal-color-warning);
+  border-radius: var(--ersaal-radius-md);
+  box-shadow: none;
+}
+
+.ersaal-admin .ersaal-help-section-body table {
+  width: 100%;
+  margin-block: var(--ersaal-space-lg);
+  border: 1px solid var(--ersaal-border-color);
+  border-collapse: collapse;
+  border-radius: var(--ersaal-radius-md);
+  overflow: hidden;
+}
+
+.ersaal-admin .ersaal-help-section-body table :where(th, td) {
+  padding: var(--ersaal-space-md);
+  text-align: start;
+  border-block-end: 1px solid var(--ersaal-border-color);
+}
+
+.ersaal-admin .ersaal-help-section-body table th {
+  color: var(--ersaal-text-secondary);
+  background: var(--ersaal-bg-surface);
+  font-weight: var(--ersaal-fw-semibold);
+}
+
+.ersaal-admin .ersaal-help-accordion {
+  border: 1px solid var(--ersaal-border-color);
+  border-radius: var(--ersaal-radius-md);
+  overflow: hidden;
+}
+
+.ersaal-admin .ersaal-accordion-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ersaal-space-md);
+  width: 100%;
+  min-height: 48px;
+  padding: var(--ersaal-space-md) var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-block-end: 1px solid var(--ersaal-border-color);
+  font: inherit;
+  font-weight: var(--ersaal-fw-semibold);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ersaal-admin .ersaal-accordion-btn:hover,
+.ersaal-admin .ersaal-accordion-btn[aria-expanded="true"] {
+  background: var(--ersaal-bg-surface);
+}
+
+.ersaal-admin .ersaal-accordion-btn .ersaal-icon {
+  transition: transform var(--ersaal-transition-fast);
+}
+
+.ersaal-admin .ersaal-accordion-btn[aria-expanded="true"] .ersaal-icon {
+  transform: rotate(90deg);
+}
+
+[dir="rtl"] .ersaal-admin .ersaal-accordion-btn[aria-expanded="true"] .ersaal-icon {
+  transform: rotate(-90deg);
+}
+
+.ersaal-admin .ersaal-accordion-panel {
+  padding: var(--ersaal-space-lg);
+  color: var(--ersaal-text-secondary);
+  background: var(--ersaal-bg-page);
+  border-block-end: 1px solid var(--ersaal-border-color);
+}
+
+.ersaal-admin .ersaal-help-accordion > :last-child {
+  border-block-end: 0;
+}
+
+.ersaal-admin .ersaal-help-section[hidden],
+.ersaal-admin .ersaal-accordion-panel[hidden],
+.ersaal-admin #ersaal-help-no-results[hidden] {
+  display: none;
+}

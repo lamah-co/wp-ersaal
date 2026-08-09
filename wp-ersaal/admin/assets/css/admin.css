@@ -630,6 +630,7 @@
 }
 
 .ersaal-admin .ersaal-help-language .ersaal-select {
+  width: auto;
   min-width: 150px;
 }
 
