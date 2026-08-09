@@ -28,25 +28,33 @@ $languageLabel = $is_arabic ? 'لغة الدليل' : 'Guide language';
         </div>
     </header>
 
-    <div class="ersaal-toolbar" style="margin-block-end: var(--ersaal-space-xl);">
-        <div class="ersaal-help-search ersaal-field">
-            <input type="search" id="ersaal-help-search" class="ersaal-input" placeholder="<?php echo esc_attr($searchPlaceholder); ?>" autocomplete="off" />
-            <span id="ersaal-help-search-status" class="screen-reader-text" aria-live="polite"></span>
-        </div>
+    <div class="ersaal-help-wrap">
+        <aside class="ersaal-help-sidebar" aria-label="<?php echo esc_attr($is_arabic ? 'فهرس الدليل' : 'Guide contents'); ?>">
+            <div class="ersaal-help-search ersaal-field">
+                <label class="ersaal-label" for="ersaal-help-search"><?php echo esc_html($is_arabic ? 'البحث' : 'Search'); ?></label>
+                <input type="search" id="ersaal-help-search" class="ersaal-input" placeholder="<?php echo esc_attr($searchPlaceholder); ?>" autocomplete="off" />
+                <span id="ersaal-help-search-status" class="screen-reader-text" aria-live="polite"></span>
+            </div>
+            <nav id="ersaal-help-toc" class="ersaal-help-nav">
+                <?php foreach ($sections as $index => $section): ?>
+                    <a href="#<?php echo esc_attr($section['id']); ?>" <?php echo $index === 0 ? 'class="active" aria-current="location"' : ''; ?>><?php echo esc_html($section['title']); ?></a>
+                <?php endforeach; ?>
+            </nav>
+        </aside>
+
+        <main class="ersaal-help-content" id="ersaal-help-content">
+            <div id="ersaal-help-no-results" class="ersaal-alert ersaal-alert-warning" role="status" hidden>
+                <p><?php echo esc_html($noResultsText); ?></p>
+            </div>
+
+            <?php foreach ($sections as $section): ?>
+                <section id="<?php echo esc_attr($section['id']); ?>" class="ersaal-help-section" tabindex="-1">
+                    <h2><?php echo esc_html($section['title']); ?></h2>
+                    <div class="ersaal-help-section-body">
+                        <?php echo wp_kses_post($section['content']); ?>
+                    </div>
+                </section>
+            <?php endforeach; ?>
+        </main>
     </div>
-
-    <main class="ersaal-help-content" id="ersaal-help-content" style="display: grid; gap: var(--ersaal-space-xl); background: transparent; border: 0; padding: 0;">
-        <div id="ersaal-help-no-results" class="ersaal-alert ersaal-alert-warning" role="status" hidden>
-            <p><?php echo esc_html($noResultsText); ?></p>
-        </div>
-
-        <?php foreach ($sections as $section): ?>
-            <section id="<?php echo esc_attr($section['id']); ?>" class="ersaal-help-section ersaal-card" tabindex="-1">
-                <h2 class="ersaal-card-title"><?php echo esc_html($section['title']); ?></h2>
-                <div class="ersaal-help-section-body">
-                    <?php echo wp_kses_post($section['content']); ?>
-                </div>
-            </section>
-        <?php endforeach; ?>
-    </main>
 </div>

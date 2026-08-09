@@ -51,6 +51,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    function updateActiveLink(id) {
+        links.forEach(function(link) {
+            const active = link.getAttribute('href') === `#${id}`;
+            link.classList.toggle('active', active);
+            if (active) {
+                link.setAttribute('aria-current', 'location');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    }
+
     if (searchInput) {
         searchInput.addEventListener('input', function(event) {
             const query = event.target.value.trim().toLocaleLowerCase();
@@ -66,6 +78,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
             noResults.hidden = visibleCount !== 0;
             searchStatus.textContent = ersaalHelp.i18n.results.replace('%d', String(visibleCount));
+
+            const firstVisible = sections.find(function(section) { return !section.hidden; });
+            if (firstVisible) {
+                updateActiveLink(firstVisible.id);
+            } else {
+                updateActiveLink('');
+            }
         });
     }
+
+    let scrollScheduled = false;
+    window.addEventListener('scroll', function() {
+        if (scrollScheduled) {
+            return;
+        }
+        scrollScheduled = true;
+        window.requestAnimationFrame(function() {
+            let current = '';
+            sections.forEach(function(section) {
+                if (!section.hidden && window.scrollY >= section.offsetTop - 90) {
+                    current = section.id;
+                }
+            });
+            if (current) {
+                updateActiveLink(current);
+            }
+            scrollScheduled = false;
+        });
+    }, { passive: true });
+
+    links.forEach(function(link) {
+        link.addEventListener('click', function() {
+            updateActiveLink(link.getAttribute('href').slice(1));
+        });
+    });
 });

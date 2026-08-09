@@ -445,7 +445,7 @@
 }
 
 .ersaal-admin .ersaal-log-summary-item + .ersaal-log-summary-item {
-  /* removed left border */
+  border-inline-start: 1px solid var(--ersaal-border-color);
 }
 
 .ersaal-admin .ersaal-log-summary-label {
@@ -743,6 +743,7 @@
   }
 
   .ersaal-admin .ersaal-log-summary-item + .ersaal-log-summary-item {
+    border-inline-start: 0;
     border-block-start: 1px solid var(--ersaal-border-color);
   }
 

@@ -206,18 +206,18 @@
      ========================================================================== */
 
   --ersaal-radius-none: 0;
-  --ersaal-radius-xs:   0;
-  --ersaal-radius-sm:   0;   /* Badges, small chips */
-  --ersaal-radius-md:   0;   /* Cards, modals, inputs (admin-friendly) */
-  --ersaal-radius-lg:   0;   /* Larger containers */
+  --ersaal-radius-xs:   2px;
+  --ersaal-radius-sm:   4px;   /* Badges, small chips */
+  --ersaal-radius-md:   8px;   /* Cards, modals, inputs (admin-friendly) */
+  --ersaal-radius-lg:  16px;   /* Larger containers */
   --ersaal-radius-pill: 9999px; /* Pills, toggles, rounded CTAs */
 
   /* Component defaults */
-  --ersaal-radius-card:   0;
-  --ersaal-radius-input:  0;
-  --ersaal-radius-button: 0; /* Changed from pill */
-  --ersaal-radius-badge:  0;
-  --ersaal-radius-tab:    0; /* Changed from pill */
+  --ersaal-radius-card:   var(--ersaal-radius-md);
+  --ersaal-radius-input:  var(--ersaal-radius-md);
+  --ersaal-radius-button: var(--ersaal-radius-pill); /* Pill buttons match Landing Page */
+  --ersaal-radius-badge:  var(--ersaal-radius-sm);
+  --ersaal-radius-tab:    var(--ersaal-radius-pill); /* Tabs use pill shape per tabs.module.css */
 
   /* ==========================================================================
      6. SHADOWS
@@ -565,7 +565,8 @@
 
 .ersaal-admin .ersaal-alert {
   padding: var(--ersaal-space-md) var(--ersaal-space-lg);
-  border-radius: 0;
+  border-radius: var(--ersaal-radius-md);
+  border-inline-start: 4px solid transparent;
   font-size: var(--ersaal-text-md);
 }
 
@@ -584,18 +585,22 @@
 
 .ersaal-admin .ersaal-alert-success {
   background-color: var(--ersaal-color-success-light);
+  border-inline-start-color: var(--ersaal-color-success);
   color: #087F5B;
 }
 .ersaal-admin .ersaal-alert-danger {
   background-color: var(--ersaal-color-danger-light);
+  border-inline-start-color: var(--ersaal-color-danger);
   color: #C92A2A;
 }
 .ersaal-admin .ersaal-alert-warning {
   background-color: var(--ersaal-color-warning-light);
+  border-inline-start-color: var(--ersaal-color-warning);
   color: var(--ersaal-color-warning);
 }
 .ersaal-admin .ersaal-alert-info {
   background-color: var(--ersaal-color-primary-light);
+  border-inline-start-color: var(--ersaal-color-primary);
   color: var(--ersaal-color-primary);
 }
 
