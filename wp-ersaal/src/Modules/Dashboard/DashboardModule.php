@@ -63,7 +63,7 @@ class DashboardModule implements ModuleInterface
     {
         require_once ERSAAL_PLUGIN_DIR . 'admin/DashboardPage.php';
         
-        $page = new \Ersaal\Admin\DashboardPage(new LogRepository());
+        $page = new \Ersaal\Admin\DashboardPage(new LogRepository(), $this->options);
         $page->render();
     }
 }
