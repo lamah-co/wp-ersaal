@@ -4,7 +4,6 @@ declare(strict_types=1);
 if (!defined('ABSPATH')) {
     exit;
 }
-
 /**
  * Render a small, consistent Ersaal admin icon.
  */
@@ -38,4 +37,3 @@ function ersaal_admin_icon(string $name, string $class = ''): string
         $paths[$name]
     );
 }
-

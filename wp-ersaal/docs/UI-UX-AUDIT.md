@@ -1,6 +1,6 @@
 # Ersaal Admin UI/UX Audit
 
-Audit date: 2026-08-09  
+Audit date: 2026-08-09
 Scope: Dashboard, Settings, Send SMS, WooCommerce, Logs, Help, and available OTP UI.
 
 ## Cross-screen findings
