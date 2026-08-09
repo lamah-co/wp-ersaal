@@ -2,9 +2,11 @@
 /**
  * Plugin Name: Ersaal SMS Gateway
  * Description: Ersaal SMS Gateway integration for WordPress and WooCommerce.
- * Version: 1.0.0
- * Author: Lamah Co.
+ * Version: 1.0.1
+ * Author: Lamah
+ * Author URI: https://lamah.co/
  * Text Domain: ersaal
+ * Domain Path: /languages
  */
 
 declare(strict_types=1);
@@ -13,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('ERSAAL_VERSION', '1.0.0');
+define('ERSAAL_VERSION', '1.0.1');
 define('ERSAAL_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ERSAAL_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ERSAAL_PLUGIN_FILE', __FILE__);

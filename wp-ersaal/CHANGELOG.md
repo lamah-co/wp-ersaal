@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-08-09
+
+### Changed
+- Redesigned the Ersaal WordPress admin interface.
+- Improved dashboard layout and information hierarchy.
+- Improved settings and manual SMS user experience.
+- Improved WooCommerce notification configuration UI.
+- Redesigned logs layout, filters, status badges, and details.
+- Improved in-plugin Help experience.
+- Unified buttons, cards, inputs, badges, alerts, and spacing using the shared design system.
+- Improved RTL and LTR consistency.
+- Improved tablet and responsive admin layouts.
+
+### Fixed
+- Fixed log status badge rendering warnings and missing statuses.
+- Fixed an issue where the database schema wasn't updating automatically upon pulling new changes, which caused log insertions to fail.
+- Fixed UI inconsistencies introduced during the admin redesign.
+
 ## [1.0.0] - 2026-08-08
 ### Added
 - Native WordPress Admin UI for Ersaal configuration.
