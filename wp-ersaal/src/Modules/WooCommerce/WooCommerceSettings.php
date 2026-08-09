@@ -92,13 +92,13 @@ class WooCommerceSettings
     {
         switch ($event) {
             case 'new_order':
-                return 'مرحباً {customer_name}، تم استلام طلبك رقم #{order_number}. شكراً لتعاملك مع {site_name}.';
+                return __('Hello {customer_name}, we received your order #{order_number}. Thank you for choosing {site_name}.', 'ersaal');
             case 'processing':
-                return 'طلبك رقم #{order_number} قيد التجهيز حالياً.';
+                return __('Your order #{order_number} is now being processed.', 'ersaal');
             case 'completed':
-                return 'تم إكمال طلبك رقم #{order_number}. شكراً لتعاملك مع {site_name}.';
+                return __('Your order #{order_number} has been completed. Thank you for choosing {site_name}.', 'ersaal');
             case 'cancelled':
-                return 'تم إلغاء الطلب رقم #{order_number}.';
+                return __('Your order #{order_number} has been cancelled.', 'ersaal');
             default:
                 return '';
         }

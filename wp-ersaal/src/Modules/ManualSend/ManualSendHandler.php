@@ -76,7 +76,7 @@ class ManualSendHandler
             return [
                 'success'     => false,
                 'status_code' => 422,
-                'data'        => ['message' => __('نص الرسالة مطلوب.', 'ersaal')],
+                'data'        => ['message' => __('Message text is required.', 'ersaal')],
             ];
         }
 
@@ -226,39 +226,39 @@ class ManualSendHandler
         // Balance / insufficient funds — context-aware
         if (stripos($apiError, 'balance') !== false || stripos($apiError, 'insufficient') !== false) {
             if ($paymentType === 'subscription') {
-                return __('لا يوجد اشتراك صالح يسمح بإرسال هذه الرسالة.', 'ersaal');
+                return __('No valid subscription allows sending this message.', 'ersaal');
             }
-            return __('الرصيد غير كافٍ لإرسال الرسالة باستخدام المحفظة.', 'ersaal');
+            return __('Insufficient wallet balance to send this message.', 'ersaal');
         }
         // Subscription-specific errors
         if (stripos($apiError, 'subscription') !== false) {
-            return __('لا يوجد اشتراك صالح يسمح بإرسال هذه الرسالة.', 'ersaal');
+            return __('No valid subscription allows sending this message.', 'ersaal');
         }
         // Sender ID
         if (stripos($apiError, 'sender') !== false) {
-            return __('Sender ID غير صالح أو غير معتمد لهذا المشروع.', 'ersaal');
+            return __('Sender ID is invalid or not approved for this project.', 'ersaal');
         }
         // Validation (400/422 generic)
         if ($code === 400 || $code === 422) {
-            return __('يرجى مراجعة رقم الهاتف وبيانات الرسالة.', 'ersaal');
+            return __('Please review the phone number and message details.', 'ersaal');
         }
         // Authentication
         if ($code === 401) {
-            return __('تعذر المصادقة مع Ersaal. راجع API Key.', 'ersaal');
+            return __('Authentication with Ersaal failed. Check the API key.', 'ersaal');
         }
         // IP / Forbidden
         if ($code === 403) {
-            return __('عنوان IP الخاص بالخادم غير مسموح به في مشروع Ersaal.', 'ersaal');
+            return __('The server IP address is not allowed by the Ersaal project.', 'ersaal');
         }
         // Rate limit
         if ($code === 429) {
-            return __('تم تجاوز الحد المسموح للطلبات. حاول لاحقًا.', 'ersaal');
+            return __('Request limit exceeded. Try again later.', 'ersaal');
         }
         // Server / Connection / transient
         if ($code >= 500 || $status === 'error') {
-            return __('تعذر إكمال الطلب مع منصة Ersaal.', 'ersaal');
+            return __('The Ersaal request could not be completed.', 'ersaal');
         }
 
-        return $apiError ?: __('حدث خطأ غير متوقع أثناء إرسال الرسالة.', 'ersaal');
+        return $apiError ?: __('An unexpected error occurred while sending the message.', 'ersaal');
     }
 }

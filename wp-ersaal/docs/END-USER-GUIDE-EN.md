@@ -1,6 +1,6 @@
 # Ersaal WordPress Plugin
 **Ersaal Help & User Guide**
-**Version 1.0.1**
+**Version 1.0.2**
 
 ## Table of Contents
 1. [What is the Ersaal Plugin?](#1-what-is-the-ersaal-plugin)

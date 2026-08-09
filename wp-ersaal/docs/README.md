@@ -1,6 +1,6 @@
 # Ersaal WordPress Plugin - Documentation
 
-Welcome to the documentation folder for the Ersaal SMS Gateway integration plugin for WordPress (v1.0.1).
+Welcome to the documentation folder for the Ersaal SMS Gateway integration plugin for WordPress (v1.0.2).
 
 We provide two types of guides depending on your needs. Please select your preferred language and guide below:
 

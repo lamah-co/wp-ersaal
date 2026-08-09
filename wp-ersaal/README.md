@@ -3,7 +3,7 @@
 **Requires at least:** 5.8
 **Tested up to:** 6.5
 **Requires PHP:** 7.4
-**Stable tag:** 1.0.1
+**Stable tag:** 1.0.2
 **License:** GPLv2 or later
 
 Ersaal SMS Gateway integration for WordPress and WooCommerce.

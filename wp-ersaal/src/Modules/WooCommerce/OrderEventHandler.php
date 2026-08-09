@@ -196,12 +196,18 @@ class OrderEventHandler
             'source'          => 'woocommerce',
             'source_id'       => (string) $order_id,
             'source_event'    => $event,
+            'recipient_type'  => 'customer',
             'message'         => '',
         ];
 
         $created = $this->logRepo->createProcessingLog($logData);
         if ($created) {
-            $this->logRepo->markFailed($idempotencyKey, __('Customer billing phone is missing or invalid.', 'ersaal'));
+            $this->logRepo->markFailed(
+                $idempotencyKey,
+                'failed',
+                null,
+                __('Customer billing phone is missing or invalid.', 'ersaal')
+            );
         }
     }
 }

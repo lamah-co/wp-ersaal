@@ -92,7 +92,7 @@ class ManualOrderSmsBox
                 const spinner = document.getElementById('ersaal_order_spinner');
 
                 if (message === '') {
-                    responseDiv.innerHTML = '<p style="color:red;"><?php esc_html_e('نص الرسالة مطلوب.', 'ersaal'); ?></p>';
+                    responseDiv.innerHTML = '<p style="color:red;"><?php esc_html_e('Message text is required.', 'ersaal'); ?></p>';
                     return;
                 }
 
@@ -128,7 +128,7 @@ class ManualOrderSmsBox
                 .catch(err => {
                     btn.disabled = false;
                     spinner.classList.remove('is-active');
-                    responseDiv.innerHTML = '<p style="color:red;">Error</p>';
+                    responseDiv.innerHTML = '<p style="color:red;"><?php echo esc_js(__('An unexpected error occurred.', 'ersaal')); ?></p>';
                 });
             });
         });
@@ -149,7 +149,7 @@ class ManualOrderSmsBox
         $payment = isset($_POST['payment_type']) ? sanitize_text_field($_POST['payment_type']) : 'wallet';
 
         if ($message === '') {
-            wp_send_json_error(['message' => __('نص الرسالة مطلوب.', 'ersaal')]);
+            wp_send_json_error(['message' => __('Message text is required.', 'ersaal')]);
         }
 
         $order = wc_get_order($orderId);

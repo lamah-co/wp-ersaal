@@ -2,14 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [1.0.2] - 2026-08-09
 
 ### Added
-- Complete Arabic translation catalog for the WordPress admin interface, AJAX feedback, logs, settings, and WooCommerce screens.
-- Explicit WordPress text-domain loading and Arabic plural rules.
+- Full Arabic localization across the WordPress admin interface and AJAX feedback.
+- Added Arabic PO and MO files and the source POT translation template.
+- Automatic locale loading based on the WordPress user or site language, including Arabic plural rules.
 
 ### Changed
-- Improved RTL behavior and Arabic wording throughout the built-in help guide.
+- Improved RTL behavior across the Dashboard, Settings, Send SMS, WooCommerce, Logs, and Help screens.
+- Localized WooCommerce notification settings, default messages, log statuses, sources, events, and CSV exports.
+- Reworked the Help interface with complete Arabic wording and localized language controls.
+
+### Fixed
+- Corrected RTL alignment and directional icons in expandable controls and navigation actions.
+- Improved Arabic layout consistency while keeping technical values such as phone numbers, IDs, and API URLs isolated as LTR.
+- Corrected validation and API error fallbacks so English and Arabic locales each receive language-appropriate messages.
+- Fixed WooCommerce invalid-phone logging so automatic notifications record a valid recipient type, status, and error message.
 
 ## [1.0.1] - 2026-08-09
 
