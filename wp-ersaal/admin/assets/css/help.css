@@ -1,5 +1,5 @@
 .ersaal-admin .ersaal-help-toolbar {
-  display: grid;
+  /* display: grid; */
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--ersaal-space-xl);
   align-items: end;
@@ -51,6 +51,7 @@
   overflow-x: auto;
   padding-block-end: var(--ersaal-space-xs);
   scrollbar-width: thin;
+  padding:1rem 0 1rem 1rem;
 }
 
 .ersaal-admin .ersaal-help-nav a {
