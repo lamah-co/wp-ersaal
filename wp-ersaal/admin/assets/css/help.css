@@ -3,8 +3,8 @@
   margin-block-end: var(--ersaal-space-xl);
   color: var(--ersaal-text-primary);
   background: var(--ersaal-color-info-light);
-  border-inline-start: 4px solid var(--ersaal-color-info);
-  border-radius: var(--ersaal-radius-md);
+  border-block-start: 1px solid var(--ersaal-color-info);
+  border-block-end: 1px solid var(--ersaal-color-info);
 }
 
 .ersaal-admin .ersaal-help-section-body :where(h3, h4) {
@@ -31,17 +31,16 @@
   color: var(--ersaal-warning-text);
   background: var(--ersaal-color-warning-light);
   border: 0;
-  border-inline-start: 4px solid var(--ersaal-color-warning);
-  border-radius: var(--ersaal-radius-md);
+  border-block-start: 1px solid var(--ersaal-color-warning);
+  border-block-end: 1px solid var(--ersaal-color-warning);
   box-shadow: none;
 }
 
 .ersaal-admin .ersaal-help-section-body table {
   width: 100%;
   margin-block: var(--ersaal-space-lg);
-  border: 1px solid var(--ersaal-border-color);
+  border-block: 1px solid var(--ersaal-border-color);
   border-collapse: collapse;
-  border-radius: var(--ersaal-radius-md);
   overflow: hidden;
 }
 
@@ -58,8 +57,7 @@
 }
 
 .ersaal-admin .ersaal-help-accordion {
-  border: 1px solid var(--ersaal-border-color);
-  border-radius: var(--ersaal-radius-md);
+  border-block: 1px solid var(--ersaal-border-color);
   overflow: hidden;
 }
 

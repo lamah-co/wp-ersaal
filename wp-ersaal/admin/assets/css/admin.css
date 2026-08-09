@@ -658,8 +658,7 @@
 .ersaal-admin .ersaal-help-nav a {
   padding: var(--ersaal-space-sm) var(--ersaal-space-md);
   color: var(--ersaal-text-secondary);
-  border-inline-start: 3px solid transparent;
-  border-radius: var(--ersaal-radius-sm);
+  border-radius: 0;
   text-decoration: none;
 }
 
@@ -667,15 +666,18 @@
 .ersaal-admin .ersaal-help-nav a.active {
   color: var(--ersaal-color-primary);
   background: var(--ersaal-bg-surface);
-  border-inline-start-color: var(--ersaal-color-primary);
+}
+
+.ersaal-admin .ersaal-help-nav a.active {
+  font-weight: var(--ersaal-fw-medium);
 }
 
 .ersaal-admin .ersaal-help-content {
   min-width: 0;
   padding: var(--ersaal-space-xl);
   background: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-color);
-  border-radius: var(--ersaal-radius-md);
+  border-block: 1px solid var(--ersaal-border-color);
+  border-radius: 0;
 }
 
 .ersaal-admin .ersaal-help-section + .ersaal-help-section {
@@ -775,13 +777,13 @@
 
   .ersaal-admin .ersaal-help-nav a {
     flex: 0 0 auto;
-    border-inline-start: 0;
-    border-block-end: 3px solid transparent;
+    border: 0;
+    border-radius: 0;
   }
 
   .ersaal-admin .ersaal-help-nav a:hover,
   .ersaal-admin .ersaal-help-nav a.active {
-    border-block-end-color: var(--ersaal-color-primary);
+    border: 0;
   }
 
   .ersaal-admin .ersaal-help-content {
