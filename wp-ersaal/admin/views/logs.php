@@ -11,6 +11,14 @@ $dateFrom = $args['date_from'] ?? '';
 $dateTo = $args['date_to'] ?? '';
 $searchQuery = $args['search'] ?? '';
 $hasFilters = $currentStatus !== 'all' || $currentSource !== 'all' || $currentEvent !== 'all' || $dateFrom !== '' || $dateTo !== '' || $searchQuery !== '';
+$activeFilterCount = count(array_filter([
+    $currentStatus !== 'all',
+    $currentSource !== 'all',
+    $currentEvent !== 'all',
+    $dateFrom !== '',
+    $dateTo !== '',
+    $searchQuery !== '',
+]));
 
 $statusBadge = static function (string $status): string {
     $map = [
@@ -39,17 +47,17 @@ $referenceHtml = static function (object $log): string {
         $primary = $link
             ? sprintf('<a href="%s"><strong>%s</strong></a>', esc_url($link), esc_html($label))
             : sprintf('<strong>%s</strong>', esc_html($label));
-        return $primary . '<br>' . $meta;
+        return '<span class="ersaal-log-reference">' . $primary . $meta . '</span>';
     }
 
-    return sprintf('<strong>%s</strong><br>%s', esc_html(ucwords(str_replace('_', ' ', (string) $log->source))), $meta);
+    return sprintf('<span class="ersaal-log-reference"><strong>%s</strong>%s</span>', esc_html(ucwords(str_replace('_', ' ', (string) $log->source))), $meta);
 };
 
 $failedCount = ($stats['failed'] ?? 0) + ($stats['error'] ?? 0);
 $notices = get_settings_errors('ersaal_logs');
 ?>
 
-<div class="wrap ersaal-admin ersaal-page ersaal-page-wide">
+<div class="wrap ersaal-admin ersaal-page ersaal-page-wide ersaal-logs-page">
     <header class="ersaal-page-header">
         <div class="ersaal-page-header-copy">
             <h1 class="ersaal-page-title"><?php esc_html_e('Logs', 'ersaal'); ?></h1>
@@ -80,21 +88,25 @@ $notices = get_settings_errors('ersaal_logs');
 
     <section class="ersaal-section" aria-label="<?php esc_attr_e('Log summary', 'ersaal'); ?>">
         <div class="ersaal-log-summary">
-            <div class="ersaal-log-summary-item">
-                <span class="ersaal-log-summary-label"><?php esc_html_e('Total', 'ersaal'); ?></span>
+            <div class="ersaal-log-summary-item is-total">
+                <span class="ersaal-log-summary-label"><span class="ersaal-log-summary-dot" aria-hidden="true"></span><?php esc_html_e('Total', 'ersaal'); ?></span>
                 <strong class="ersaal-log-summary-value"><?php echo esc_html(number_format_i18n($stats['total'] ?? 0)); ?></strong>
+                <span class="ersaal-log-summary-context"><?php esc_html_e('All recorded requests', 'ersaal'); ?></span>
             </div>
-            <div class="ersaal-log-summary-item">
-                <span class="ersaal-log-summary-label"><?php esc_html_e('Accepted', 'ersaal'); ?></span>
+            <div class="ersaal-log-summary-item is-success">
+                <span class="ersaal-log-summary-label"><span class="ersaal-log-summary-dot" aria-hidden="true"></span><?php esc_html_e('Accepted', 'ersaal'); ?></span>
                 <strong class="ersaal-log-summary-value"><?php echo esc_html(number_format_i18n($stats['accepted'] ?? 0)); ?></strong>
+                <span class="ersaal-log-summary-context"><?php esc_html_e('Received by Ersaal', 'ersaal'); ?></span>
             </div>
-            <div class="ersaal-log-summary-item">
-                <span class="ersaal-log-summary-label"><?php esc_html_e('Failed', 'ersaal'); ?></span>
+            <div class="ersaal-log-summary-item is-danger">
+                <span class="ersaal-log-summary-label"><span class="ersaal-log-summary-dot" aria-hidden="true"></span><?php esc_html_e('Failed', 'ersaal'); ?></span>
                 <strong class="ersaal-log-summary-value"><?php echo esc_html(number_format_i18n($failedCount)); ?></strong>
+                <span class="ersaal-log-summary-context"><?php esc_html_e('Needs attention', 'ersaal'); ?></span>
             </div>
-            <div class="ersaal-log-summary-item">
-                <span class="ersaal-log-summary-label"><?php esc_html_e('Retries', 'ersaal'); ?></span>
+            <div class="ersaal-log-summary-item is-warning">
+                <span class="ersaal-log-summary-label"><span class="ersaal-log-summary-dot" aria-hidden="true"></span><?php esc_html_e('Retries', 'ersaal'); ?></span>
                 <strong class="ersaal-log-summary-value"><?php echo esc_html(number_format_i18n($stats['retry_scheduled'] ?? 0)); ?></strong>
+                <span class="ersaal-log-summary-context"><?php esc_html_e('Scheduled again', 'ersaal'); ?></span>
             </div>
         </div>
     </section>
@@ -103,7 +115,11 @@ $notices = get_settings_errors('ersaal_logs');
         <div class="ersaal-section-header">
             <div>
                 <h2 id="ersaal-log-filters-title" class="ersaal-section-title"><?php esc_html_e('Find messages', 'ersaal'); ?></h2>
+                <p class="ersaal-section-description"><?php esc_html_e('Search by reference, then narrow the results only when needed.', 'ersaal'); ?></p>
             </div>
+            <?php if ($activeFilterCount > 0): ?>
+                <span class="ersaal-filter-count"><?php printf(esc_html(_n('%s active filter', '%s active filters', $activeFilterCount, 'ersaal')), esc_html(number_format_i18n($activeFilterCount))); ?></span>
+            <?php endif; ?>
         </div>
         <div class="ersaal-toolbar">
             <form method="get" action="admin.php" class="ersaal-filter-form">
@@ -148,10 +164,12 @@ $notices = get_settings_errors('ersaal_logs');
                     <label class="ersaal-label" for="ersaal-log-date-to"><?php esc_html_e('To', 'ersaal'); ?></label>
                     <input id="ersaal-log-date-to" type="date" name="date_to" value="<?php echo esc_attr($dateTo); ?>" class="ersaal-input ersaal-ltr" />
                 </div>
-                <button type="submit" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php esc_html_e('Filter', 'ersaal'); ?></button>
-                <?php if ($hasFilters): ?>
-                    <a href="<?php echo esc_url($pageUrl); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm"><?php esc_html_e('Reset', 'ersaal'); ?></a>
-                <?php endif; ?>
+                <div class="ersaal-filter-actions">
+                    <button type="submit" class="ersaal-btn ersaal-btn-primary ersaal-btn-sm"><?php esc_html_e('Apply filters', 'ersaal'); ?></button>
+                    <?php if ($hasFilters): ?>
+                        <a href="<?php echo esc_url($pageUrl); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm"><?php esc_html_e('Reset', 'ersaal'); ?></a>
+                    <?php endif; ?>
+                </div>
             </form>
         </div>
     </section>
@@ -213,26 +231,28 @@ $notices = get_settings_errors('ersaal_logs');
                         </thead>
                         <tbody>
                             <?php foreach ($logsData['items'] as $log): ?>
-                                <tr>
+                                <tr class="ersaal-log-row">
                                     <th scope="row" class="column-check check-column"><input type="checkbox" name="log_ids[]" value="<?php echo esc_attr($log->id); ?>" /></th>
                                     <td><?php echo $statusBadge((string) $log->status); ?></td>
                                     <td><?php echo $referenceHtml($log); ?></td>
-                                    <td><span class="ersaal-code ersaal-ltr"><?php echo esc_html($log->phone_masked); ?></span></td>
-                                    <td><div class="ersaal-table-message"><?php echo !empty($log->message_excerpt) ? esc_html($log->message_excerpt) : '&mdash;'; ?></div></td>
+                                    <td><span class="ersaal-code ersaal-ltr ersaal-log-phone"><?php echo esc_html($log->phone_masked); ?></span></td>
+                                    <td><div class="ersaal-table-message ersaal-log-message"><?php echo !empty($log->message_excerpt) ? esc_html($log->message_excerpt) : '&mdash;'; ?></div></td>
                                     <td>
-                                        <?php if (!empty($log->message_id)): ?>
-                                            <div class="ersaal-inline-actions">
-                                                <span class="ersaal-code ersaal-ltr" title="<?php echo esc_attr($log->message_id); ?>"><?php echo esc_html(mb_substr((string) $log->message_id, 0, 8)); ?>&hellip;</span>
-                                                <button type="button" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button ersaal-copy-id" data-clipboard="<?php echo esc_attr($log->message_id); ?>" aria-label="<?php esc_attr_e('Copy message ID', 'ersaal'); ?>"><?php echo ersaal_admin_icon('copy'); ?></button>
-                                            </div>
-                                        <?php else: ?>
-                                            <span class="ersaal-table-meta">&mdash;</span>
-                                        <?php endif; ?>
-                                        <span class="ersaal-table-meta"><?php printf(esc_html__('Parts %1$s · Attempts %2$s', 'ersaal'), esc_html((string) ($log->parts_final ?? '—')), esc_html((string) $log->attempts)); ?></span>
+                                        <div class="ersaal-log-delivery">
+                                            <?php if (!empty($log->message_id)): ?>
+                                                <div class="ersaal-inline-actions">
+                                                    <span class="ersaal-code ersaal-ltr" title="<?php echo esc_attr($log->message_id); ?>"><?php echo esc_html(mb_substr((string) $log->message_id, 0, 8)); ?>&hellip;</span>
+                                                    <button type="button" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button ersaal-copy-id" data-clipboard="<?php echo esc_attr($log->message_id); ?>" aria-label="<?php esc_attr_e('Copy message ID', 'ersaal'); ?>"><?php echo ersaal_admin_icon('copy'); ?></button>
+                                                </div>
+                                            <?php else: ?>
+                                                <span class="ersaal-table-meta">&mdash;</span>
+                                            <?php endif; ?>
+                                            <span class="ersaal-table-meta"><?php printf(esc_html__('Parts %1$s · Attempts %2$s', 'ersaal'), esc_html((string) ($log->parts_final ?? '—')), esc_html((string) $log->attempts)); ?></span>
+                                        </div>
                                     </td>
-                                    <td><time class="ersaal-table-meta ersaal-ltr" datetime="<?php echo esc_attr($log->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($log->created_at))); ?></time></td>
+                                    <td><time class="ersaal-table-meta ersaal-ltr ersaal-log-created" datetime="<?php echo esc_attr($log->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($log->created_at))); ?></time></td>
                                     <td>
-                                        <div class="ersaal-inline-actions">
+                                        <div class="ersaal-inline-actions ersaal-log-actions">
                                             <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm ersaal-view-log" data-log="<?php echo esc_attr(wp_json_encode($log)); ?>"><?php esc_html_e('Details', 'ersaal'); ?></button>
                                             <button type="button" class="ersaal-btn ersaal-btn-danger ersaal-icon-button ersaal-delete-log" data-log-id="<?php echo esc_attr($log->id); ?>" aria-label="<?php esc_attr_e('Delete log', 'ersaal'); ?>"><?php echo ersaal_admin_icon('trash'); ?></button>
                                         </div>
