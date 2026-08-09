@@ -10,13 +10,18 @@ $search_query = $args['search'] ?? '';
 
 function get_status_badge(string $status): string {
     $map = [
-        'processing' => 'info',
-        'accepted' => 'success',
+        'processing'      => 'info',
+        'accepted'        => 'success',
+        'delivered'       => 'success',
+        'sent'            => 'success',
         'retry_scheduled' => 'warning',
-        'failed' => 'danger',
-        'error' => 'danger'
+        'queued'          => 'warning',
+        'pending'         => 'warning',
+        'failed'          => 'danger',
+        'error'           => 'danger',
+        'rejected'        => 'danger'
     ];
-    $type = $map[$status] ?? 'info';
+    $type = $map[$status] ?? 'muted';
     return sprintf('<span class="ersaal-badge ersaal-badge-%s">%s</span>', esc_attr($type), esc_html(strtoupper($status)));
 }
 
@@ -199,7 +204,7 @@ function get_reference_html(object $log): string {
                         <input type="checkbox" name="log_ids[]" value="<?php echo esc_attr($log->id); ?>">
                     </th>
                     <td><?php echo esc_html($log->id); ?></td>
-                    <td><?php echo get_status_badge($log->status, $status_colors); ?></td>
+                    <td><?php echo get_status_badge($log->status); ?></td>
                     <td><?php echo get_reference_html($log); ?></td>
                     <td><code style="background:none;padding:0;"><?php echo esc_html($log->phone_masked); ?></code></td>
                     <td>
