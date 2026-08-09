@@ -207,7 +207,23 @@
 }
 
 [dir="rtl"] .ersaal-admin .ersaal-help-section[open] > summary .ersaal-help-chevron {
-  transform: rotate(-90deg);
+  transform: scaleX(-1) rotate(90deg);
+}
+
+[dir="rtl"] .ersaal-admin .ersaal-help-section:not([open]) > summary .ersaal-help-chevron {
+  transform: scaleX(-1);
+}
+
+.ersaal-admin.ersaal-help-page[dir="rtl"] .ersaal-help-section[open] > summary .ersaal-help-chevron {
+  transform: scaleX(-1) rotate(90deg);
+}
+
+.ersaal-admin.ersaal-help-page[dir="rtl"] .ersaal-help-section:not([open]) > summary .ersaal-help-chevron {
+  transform: scaleX(-1);
+}
+
+.ersaal-admin.ersaal-help-page[dir="ltr"] .ersaal-help-section[open] > summary .ersaal-help-chevron {
+  transform: rotate(90deg);
 }
 
 .ersaal-admin .ersaal-help-section-body {

@@ -84,7 +84,7 @@ class WooCommerceSettings
         register_setting('ersaal_woocommerce_settings', 'ersaal_wc_admin_new_order_template', [
             'type' => 'string',
             'sanitize_callback' => 'sanitize_textarea_field',
-            'default' => 'New order #{order_number} from {customer_name}. Total: {order_total}'
+            'default' => __('New order #{order_number} from {customer_name}. Total: {order_total}', 'ersaal')
         ]);
     }
 

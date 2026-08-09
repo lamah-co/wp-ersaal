@@ -16,6 +16,8 @@ class Plugin
     
     public function boot(): void
     {
+        add_action('init', [$this, 'loadTextdomain'], 0);
+
         // Automatically check and run schema upgrades on boot if outdated (no need for reactivation)
         add_action('plugins_loaded', function () {
             if (class_exists(\Ersaal\Core\Database::class)) {
@@ -41,6 +43,15 @@ class Plugin
         $this->registry->registerModule(new \Ersaal\Modules\Help\HelpModule($this->options));
         
         $this->registry->boot();
+    }
+
+    public function loadTextdomain(): void
+    {
+        load_plugin_textdomain(
+            'ersaal',
+            false,
+            dirname(plugin_basename(ERSAAL_PLUGIN_FILE)) . '/languages'
+        );
     }
     
     public function enqueueGlobalAdminAssets(string $hook): void

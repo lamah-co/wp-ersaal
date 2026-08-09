@@ -34,13 +34,13 @@ $statusBadge = static function (string $status): string {
         'rejected' => 'danger',
     ];
     $type = $map[$status] ?? 'muted';
-    $label = ucwords(str_replace('_', ' ', $status));
+    $label = ersaal_admin_status_label($status);
 
     return sprintf('<span class="ersaal-badge ersaal-badge-%s">%s</span>', esc_attr($type), esc_html($label));
 };
 
 $referenceHtml = static function (object $log): string {
-    $meta = sprintf('<span class="ersaal-table-meta ersaal-ltr">Log #%s</span>', esc_html((string) $log->id));
+    $meta = sprintf('<span class="ersaal-table-meta ersaal-ltr">%s</span>', esc_html(sprintf(__('Log #%s', 'ersaal'), (string) $log->id)));
     if ($log->source === 'woocommerce' && !empty($log->source_id)) {
         $label = sprintf(__('Order #%s', 'ersaal'), $log->source_id);
         $link = function_exists('get_edit_post_link') ? get_edit_post_link((int) $log->source_id) : '';
@@ -50,7 +50,7 @@ $referenceHtml = static function (object $log): string {
         return '<span class="ersaal-log-reference">' . $primary . $meta . '</span>';
     }
 
-    return sprintf('<span class="ersaal-log-reference"><strong>%s</strong>%s</span>', esc_html(ucwords(str_replace('_', ' ', (string) $log->source))), $meta);
+    return sprintf('<span class="ersaal-log-reference"><strong>%s</strong>%s</span>', esc_html(ersaal_admin_source_label((string) $log->source)), $meta);
 };
 
 $failedCount = ($stats['failed'] ?? 0) + ($stats['error'] ?? 0);
@@ -152,7 +152,7 @@ $notices = get_settings_errors('ersaal_logs');
                     <select id="ersaal-log-event" name="event" class="ersaal-select">
                         <option value="all" <?php selected($currentEvent, 'all'); ?>><?php esc_html_e('All events', 'ersaal'); ?></option>
                         <?php foreach ($events as $event): ?>
-                            <option value="<?php echo esc_attr($event); ?>" <?php selected($currentEvent, $event); ?>><?php echo esc_html(ucwords(str_replace('_', ' ', $event))); ?></option>
+                            <option value="<?php echo esc_attr($event); ?>" <?php selected($currentEvent, $event); ?>><?php echo esc_html(ersaal_admin_event_label((string) $event)); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -231,6 +231,12 @@ $notices = get_settings_errors('ersaal_logs');
                         </thead>
                         <tbody>
                             <?php foreach ($logsData['items'] as $log): ?>
+                                <?php
+                                $logDetails = (array) $log;
+                                $logDetails['status'] = ersaal_admin_status_label((string) $log->status);
+                                $logDetails['source'] = ersaal_admin_source_label((string) $log->source);
+                                $logDetails['source_event'] = !empty($log->source_event) ? ersaal_admin_event_label((string) $log->source_event) : '';
+                                ?>
                                 <tr class="ersaal-log-row">
                                     <th scope="row" class="column-check check-column"><input type="checkbox" name="log_ids[]" value="<?php echo esc_attr($log->id); ?>" /></th>
                                     <td><?php echo $statusBadge((string) $log->status); ?></td>
@@ -253,7 +259,7 @@ $notices = get_settings_errors('ersaal_logs');
                                     <td><time class="ersaal-table-meta ersaal-ltr ersaal-log-created" datetime="<?php echo esc_attr($log->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($log->created_at))); ?></time></td>
                                     <td>
                                         <div class="ersaal-inline-actions ersaal-log-actions">
-                                            <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm ersaal-view-log" data-log="<?php echo esc_attr(wp_json_encode($log)); ?>"><?php esc_html_e('Details', 'ersaal'); ?></button>
+                                            <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm ersaal-view-log" data-log="<?php echo esc_attr(wp_json_encode($logDetails)); ?>"><?php esc_html_e('Details', 'ersaal'); ?></button>
                                             <button type="button" class="ersaal-btn ersaal-btn-danger ersaal-icon-button ersaal-delete-log" data-log-id="<?php echo esc_attr($log->id); ?>" aria-label="<?php esc_attr_e('Delete log', 'ersaal'); ?>"><?php echo ersaal_admin_icon('trash'); ?></button>
                                         </div>
                                     </td>

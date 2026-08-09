@@ -58,7 +58,7 @@ class LogRepository
             if (!empty($last_error) && stripos($last_error, 'Duplicate entry') === false) {
                 // It's a real database error (e.g. missing column), not a race condition
                 error_log('Ersaal DB Insert Failed: ' . $last_error);
-                throw new \RuntimeException('Unable to create message log.');
+                throw new \RuntimeException(__('Unable to create message log.', 'ersaal'));
             }
             return false;
         }

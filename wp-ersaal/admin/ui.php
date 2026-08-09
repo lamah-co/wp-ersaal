@@ -29,11 +29,73 @@ function ersaal_admin_icon(string $name, string $class = ''): string
         return '';
     }
 
-    $classes = trim('ersaal-icon ' . $class);
+    $classes = trim('ersaal-icon ersaal-icon-' . $name . ' ' . $class);
 
     return sprintf(
         '<svg class="%s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">%s</svg>',
         esc_attr($classes),
         $paths[$name]
     );
+}
+
+/**
+ * Return a localized label for an internal message status.
+ */
+function ersaal_admin_status_label(string $status): string
+{
+    $labels = [
+        'processing' => __('Processing', 'ersaal'),
+        'accepted' => __('Accepted', 'ersaal'),
+        'delivered' => __('Delivered', 'ersaal'),
+        'sent' => __('Sent', 'ersaal'),
+        'retry_scheduled' => __('Retry scheduled', 'ersaal'),
+        'queued' => __('Queued', 'ersaal'),
+        'pending' => __('Pending', 'ersaal'),
+        'failed' => __('Failed', 'ersaal'),
+        'error' => __('Error', 'ersaal'),
+        'rejected' => __('Rejected', 'ersaal'),
+        'expired' => __('Expired', 'ersaal'),
+        'unknown' => __('Unknown', 'ersaal'),
+    ];
+
+    return $labels[$status] ?? ucwords(str_replace('_', ' ', $status));
+}
+
+/**
+ * Return a localized label for an internal message source.
+ */
+function ersaal_admin_source_label(string $source): string
+{
+    $labels = [
+        'manual' => __('Manual', 'ersaal'),
+        'woocommerce' => __('WooCommerce', 'ersaal'),
+    ];
+
+    return $labels[$source] ?? ucwords(str_replace('_', ' ', $source));
+}
+
+/**
+ * Return a localized label for a core or custom WooCommerce event.
+ */
+function ersaal_admin_event_label(string $event): string
+{
+    $labels = [
+        'new_order' => __('New order', 'ersaal'),
+        'processing' => __('Processing', 'ersaal'),
+        'completed' => __('Completed', 'ersaal'),
+        'cancelled' => __('Cancelled', 'ersaal'),
+    ];
+
+    if (isset($labels[$event])) {
+        return $labels[$event];
+    }
+
+    if (function_exists('wc_get_order_status_name')) {
+        $woocommerceLabel = wc_get_order_status_name($event);
+        if (is_string($woocommerceLabel) && $woocommerceLabel !== '' && $woocommerceLabel !== $event) {
+            return $woocommerceLabel;
+        }
+    }
+
+    return ucwords(str_replace('_', ' ', $event));
 }

@@ -201,7 +201,7 @@ class OrderEventHandler
 
         $created = $this->logRepo->createProcessingLog($logData);
         if ($created) {
-            $this->logRepo->markFailed($idempotencyKey, 'Customer billing phone is missing or invalid.');
+            $this->logRepo->markFailed($idempotencyKey, __('Customer billing phone is missing or invalid.', 'ersaal'));
         }
     }
 }

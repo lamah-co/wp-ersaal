@@ -7,12 +7,12 @@ return [
             <div class="ersaal-help-quick-start">
                 <ol>
                     <li><a href="' . esc_url(admin_url('admin.php?page=ersaal-settings')) . '">افتح صفحة الإعدادات</a>.</li>
-                    <li>أدخل رابط الـ API ومفتاح API Key.</li>
-                    <li>اضغط على Test Connection للتحقق من الاتصال.</li>
-                    <li>أدخل Sender ID المعتمد من حسابك.</li>
-                    <li><a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">افتح صفحة Send SMS</a>.</li>
+                    <li>أدخل رابط واجهة API ومفتاح الوصول.</li>
+                    <li>اضغط على «اختبار الاتصال» للتحقق من البيانات.</li>
+                    <li>أدخل اسم المرسل المعتمد في حسابك.</li>
+                    <li><a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">افتح صفحة إرسال رسالة</a>.</li>
                     <li>أرسل رسالة تجريبية.</li>
-                    <li>قم بإعداد WooCommerce إذا كنت ترغب في إرسال تلقائي للطلبات.</li>
+                    <li>أعدّ ووكومرس إذا كنت ترغب في إرسال رسائل الطلبات تلقائيًا.</li>
                 </ol>
             </div>
         '
@@ -21,12 +21,12 @@ return [
         'id' => 'getting-started',
         'title' => 'مقدمة',
         'content' => '
-            <p><strong>إضافة Ersaal SMS</strong> تقوم بربط موقعك في ووردبريس ومتجر ووكومرس ببوابة إرسال للرسائل النصية.</p>
+            <p><strong>إضافة رسائل إرسال</strong> تربط موقع ووردبريس ومتجر ووكومرس ببوابة إرسال الرسائل النصية.</p>
             <h3>المتطلبات الأساسية</h3>
             <ul>
-                <li>حساب فعّال على منصة Ersaal.</li>
-                <li>رابط الـ API ومفتاح API Key.</li>
-                <li>Sender ID معتمد.</li>
+                <li>حساب فعّال على منصة إرسال.</li>
+                <li>رابط واجهة API ومفتاح الوصول.</li>
+                <li>اسم مرسل معتمد.</li>
             </ul>
         '
     ],
@@ -36,62 +36,62 @@ return [
         'content' => '
             <p>من خلال <a href="' . esc_url(admin_url('admin.php?page=ersaal-settings')) . '">الإعدادات</a>، يمكنك إدارة اتصالك ومتابعة حالة الباقة.</p>
             <ul>
-                <li><strong>Project Status:</strong> يجب أن يكون Active حتى تتمكن من الإرسال.</li>
-                <li><strong>Wallet Balance:</strong> الرصيد المالي المتاح للإرسال. ظهور "Unknown" لا يعني بالضرورة رصيداً صفرياً.</li>
-                <li><strong>Subscription:</strong> يوضح حدود الاستخدام لرسائل OTP والرسائل العادية.</li>
-                <li><strong>Sender ID:</strong> يجب إرسال كافة الرسائل من اسم مرسل (Sender ID) معتمد مسبقاً.</li>
+                <li><strong>حالة المشروع:</strong> يجب أن تكون «نشط» حتى تتمكن من الإرسال.</li>
+                <li><strong>رصيد المحفظة:</strong> الرصيد المالي المتاح للإرسال. ظهور «غير معروف» لا يعني بالضرورة أن الرصيد صفر.</li>
+                <li><strong>الاشتراك:</strong> يوضح حدود استخدام رموز التحقق والرسائل النصية العامة.</li>
+                <li><strong>اسم المرسل:</strong> يجب إرسال كل الرسائل من اسم مرسل معتمد مسبقًا.</li>
             </ul>
         '
     ],
     [
         'id' => 'send-sms',
-        'title' => 'إرسال رسالة SMS',
+        'title' => 'إرسال رسالة نصية',
         'content' => '
-            <p>يمكنك إرسال رسائل يدوية من صفحة <a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">Send SMS</a>.</p>
+            <p>يمكنك إرسال رسائل يدوية من صفحة <a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">إرسال رسالة</a>.</p>
             <ul>
                 <li><strong>رقم الهاتف:</strong> يتم تنسيقه تلقائياً حسب متطلبات البوابة.</li>
-                <li><strong>حروف الرسالة:</strong> تدعم الإضافة الترميزين GSM-7 و Unicode. الرسائل العربية تستخدم Unicode (تُحسب 70 حرفاً لكل جزء).</li>
+                <li><strong>أحرف الرسالة:</strong> تدعم الإضافة ترميزي GSM-7 ويونيكود. تستخدم الرسائل العربية يونيكود، ويُحسب لكل جزء 70 حرفًا.</li>
             </ul>
-            <div class="notice notice-warning inline"><p><strong>مهم جداً:</strong> قبول الرسالة (Accepted) من Ersaal لا يعني بالضرورة وصولها إلى هاتف المستلم، بل يعني أن الطلب قيد المعالجة.</p></div>
+            <div class="notice notice-warning inline"><p><strong>مهم جدًا:</strong> قبول منصة إرسال للرسالة لا يعني بالضرورة وصولها إلى هاتف المستلم، بل يعني أن الطلب قيد المعالجة.</p></div>
         '
     ],
     [
         'id' => 'woocommerce',
-        'title' => 'ربط WooCommerce',
+        'title' => 'ربط ووكومرس',
         'content' => '
-            <p>لأتمتة الرسائل مع الطلبات، اذهب إلى <a href="' . esc_url(admin_url('admin.php?page=ersaal-settings&tab=woocommerce')) . '">Settings > WooCommerce</a>.</p>
+            <p>لأتمتة رسائل الطلبات، انتقل إلى <a href="' . esc_url(admin_url('admin.php?page=ersaal-settings&tab=woocommerce')) . '">الإعدادات ← ووكومرس</a>.</p>
             <h3>الأحداث المدعومة</h3>
             <ul>
-                <li>طلب جديد (New Order)</li>
-                <li>قيد التنفيذ (Processing)</li>
-                <li>مكتمل (Completed)</li>
-                <li>ملغي (Cancelled)</li>
+                <li>طلب جديد</li>
+                <li>قيد المعالجة</li>
+                <li>مكتمل</li>
+                <li>ملغي</li>
             </ul>
             <h3>المتغيرات المتاحة</h3>
             <p>يمكنك استخدام هذه المتغيرات داخل نصوص الرسائل:</p>
             <code>{customer_name}</code>, <code>{order_number}</code>, <code>{order_total}</code>, <code>{order_status}</code>, <code>{site_name}</code>, <code>{billing_first_name}</code>, <code>{billing_last_name}</code>
             <p><strong>مثال:</strong> مرحباً {billing_first_name}، طلبك رقم {order_number} أصبح الآن {order_status}.</p>
             <h3>إرسال يدوي من الطلب</h3>
-            <p>داخل صفحة أي طلب في WooCommerce، ستجد صندوق <strong>Ersaal SMS</strong> الجانبي والذي يمكنك من إرسال رسالة يدوية ومباشرة للعميل.</p>
+            <p>داخل صفحة أي طلب في ووكومرس ستجد لوحة <strong>رسائل إرسال</strong>، ويمكنك منها إرسال رسالة مباشرة إلى العميل.</p>
         '
     ],
     [
         'id' => 'logs',
-        'title' => 'سجلات النظام (Logs)',
+        'title' => 'سجلات النظام',
         'content' => '
-            <p>يمكنك تتبع كافة الرسائل عبر صفحة <a href="' . esc_url(admin_url('admin.php?page=ersaal-logs')) . '">Logs</a>.</p>
+            <p>يمكنك تتبع كل الرسائل عبر صفحة <a href="' . esc_url(admin_url('admin.php?page=ersaal-logs')) . '">السجلات</a>.</p>
             <ul>
                 <li><strong>البحث والفلترة:</strong> حسب الحالة، المصدر، الحدث، أو بين تاريخين.</li>
-                <li><strong>تفاصيل السجل:</strong> انقر على "Details" لرؤية النص الكامل للرسالة والرد التقني (API Response).</li>
-                <li><strong>الحذف:</strong> خيارات لحذف سجل واحد أو الحذف الجماعي (يحذف السجلات محلياً فقط).</li>
-                <li><strong>تصدير CSV:</strong> تصدير النتائج الحالية بناءً على الفلاتر النشطة.</li>
+                <li><strong>تفاصيل السجل:</strong> انقر على «التفاصيل» لرؤية نص الرسالة كاملًا ورد واجهة API.</li>
+                <li><strong>الحذف:</strong> يمكنك حذف سجل واحد أو عدة سجلات، ويؤثر الحذف في السجلات المحلية فقط.</li>
+                <li><strong>تصدير CSV:</strong> تصدير النتائج الحالية وفق عوامل التصفية النشطة.</li>
             </ul>
-            <h3>معاني حالات السجل (Statuses)</h3>
+            <h3>معاني حالات السجل</h3>
             <table class="widefat striped">
-                <tr><th>Processing</th><td>قيد الإرسال إلى API.</td></tr>
-                <tr><th>Accepted</th><td>تم الاستلام بنجاح من منصة Ersaal.</td></tr>
-                <tr><th>Retry Scheduled</th><td>خطأ مؤقت، وستتم إعادة المحاولة تلقائياً.</td></tr>
-                <tr><th>Error / Failed</th><td>فشل دائم (رقم خاطئ، لا يوجد رصيد، إلخ).</td></tr>
+                <tr><th>قيد المعالجة</th><td>جارٍ إرسال الطلب إلى واجهة API.</td></tr>
+                <tr><th>مقبولة</th><td>استلمت منصة إرسال الطلب بنجاح.</td></tr>
+                <tr><th>إعادة المحاولة مجدولة</th><td>حدث خطأ مؤقت، وستتم إعادة المحاولة تلقائيًا.</td></tr>
+                <tr><th>خطأ أو فشل</th><td>فشل نهائي، مثل رقم غير صالح أو عدم توفر الرصيد.</td></tr>
             </table>
         '
     ],
@@ -99,29 +99,29 @@ return [
         'id' => 'troubleshooting',
         'title' => 'استكشاف الأخطاء وإصلاحها',
         'content' => '
-            <h3>Connection failed</h3>
-            <p>تحقق من رابط الـ API، والـ API Key، وحالة المشروع (Project Status)، واتصال الخادم بالإنترنت.</p>
-            <h3>Wallet = Unknown</h3>
-            <p>لا يعني أن الرصيد صفر، بل قد يكون الحساب يعتمد على نظام الباقات (Subscriptions) بدلاً من المحفظة المالية.</p>
-            <h3>Subscription Error</h3>
-            <p>تأكد أن لديك باقة رسائل عامة فعالة، باقات الـ OTP لا تسمح بإرسال رسائل ترويجية أو عامة.</p>
-            <h3>Sender ID Error</h3>
-            <p>تأكد من كتابة اسم المرسل (Sender ID) تماماً كما هو معتمد في منصة إرسال.</p>
-            <h3>Message Accepted But Not Received</h3>
-            <p>الحالة Accepted لا تعني التوصيل النهائي. قد تتأخر الرسالة من قبل مزود الاتصالات أو قد يكون هاتف المستلم مغلقاً.</p>
-            <h3>WooCommerce message not sent</h3>
-            <p>تحقق من تفعيل الربط مع WooCommerce، وتأكد من تفعيل الحدث المطلوب (Event)، وأن الطلب يحتوي على رقم هاتف صحيح (Billing Phone). راجع الـ Logs لمزيد من التفاصيل.</p>
+            <h3>فشل الاتصال</h3>
+            <p>تحقق من رابط واجهة API ومفتاح الوصول وحالة المشروع واتصال الخادم بالإنترنت.</p>
+            <h3>رصيد المحفظة غير معروف</h3>
+            <p>لا يعني ذلك أن الرصيد صفر، فقد يعتمد الحساب على باقة اشتراك بدلًا من المحفظة المالية.</p>
+            <h3>خطأ في الاشتراك</h3>
+            <p>تأكد من وجود باقة رسائل عامة فعالة؛ فباقات رموز التحقق لا تسمح بإرسال الرسائل العامة.</p>
+            <h3>خطأ في اسم المرسل</h3>
+            <p>تأكد من كتابة اسم المرسل كما هو معتمد تمامًا في منصة إرسال.</p>
+            <h3>قُبلت الرسالة ولم تصل</h3>
+            <p>حالة «مقبولة» لا تعني التسليم النهائي. قد تتأخر الرسالة لدى مزود الاتصالات أو يكون هاتف المستلم مغلقًا.</p>
+            <h3>لم تُرسل رسالة ووكومرس</h3>
+            <p>تحقق من تفعيل ربط ووكومرس والحدث المطلوب، وتأكد من أن الطلب يحتوي على رقم هاتف فوترة صالح. راجع السجلات لمزيد من التفاصيل.</p>
         '
     ],
     [
         'id' => 'faq',
-        'title' => 'الأسئلة الشائعة (FAQ)',
+        'title' => 'الأسئلة الشائعة',
         'content' => '
             <div class="ersaal-help-faq-list">
-                <details><summary>هل أحتاج WooCommerce؟</summary><div class="ersaal-help-faq-answer"><p>لا، تعمل الإضافة بشكل مستقل للإرسال اليدوي، والربط مع WooCommerce اختياري.</p></div></details>
-                <details><summary>هل يمكن إرسال رسائل يدويًا؟</summary><div class="ersaal-help-faq-answer"><p>نعم، من صفحة Send SMS أو من داخل صفحة أي طلب في WooCommerce.</p></div></details>
-                <details><summary>ما معنى Wallet Unknown؟</summary><div class="ersaal-help-faq-answer"><p>يعني غالبًا أن حسابك يستخدم باقة اشتراك بدلًا من رصيد محفظة رقمي.</p></div></details>
-                <details><summary>ما الفرق بين OTP وSMS؟</summary><div class="ersaal-help-faq-answer"><p>OTP مخصصة لرموز التحقق، بينما SMS مخصصة للرسائل النصية العامة والتنبيهات.</p></div></details>
+                <details><summary>هل أحتاج إلى ووكومرس؟</summary><div class="ersaal-help-faq-answer"><p>لا، تعمل الإضافة بشكل مستقل للإرسال اليدوي، وربط ووكومرس اختياري.</p></div></details>
+                <details><summary>هل يمكن إرسال رسائل يدويًا؟</summary><div class="ersaal-help-faq-answer"><p>نعم، من صفحة «إرسال رسالة» أو من داخل صفحة أي طلب في ووكومرس.</p></div></details>
+                <details><summary>ما معنى أن رصيد المحفظة غير معروف؟</summary><div class="ersaal-help-faq-answer"><p>يعني غالبًا أن حسابك يستخدم باقة اشتراك بدلًا من رصيد المحفظة.</p></div></details>
+                <details><summary>ما الفرق بين رمز التحقق والرسالة النصية؟</summary><div class="ersaal-help-faq-answer"><p>رمز التحقق مخصص لتأكيد الهوية، بينما الرسائل النصية العامة مخصصة للتنبيهات والمحتوى العام.</p></div></details>
                 <details><summary>لماذا تظهر أرقام الهواتف مخفية؟</summary><div class="ersaal-help-faq-answer"><p>لحماية خصوصية العملاء، لا يتم تخزين الرقم كاملًا في السجلات المحلية.</p></div></details>
                 <details><summary>هل يمكن إرسال أكثر من رسالة يدوية للطلب نفسه؟</summary><div class="ersaal-help-faq-answer"><p>نعم، يمكن إرسال أكثر من رسالة يدوية من صفحة تفاصيل الطلب.</p></div></details>
             </div>

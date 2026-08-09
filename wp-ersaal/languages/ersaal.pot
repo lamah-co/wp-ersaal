@@ -1,0 +1,1050 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ersaal SMS Gateway 1.0.0\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2026-08-09 00:00+0000\n"
+"PO-Revision-Date: 2026-08-09 00:00+0000\n"
+"Last-Translator: Ersaal Team\n"
+"Language-Team: Arabic\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Domain: ersaal\n"
+
+#: admin/views/logs.php:121
+msgid "%s active filter"
+msgid_plural "%s active filters"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: admin/views/logs.php:212
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: admin/LogsPage.php:63
+msgid "%s log deleted successfully."
+msgid_plural "%s logs deleted successfully."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: admin/views/logs.php:181
+msgid "%s matching record"
+msgid_plural "%s matching records"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: admin/views/manual-send.php:129 admin/views/dashboard.php:93 admin/views/logs.php:97 admin/views/logs.php:136 admin/ui.php:48
+msgid "Accepted"
+msgstr ""
+
+#: admin/views/dashboard.php:95
+msgid "Accepted by Ersaal"
+msgstr ""
+
+#: admin/views/logs.php:229
+msgid "Actions"
+msgstr ""
+
+#: admin/views/system-status.php:27
+msgid "Active"
+msgstr ""
+
+#: admin/views/dashboard.php:83
+msgid "A current snapshot of local message records."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:190
+msgid "Additional order statuses"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:132
+msgid "Admin notifications"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:159
+msgid "Admin phone number"
+msgstr ""
+
+#: admin/SettingsPage.php:23
+msgid "Advanced"
+msgstr ""
+
+#: admin/views/logs.php:153
+msgid "All events"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:74
+msgid "Allow enabled order events to send notifications."
+msgstr ""
+
+#: admin/views/logs.php:94
+msgid "All recorded requests"
+msgstr ""
+
+#: admin/views/logs.php:145
+msgid "All sources"
+msgstr ""
+
+#: admin/views/dashboard.php:90 admin/views/logs.php:134
+msgid "All statuses"
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendModule.php:85
+msgid "An unexpected error occurred."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:151
+msgid "An unexpected internal error occurred."
+msgstr ""
+
+#: admin/views/settings-general.php:22
+msgid "API base URL"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:93 admin/LogsPage.php:101
+msgid "API error"
+msgstr ""
+
+#: admin/views/settings-general.php:30
+msgid "API key"
+msgstr ""
+
+#: src/API/Client.php:53
+msgid "API Key is missing."
+msgstr ""
+
+#: admin/views/logs.php:210
+msgid "Apply"
+msgstr ""
+
+#: admin/views/logs.php:168
+msgid "Apply filters"
+msgstr ""
+
+#: admin/views/logs.php:210
+msgid "Are you sure you want to delete selected logs?"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:80
+msgid "Are you sure you want to delete this log? This only deletes the local record."
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:91 admin/LogsPage.php:101
+msgid "Attempts"
+msgstr ""
+
+#: src/API/Client.php:126
+msgid "Authentication failed. Check the API Key."
+msgstr ""
+
+#: src/API/Client.php:137
+msgid "Authentication failed or access forbidden."
+msgstr ""
+
+#: admin/views/system-status.php:9
+msgid "Background processing"
+msgstr ""
+
+#: admin/views/settings-general.php:31
+msgid "Bearer token for the connected Ersaal project."
+msgstr ""
+
+#: admin/views/logs.php:205
+msgid "Bulk action"
+msgstr ""
+
+#: admin/views/logs.php:207
+msgid "Bulk actions"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:14 admin/ui.php:86
+msgid "Cancelled"
+msgstr ""
+
+#: admin/views/manual-send.php:79 admin/views/woocommerce-settings.php:223
+msgid "Characters"
+msgstr ""
+
+#: admin/views/settings-advanced.php:14
+msgid "Choose whether local Ersaal data should remain after the plugin is deleted."
+msgstr ""
+
+#: admin/views/logs.php:300
+msgid "Close details"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:13 admin/ui.php:85
+msgid "Completed"
+msgstr ""
+
+#: admin/views/system-status.php:17
+msgid "Component"
+msgstr ""
+
+#: admin/views/dashboard.php:47
+msgid "Connected"
+msgstr ""
+
+#: src/Modules/Settings/SettingsModule.php:101
+msgid "Connected successfully!"
+msgstr ""
+
+#: src/Modules/Settings/SettingsModule.php:99
+msgid "Connected successfully! Project: %s"
+msgstr ""
+
+#: admin/views/dashboard.php:73
+msgid "Connection needs attention"
+msgstr ""
+
+#: admin/views/settings-general.php:15 admin/views/dashboard.php:68
+msgid "Connection settings"
+msgstr ""
+
+#: admin/views/settings-general.php:50
+msgid "Connection test"
+msgstr ""
+
+#: admin/views/settings-general.php:16
+msgid "Connect this WordPress site to the intended Ersaal project."
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:77
+msgid "Copied"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:79 admin/views/logs.php:307
+msgid "Copy message"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:78 admin/views/logs.php:251
+msgid "Copy message ID"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:90 admin/LogsPage.php:100
+msgid "Cost"
+msgstr ""
+
+#: src/API/Client.php:84
+msgid "Could not connect to Ersaal. Check the API URL and service status."
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:94 admin/views/dashboard.php:143 admin/views/logs.php:228
+msgid "Created"
+msgstr ""
+
+#: admin/LogsPage.php:101
+msgid "Created at"
+msgstr ""
+
+#: src/Modules/WooCommerce/TemplateEngine.php:11
+msgid "Customer"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:164
+msgid "Customer billing phone is missing."
+msgstr ""
+
+#: src/Modules/WooCommerce/OrderEventHandler.php:204
+msgid "Customer billing phone is missing or invalid."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:99
+msgid "Customer notifications"
+msgstr ""
+
+#: src/Modules/Dashboard/DashboardModule.php:54 src/Modules/Dashboard/DashboardModule.php:55 admin/views/dashboard.php:30
+msgid "Dashboard"
+msgstr ""
+
+#: admin/views/settings-general.php:36
+msgid "Defined in wp-config.php and cannot be changed here."
+msgstr ""
+
+#: admin/views/logs.php:208
+msgid "Delete"
+msgstr ""
+
+#: admin/views/settings-advanced.php:19
+msgid "Delete all local data on uninstall"
+msgstr ""
+
+#: admin/views/logs.php:263
+msgid "Delete log"
+msgstr ""
+
+#: admin/ui.php:49
+msgid "Delivered"
+msgstr ""
+
+#: admin/views/logs.php:227
+msgid "Delivery"
+msgstr ""
+
+#: admin/views/logs.php:262
+msgid "Details"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:27 admin/views/woocommerce-settings.php:228
+msgid "Disabled"
+msgstr ""
+
+#: admin/views/system-status.php:38
+msgid "Disabled by constant"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:27 admin/views/woocommerce-settings.php:227 admin/views/system-status.php:40
+msgid "Enabled"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:73
+msgid "Enable WooCommerce SMS"
+msgstr ""
+
+#: admin/views/manual-send.php:80 admin/views/woocommerce-settings.php:225
+msgid "Encoding"
+msgstr ""
+
+#: admin/views/settings-general.php:38
+msgid "Enter your Bearer Token"
+msgstr ""
+
+#: admin/views/logs.php:139 admin/ui.php:55
+msgid "Error"
+msgstr ""
+
+#: admin/views/dashboard.php:44
+msgid "Ersaal Connection"
+msgstr ""
+
+#: admin/views/manual-send.php:36
+msgid "Ersaal is not connected"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:45
+msgid "Ersaal Logs"
+msgstr ""
+
+#: src/API/Client.php:116
+msgid "Ersaal server returned an internal error. Check the Ersaal service logs."
+msgstr ""
+
+#: src/Modules/Dashboard/DashboardModule.php:43 src/Modules/Dashboard/DashboardModule.php:44 src/Modules/WooCommerce/ManualOrderSmsBox.php:34
+msgid "Ersaal SMS"
+msgstr ""
+
+#: src/Jobs/MessageJob.php:84
+msgid "Ersaal SMS accepted."
+msgstr ""
+
+#: src/Jobs/MessageJob.php:84
+msgid "Ersaal SMS accepted. Message ID: %s"
+msgstr ""
+
+#: src/Jobs/MessageJob.php:91 src/Jobs/MessageJob.php:94 src/Jobs/MessageJob.php:97 src/Jobs/MessageJob.php:110 src/Jobs/MessageJob.php:144
+msgid "Ersaal SMS failed: %s"
+msgstr ""
+
+#: ersaal.php:3
+msgid "Ersaal SMS Gateway"
+msgstr ""
+
+#: ersaal.php:4
+msgid "Ersaal SMS Gateway integration for WordPress and WooCommerce."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:183
+msgid "Ersaal SMS Scheduled manually."
+msgstr ""
+
+#: admin/views/manual-send.php:81 admin/views/woocommerce-settings.php:224
+msgid "Estimated parts"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:86 admin/views/logs.php:151
+msgid "Event"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:100
+msgid "Expand only the order event you want to configure."
+msgstr ""
+
+#: admin/ui.php:57
+msgid "Expired"
+msgstr ""
+
+#: admin/views/logs.php:78
+msgid "Export CSV"
+msgstr ""
+
+#: admin/views/dashboard.php:98 admin/views/logs.php:102 admin/views/logs.php:138 admin/ui.php:54
+msgid "Failed"
+msgstr ""
+
+#: admin/views/dashboard.php:100
+msgid "Failed or errored"
+msgstr ""
+
+#: admin/views/logs.php:117
+msgid "Find messages"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:229
+msgid "Focus a message template before inserting a variable."
+msgstr ""
+
+#: admin/views/logs.php:160
+msgid "From"
+msgstr ""
+
+#: admin/SettingsPage.php:22
+msgid "General Settings"
+msgstr ""
+
+#: src/Modules/Help/HelpModule.php:43 src/Modules/Help/HelpModule.php:44
+msgid "Help & User Guide"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:92 admin/LogsPage.php:101
+msgid "HTTP code"
+msgstr ""
+
+#: admin/views/system-status.php:43
+msgid "If disabled, configure a server cron job to trigger wp-cron.php."
+msgstr ""
+
+#: admin/views/manual-send.php:72
+msgid "Include the country code, for example +21891XXXXXXX."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:109
+msgid "Insert a variable into the focused template"
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:32
+msgid "Insufficient capabilities."
+msgstr ""
+
+#: src/API/Client.php:48
+msgid "Invalid Base URL configured."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:70
+msgid "Invalid phone number."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:28
+msgid "Invalid security token."
+msgstr ""
+
+#: admin/views/logs.php:43
+msgid "Log #%s"
+msgstr ""
+
+#: admin/LogsPage.php:52
+msgid "Log deleted successfully."
+msgstr ""
+
+#: admin/views/logs.php:299
+msgid "Log details"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:82 admin/LogsPage.php:99 admin/views/manual-send.php:132
+msgid "Log ID"
+msgstr ""
+
+#: admin/views/logs.php:129
+msgid "Log ID, message ID, order or phone"
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:134
+msgid "Log not found after execution."
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:46 admin/views/logs.php:63
+msgid "Logs"
+msgstr ""
+
+#: admin/views/logs.php:273
+msgid "Logs pagination"
+msgstr ""
+
+#: admin/views/logs.php:89
+msgid "Log summary"
+msgstr ""
+
+#: admin/SettingsPage.php:35
+msgid "Manage API connection, defaults, and system preferences."
+msgstr ""
+
+#: admin/views/logs.php:146 admin/ui.php:70
+msgid "Manual"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:207
+msgid "Manual order messaging"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:208
+msgid "Manual SMS is available from the Ersaal panel on each WooCommerce order."
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:87 admin/LogsPage.php:100
+msgid "Masked phone"
+msgstr ""
+
+#: admin/LogsPage.php:100 admin/views/manual-send.php:76 admin/views/dashboard.php:142 admin/views/logs.php:226 admin/views/logs.php:305
+msgid "Message"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:69
+msgid "Message:"
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendModule.php:86
+msgid "Message accepted by Ersaal."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:163
+msgid "Message accepted by Ersaal platform."
+msgstr ""
+
+#: admin/views/logs.php:180
+msgid "Message activity"
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendModule.php:87
+msgid "Message could not be sent."
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:88 admin/LogsPage.php:100 admin/views/manual-send.php:124
+msgid "Message ID"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:185
+msgid "Message scheduled for sending."
+msgstr ""
+
+#: admin/views/dashboard.php:129 admin/views/logs.php:191
+msgid "Messages sent through Ersaal will appear here."
+msgstr ""
+
+#: admin/views/dashboard.php:88
+msgid "Messages today"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:44 admin/views/woocommerce-settings.php:163
+msgid "Message template"
+msgstr ""
+
+#: admin/views/system-status.php:29
+msgid "Missing"
+msgstr ""
+
+#: admin/views/dashboard.php:31
+msgid "Monitor connection readiness and today’s messaging activity."
+msgstr ""
+
+#: admin/views/manual-send.php:28 admin/SettingsPage.php:40
+msgid "Need help?"
+msgstr ""
+
+#: admin/views/logs.php:104
+msgid "Needs attention"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:11 admin/ui.php:83
+msgid "New order"
+msgstr ""
+
+#: src/Modules/WooCommerce/WooCommerceSettings.php:87 admin/views/woocommerce-settings.php:141
+msgid "New order #{order_number} from {customer_name}. Total: {order_total}"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:148
+msgid "New order SMS for admin"
+msgstr ""
+
+#: admin/views/logs.php:279
+msgid "Next"
+msgstr ""
+
+#: admin/views/dashboard.php:128
+msgid "No activity yet"
+msgstr ""
+
+#: admin/views/manual-send.php:63
+msgid "No available SMS balance or subscription"
+msgstr ""
+
+#: admin/views/logs.php:190
+msgid "No messages match these filters"
+msgstr ""
+
+#: admin/views/logs.php:190
+msgid "No messages yet"
+msgstr ""
+
+#: admin/views/manual-send.php:17 admin/views/dashboard.php:25 admin/views/dashboard.php:54
+msgid "Not available"
+msgstr ""
+
+#: admin/views/dashboard.php:47
+msgid "Not connected"
+msgstr ""
+
+#: admin/views/system-status.php:19
+msgid "Notes"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:133
+msgid "Notify a store administrator when a new order is placed."
+msgstr ""
+
+#: admin/views/manual-send.php:40
+msgid "Open connection settings"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:191
+msgid "Optional notifications for statuses registered by WooCommerce or other extensions."
+msgstr ""
+
+#: admin/views/logs.php:45
+msgid "Order #%s"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:157
+msgid "Order not found."
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:89 admin/LogsPage.php:100 admin/views/manual-send.php:136
+msgid "Parts"
+msgstr ""
+
+#: admin/views/logs.php:256
+msgid "Parts %1$s · Attempts %2$s"
+msgstr ""
+
+#: admin/views/manual-send.php:87
+msgid "Payment and advanced options"
+msgstr ""
+
+#: admin/views/manual-send.php:97 admin/views/woocommerce-settings.php:86
+msgid "Payment type"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:62
+msgid "Payment Type:"
+msgstr ""
+
+#: admin/ui.php:53
+msgid "Pending"
+msgstr ""
+
+#: admin/views/settings-advanced.php:29
+msgid "Permanent deletion"
+msgstr ""
+
+#: admin/views/dashboard.php:140 admin/views/logs.php:225
+msgid "Phone"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:58
+msgid "Phone:"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:49 admin/views/woocommerce-settings.php:168
+msgid "Preview"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:226
+msgid "Preview appears as you type."
+msgstr ""
+
+#: admin/views/logs.php:278
+msgid "Previous"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:12 admin/views/logs.php:135 admin/ui.php:47 admin/ui.php:84
+msgid "Processing"
+msgstr ""
+
+#: admin/views/dashboard.php:105
+msgid "Processing or scheduled"
+msgstr ""
+
+#: admin/views/manual-send.php:51 admin/views/dashboard.php:53
+msgid "Project"
+msgstr ""
+
+#: admin/views/dashboard.php:57
+msgid "Project status"
+msgstr ""
+
+#: admin/ui.php:52
+msgid "Queued"
+msgstr ""
+
+#: admin/views/dashboard.php:166
+msgid "Quick actions"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:210
+msgid "Read how it works"
+msgstr ""
+
+#: admin/views/manual-send.php:49
+msgid "Ready to send"
+msgstr ""
+
+#: admin/views/logs.php:99
+msgid "Received by Ersaal"
+msgstr ""
+
+#: admin/views/dashboard.php:113
+msgid "Recent activity"
+msgstr ""
+
+#: admin/views/manual-send.php:70
+msgid "Recipient"
+msgstr ""
+
+#: admin/views/logs.php:224
+msgid "Reference"
+msgstr ""
+
+#: admin/ui.php:56
+msgid "Rejected"
+msgstr ""
+
+#: admin/views/settings-advanced.php:20
+msgid "Removes saved settings and SMS logs when the plugin is deleted."
+msgstr ""
+
+#: admin/views/logs.php:170
+msgid "Reset"
+msgstr ""
+
+#: admin/views/logs.php:194
+msgid "Reset filters"
+msgstr ""
+
+#: admin/views/logs.php:191
+msgid "Reset the filters or broaden your search."
+msgstr ""
+
+#: admin/views/logs.php:107
+msgid "Retries"
+msgstr ""
+
+#: admin/views/dashboard.php:103
+msgid "Retrying"
+msgstr ""
+
+#: admin/views/logs.php:137 admin/ui.php:51
+msgid "Retry scheduled"
+msgstr ""
+
+#: admin/views/system-status.php:10
+msgid "Runtime services used to process queued and retried messages."
+msgstr ""
+
+#: admin/views/settings-general.php:62 admin/views/settings-advanced.php:36
+msgid "Save settings"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:216
+msgid "Save WooCommerce settings"
+msgstr ""
+
+#: admin/views/logs.php:109
+msgid "Scheduled again"
+msgstr ""
+
+#: admin/views/logs.php:128
+msgid "Search"
+msgstr ""
+
+#: admin/views/logs.php:118
+msgid "Search by reference, then narrow the results only when needed."
+msgstr ""
+
+#: admin/views/logs.php:220
+msgid "Select all"
+msgstr ""
+
+#: admin/views/manual-send.php:92 admin/views/woocommerce-settings.php:82
+msgid "Sender ID"
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:239
+msgid "Sender ID غير صالح أو غير معتمد لهذا المشروع."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendModule.php:83
+msgid "Sending..."
+msgstr ""
+
+#: admin/views/manual-send.php:23
+msgid "Send one message through the connected Ersaal project."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:149
+msgid "Send one message to the number below for each new order."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendModule.php:50 src/Modules/ManualSend/ManualSendModule.php:51 src/Modules/ManualSend/ManualSendModule.php:84 src/Modules/WooCommerce/ManualOrderSmsBox.php:74 admin/views/manual-send.php:22 admin/views/manual-send.php:110 admin/views/dashboard.php:36 admin/views/dashboard.php:170 admin/views/logs.php:196
+msgid "Send SMS"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:35
+msgid "Send SMS for %s"
+msgstr ""
+
+#: admin/views/dashboard.php:131
+msgid "Send your first SMS"
+msgstr ""
+
+#: admin/ui.php:50
+msgid "Sent"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:68
+msgid "Set the global sender and payment defaults used by order notifications."
+msgstr ""
+
+#: src/Modules/Settings/SettingsModule.php:46 src/Modules/Settings/SettingsModule.php:47 admin/views/dashboard.php:172 admin/SettingsPage.php:34
+msgid "Settings"
+msgstr ""
+
+#: admin/SettingsPage.php:45
+msgid "Settings sections"
+msgstr ""
+
+#: admin/views/manual-send.php:56
+msgid "SMS balance: %s"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:84 admin/LogsPage.php:99 admin/views/dashboard.php:141 admin/views/logs.php:143
+msgid "Source"
+msgstr ""
+
+#: admin/LogsPage.php:99
+msgid "Source event"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:85 admin/LogsPage.php:99
+msgid "Source ID"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:83 admin/LogsPage.php:99 admin/views/manual-send.php:128 admin/views/dashboard.php:139 admin/views/logs.php:132 admin/views/logs.php:223 admin/views/system-status.php:18
+msgid "Status"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:65 admin/views/manual-send.php:52 admin/views/manual-send.php:100 admin/views/woocommerce-settings.php:89 admin/views/dashboard.php:61
+msgid "Subscription"
+msgstr ""
+
+#: admin/SettingsPage.php:24
+msgid "System Status"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:104
+msgid "Template help"
+msgstr ""
+
+#: admin/views/settings-general.php:54
+msgid "Test connection"
+msgstr ""
+
+#: admin/views/settings-general.php:40
+msgid "The API key is set. Keep ******** to retain the existing key."
+msgstr ""
+
+#: admin/views/manual-send.php:64
+msgid "The API may reject this message until the project has an eligible SMS payment source."
+msgstr ""
+
+#: admin/views/settings-general.php:89
+msgid "The connection test could not be completed."
+msgstr ""
+
+#: admin/views/settings-general.php:23
+msgid "The Ersaal Gateway endpoint used for API requests."
+msgstr ""
+
+#: src/API/Client.php:135
+msgid "The Ersaal project is inactive."
+msgstr ""
+
+#: admin/views/dashboard.php:114
+msgid "The latest messages across manual and WooCommerce sources."
+msgstr ""
+
+#: src/API/Client.php:133
+msgid "This server IP is not allowed by the Ersaal project."
+msgstr ""
+
+#: admin/views/logs.php:164
+msgid "To"
+msgstr ""
+
+#: admin/views/dashboard.php:82
+msgid "Today’s activity"
+msgstr ""
+
+#: admin/views/logs.php:92
+msgid "Total"
+msgstr ""
+
+#: admin/views/logs.php:64
+msgid "Track SMS activity and troubleshoot requests."
+msgstr ""
+
+#: src/Storage/LogRepository.php:61
+msgid "Unable to create message log."
+msgstr ""
+
+#: admin/LogsPage.php:54
+msgid "Unable to delete selected log."
+msgstr ""
+
+#: admin/LogsPage.php:65
+msgid "Unable to delete selected logs."
+msgstr ""
+
+#: src/Modules/Settings/SettingsModule.php:91 src/Modules/WooCommerce/ManualOrderSmsBox.php:144 admin/LogsPage.php:20 admin/HelpPage.php:11 admin/DashboardPage.php:24
+msgid "Unauthorized"
+msgstr ""
+
+#: src/API/Client.php:118
+msgid "Unexpected API response received."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:112
+msgid "Unexpected idempotency key conflict."
+msgstr ""
+
+#: src/Jobs/MessageJob.php:108
+msgid "Unexpected internal error: %s"
+msgstr ""
+
+#: admin/views/settings-advanced.php:13
+msgid "Uninstall behavior"
+msgstr ""
+
+#: admin/ui.php:58
+msgid "Unknown"
+msgstr ""
+
+#: src/Services/ConnectionStatusService.php:40
+msgid "Unknown Project"
+msgstr ""
+
+#: src/Modules/Logs/LogsModule.php:95
+msgid "Updated"
+msgstr ""
+
+#: admin/LogsPage.php:101
+msgid "Updated at"
+msgstr ""
+
+#: admin/views/manual-send.php:94
+msgid "Use an approved Sender ID for this project."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:36
+msgid "Uses the template below when this event occurs."
+msgstr ""
+
+#: admin/views/settings-general.php:51
+msgid "Verify the currently saved credentials before configuring messaging."
+msgstr ""
+
+#: admin/views/dashboard.php:118
+msgid "View all logs"
+msgstr ""
+
+#: admin/views/manual-send.php:141
+msgid "View in logs"
+msgstr ""
+
+#: admin/views/dashboard.php:171
+msgid "View logs"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:64 admin/views/manual-send.php:99 admin/views/woocommerce-settings.php:88
+msgid "Wallet"
+msgstr ""
+
+#: admin/views/settings-advanced.php:30
+msgid "When enabled, the local logs and settings cannot be recovered after uninstalling the plugin."
+msgstr ""
+
+#: src/Modules/WooCommerce/WooCommerceSettings.php:17 admin/views/logs.php:147 admin/ui.php:71
+msgid "WooCommerce"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:67
+msgid "WooCommerce messaging"
+msgstr ""
+
+#: admin/views/system-status.php:32
+msgid "WooCommerce provides Action Scheduler. WP-Cron is used when it is unavailable."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:231
+msgid "الرصيد غير كافٍ لإرسال الرسالة باستخدام المحفظة."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:259
+msgid "تعذر إكمال الطلب مع منصة Ersaal."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:247
+msgid "تعذر المصادقة مع Ersaal. راجع API Key."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:255
+msgid "تم تجاوز الحد المسموح للطلبات. حاول لاحقًا."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:262
+msgid "حدث خطأ غير متوقع أثناء إرسال الرسالة."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:251
+msgid "عنوان IP الخاص بالخادم غير مسموح به في مشروع Ersaal."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:229 src/Modules/ManualSend/ManualSendHandler.php:235
+msgid "لا يوجد اشتراك صالح يسمح بإرسال هذه الرسالة."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:79 src/Modules/WooCommerce/ManualOrderSmsBox.php:95 src/Modules/WooCommerce/ManualOrderSmsBox.php:152
+msgid "نص الرسالة مطلوب."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:243
+msgid "يرجى مراجعة رقم الهاتف وبيانات الرسالة."
+msgstr ""

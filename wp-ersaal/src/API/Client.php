@@ -45,12 +45,12 @@ class Client
     {
         $baseUrl = rtrim((string) $this->options->get('api_url', 'https://api.ersaal.com'), '/');
         if (empty($baseUrl) || !filter_var($baseUrl, FILTER_VALIDATE_URL)) {
-            throw new ConnectionException("Invalid Base URL configured.");
+            throw new ConnectionException(__('Invalid Base URL configured.', 'ersaal'));
         }
 
         $apiKey = trim((string) $this->options->get('api_key', ''));
         if (empty($apiKey)) {
-            throw new AuthenticationException("API Key is missing.");
+            throw new AuthenticationException(__('API Key is missing.', 'ersaal'));
         }
 
         // Clean token if user prefixed with Bearer
@@ -81,7 +81,7 @@ class Client
         if (is_wp_error($response)) {
             $errMsg = $response->get_error_message();
             if (str_contains($errMsg, 'timed out') || str_contains($errMsg, 'Could not resolve host') || str_contains($errMsg, 'Connection refused')) {
-                $errMsg = "Could not connect to Ersaal. Check the API URL and service status.";
+                $errMsg = __('Could not connect to Ersaal. Check the API URL and service status.', 'ersaal');
             }
             throw new ConnectionException($this->sanitizeErrorMessage($errMsg));
         }
@@ -113,9 +113,9 @@ class Client
         // Handle raw HTML error pages or sensitive stack traces / logs
         if (empty($message) || str_contains($rawBody, '<html') || str_contains($rawBody, 'Permission denied') || str_contains($rawBody, 'Stack trace')) {
             if ($statusCode >= 500) {
-                $message = "Ersaal server returned an internal error. Check the Ersaal service logs.";
+                $message = __('Ersaal server returned an internal error. Check the Ersaal service logs.', 'ersaal');
             } else {
-                $message = "Unexpected API response received.";
+                $message = __('Unexpected API response received.', 'ersaal');
             }
         }
 
@@ -123,18 +123,18 @@ class Client
 
         if ($statusCode === 401) {
             if (empty($body['message']) || $body['message'] === 'Unauthenticated.') {
-                $message = "Authentication failed. Check the API Key.";
+                $message = __('Authentication failed. Check the API Key.', 'ersaal');
             }
             throw new AuthenticationException($message, $statusCode);
         }
 
         if ($statusCode === 403) {
             if (stripos($rawBody, 'ip') !== false || stripos($rawBody, 'whitelist') !== false || stripos($rawBody, 'not allowed') !== false) {
-                $message = "This server IP is not allowed by the Ersaal project.";
+                $message = __('This server IP is not allowed by the Ersaal project.', 'ersaal');
             } elseif (stripos($rawBody, 'inactive') !== false) {
-                $message = "The Ersaal project is inactive.";
+                $message = __('The Ersaal project is inactive.', 'ersaal');
             } else {
-                $message = "Authentication failed or access forbidden.";
+                $message = __('Authentication failed or access forbidden.', 'ersaal');
             }
             throw new AuthenticationException($message, $statusCode);
         }

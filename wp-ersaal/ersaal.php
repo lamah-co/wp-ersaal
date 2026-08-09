@@ -5,6 +5,7 @@
  * Version: 1.0.0
  * Author: Lamah Co.
  * Text Domain: ersaal
+ * Domain Path: /languages
  */
 
 declare(strict_types=1);

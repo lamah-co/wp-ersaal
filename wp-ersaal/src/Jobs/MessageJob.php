@@ -101,7 +101,12 @@ class MessageJob
             $this->handleRetryableError($log, $idempotencyKey, $payload, 60, $e);
         } catch (\Throwable $e) {
             // Unexpected errors, invalid JSON, internal bugs -> error
-            $this->repository->markFailed($idempotencyKey, 'error', $e->getCode() ?: 0, 'Unexpected internal error: ' . $e->getMessage());
+            $this->repository->markFailed(
+                $idempotencyKey,
+                'error',
+                $e->getCode() ?: 0,
+                sprintf(__('Unexpected internal error: %s', 'ersaal'), $e->getMessage())
+            );
             $this->addOrderNote($idempotencyKey, sprintf(__('Ersaal SMS failed: %s', 'ersaal'), $this->sanitizeError($e->getMessage())));
         }
     }

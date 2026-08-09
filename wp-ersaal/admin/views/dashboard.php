@@ -147,9 +147,9 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                         <?php foreach ($recent['items'] as $log): ?>
                             <?php $badgeClass = $statusBadges[$log->status] ?? 'ersaal-badge-muted'; ?>
                             <tr>
-                                <td><span class="ersaal-badge <?php echo esc_attr($badgeClass); ?>"><?php echo esc_html(ucwords(str_replace('_', ' ', $log->status))); ?></span></td>
+                                <td><span class="ersaal-badge <?php echo esc_attr($badgeClass); ?>"><?php echo esc_html(ersaal_admin_status_label((string) $log->status)); ?></span></td>
                                 <td><span class="ersaal-code ersaal-ltr"><?php echo esc_html($log->phone_masked); ?></span></td>
-                                <td><?php echo esc_html(ucwords(str_replace('_', ' ', (string) ($log->source_event ?: $log->source)))); ?></td>
+                                <td><?php echo esc_html(!empty($log->source_event) ? ersaal_admin_event_label((string) $log->source_event) : ersaal_admin_source_label((string) $log->source)); ?></td>
                                 <td class="ersaal-table-message"><?php echo !empty($log->message_excerpt) ? esc_html($log->message_excerpt) : '&mdash;'; ?></td>
                                 <td><time class="ersaal-table-meta ersaal-ltr" datetime="<?php echo esc_attr($log->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($log->created_at))); ?></time></td>
                             </tr>

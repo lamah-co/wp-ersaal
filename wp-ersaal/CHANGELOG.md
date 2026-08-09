@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+### Added
+- Complete Arabic translation catalog for the WordPress admin interface, AJAX feedback, logs, settings, and WooCommerce screens.
+- Explicit WordPress text-domain loading and Arabic plural rules.
+
+### Changed
+- Improved RTL behavior and Arabic wording throughout the built-in help guide.
+
 ## [1.0.0] - 2026-08-08
 ### Added
 - Native WordPress Admin UI for Ersaal configuration.

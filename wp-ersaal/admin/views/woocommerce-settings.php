@@ -136,7 +136,10 @@ $renderEventEditor = static function (string $event, string $label, bool $open =
         <?php
         $adminEnabled = (bool) get_option('ersaal_wc_admin_new_order_enable', false);
         $adminPhone = (string) get_option('ersaal_wc_admin_phone', '');
-        $adminTemplate = (string) get_option('ersaal_wc_admin_new_order_template', 'New order #{order_number} from {customer_name}. Total: {order_total}');
+        $adminTemplate = (string) get_option(
+            'ersaal_wc_admin_new_order_template',
+            __('New order #{order_number} from {customer_name}. Total: {order_total}', 'ersaal')
+        );
         ?>
         <div class="ersaal-settings-panel">
             <div class="ersaal-settings-section">

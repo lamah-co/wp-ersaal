@@ -96,18 +96,18 @@ class LogsPage
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
 
         fputcsv($output, [
-            'Log ID', 'Status', 'Source', 'Source ID', 'Source Event', 
-            'Masked Phone', 'Message', 'Message ID', 'Parts', 'Cost', 
-            'Attempts', 'HTTP Code', 'API Error', 'Created At', 'Updated At'
+            __('Log ID', 'ersaal'), __('Status', 'ersaal'), __('Source', 'ersaal'), __('Source ID', 'ersaal'), __('Source event', 'ersaal'),
+            __('Masked phone', 'ersaal'), __('Message', 'ersaal'), __('Message ID', 'ersaal'), __('Parts', 'ersaal'), __('Cost', 'ersaal'),
+            __('Attempts', 'ersaal'), __('HTTP code', 'ersaal'), __('API error', 'ersaal'), __('Created at', 'ersaal'), __('Updated at', 'ersaal')
         ]);
 
         foreach ($logsData['items'] as $log) {
             fputcsv($output, [
                 $log->id,
-                $log->status,
-                $log->source,
+                ersaal_admin_status_label((string) $log->status),
+                ersaal_admin_source_label((string) $log->source),
                 $log->source_id,
-                $log->source_event,
+                !empty($log->source_event) ? ersaal_admin_event_label((string) $log->source_event) : '',
                 $log->phone_masked,
                 $log->message_text ?: $log->message_excerpt,
                 $log->message_id,

@@ -15,11 +15,11 @@ $browseDescription = $is_arabic ? 'افتح القسم الذي تحتاجه ف�
 $settingsLabel = $is_arabic ? 'إعداد الاتصال' : 'Connection settings';
 $settingsDescription = $is_arabic ? 'ربط الموقع والتحقق من بيانات API.' : 'Connect the site and verify API credentials.';
 $sendLabel = $is_arabic ? 'إرسال رسالة' : 'Send a message';
-$sendDescription = $is_arabic ? 'إرسال رسالة SMS يدوية.' : 'Send a manual SMS message.';
+$sendDescription = $is_arabic ? 'إرسال رسالة نصية يدوية.' : 'Send a manual SMS message.';
 $logsLabel = $is_arabic ? 'مراجعة السجلات' : 'Review logs';
 $logsDescription = $is_arabic ? 'تتبع الحالات ومعالجة الأخطاء.' : 'Track statuses and troubleshoot errors.';
 ?>
-<div class="wrap ersaal-admin ersaal-page ersaal-page-wide ersaal-help-page">
+<div class="wrap ersaal-admin ersaal-page ersaal-page-wide ersaal-help-page" dir="<?php echo $is_arabic ? 'rtl' : 'ltr'; ?>" lang="<?php echo $is_arabic ? 'ar' : 'en'; ?>">
     <header class="ersaal-page-header">
         <div class="ersaal-page-header-copy">
             <h1 class="ersaal-page-title"><?php echo esc_html($pageTitle); ?></h1>
@@ -39,9 +39,9 @@ $logsDescription = $is_arabic ? 'تتبع الحالات ومعالجة الأخ
                 <input type="hidden" name="page" value="ersaal-help" />
                 <label for="ersaal-help-language"><?php echo esc_html($languageLabel); ?></label>
                 <select id="ersaal-help-language" name="lang" class="ersaal-select">
-                    <option value="auto" <?php selected($lang_override === '' || $lang_override === 'auto'); ?>>Auto (<?php echo esc_html(get_user_locale()); ?>)</option>
+                    <option value="auto" <?php selected($lang_override === '' || $lang_override === 'auto'); ?>><?php echo esc_html($is_arabic ? 'تلقائي' : 'Auto'); ?> (<?php echo esc_html(get_user_locale()); ?>)</option>
                     <option value="ar" <?php selected($lang_override, 'ar'); ?>>العربية</option>
-                    <option value="en" <?php selected($lang_override, 'en'); ?>>English</option>
+                    <option value="en" <?php selected($lang_override, 'en'); ?>><?php echo esc_html($is_arabic ? 'الإنجليزية' : 'English'); ?></option>
                 </select>
             </form>
         </div>

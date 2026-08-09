@@ -274,7 +274,11 @@
 }
 
 [dir="rtl"] .ersaal-admin .ersaal-disclosure[open] summary .ersaal-icon {
-  transform: rotate(-90deg);
+  transform: scaleX(-1) rotate(90deg);
+}
+
+[dir="rtl"] .ersaal-admin .ersaal-disclosure:not([open]) summary .ersaal-icon {
+  transform: scaleX(-1);
 }
 
 .ersaal-admin .ersaal-disclosure-content {
@@ -409,7 +413,11 @@
 }
 
 [dir="rtl"] .ersaal-admin .ersaal-event-editor[open] .ersaal-event-chevron {
-  transform: rotate(-90deg);
+  transform: scaleX(-1) rotate(90deg);
+}
+
+[dir="rtl"] .ersaal-admin .ersaal-event-editor:not([open]) .ersaal-event-chevron {
+  transform: scaleX(-1);
 }
 
 .ersaal-admin .ersaal-event-chevron {

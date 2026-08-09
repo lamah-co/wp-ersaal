@@ -263,6 +263,12 @@
   font-family: var(--ersaal-font-base);
   font-size: var(--ersaal-text-base);
   line-height: var(--ersaal-lh-normal);
+  text-align: start;
+}
+
+[dir="rtl"] .ersaal-admin,
+.ersaal-admin[dir="rtl"] {
+  font-family: var(--ersaal-font-ar);
 }
 
 .ersaal-admin p,
@@ -771,6 +777,11 @@
   inline-size: 18px;
   block-size: 18px;
   flex: 0 0 auto;
+}
+
+[dir="rtl"] .ersaal-admin .ersaal-icon-arrow,
+.ersaal-admin[dir="rtl"] .ersaal-icon-arrow {
+  transform: scaleX(-1);
 }
 
 .ersaal-admin .ersaal-icon-button {
