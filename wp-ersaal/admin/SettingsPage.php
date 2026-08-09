@@ -27,29 +27,30 @@ class SettingsPage
         $tabs = apply_filters('ersaal_settings_tabs', $tabs);
 
         ?>
-        <div class="wrap ersaal-admin ersaal-page ersaal-page-narrow">
-            <div class="ersaal-page-header">
-                <div>
-                    <h1 class="ersaal-page-title"><?php esc_html_e('Ersaal Settings', 'ersaal'); ?></h1>
+        <?php $page_width_class = $active_tab === 'woocommerce' ? 'ersaal-page-medium-wide' : 'ersaal-page-medium'; ?>
+        <div class="wrap ersaal-admin ersaal-page <?php echo esc_attr($page_width_class); ?>">
+            <header class="ersaal-page-header">
+                <div class="ersaal-page-header-copy">
+                    <h1 class="ersaal-page-title"><?php esc_html_e('Settings', 'ersaal'); ?></h1>
                     <p class="ersaal-page-description"><?php esc_html_e('Manage API connection, defaults, and system preferences.', 'ersaal'); ?></p>
                 </div>
-                <div>
+                <div class="ersaal-page-actions">
                     <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" class="ersaal-btn ersaal-btn-ghost">
-                        <span class="dashicons dashicons-editor-help"></span>
+                        <?php echo ersaal_admin_icon('help'); ?>
                         <?php esc_html_e('Need help?', 'ersaal'); ?>
                     </a>
                 </div>
-            </div>
+            </header>
 
-            <div class="ersaal-tabs-list" role="tablist">
+            <nav class="ersaal-tabs-list" aria-label="<?php esc_attr_e('Settings sections', 'ersaal'); ?>">
                 <?php foreach ($tabs as $tab_id => $tab_name): ?>
-                    <a href="?page=ersaal-settings&tab=<?php echo esc_attr($tab_id); ?>" class="ersaal-tab <?php echo $active_tab === $tab_id ? 'ersaal-tab-active' : ''; ?>" role="tab" aria-selected="<?php echo $active_tab === $tab_id ? 'true' : 'false'; ?>">
+                    <a href="?page=ersaal-settings&amp;tab=<?php echo esc_attr($tab_id); ?>" class="ersaal-tab <?php echo $active_tab === $tab_id ? 'ersaal-tab-active' : ''; ?>" <?php echo $active_tab === $tab_id ? 'aria-current="page"' : ''; ?>>
                         <?php echo esc_html($tab_name); ?>
                     </a>
                 <?php endforeach; ?>
-            </div>
+            </nav>
 
-            <div class="ersaal-settings-content ersaal-card">
+            <main class="ersaal-settings-content">
                 <?php
                 if ($active_tab === 'general') {
                     $this->renderGeneral();
@@ -61,7 +62,7 @@ class SettingsPage
                     do_action('ersaal_render_settings_tab_' . $active_tab);
                 }
                 ?>
-            </div>
+            </main>
         </div>
         <?php
     }

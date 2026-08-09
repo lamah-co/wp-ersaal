@@ -171,6 +171,11 @@
   display: none;
 }
 
+.ersaal-admin .ersaal-test-result,
+.ersaal-admin .ersaal-settings-section .ersaal-alert {
+  margin-block-start: var(--ersaal-space-lg);
+}
+
 .ersaal-admin .ersaal-system-name {
   color: var(--ersaal-text-primary);
   font-weight: var(--ersaal-fw-medium);
