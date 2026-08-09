@@ -136,7 +136,7 @@
 
 .ersaal-admin .ersaal-settings-panel {
   background: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
   border-radius: var(--ersaal-radius-md);
   box-shadow: var(--ersaal-shadow-sm);
   overflow: hidden;
@@ -194,7 +194,7 @@
   padding: var(--ersaal-space-md) var(--ersaal-space-lg);
   margin-block-end: var(--ersaal-space-lg);
   background: var(--ersaal-bg-surface);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
   border-radius: var(--ersaal-radius-md);
 }
 
@@ -341,9 +341,10 @@
 }
 
 .ersaal-admin .ersaal-event-list {
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
   border-radius: var(--ersaal-radius-md);
   overflow: hidden;
+  box-shadow: var(--ersaal-shadow-sm);
 }
 
 .ersaal-admin .ersaal-event-editor + .ersaal-event-editor {
@@ -434,18 +435,15 @@
 .ersaal-admin .ersaal-log-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
   border-radius: var(--ersaal-radius-md);
   background: var(--ersaal-bg-page);
   overflow: hidden;
+  box-shadow: var(--ersaal-shadow-sm);
 }
 
 .ersaal-admin .ersaal-log-summary-item {
   padding: var(--ersaal-space-md) var(--ersaal-space-lg);
-}
-
-.ersaal-admin .ersaal-log-summary-item + .ersaal-log-summary-item {
-  border-inline-start: 1px solid var(--ersaal-border-color);
 }
 
 .ersaal-admin .ersaal-log-summary-label {
@@ -464,8 +462,9 @@
 .ersaal-admin .ersaal-toolbar {
   padding: var(--ersaal-space-md);
   background: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
   border-radius: var(--ersaal-radius-md);
+  box-shadow: var(--ersaal-shadow-sm);
 }
 
 .ersaal-admin .ersaal-filter-form {
@@ -616,85 +615,6 @@
   overflow-wrap: anywhere;
 }
 
-/* Help */
-.ersaal-admin .ersaal-help-language {
-  display: flex;
-  align-items: center;
-  gap: var(--ersaal-space-sm);
-  margin: 0;
-}
-
-.ersaal-admin .ersaal-help-language label {
-  color: var(--ersaal-text-muted);
-  font-size: var(--ersaal-text-sm);
-}
-
-.ersaal-admin .ersaal-help-language .ersaal-select {
-  width: auto;
-  min-width: 150px;
-}
-
-.ersaal-admin .ersaal-help-wrap {
-  display: grid;
-  grid-template-columns: 236px minmax(0, 1fr);
-  gap: var(--ersaal-space-xl);
-  align-items: start;
-}
-
-.ersaal-admin .ersaal-help-sidebar {
-  position: sticky;
-  inset-block-start: 48px;
-}
-
-.ersaal-admin .ersaal-help-search {
-  margin-block-end: var(--ersaal-space-md);
-}
-
-.ersaal-admin .ersaal-help-nav {
-  display: grid;
-  gap: 2px;
-}
-
-.ersaal-admin .ersaal-help-nav a {
-  padding: var(--ersaal-space-sm) var(--ersaal-space-md);
-  color: var(--ersaal-text-secondary);
-  border-inline-start: 3px solid transparent;
-  border-radius: var(--ersaal-radius-sm);
-  text-decoration: none;
-}
-
-.ersaal-admin .ersaal-help-nav a:hover,
-.ersaal-admin .ersaal-help-nav a.active {
-  color: var(--ersaal-color-primary);
-  background: var(--ersaal-bg-surface);
-  border-inline-start-color: var(--ersaal-color-primary);
-}
-
-.ersaal-admin .ersaal-help-content {
-  min-width: 0;
-  padding: var(--ersaal-space-xl);
-  background: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-color);
-  border-radius: var(--ersaal-radius-md);
-}
-
-.ersaal-admin .ersaal-help-section + .ersaal-help-section {
-  padding-block-start: var(--ersaal-space-xl);
-  margin-block-start: var(--ersaal-space-xl);
-  border-block-start: 1px solid var(--ersaal-border-color);
-}
-
-.ersaal-admin .ersaal-help-section h2 {
-  color: var(--ersaal-text-primary);
-  font-size: var(--ersaal-text-xl);
-  margin: 0 0 var(--ersaal-space-lg);
-}
-
-.ersaal-admin .ersaal-help-section-body {
-  color: var(--ersaal-text-secondary);
-  line-height: var(--ersaal-lh-relaxed);
-}
-
 @media screen and (max-width: 1180px) {
   .ersaal-admin .ersaal-filter-form {
     grid-template-columns: repeat(4, minmax(140px, 1fr));
@@ -723,10 +643,6 @@
     grid-column: 1 / -1;
   }
 
-  .ersaal-admin .ersaal-help-wrap {
-    grid-template-columns: 210px minmax(0, 1fr);
-    gap: var(--ersaal-space-lg);
-  }
 }
 
 @media screen and (max-width: 782px) {
@@ -738,11 +654,6 @@
   .ersaal-admin .ersaal-filter-form,
   .ersaal-admin .ersaal-wc-general-grid {
     grid-template-columns: 1fr;
-  }
-
-  .ersaal-admin .ersaal-log-summary-item + .ersaal-log-summary-item {
-    border-inline-start: 0;
-    border-block-start: 1px solid var(--ersaal-border-color);
   }
 
   .ersaal-admin .ersaal-filter-search {
@@ -759,32 +670,4 @@
     width: 100%;
   }
 
-  .ersaal-admin .ersaal-help-wrap {
-    grid-template-columns: 1fr;
-  }
-
-  .ersaal-admin .ersaal-help-sidebar {
-    position: static;
-  }
-
-  .ersaal-admin .ersaal-help-nav {
-    display: flex;
-    overflow-x: auto;
-    padding-block-end: var(--ersaal-space-xs);
-  }
-
-  .ersaal-admin .ersaal-help-nav a {
-    flex: 0 0 auto;
-    border-inline-start: 0;
-    border-block-end: 3px solid transparent;
-  }
-
-  .ersaal-admin .ersaal-help-nav a:hover,
-  .ersaal-admin .ersaal-help-nav a.active {
-    border-block-end-color: var(--ersaal-color-primary);
-  }
-
-  .ersaal-admin .ersaal-help-content {
-    padding: var(--ersaal-space-lg);
-  }
 }

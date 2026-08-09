@@ -13,44 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.querySelectorAll('.ersaal-accordion-btn').forEach(function(button, index) {
-        const panel = button.nextElementSibling;
-        if (!panel || !panel.classList.contains('ersaal-accordion-panel')) {
-            return;
-        }
-
-        const buttonId = `ersaal-accordion-button-${index}`;
-        const panelId = `ersaal-accordion-panel-${index}`;
-        button.type = 'button';
-        button.id = buttonId;
-        button.setAttribute('aria-controls', panelId);
-        button.setAttribute('aria-expanded', 'false');
-        panel.id = panelId;
-        panel.hidden = true;
-        panel.setAttribute('role', 'region');
-        panel.setAttribute('aria-labelledby', buttonId);
-
-        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        icon.setAttribute('class', 'ersaal-icon');
-        icon.setAttribute('viewBox', '0 0 24 24');
-        icon.setAttribute('fill', 'none');
-        icon.setAttribute('stroke', 'currentColor');
-        icon.setAttribute('stroke-width', '1.8');
-        icon.setAttribute('stroke-linecap', 'round');
-        icon.setAttribute('stroke-linejoin', 'round');
-        icon.setAttribute('aria-hidden', 'true');
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'm9 18 6-6-6-6');
-        icon.appendChild(path);
-        button.appendChild(icon);
-
-        button.addEventListener('click', function() {
-            const expanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-            panel.hidden = expanded;
-        });
-    });
-
     function updateActiveLink(id) {
         links.forEach(function(link) {
             const active = link.getAttribute('href') === `#${id}`;
@@ -63,54 +25,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function showSection(id, shouldScroll) {
+        const section = document.getElementById(id);
+        if (!section || !section.classList.contains('ersaal-help-section')) {
+            return;
+        }
+
+        section.hidden = false;
+        section.open = true;
+        updateActiveLink(id);
+
+        if (shouldScroll) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    links.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const id = link.getAttribute('href').slice(1);
+            showSection(id, true);
+            window.history.replaceState(null, '', `#${id}`);
+        });
+    });
+
+    sections.forEach(function(section) {
+        section.addEventListener('toggle', function() {
+            if (section.open && !section.hidden) {
+                updateActiveLink(section.id);
+            }
+        });
+    });
+
+    function updateResults(query) {
+        let visibleCount = 0;
+
+        sections.forEach(function(section) {
+            const matches = !query || section.textContent.toLocaleLowerCase().includes(query);
+            section.hidden = !matches;
+            if (matches) {
+                visibleCount++;
+                if (query) {
+                    section.open = true;
+                }
+            }
+        });
+
+        links.forEach(function(link) {
+            const section = document.getElementById(link.getAttribute('href').slice(1));
+            link.hidden = !section || section.hidden;
+        });
+
+        noResults.hidden = visibleCount !== 0;
+        searchStatus.textContent = query ? ersaalHelp.i18n.results.replace('%d', String(visibleCount)) : '';
+
+        const firstVisible = sections.find(function(section) { return !section.hidden; });
+        updateActiveLink(firstVisible ? firstVisible.id : '');
+    }
+
     if (searchInput) {
         searchInput.addEventListener('input', function(event) {
-            const query = event.target.value.trim().toLocaleLowerCase();
-            let visibleCount = 0;
-
-            sections.forEach(function(section) {
-                const matches = !query || section.textContent.toLocaleLowerCase().includes(query);
-                section.hidden = !matches;
-                if (matches) {
-                    visibleCount++;
-                }
-            });
-
-            noResults.hidden = visibleCount !== 0;
-            searchStatus.textContent = ersaalHelp.i18n.results.replace('%d', String(visibleCount));
-
-            const firstVisible = sections.find(function(section) { return !section.hidden; });
-            if (firstVisible) {
-                updateActiveLink(firstVisible.id);
-            } else {
-                updateActiveLink('');
-            }
+            updateResults(event.target.value.trim().toLocaleLowerCase());
         });
     }
 
-    let scrollScheduled = false;
-    window.addEventListener('scroll', function() {
-        if (scrollScheduled) {
-            return;
-        }
-        scrollScheduled = true;
-        window.requestAnimationFrame(function() {
-            let current = '';
-            sections.forEach(function(section) {
-                if (!section.hidden && window.scrollY >= section.offsetTop - 90) {
-                    current = section.id;
-                }
-            });
-            if (current) {
-                updateActiveLink(current);
-            }
-            scrollScheduled = false;
-        });
-    }, { passive: true });
+    updateResults('');
 
-    links.forEach(function(link) {
-        link.addEventListener('click', function() {
-            updateActiveLink(link.getAttribute('href').slice(1));
-        });
-    });
+    if (window.location.hash) {
+        showSection(window.location.hash.slice(1), false);
+    }
 });

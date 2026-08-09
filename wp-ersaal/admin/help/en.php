@@ -10,7 +10,7 @@ return [
                     <li>Enter API URL and API Key.</li>
                     <li>Test Connection.</li>
                     <li>Enter approved Sender ID.</li>
-                    <li><a href="' . esc_url(admin_url('admin.php?page=ersaal-manual-send')) . '">Open Send SMS</a>.</li>
+                    <li><a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">Open Send SMS</a>.</li>
                     <li>Send a test message.</li>
                     <li>Configure WooCommerce if needed.</li>
                 </ol>
@@ -47,7 +47,7 @@ return [
         'id' => 'send-sms',
         'title' => 'Send SMS',
         'content' => '
-            <p>You can send manual SMS messages from <a href="' . esc_url(admin_url('admin.php?page=ersaal-manual-send')) . '">Send SMS</a>.</p>
+            <p>You can send manual SMS messages from <a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">Send SMS</a>.</p>
             <ul>
                 <li><strong>Phone Number:</strong> Formatted automatically based on the gateway\'s requirements.</li>
                 <li><strong>Message Characters:</strong> Supports standard GSM-7 and Unicode (Arabic). Arabic messages use Unicode (70 chars per part).</li>
@@ -117,24 +117,13 @@ return [
         'id' => 'faq',
         'title' => 'FAQ',
         'content' => '
-            <div class="ersaal-help-accordion">
-                <button class="ersaal-accordion-btn" aria-expanded="false">Do I need WooCommerce?</button>
-                <div class="ersaal-accordion-panel"><p>No, the plugin works as a standalone SMS sender. WooCommerce is optional.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">Can I send manual SMS?</button>
-                <div class="ersaal-accordion-panel"><p>Yes, from the Send SMS page.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">What does Wallet Unknown mean?</button>
-                <div class="ersaal-accordion-panel"><p>Your account might be using a quota subscription instead of a wallet balance.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">What is the difference between OTP and SMS?</button>
-                <div class="ersaal-accordion-panel"><p>OTP is strictly for verification codes. SMS is for marketing and notifications. Make sure you use the right subscription type.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">Why are phone numbers masked?</button>
-                <div class="ersaal-accordion-panel"><p>For privacy and GDPR compliance, full numbers are not stored in logs.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">Can I send multiple manual SMS for the same order?</button>
-                <div class="ersaal-accordion-panel"><p>Yes, manual sending allows multiple messages to the same order.</p></div>
+            <div class="ersaal-help-faq-list">
+                <details><summary>Do I need WooCommerce?</summary><div class="ersaal-help-faq-answer"><p>No, the plugin works as a standalone SMS sender. WooCommerce is optional.</p></div></details>
+                <details><summary>Can I send manual SMS?</summary><div class="ersaal-help-faq-answer"><p>Yes, from the Send SMS page.</p></div></details>
+                <details><summary>What does Wallet Unknown mean?</summary><div class="ersaal-help-faq-answer"><p>Your account might be using a quota subscription instead of a wallet balance.</p></div></details>
+                <details><summary>What is the difference between OTP and SMS?</summary><div class="ersaal-help-faq-answer"><p>OTP is strictly for verification codes. SMS is for marketing and notifications. Make sure you use the right subscription type.</p></div></details>
+                <details><summary>Why are phone numbers masked?</summary><div class="ersaal-help-faq-answer"><p>For privacy, full numbers are not stored in logs.</p></div></details>
+                <details><summary>Can I send multiple manual SMS for the same order?</summary><div class="ersaal-help-faq-answer"><p>Yes, manual sending allows multiple messages to the same order.</p></div></details>
             </div>
         '
     ]

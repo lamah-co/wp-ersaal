@@ -346,13 +346,12 @@
 
 /* Secondary / Outline Button */
 .ersaal-admin .ersaal-btn-secondary {
-  background-color: transparent;
+  background-color: var(--ersaal-bg-surface);
   color: var(--ersaal-color-primary);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
 }
 .ersaal-admin .ersaal-btn-secondary:hover {
-  background-color: var(--ersaal-bg-surface);
-  border-color: var(--ersaal-color-primary);
+  background-color: var(--ersaal-blue-1);
   color: var(--ersaal-color-primary);
 }
 
@@ -411,9 +410,10 @@
   font-size: var(--ersaal-text-md);
   font-family: var(--ersaal-font-base);
   color: var(--ersaal-text-primary);
-  background-color: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-input);
-  border-radius: var(--ersaal-radius-input);
+  background-color: var(--ersaal-bg-surface);
+  border: 0;
+  border-block-end: 1px solid var(--ersaal-border-input);
+  border-radius: var(--ersaal-radius-sm) var(--ersaal-radius-sm) 0 0;
   transition: border-color var(--ersaal-transition-normal), box-shadow var(--ersaal-transition-normal);
   line-height: var(--ersaal-lh-normal);
   min-height: 40px;
@@ -422,7 +422,7 @@
 .ersaal-admin .ersaal-input:focus,
 .ersaal-admin .ersaal-select:focus,
 .ersaal-admin .ersaal-textarea:focus {
-  border-color: var(--ersaal-color-primary);
+  border-block-end-color: var(--ersaal-color-primary);
   box-shadow: var(--ersaal-shadow-focus);
   outline: none;
 }
@@ -440,13 +440,13 @@
 }
 
 .ersaal-admin .ersaal-input.ersaal-input-error {
-  border-color: var(--ersaal-border-danger);
+  border-block-end-color: var(--ersaal-border-danger);
 }
 
 .ersaal-admin .ersaal-textarea {
   resize: vertical;
   min-height: 80px;
-  border-radius: var(--ersaal-radius-md);
+  border-radius: var(--ersaal-radius-sm) var(--ersaal-radius-sm) 0 0;
 }
 
 .ersaal-admin .ersaal-field-help {
@@ -485,7 +485,7 @@
 
 .ersaal-admin .ersaal-card {
   background-color: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
   border-radius: var(--ersaal-radius-card);
   padding: var(--ersaal-card-padding);
   box-shadow: var(--ersaal-shadow-sm);
@@ -509,10 +509,11 @@
 /* Stats Card variant */
 .ersaal-admin .ersaal-card-stat {
   background-color: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
   border-radius: var(--ersaal-radius-card);
   padding: var(--ersaal-space-lg);
   text-align: start;
+  box-shadow: var(--ersaal-shadow-sm);
 }
 
 /* --------------------------------------------------------------------------
@@ -566,7 +567,7 @@
 .ersaal-admin .ersaal-alert {
   padding: var(--ersaal-space-md) var(--ersaal-space-lg);
   border-radius: var(--ersaal-radius-md);
-  border-inline-start: 4px solid transparent;
+  border: 0;
   font-size: var(--ersaal-text-md);
 }
 
@@ -585,22 +586,18 @@
 
 .ersaal-admin .ersaal-alert-success {
   background-color: var(--ersaal-color-success-light);
-  border-inline-start-color: var(--ersaal-color-success);
   color: #087F5B;
 }
 .ersaal-admin .ersaal-alert-danger {
   background-color: var(--ersaal-color-danger-light);
-  border-inline-start-color: var(--ersaal-color-danger);
   color: #C92A2A;
 }
 .ersaal-admin .ersaal-alert-warning {
   background-color: var(--ersaal-color-warning-light);
-  border-inline-start-color: var(--ersaal-color-warning);
   color: var(--ersaal-color-warning);
 }
 .ersaal-admin .ersaal-alert-info {
   background-color: var(--ersaal-color-primary-light);
-  border-inline-start-color: var(--ersaal-color-primary);
   color: var(--ersaal-color-primary);
 }
 
@@ -810,7 +807,7 @@
   padding-inline: var(--ersaal-space-sm);
   color: var(--ersaal-color-primary);
   background: var(--ersaal-color-primary-light);
-  border: 1px solid transparent;
+  border: 0;
   border-radius: var(--ersaal-radius-sm);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: var(--ersaal-text-xs);
@@ -819,7 +816,6 @@
 }
 
 .ersaal-admin .ersaal-chip:hover {
-  border-color: var(--ersaal-blue-2);
   background: var(--ersaal-blue-1);
 }
 
@@ -912,7 +908,8 @@
   padding: var(--ersaal-space-md) var(--ersaal-space-lg);
   margin-block-start: var(--ersaal-space-xl);
   background: rgba(255, 255, 255, 0.96);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
+  border-block: 1px solid var(--ersaal-border-color);
   border-radius: var(--ersaal-radius-md);
   box-shadow: 0 -4px 16px rgba(6, 8, 22, 0.06);
 }
@@ -921,7 +918,8 @@
   width: 100%;
   overflow-x: auto;
   background: var(--ersaal-bg-page);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
+  border-block: 1px solid var(--ersaal-border-color);
   border-radius: var(--ersaal-radius-md);
   box-shadow: var(--ersaal-shadow-sm);
 }

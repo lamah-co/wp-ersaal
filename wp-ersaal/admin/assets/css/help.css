@@ -1,10 +1,219 @@
-.ersaal-admin .ersaal-help-quick-start {
+.ersaal-admin .ersaal-help-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--ersaal-space-xl);
+  align-items: end;
   padding: var(--ersaal-space-lg);
-  margin-block-end: var(--ersaal-space-xl);
-  color: var(--ersaal-text-primary);
-  background: var(--ersaal-color-info-light);
-  border-inline-start: 4px solid var(--ersaal-color-info);
+  margin-block-end: var(--ersaal-space-lg);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-block: 1px solid var(--ersaal-border-color);
   border-radius: var(--ersaal-radius-md);
+  box-shadow: var(--ersaal-shadow-sm);
+}
+
+.ersaal-admin .ersaal-help-search {
+  min-width: 0;
+}
+
+.ersaal-admin .ersaal-help-search .ersaal-input {
+  min-height: 44px;
+  font-size: var(--ersaal-text-md);
+}
+
+.ersaal-admin .ersaal-help-results {
+  min-height: 18px;
+  color: var(--ersaal-text-muted);
+  font-size: var(--ersaal-text-xs);
+}
+
+.ersaal-admin .ersaal-help-language {
+  display: grid;
+  gap: var(--ersaal-space-xs);
+  min-width: 180px;
+  margin: 0;
+}
+
+.ersaal-admin .ersaal-help-language label {
+  color: var(--ersaal-text-secondary);
+  font-size: var(--ersaal-text-sm);
+  font-weight: var(--ersaal-fw-semibold);
+}
+
+.ersaal-admin .ersaal-help-language .ersaal-select {
+  width: 100%;
+}
+
+.ersaal-admin .ersaal-help-nav {
+  display: flex;
+  gap: var(--ersaal-space-sm);
+  margin-block-end: var(--ersaal-space-xl);
+  overflow-x: auto;
+  padding-block-end: var(--ersaal-space-xs);
+  scrollbar-width: thin;
+}
+
+.ersaal-admin .ersaal-help-nav a {
+  flex: 0 0 auto;
+  padding: var(--ersaal-space-sm) var(--ersaal-space-md);
+  color: var(--ersaal-text-secondary);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-radius: var(--ersaal-radius-pill);
+  text-decoration: none;
+  transition: background-color var(--ersaal-transition-fast), color var(--ersaal-transition-fast);
+}
+
+.ersaal-admin .ersaal-help-nav a:hover {
+  color: var(--ersaal-color-primary);
+  background: var(--ersaal-blue-1);
+}
+
+.ersaal-admin .ersaal-help-nav a.active {
+  color: var(--ersaal-text-on-primary);
+  background: var(--ersaal-color-primary);
+}
+
+.ersaal-admin .ersaal-help-nav a:focus-visible,
+.ersaal-admin .ersaal-help-shortcut:focus-visible,
+.ersaal-admin .ersaal-help-section > summary:focus-visible,
+.ersaal-admin .ersaal-help-faq-list summary:focus-visible {
+  outline: 2px solid var(--ersaal-color-primary);
+  outline-offset: 2px;
+}
+
+.ersaal-admin .ersaal-help-content {
+  display: grid;
+  gap: var(--ersaal-space-xl);
+  width: min(100%, 1040px);
+  margin-inline: auto;
+}
+
+.ersaal-admin .ersaal-help-overview {
+  display: grid;
+  gap: var(--ersaal-space-lg);
+}
+
+.ersaal-admin .ersaal-help-overview h2 {
+  margin: 0;
+  color: var(--ersaal-text-primary);
+  font-size: var(--ersaal-text-xl);
+}
+
+.ersaal-admin .ersaal-help-overview > div > p {
+  margin: var(--ersaal-space-xs) 0 0;
+  color: var(--ersaal-text-muted);
+}
+
+.ersaal-admin .ersaal-help-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ersaal-space-md);
+}
+
+.ersaal-admin .ersaal-help-shortcut {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ersaal-space-md);
+  min-width: 0;
+  padding: var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-radius: var(--ersaal-radius-md);
+  box-shadow: var(--ersaal-shadow-sm);
+  text-decoration: none;
+  transition: background-color var(--ersaal-transition-fast), transform var(--ersaal-transition-fast);
+}
+
+.ersaal-admin .ersaal-help-shortcut:hover {
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-blue-1);
+  transform: translateY(-1px);
+}
+
+.ersaal-admin .ersaal-help-shortcut .ersaal-icon {
+  color: var(--ersaal-color-primary);
+  margin-block-start: 2px;
+}
+
+.ersaal-admin .ersaal-help-shortcut span {
+  min-width: 0;
+}
+
+.ersaal-admin .ersaal-help-shortcut strong,
+.ersaal-admin .ersaal-help-shortcut small {
+  display: block;
+}
+
+.ersaal-admin .ersaal-help-shortcut small {
+  margin-block-start: var(--ersaal-space-xs);
+  color: var(--ersaal-text-muted);
+  font-size: var(--ersaal-text-xs);
+  line-height: var(--ersaal-lh-normal);
+}
+
+.ersaal-admin .ersaal-help-sections {
+  display: grid;
+  gap: var(--ersaal-space-md);
+}
+
+.ersaal-admin .ersaal-help-section {
+  overflow: hidden;
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-radius: var(--ersaal-radius-md);
+  box-shadow: var(--ersaal-shadow-sm);
+  scroll-margin-block-start: 48px;
+}
+
+.ersaal-admin .ersaal-help-section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ersaal-space-md);
+  min-height: 58px;
+  padding: var(--ersaal-space-md) var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  cursor: pointer;
+  font-size: var(--ersaal-text-lg);
+  font-weight: var(--ersaal-fw-semibold);
+  list-style: none;
+}
+
+.ersaal-admin .ersaal-help-section > summary::-webkit-details-marker,
+.ersaal-admin .ersaal-help-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.ersaal-admin .ersaal-help-section > summary:hover,
+.ersaal-admin .ersaal-help-section[open] > summary {
+  background: var(--ersaal-bg-surface);
+}
+
+.ersaal-admin .ersaal-help-section[open] > summary {
+  border-block-end: 1px solid var(--ersaal-border-color);
+}
+
+.ersaal-admin .ersaal-help-chevron {
+  color: var(--ersaal-text-muted);
+  transition: transform var(--ersaal-transition-fast);
+}
+
+.ersaal-admin .ersaal-help-section[open] > summary .ersaal-help-chevron {
+  transform: rotate(90deg);
+}
+
+[dir="rtl"] .ersaal-admin .ersaal-help-section[open] > summary .ersaal-help-chevron {
+  transform: rotate(-90deg);
+}
+
+.ersaal-admin .ersaal-help-section-body {
+  padding: var(--ersaal-space-lg) var(--ersaal-space-xl) var(--ersaal-space-xl);
+  color: var(--ersaal-text-secondary);
+  line-height: var(--ersaal-lh-relaxed);
 }
 
 .ersaal-admin .ersaal-help-section-body :where(h3, h4) {
@@ -25,13 +234,24 @@
   margin-block-start: var(--ersaal-space-xs);
 }
 
+.ersaal-admin .ersaal-help-quick-start {
+  padding: var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-color-info-light);
+  border: 0;
+  border-radius: var(--ersaal-radius-md);
+}
+
+.ersaal-admin .ersaal-help-quick-start ol {
+  margin-block: 0;
+}
+
 .ersaal-admin .ersaal-help-section-body .notice {
   padding: var(--ersaal-space-md) var(--ersaal-space-lg);
   margin: var(--ersaal-space-lg) 0;
   color: var(--ersaal-warning-text);
   background: var(--ersaal-color-warning-light);
   border: 0;
-  border-inline-start: 4px solid var(--ersaal-color-warning);
   border-radius: var(--ersaal-radius-md);
   box-shadow: none;
 }
@@ -39,15 +259,15 @@
 .ersaal-admin .ersaal-help-section-body table {
   width: 100%;
   margin-block: var(--ersaal-space-lg);
-  border: 1px solid var(--ersaal-border-color);
+  border: 0;
+  border-block: 1px solid var(--ersaal-border-color);
   border-collapse: collapse;
-  border-radius: var(--ersaal-radius-md);
-  overflow: hidden;
 }
 
 .ersaal-admin .ersaal-help-section-body table :where(th, td) {
   padding: var(--ersaal-space-md);
   text-align: start;
+  border: 0;
   border-block-end: 1px solid var(--ersaal-border-color);
 }
 
@@ -57,60 +277,55 @@
   font-weight: var(--ersaal-fw-semibold);
 }
 
-.ersaal-admin .ersaal-help-accordion {
-  border: 1px solid var(--ersaal-border-color);
-  border-radius: var(--ersaal-radius-md);
-  overflow: hidden;
+.ersaal-admin .ersaal-help-faq-list {
+  display: grid;
+  gap: var(--ersaal-space-sm);
 }
 
-.ersaal-admin .ersaal-accordion-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--ersaal-space-md);
-  width: 100%;
-  min-height: 48px;
+.ersaal-admin .ersaal-help-faq-list details {
+  background: var(--ersaal-bg-surface);
+  border: 0;
+  border-radius: var(--ersaal-radius-sm);
+}
+
+.ersaal-admin .ersaal-help-faq-list summary {
   padding: var(--ersaal-space-md) var(--ersaal-space-lg);
   color: var(--ersaal-text-primary);
-  background: var(--ersaal-bg-page);
-  border: 0;
-  border-block-end: 1px solid var(--ersaal-border-color);
-  font: inherit;
-  font-weight: var(--ersaal-fw-semibold);
-  text-align: start;
   cursor: pointer;
+  font-weight: var(--ersaal-fw-semibold);
+  list-style: none;
 }
 
-.ersaal-admin .ersaal-accordion-btn:hover,
-.ersaal-admin .ersaal-accordion-btn[aria-expanded="true"] {
-  background: var(--ersaal-bg-surface);
+.ersaal-admin .ersaal-help-faq-answer {
+  padding: 0 var(--ersaal-space-lg) var(--ersaal-space-md);
 }
 
-.ersaal-admin .ersaal-accordion-btn .ersaal-icon {
-  transition: transform var(--ersaal-transition-fast);
-}
-
-.ersaal-admin .ersaal-accordion-btn[aria-expanded="true"] .ersaal-icon {
-  transform: rotate(90deg);
-}
-
-[dir="rtl"] .ersaal-admin .ersaal-accordion-btn[aria-expanded="true"] .ersaal-icon {
-  transform: rotate(-90deg);
-}
-
-.ersaal-admin .ersaal-accordion-panel {
-  padding: var(--ersaal-space-lg);
-  color: var(--ersaal-text-secondary);
-  background: var(--ersaal-bg-page);
-  border-block-end: 1px solid var(--ersaal-border-color);
-}
-
-.ersaal-admin .ersaal-help-accordion > :last-child {
-  border-block-end: 0;
+.ersaal-admin .ersaal-help-faq-answer p:last-child {
+  margin-block-end: 0;
 }
 
 .ersaal-admin .ersaal-help-section[hidden],
-.ersaal-admin .ersaal-accordion-panel[hidden],
-.ersaal-admin #ersaal-help-no-results[hidden] {
+.ersaal-admin #ersaal-help-no-results[hidden],
+.ersaal-admin .ersaal-help-nav a[hidden] {
   display: none;
+}
+
+@media screen and (max-width: 782px) {
+  .ersaal-admin .ersaal-help-toolbar,
+  .ersaal-admin .ersaal-help-shortcuts {
+    grid-template-columns: 1fr;
+  }
+
+  .ersaal-admin .ersaal-help-language,
+  .ersaal-admin .ersaal-help-language-wrap {
+    width: 100%;
+  }
+
+  .ersaal-admin .ersaal-help-nav {
+    margin-block-end: var(--ersaal-space-lg);
+  }
+
+  .ersaal-admin .ersaal-help-section-body {
+    padding: var(--ersaal-space-lg);
+  }
 }
