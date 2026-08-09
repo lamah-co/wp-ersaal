@@ -55,6 +55,13 @@ class Plugin
                 [],
                 ERSAAL_VERSION
             );
+
+            wp_enqueue_style(
+                'ersaal-admin',
+                ERSAAL_PLUGIN_URL . 'admin/assets/css/admin.css',
+                ['ersaal-tokens'],
+                ERSAAL_VERSION
+            );
         }
     }
     
