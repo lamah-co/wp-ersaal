@@ -730,6 +730,7 @@
 }
 
 @media screen and (max-width: 782px) {
+  .ersaal-admin .ersaal-stat-grid,
   .ersaal-admin .ersaal-summary-list,
   .ersaal-admin .ersaal-message-meta,
   .ersaal-admin .ersaal-result-grid,

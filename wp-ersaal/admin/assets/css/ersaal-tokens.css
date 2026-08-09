@@ -649,7 +649,7 @@
 .ersaal-admin .ersaal-tab[aria-selected="true"],
 .ersaal-admin .ersaal-tab.ersaal-tab-active {
   background-color: var(--ersaal-color-accent);  /* Yellow #FFC10E */
-  color: #ffffff;
+  color: var(--ersaal-blue-8);
   font-weight: var(--ersaal-fw-medium);
 }
 
