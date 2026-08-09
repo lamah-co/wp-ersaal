@@ -2,145 +2,146 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
+$subscriptionNames = [];
+$hasSmsSubscription = false;
+foreach ($status['subscriptions'] as $subscription) {
+    $planName = (string) ($subscription['plan_name'] ?? '');
+    if ($planName !== '') {
+        $subscriptionNames[] = $planName;
+    }
+    if (stripos($planName, 'otp') === false) {
+        $hasSmsSubscription = true;
+    }
+}
+$subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __('Not available', 'ersaal');
 ?>
-<div class="wrap ersaal-manual-wrap">
-    <div style="display:flex; align-items:center;">
-        <h1 class="wp-heading-inline"><?php esc_html_e('Send SMS Message', 'ersaal'); ?></h1>
-        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#send-sms')); ?>" style="margin-left: 15px; font-size: 14px; font-weight: normal; text-decoration: none;"><span class="dashicons dashicons-editor-help" style="font-size: 16px; margin-top: 3px;"></span> <?php esc_html_e('Need help?', 'ersaal'); ?></a>
-    </div>
-    <p><?php esc_html_e('Send a manual SMS message via the connected Ersaal project.', 'ersaal'); ?></p>
-    <hr class="wp-header-end">
-    
-    <div class="ersaal-manual-container">
-        <!-- Connection Status Card -->
-        <div class="ersaal-card ersaal-status-card">
-            <h2><?php esc_html_e('Connection Status', 'ersaal'); ?></h2>
-            <?php if ($status['connected']): ?>
-                <div class="ersaal-status-success">
-                    <span class="dashicons dashicons-yes-alt"></span>
-                    <strong><?php esc_html_e('Connected', 'ersaal'); ?></strong>
+<div class="wrap ersaal-admin ersaal-page ersaal-page-medium">
+    <header class="ersaal-page-header">
+        <div class="ersaal-page-header-copy">
+            <h1 class="ersaal-page-title"><?php esc_html_e('Send SMS', 'ersaal'); ?></h1>
+            <p class="ersaal-page-description"><?php esc_html_e('Send one message through the connected Ersaal project.', 'ersaal'); ?></p>
+        </div>
+        <div class="ersaal-page-actions">
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#send-sms')); ?>" class="ersaal-btn ersaal-btn-secondary">
+                <?php echo ersaal_admin_icon('help'); ?>
+                <?php esc_html_e('Need help?', 'ersaal'); ?>
+            </a>
+        </div>
+    </header>
+
+    <?php if (!$status['connected']): ?>
+        <div class="ersaal-card">
+            <div class="ersaal-alert ersaal-alert-danger" role="alert">
+                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); ?><?php esc_html_e('Ersaal is not connected', 'ersaal'); ?></p>
+                <p><?php echo esc_html($status['error']); ?></p>
+            </div>
+            <div class="ersaal-send-actions">
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-primary"><?php esc_html_e('Open connection settings', 'ersaal'); ?></a>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="ersaal-card">
+            <div class="ersaal-send-readiness" role="status">
+                <div class="ersaal-send-readiness-copy">
+                    <span class="ersaal-status-line is-success">
+                        <span class="ersaal-status-dot" aria-hidden="true"></span>
+                        <?php esc_html_e('Ready to send', 'ersaal'); ?>
+                    </span>
+                    <span><span class="ersaal-table-meta"><?php esc_html_e('Project', 'ersaal'); ?></span> <strong><?php echo esc_html($status['project_name']); ?></strong></span>
+                    <span><span class="ersaal-table-meta"><?php esc_html_e('Subscription', 'ersaal'); ?></span> <strong><?php echo esc_html($subscriptionLabel); ?></strong></span>
                 </div>
-                <table class="form-table" role="presentation">
-                    <tr>
-                        <th scope="row"><?php esc_html_e('Project', 'ersaal'); ?></th>
-                        <td><?php echo esc_html($status['project_name']); ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?php esc_html_e('Status', 'ersaal'); ?></th>
-                        <td><?php echo esc_html(ucfirst($status['status'])); ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?php esc_html_e('Wallet Balance', 'ersaal'); ?></th>
-                        <td>
-                            <?php echo esc_html((string)$status['balance']); ?>
-                            <?php if ($status['balance'] === '0' || $status['balance'] === 0): ?>
-                                <p style="color: #d63638; font-weight: bold; margin-top: 5px;">
-                                    <span class="dashicons dashicons-warning" style="font-size: 16px; width: 16px; height: 16px;"></span>
-                                    <?php esc_html_e('رصيد المحفظة الحالي لا يكفي لإرسال SMS.', 'ersaal'); ?>
-                                </p>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?php esc_html_e('Subscription', 'ersaal'); ?></th>
-                        <td>
-                            <?php
-                            $has_sms_sub = false;
-                            if (!empty($status['subscriptions'])): ?>
-                                <?php foreach ($status['subscriptions'] as $sub): 
-                                    $is_otp = stripos($sub['plan_name'] ?? '', 'otp') !== false;
-                                    if (!$is_otp) $has_sms_sub = true;
-                                ?>
-                                    <div style="margin-bottom: 10px;">
-                                        <strong><?php echo esc_html($sub['plan_name'] ?? 'Active'); ?></strong>
-                                        <br/>
-                                        <?php esc_html_e('Type:', 'ersaal'); ?> <?php echo $is_otp ? 'OTP' : 'SMS'; ?>
-                                        <?php if (!empty($sub['expired_at'])): ?>
-                                            <br/>
-                                            <?php esc_html_e('Expires:', 'ersaal'); ?> <?php echo esc_html(substr($sub['expired_at'], 0, 10)); ?>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <em><?php esc_html_e('No active subscriptions', 'ersaal'); ?></em>
-                            <?php endif; ?>
-                            
-                            <hr style="margin: 10px 0;">
-                            <?php if ($status['sms_balance'] > 0 || $has_sms_sub): ?>
-                                <strong><?php esc_html_e('SMS Subscription Balance:', 'ersaal'); ?></strong> <?php echo esc_html((string)$status['sms_balance']); ?>
-                            <?php else: ?>
-                                <p style="color: #d63638; font-weight: bold; margin-top: 5px;">
-                                    <span class="dashicons dashicons-warning" style="font-size: 16px; width: 16px; height: 16px;"></span>
-                                    <?php esc_html_e('لا يوجد اشتراك SMS صالح لهذا المشروع.', 'ersaal'); ?>
-                                </p>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                </table>
-            <?php else: ?>
-                <div class="ersaal-status-error">
-                    <span class="dashicons dashicons-warning"></span>
-                    <strong><?php esc_html_e('Not Connected', 'ersaal'); ?></strong>
-                    <p><?php echo esc_html($status['error']); ?></p>
+                <?php if ($status['sms_balance'] !== null): ?>
+                    <span class="ersaal-badge <?php echo ((float) $status['sms_balance'] > 0 || $hasSmsSubscription) ? 'ersaal-badge-info' : 'ersaal-badge-warning'; ?>">
+                        <?php printf(esc_html__('SMS balance: %s', 'ersaal'), esc_html((string) $status['sms_balance'])); ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($status['sms_balance'] !== null && (float) $status['sms_balance'] <= 0 && !$hasSmsSubscription): ?>
+                <div class="ersaal-alert ersaal-alert-warning" role="note">
+                    <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); ?><?php esc_html_e('No available SMS balance or subscription', 'ersaal'); ?></p>
+                    <p><?php esc_html_e('The API may reject this message until the project has an eligible SMS payment source.', 'ersaal'); ?></p>
                 </div>
             <?php endif; ?>
-        </div>
 
-        <?php if ($status['connected']): ?>
-        <div class="ersaal-card ersaal-form-card">
-            <h2><?php esc_html_e('Message Details', 'ersaal'); ?></h2>
-            <form id="ersaal-manual-send-form" method="post">
-                <table class="form-table" role="presentation">
-                    <tr>
-                        <th scope="row"><label for="ersaal_phone"><?php esc_html_e('Phone Number', 'ersaal'); ?></label></th>
-                        <td>
-                            <input type="tel" id="ersaal_phone" name="phone" value="" class="regular-text ltr" required placeholder="+21891XXXXXXX" dir="ltr" />
-                            <p class="description"><?php esc_html_e('Include country code (e.g., +21891XXXXXXX).', 'ersaal'); ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="ersaal_sender"><?php esc_html_e('Sender ID', 'ersaal'); ?></label></th>
-                        <td>
-                            <!-- Temporary text input as requested, since no endpoint was found for sender IDs -->
-                            <input type="text" id="ersaal_sender" name="sender" value="" class="regular-text ltr" placeholder="Lamah" />
-                            <p class="description">
-                                <?php esc_html_e('Enter the approved Sender ID for your project.', 'ersaal'); ?>
-                                <br/>
-                                <em><?php esc_html_e('Note: A dynamic dropdown will be implemented in future phases once the API endpoint is available.', 'ersaal'); ?></em>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="ersaal_payment_type"><?php esc_html_e('Payment Type', 'ersaal'); ?></label></th>
-                        <td>
-                            <select id="ersaal_payment_type" name="payment_type">
+            <form id="ersaal-manual-send-form" method="post" class="ersaal-send-form">
+                <div class="ersaal-field">
+                    <label class="ersaal-label" for="ersaal_phone"><?php esc_html_e('Recipient', 'ersaal'); ?></label>
+                    <input type="tel" id="ersaal_phone" name="phone" class="ersaal-input ersaal-ltr" required placeholder="+21891XXXXXXX" autocomplete="tel" />
+                    <p class="ersaal-field-help"><?php esc_html_e('Include the country code, for example +21891XXXXXXX.', 'ersaal'); ?></p>
+                </div>
+
+                <div class="ersaal-field">
+                    <label class="ersaal-label" for="ersaal_message"><?php esc_html_e('Message', 'ersaal'); ?></label>
+                    <textarea id="ersaal_message" name="message" rows="6" class="ersaal-textarea" required></textarea>
+                    <div class="ersaal-message-meta" aria-live="polite">
+                        <span class="ersaal-message-meta-item"><?php esc_html_e('Characters', 'ersaal'); ?><strong id="ersaal_char_count">0</strong></span>
+                        <span class="ersaal-message-meta-item"><?php esc_html_e('Encoding', 'ersaal'); ?><strong id="ersaal_encoding">GSM-7</strong></span>
+                        <span class="ersaal-message-meta-item"><?php esc_html_e('Estimated parts', 'ersaal'); ?><strong id="ersaal_parts_count">0</strong></span>
+                    </div>
+                </div>
+
+                <details class="ersaal-disclosure">
+                    <summary>
+                        <span><?php esc_html_e('Payment and advanced options', 'ersaal'); ?></span>
+                        <?php echo ersaal_admin_icon('chevron'); ?>
+                    </summary>
+                    <div class="ersaal-disclosure-content ersaal-form-stack">
+                        <div class="ersaal-field">
+                            <label class="ersaal-label" for="ersaal_sender"><?php esc_html_e('Sender ID', 'ersaal'); ?></label>
+                            <input type="text" id="ersaal_sender" name="sender" class="ersaal-input ersaal-ltr" placeholder="Lamah" />
+                            <p class="ersaal-field-help"><?php esc_html_e('Use an approved Sender ID for this project.', 'ersaal'); ?></p>
+                        </div>
+                        <div class="ersaal-field">
+                            <label class="ersaal-label" for="ersaal_payment_type"><?php esc_html_e('Payment type', 'ersaal'); ?></label>
+                            <select id="ersaal_payment_type" name="payment_type" class="ersaal-select">
                                 <option value="wallet"><?php esc_html_e('Wallet', 'ersaal'); ?></option>
                                 <option value="subscription"><?php esc_html_e('Subscription', 'ersaal'); ?></option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="ersaal_message"><?php esc_html_e('Message', 'ersaal'); ?></label></th>
-                        <td>
-                            <textarea id="ersaal_message" name="message" rows="5" cols="50" class="large-text" required></textarea>
-                            
-                            <div class="ersaal-message-stats">
-                                <span class="stat-item"><?php esc_html_e('Characters:', 'ersaal'); ?> <strong id="ersaal_char_count">0</strong></span>
-                                <span class="stat-item"><?php esc_html_e('Encoding:', 'ersaal'); ?> <strong id="ersaal_encoding">GSM-7</strong></span>
-                                <span class="stat-item"><?php esc_html_e('Estimated Parts:', 'ersaal'); ?> <strong id="ersaal_parts_count">0</strong></span>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <p class="submit">
-                    <button type="submit" id="ersaal_submit_btn" class="button button-primary">
-                        <?php esc_html_e('Send Message', 'ersaal'); ?>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="ersaal-send-actions">
+                    <span class="spinner ersaal-send-spinner" id="ersaal_spinner" aria-hidden="true"></span>
+                    <button type="submit" id="ersaal_submit_btn" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent">
+                        <?php echo ersaal_admin_icon('send'); ?>
+                        <?php esc_html_e('Send SMS', 'ersaal'); ?>
                     </button>
-                    <span class="spinner" id="ersaal_spinner"></span>
-                </p>
-                <div id="ersaal_response_area" class="ersaal-response-area" style="display: none;"></div>
+                </div>
             </form>
+
+            <div id="ersaal_response_area" class="ersaal-alert ersaal-send-result" role="status" aria-live="polite" hidden>
+                <p class="ersaal-alert-title">
+                    <span id="ersaal_response_success_icon"><?php echo ersaal_admin_icon('check'); ?></span>
+                    <span id="ersaal_response_error_icon" hidden><?php echo ersaal_admin_icon('warning'); ?></span>
+                    <span id="ersaal_response_title"></span>
+                </p>
+                <p id="ersaal_response_message" hidden></p>
+                <div id="ersaal_response_details" class="ersaal-result-grid">
+                    <div id="ersaal_result_message_id_wrap">
+                        <span class="ersaal-result-label"><?php esc_html_e('Message ID', 'ersaal'); ?></span>
+                        <span id="ersaal_result_message_id" class="ersaal-result-value ersaal-code ersaal-ltr"></span>
+                    </div>
+                    <div>
+                        <span class="ersaal-result-label"><?php esc_html_e('Status', 'ersaal'); ?></span>
+                        <span class="ersaal-result-value"><?php esc_html_e('Accepted', 'ersaal'); ?></span>
+                    </div>
+                    <div>
+                        <span class="ersaal-result-label"><?php esc_html_e('Log ID', 'ersaal'); ?></span>
+                        <span id="ersaal_result_log_id" class="ersaal-result-value ersaal-code ersaal-ltr"></span>
+                    </div>
+                    <div id="ersaal_result_parts_wrap">
+                        <span class="ersaal-result-label"><?php esc_html_e('Parts', 'ersaal'); ?></span>
+                        <span id="ersaal_result_parts" class="ersaal-result-value"></span>
+                    </div>
+                </div>
+                <a id="ersaal_response_logs_link" href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm">
+                    <?php esc_html_e('View in logs', 'ersaal'); ?>
+                    <?php echo ersaal_admin_icon('arrow'); ?>
+                </a>
+            </div>
         </div>
-        <?php endif; ?>
-    </div>
+    <?php endif; ?>
 </div>

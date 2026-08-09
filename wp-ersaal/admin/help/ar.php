@@ -10,7 +10,7 @@ return [
                     <li>أدخل رابط الـ API ومفتاح API Key.</li>
                     <li>اضغط على Test Connection للتحقق من الاتصال.</li>
                     <li>أدخل Sender ID المعتمد من حسابك.</li>
-                    <li><a href="' . esc_url(admin_url('admin.php?page=ersaal-manual-send')) . '">افتح صفحة Send SMS</a>.</li>
+                    <li><a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">افتح صفحة Send SMS</a>.</li>
                     <li>أرسل رسالة تجريبية.</li>
                     <li>قم بإعداد WooCommerce إذا كنت ترغب في إرسال تلقائي للطلبات.</li>
                 </ol>
@@ -47,7 +47,7 @@ return [
         'id' => 'send-sms',
         'title' => 'إرسال رسالة SMS',
         'content' => '
-            <p>يمكنك إرسال رسائل يدوية من صفحة <a href="' . esc_url(admin_url('admin.php?page=ersaal-manual-send')) . '">Send SMS</a>.</p>
+            <p>يمكنك إرسال رسائل يدوية من صفحة <a href="' . esc_url(admin_url('admin.php?page=ersaal-send-message')) . '">Send SMS</a>.</p>
             <ul>
                 <li><strong>رقم الهاتف:</strong> يتم تنسيقه تلقائياً حسب متطلبات البوابة.</li>
                 <li><strong>حروف الرسالة:</strong> تدعم الإضافة الترميزين GSM-7 و Unicode. الرسائل العربية تستخدم Unicode (تُحسب 70 حرفاً لكل جزء).</li>
@@ -100,7 +100,7 @@ return [
         'title' => 'استكشاف الأخطاء وإصلاحها',
         'content' => '
             <h3>Connection failed</h3>
-            <p>تحقق من رابط הـ API، الـ API Key، حالة المشروع (Project Status)، واتصال الخادم بالإنترنت.</p>
+            <p>تحقق من رابط الـ API، والـ API Key، وحالة المشروع (Project Status)، واتصال الخادم بالإنترنت.</p>
             <h3>Wallet = Unknown</h3>
             <p>لا يعني أن الرصيد صفر، بل قد يكون الحساب يعتمد على نظام الباقات (Subscriptions) بدلاً من المحفظة المالية.</p>
             <h3>Subscription Error</h3>
@@ -117,24 +117,13 @@ return [
         'id' => 'faq',
         'title' => 'الأسئلة الشائعة (FAQ)',
         'content' => '
-            <div class="ersaal-help-accordion">
-                <button class="ersaal-accordion-btn" aria-expanded="false">هل أحتاج WooCommerce؟</button>
-                <div class="ersaal-accordion-panel"><p>لا، تعمل الإضافة بشكل مستقل للإرسال اليدوي، الربط مع WooCommerce اختياري.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">هل يمكن إرسال رسائل يدويًا؟</button>
-                <div class="ersaal-accordion-panel"><p>نعم، من صفحة Send SMS في القائمة أو من داخل صفحة أي طلب في WooCommerce.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">ما معنى Wallet Unknown؟</button>
-                <div class="ersaal-accordion-panel"><p>هذا يعني أن حسابك غالباً يعتمد على باقة اشتراك بدلاً من رصيد محفظة رقمي.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">ما الفرق بين OTP و SMS؟</button>
-                <div class="ersaal-accordion-panel"><p>باقة OTP مخصصة حصراً لرسائل التحقق والأرقام السرية ولا تسمح بنصوص أخرى. بينما SMS مخصصة للرسائل النصية العامة والترويجية.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">لماذا أرقام الهواتف تظهر مخفية (Masked)؟</button>
-                <div class="ersaal-accordion-panel"><p>لأسباب أمنية وللحفاظ على خصوصية بيانات العملاء، لا يتم تخزين الرقم كاملاً في السجلات المحلية.</p></div>
-
-                <button class="ersaal-accordion-btn" aria-expanded="false">هل يمكن إرسال أكثر من رسالة يدوية لنفس الطلب؟</button>
-                <div class="ersaal-accordion-panel"><p>نعم، النظام يسمح لك بإرسال أي عدد من الرسائل اليدوية من صفحة تفاصيل الطلب.</p></div>
+            <div class="ersaal-help-faq-list">
+                <details><summary>هل أحتاج WooCommerce؟</summary><div class="ersaal-help-faq-answer"><p>لا، تعمل الإضافة بشكل مستقل للإرسال اليدوي، والربط مع WooCommerce اختياري.</p></div></details>
+                <details><summary>هل يمكن إرسال رسائل يدويًا؟</summary><div class="ersaal-help-faq-answer"><p>نعم، من صفحة Send SMS أو من داخل صفحة أي طلب في WooCommerce.</p></div></details>
+                <details><summary>ما معنى Wallet Unknown؟</summary><div class="ersaal-help-faq-answer"><p>يعني غالبًا أن حسابك يستخدم باقة اشتراك بدلًا من رصيد محفظة رقمي.</p></div></details>
+                <details><summary>ما الفرق بين OTP وSMS؟</summary><div class="ersaal-help-faq-answer"><p>OTP مخصصة لرموز التحقق، بينما SMS مخصصة للرسائل النصية العامة والتنبيهات.</p></div></details>
+                <details><summary>لماذا تظهر أرقام الهواتف مخفية؟</summary><div class="ersaal-help-faq-answer"><p>لحماية خصوصية العملاء، لا يتم تخزين الرقم كاملًا في السجلات المحلية.</p></div></details>
+                <details><summary>هل يمكن إرسال أكثر من رسالة يدوية للطلب نفسه؟</summary><div class="ersaal-help-faq-answer"><p>نعم، يمكن إرسال أكثر من رسالة يدوية من صفحة تفاصيل الطلب.</p></div></details>
             </div>
         '
     ]

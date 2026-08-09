@@ -22,6 +22,8 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
+require_once __DIR__ . '/admin/ui.php';
+
 function ersaal_plugin(): \Ersaal\Core\Plugin {
     static $instance = null;
     if ($instance === null) {

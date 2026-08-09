@@ -1,66 +1,97 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Accordion
-    const acc = document.getElementsByClassName("ersaal-accordion-btn");
-    for (let i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            let panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-                panel.classList.remove('show');
-                this.setAttribute('aria-expanded', 'false');
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-                panel.classList.add('show');
-                this.setAttribute('aria-expanded', 'true');
-            }
-        });
-    }
-
-    // Search
     const searchInput = document.getElementById('ersaal-help-search');
-    const sections = document.querySelectorAll('.ersaal-help-section');
-    const links = document.querySelectorAll('.ersaal-help-sidebar a');
+    const sections = Array.from(document.querySelectorAll('.ersaal-help-section'));
+    const links = Array.from(document.querySelectorAll('.ersaal-help-nav a'));
     const noResults = document.getElementById('ersaal-help-no-results');
+    const searchStatus = document.getElementById('ersaal-help-search-status');
+    const languageSelect = document.getElementById('ersaal-help-language');
+    const languageForm = document.getElementById('ersaal-help-language-form');
 
-    if (searchInput) {
-        searchInput.addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            let visibleCount = 0;
+    if (languageSelect && languageForm) {
+        languageSelect.addEventListener('change', function() {
+            languageForm.submit();
+        });
+    }
 
-            sections.forEach(section => {
-                const text = section.innerText.toLowerCase();
-                if (text.includes(query)) {
-                    section.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-            
-            if (visibleCount === 0 && query !== '') {
-                noResults.style.display = 'block';
+    function updateActiveLink(id) {
+        links.forEach(function(link) {
+            const active = link.getAttribute('href') === `#${id}`;
+            link.classList.toggle('active', active);
+            if (active) {
+                link.setAttribute('aria-current', 'location');
             } else {
-                noResults.style.display = 'none';
+                link.removeAttribute('aria-current');
             }
         });
     }
 
-    // ScrollSpy for sidebar active state
-    window.addEventListener('scroll', function() {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 60) {
-                current = section.getAttribute('id');
-            }
-        });
+    function showSection(id, shouldScroll) {
+        const section = document.getElementById(id);
+        if (!section || !section.classList.contains('ersaal-help-section')) {
+            return;
+        }
 
-        links.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + current) {
-                link.classList.add('active');
+        section.hidden = false;
+        section.open = true;
+        updateActiveLink(id);
+
+        if (shouldScroll) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    links.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const id = link.getAttribute('href').slice(1);
+            showSection(id, true);
+            window.history.replaceState(null, '', `#${id}`);
+        });
+    });
+
+    sections.forEach(function(section) {
+        section.addEventListener('toggle', function() {
+            if (section.open && !section.hidden) {
+                updateActiveLink(section.id);
             }
         });
     });
+
+    function updateResults(query) {
+        let visibleCount = 0;
+
+        sections.forEach(function(section) {
+            const matches = !query || section.textContent.toLocaleLowerCase().includes(query);
+            section.hidden = !matches;
+            if (matches) {
+                visibleCount++;
+                if (query) {
+                    section.open = true;
+                }
+            }
+        });
+
+        links.forEach(function(link) {
+            const section = document.getElementById(link.getAttribute('href').slice(1));
+            link.hidden = !section || section.hidden;
+        });
+
+        noResults.hidden = visibleCount !== 0;
+        searchStatus.textContent = query ? ersaalHelp.i18n.results.replace('%d', String(visibleCount)) : '';
+
+        const firstVisible = sections.find(function(section) { return !section.hidden; });
+        updateActiveLink(firstVisible ? firstVisible.id : '');
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function(event) {
+            updateResults(event.target.value.trim().toLocaleLowerCase());
+        });
+    }
+
+    updateResults('');
+
+    if (window.location.hash) {
+        showSection(window.location.hash.slice(1), false);
+    }
 });

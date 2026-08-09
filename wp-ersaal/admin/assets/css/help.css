@@ -1,169 +1,332 @@
-.ersaal-help-wrap {
-    margin-top: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
+.ersaal-admin .ersaal-help-toolbar {
+  /* display: grid; */
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--ersaal-space-xl);
+  align-items: end;
+  padding: var(--ersaal-space-lg);
+  margin-block-end: var(--ersaal-space-lg);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-block: 1px solid var(--ersaal-border-color);
+  border-radius: var(--ersaal-radius-md);
+  box-shadow: var(--ersaal-shadow-sm);
 }
 
-.ersaal-help-sidebar {
-    width: 250px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 40px;
-    background: #fff;
-    border: 1px solid #ccd0d4;
-    border-radius: 4px;
-    padding: 10px 0;
+.ersaal-admin .ersaal-help-search {
+  min-width: 0;
 }
 
-.ersaal-help-sidebar a {
-    display: block;
-    padding: 10px 15px;
-    text-decoration: none;
-    color: #444;
-    font-weight: 500;
-    border-left: 3px solid transparent;
+.ersaal-admin .ersaal-help-search .ersaal-input {
+  min-height: 44px;
+  font-size: var(--ersaal-text-md);
 }
 
-.ersaal-help-sidebar a:hover, .ersaal-help-sidebar a.active {
-    background: #f9f9f9;
-    color: #007cba;
-    border-left-color: #007cba;
+.ersaal-admin .ersaal-help-results {
+  min-height: 18px;
+  color: var(--ersaal-text-muted);
+  font-size: var(--ersaal-text-xs);
 }
 
-html[dir="rtl"] .ersaal-help-sidebar a {
-    border-left: none;
-    border-right: 3px solid transparent;
+.ersaal-admin .ersaal-help-language {
+  display: grid;
+  gap: var(--ersaal-space-xs);
+  min-width: 180px;
+  margin: 0;
 }
 
-html[dir="rtl"] .ersaal-help-sidebar a:hover, html[dir="rtl"] .ersaal-help-sidebar a.active {
-    border-right-color: #007cba;
+.ersaal-admin .ersaal-help-language label {
+  color: var(--ersaal-text-secondary);
+  font-size: var(--ersaal-text-sm);
+  font-weight: var(--ersaal-fw-semibold);
 }
 
-.ersaal-help-content {
-    flex-grow: 1;
-    background: #fff;
-    border: 1px solid #ccd0d4;
-    border-radius: 4px;
-    padding: 20px 30px;
-    min-width: 0;
+.ersaal-admin .ersaal-help-language .ersaal-select {
+  width: 100%;
 }
 
-.ersaal-help-section {
-    margin-bottom: 40px;
+.ersaal-admin .ersaal-help-nav {
+  display: flex;
+  gap: var(--ersaal-space-sm);
+  margin-block-end: var(--ersaal-space-xl);
+  overflow-x: auto;
+  padding-block-end: var(--ersaal-space-xs);
+  scrollbar-width: thin;
+  padding:1rem 0 1rem 1rem;
 }
 
-.ersaal-help-section h2 {
-    font-size: 22px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
+.ersaal-admin .ersaal-help-nav a {
+  flex: 0 0 auto;
+  padding: var(--ersaal-space-sm) var(--ersaal-space-md);
+  color: var(--ersaal-text-secondary);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-radius: var(--ersaal-radius-pill);
+  text-decoration: none;
+  transition: background-color var(--ersaal-transition-fast), color var(--ersaal-transition-fast);
 }
 
-.ersaal-help-section h3 {
-    font-size: 16px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #222;
+.ersaal-admin .ersaal-help-nav a:hover {
+  color: var(--ersaal-color-primary);
+  background: var(--ersaal-blue-1);
 }
 
-.ersaal-help-quick-start {
-    background: #f0f6fc;
-    padding: 15px 20px;
-    border-left: 4px solid #00a0d2;
-    border-radius: 3px;
+.ersaal-admin .ersaal-help-nav a.active {
+  color: var(--ersaal-text-on-primary);
+  background: var(--ersaal-color-primary);
 }
 
-html[dir="rtl"] .ersaal-help-quick-start {
-    border-left: none;
-    border-right: 4px solid #00a0d2;
+.ersaal-admin .ersaal-help-nav a:focus-visible,
+.ersaal-admin .ersaal-help-shortcut:focus-visible,
+.ersaal-admin .ersaal-help-section > summary:focus-visible,
+.ersaal-admin .ersaal-help-faq-list summary:focus-visible {
+  outline: 2px solid var(--ersaal-color-primary);
+  outline-offset: 2px;
 }
 
-.ersaal-help-quick-start ol {
-    margin-top: 0;
-    margin-bottom: 0;
+.ersaal-admin .ersaal-help-content {
+  display: grid;
+  gap: var(--ersaal-space-xl);
+  width: min(100%, 1040px);
+  margin-inline: auto;
 }
 
-.ersaal-help-quick-start li {
-    margin-bottom: 8px;
+.ersaal-admin .ersaal-help-overview {
+  display: grid;
+  gap: var(--ersaal-space-lg);
 }
 
-.ersaal-help-search-wrap {
-    margin-bottom: 20px;
+.ersaal-admin .ersaal-help-overview h2 {
+  margin: 0;
+  color: var(--ersaal-text-primary);
+  font-size: var(--ersaal-text-xl);
 }
 
-.ersaal-help-search-wrap input {
-    width: 100%;
-    max-width: 400px;
-    padding: 8px 12px;
-    border: 1px solid #8c8f94;
-    border-radius: 4px;
-    font-size: 14px;
+.ersaal-admin .ersaal-help-overview > div > p {
+  margin: var(--ersaal-space-xs) 0 0;
+  color: var(--ersaal-text-muted);
 }
 
-/* Accordion */
-.ersaal-accordion-btn {
-    background-color: #f9f9f9;
-    color: #444;
-    cursor: pointer;
-    padding: 12px 15px;
-    width: 100%;
-    border: 1px solid #ccd0d4;
-    text-align: left;
-    outline: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: 0.3s;
-    border-radius: 3px;
-    margin-top: -1px;
-}
-html[dir="rtl"] .ersaal-accordion-btn {
-    text-align: right;
+.ersaal-admin .ersaal-help-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ersaal-space-md);
 }
 
-.ersaal-accordion-btn.active, .ersaal-accordion-btn:hover {
-    background-color: #f1f1f1;
+.ersaal-admin .ersaal-help-shortcut {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ersaal-space-md);
+  min-width: 0;
+  padding: var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-radius: var(--ersaal-radius-md);
+  box-shadow: var(--ersaal-shadow-sm);
+  text-decoration: none;
+  transition: background-color var(--ersaal-transition-fast), transform var(--ersaal-transition-fast);
 }
 
-.ersaal-accordion-btn:after {
-    content: '\002B';
-    color: #777;
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-}
-html[dir="rtl"] .ersaal-accordion-btn:after {
-    float: left;
-    margin-left: 0;
-    margin-right: 5px;
+.ersaal-admin .ersaal-help-shortcut:hover {
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-blue-1);
+  transform: translateY(-1px);
 }
 
-.ersaal-accordion-btn.active:after {
-    content: "\2212";
+.ersaal-admin .ersaal-help-shortcut .ersaal-icon {
+  color: var(--ersaal-color-primary);
+  margin-block-start: 2px;
 }
 
-.ersaal-accordion-panel {
-    padding: 0 15px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    border: 1px solid transparent;
-    border-top: none;
+.ersaal-admin .ersaal-help-shortcut span {
+  min-width: 0;
 }
-.ersaal-accordion-panel.show {
-    border-color: #ccd0d4;
-    margin-bottom: 10px;
+
+.ersaal-admin .ersaal-help-shortcut strong,
+.ersaal-admin .ersaal-help-shortcut small {
+  display: block;
+}
+
+.ersaal-admin .ersaal-help-shortcut small {
+  margin-block-start: var(--ersaal-space-xs);
+  color: var(--ersaal-text-muted);
+  font-size: var(--ersaal-text-xs);
+  line-height: var(--ersaal-lh-normal);
+}
+
+.ersaal-admin .ersaal-help-sections {
+  display: grid;
+  gap: var(--ersaal-space-md);
+}
+
+.ersaal-admin .ersaal-help-section {
+  overflow: hidden;
+  background: var(--ersaal-bg-page);
+  border: 0;
+  border-radius: var(--ersaal-radius-md);
+  box-shadow: var(--ersaal-shadow-sm);
+  scroll-margin-block-start: 48px;
+}
+
+.ersaal-admin .ersaal-help-section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ersaal-space-md);
+  min-height: 58px;
+  padding: var(--ersaal-space-md) var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-bg-page);
+  border: 0;
+  cursor: pointer;
+  font-size: var(--ersaal-text-lg);
+  font-weight: var(--ersaal-fw-semibold);
+  list-style: none;
+}
+
+.ersaal-admin .ersaal-help-section > summary::-webkit-details-marker,
+.ersaal-admin .ersaal-help-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.ersaal-admin .ersaal-help-section > summary:hover,
+.ersaal-admin .ersaal-help-section[open] > summary {
+  background: var(--ersaal-bg-surface);
+}
+
+.ersaal-admin .ersaal-help-section[open] > summary {
+  border-block-end: 1px solid var(--ersaal-border-color);
+}
+
+.ersaal-admin .ersaal-help-chevron {
+  color: var(--ersaal-text-muted);
+  transition: transform var(--ersaal-transition-fast);
+}
+
+.ersaal-admin .ersaal-help-section[open] > summary .ersaal-help-chevron {
+  transform: rotate(90deg);
+}
+
+[dir="rtl"] .ersaal-admin .ersaal-help-section[open] > summary .ersaal-help-chevron {
+  transform: rotate(-90deg);
+}
+
+.ersaal-admin .ersaal-help-section-body {
+  padding: var(--ersaal-space-lg) var(--ersaal-space-xl) var(--ersaal-space-xl);
+  color: var(--ersaal-text-secondary);
+  line-height: var(--ersaal-lh-relaxed);
+}
+
+.ersaal-admin .ersaal-help-section-body :where(h3, h4) {
+  color: var(--ersaal-text-primary);
+  margin-block: var(--ersaal-space-xl) var(--ersaal-space-sm);
+}
+
+.ersaal-admin .ersaal-help-section-body p {
+  margin-block: 0 var(--ersaal-space-md);
+}
+
+.ersaal-admin .ersaal-help-section-body :where(ul, ol) {
+  padding-inline-start: var(--ersaal-space-xl);
+  margin-block: var(--ersaal-space-md) var(--ersaal-space-lg);
+}
+
+.ersaal-admin .ersaal-help-section-body li + li {
+  margin-block-start: var(--ersaal-space-xs);
+}
+
+.ersaal-admin .ersaal-help-quick-start {
+  padding: var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  background: var(--ersaal-color-info-light);
+  border: 0;
+  border-radius: var(--ersaal-radius-md);
+}
+
+.ersaal-admin .ersaal-help-quick-start ol {
+  margin-block: 0;
+}
+
+.ersaal-admin .ersaal-help-section-body .notice {
+  padding: var(--ersaal-space-md) var(--ersaal-space-lg);
+  margin: var(--ersaal-space-lg) 0;
+  color: var(--ersaal-warning-text);
+  background: var(--ersaal-color-warning-light);
+  border: 0;
+  border-radius: var(--ersaal-radius-md);
+  box-shadow: none;
+}
+
+.ersaal-admin .ersaal-help-section-body table {
+  width: 100%;
+  margin-block: var(--ersaal-space-lg);
+  border: 0;
+  border-block: 1px solid var(--ersaal-border-color);
+  border-collapse: collapse;
+}
+
+.ersaal-admin .ersaal-help-section-body table :where(th, td) {
+  padding: var(--ersaal-space-md);
+  text-align: start;
+  border: 0;
+  border-block-end: 1px solid var(--ersaal-border-color);
+}
+
+.ersaal-admin .ersaal-help-section-body table th {
+  color: var(--ersaal-text-secondary);
+  background: var(--ersaal-bg-surface);
+  font-weight: var(--ersaal-fw-semibold);
+}
+
+.ersaal-admin .ersaal-help-faq-list {
+  display: grid;
+  gap: var(--ersaal-space-sm);
+}
+
+.ersaal-admin .ersaal-help-faq-list details {
+  background: var(--ersaal-bg-surface);
+  border: 0;
+  border-radius: var(--ersaal-radius-sm);
+}
+
+.ersaal-admin .ersaal-help-faq-list summary {
+  padding: var(--ersaal-space-md) var(--ersaal-space-lg);
+  color: var(--ersaal-text-primary);
+  cursor: pointer;
+  font-weight: var(--ersaal-fw-semibold);
+  list-style: none;
+}
+
+.ersaal-admin .ersaal-help-faq-answer {
+  padding: 0 var(--ersaal-space-lg) var(--ersaal-space-md);
+}
+
+.ersaal-admin .ersaal-help-faq-answer p:last-child {
+  margin-block-end: 0;
+}
+
+.ersaal-admin .ersaal-help-section[hidden],
+.ersaal-admin #ersaal-help-no-results[hidden],
+.ersaal-admin .ersaal-help-nav a[hidden] {
+  display: none;
 }
 
 @media screen and (max-width: 782px) {
-    .ersaal-help-wrap {
-        flex-direction: column;
-    }
-    .ersaal-help-sidebar {
-        width: 100%;
-        position: static;
-        max-height: 200px;
-        overflow-y: auto;
-    }
+  .ersaal-admin .ersaal-help-toolbar,
+  .ersaal-admin .ersaal-help-shortcuts {
+    grid-template-columns: 1fr;
+  }
+
+  .ersaal-admin .ersaal-help-language,
+  .ersaal-admin .ersaal-help-language-wrap {
+    width: 100%;
+  }
+
+  .ersaal-admin .ersaal-help-nav {
+    margin-block-end: var(--ersaal-space-lg);
+  }
+
+  .ersaal-admin .ersaal-help-section-body {
+    padding: var(--ersaal-space-lg);
+  }
 }

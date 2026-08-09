@@ -68,13 +68,6 @@ class ManualSendModule implements ModuleInterface
             return;
         }
 
-        wp_enqueue_style(
-            'ersaal-manual-send',
-            ERSAAL_PLUGIN_URL . 'admin/assets/css/manual-send.css',
-            [],
-            ERSAAL_VERSION
-        );
-
         wp_enqueue_script(
             'ersaal-manual-send',
             ERSAAL_PLUGIN_URL . 'admin/assets/js/manual-send.js',
@@ -88,9 +81,10 @@ class ManualSendModule implements ModuleInterface
             'nonce'    => wp_create_nonce('ersaal_manual_send'),
             'i18n'     => [
                 'sending' => __('Sending...', 'ersaal'),
-                'send'    => __('Send Message', 'ersaal'),
+                'send'    => __('Send SMS', 'ersaal'),
                 'error'   => __('An unexpected error occurred.', 'ersaal'),
-                'success' => __('Message accepted by Ersaal.', 'ersaal')
+                'success' => __('Message accepted by Ersaal.', 'ersaal'),
+                'error_label' => __('Message could not be sent.', 'ersaal')
             ]
         ]);
     }
