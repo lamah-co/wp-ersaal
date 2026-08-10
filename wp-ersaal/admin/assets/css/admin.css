@@ -694,7 +694,7 @@
 }
 
 .ersaal-admin .ersaal-log-table {
-  min-width: 1120px;
+  min-width: 1040px;
   table-layout: fixed;
   font-size: var(--ersaal-text-md);
 }
@@ -800,6 +800,16 @@
 
 .ersaal-admin #ersaal-copy-message {
   margin-block-start: var(--ersaal-space-md);
+}
+
+@media screen and (max-width: 1366px) {
+  .ersaal-admin .ersaal-filter-form {
+    grid-template-columns: minmax(200px, 1.6fr) repeat(3, minmax(112px, 1fr));
+  }
+
+  .ersaal-admin .ersaal-filter-actions {
+    grid-column: 3 / -1;
+  }
 }
 
 .ersaal-admin .ersaal-modal {
