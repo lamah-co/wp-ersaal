@@ -34,8 +34,10 @@ if (!$admin instanceof WP_User || !$customer instanceof WP_User) {
 }
 
 $profile = new OTPUserProfile(new Options(), ersaal_otp_service());
+$profileSource = (string) file_get_contents((new ReflectionClass(OTPUserProfile::class))->getFileName());
 profileOtpAssert('show_user_profile_hook_registered', has_action('show_user_profile') !== false);
 profileOtpAssert('edit_user_profile_hook_registered', has_action('edit_user_profile') !== false);
+profileOtpAssert('suggestion_has_no_wc_runtime_dependency', strpos($profileSource, "'billing_phone'") !== false && strpos($profileSource, 'WC_') === false && strpos($profileSource, 'wc_get_') === false);
 
 foreach ([OTPUserProfile::META_PHONE, OTPUserProfile::META_VERIFIED, OTPUserProfile::META_VERIFIED_AT, OTPUserProfile::META_LOGIN_ENABLED, 'billing_phone'] as $key) {
     delete_user_meta($customer->ID, $key);

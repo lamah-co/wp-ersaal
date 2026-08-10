@@ -58,6 +58,9 @@ $expiration = time() + HOUR_IN_SECONDS;
 $sessionManager = WP_Session_Tokens::get_instance($admin->ID);
 $sessionToken = $sessionManager->create($expiration);
 $authCookie = wp_generate_auth_cookie($admin->ID, $expiration, 'auth', $sessionToken);
+$customerSessionManager = WP_Session_Tokens::get_instance($customer->ID);
+$customerSessionToken = $customerSessionManager->create($expiration);
+$customerAuthCookie = wp_generate_auth_cookie($customer->ID, $expiration, 'auth', $customerSessionToken);
 
 try {
     file_put_contents($statePath, wp_json_encode(['mode' => 'ok', 'initiate' => 0, 'verify' => 0, 'used' => []]));
@@ -71,6 +74,12 @@ try {
     foreach ([OTPUserProfile::META_PHONE, OTPUserProfile::META_VERIFIED, OTPUserProfile::META_VERIFIED_AT, OTPUserProfile::META_LOGIN_ENABLED] as $name) {
         delete_user_meta($customer->ID, $name);
     }
+
+    $_COOKIE[AUTH_COOKIE] = $customerAuthCookie;
+    wp_set_current_user($customer->ID);
+    $customerNonce = wp_create_nonce('ersaal_otp_profile');
+    $forbidden = profileE2ePost($customerAuthCookie, $customerNonce, 'ersaal_otp_profile_use_suggested', $admin->ID);
+    profileE2eAssert('normal_user_cannot_target_other_user', $forbidden['status'] === 403 && empty($forbidden['json']['success']));
 
     $_COOKIE[AUTH_COOKIE] = $authCookie;
     wp_set_current_user($admin->ID);
@@ -116,6 +125,7 @@ try {
     $_POST = [];
     unset($_COOKIE[AUTH_COOKIE]);
     $sessionManager->destroy($sessionToken);
+    $customerSessionManager->destroy($customerSessionToken);
     foreach ($optionBackups as $name => $value) { $value === $missing ? delete_option($name) : update_option($name, $value); }
     foreach ($metaBackups as $name => $value) { $value === '' ? delete_user_meta($customer->ID, $name) : update_user_meta($customer->ID, $name, $value); }
     $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}ersaal_otp_logs WHERE id > %d AND user_id = %d", $otpLogFloor, $customer->ID));
