@@ -142,7 +142,7 @@ $mock_responses[$current_test] = [
 ];
 pad('invalid_sender');
 $r = $handler->process(['phone' => '+218911234567', 'message' => 'Hello', 'sender' => 'Bad']);
-echo ($r['success'] === false && mb_strpos($r['data']['message'], 'Sender ID') !== false) ? "PASS\n" : "FAIL ({$r['data']['message']})\n";
+echo ($r['success'] === false && $r['data']['message'] === __('Sender ID is invalid or not approved for this project.', 'ersaal')) ? "PASS\n" : "FAIL ({$r['data']['message']})\n";
 
 // ================================================================
 // 11. authentication_failure — 401

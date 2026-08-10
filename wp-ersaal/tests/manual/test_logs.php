@@ -2,16 +2,24 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../../../../wp-load.php';
+require_once ERSAAL_PLUGIN_DIR . 'admin/LogsPage.php';
 
 echo "=== ERSAAL PHASE 7 LOGS TESTS ===\n\n";
 
+$testFailures = 0;
 function assertTestLogs($name, $condition, $message = '') {
+    global $testFailures;
     if ($condition) {
         echo str_pad($name, 32) . " PASS\n";
     } else {
+        $testFailures++;
         echo str_pad($name, 32) . " FAIL" . ($message ? " ($message)" : "") . "\n";
     }
 }
+
+$admins = get_users(['role' => 'administrator', 'number' => 1]);
+wp_set_current_user((int) ($admins[0]->ID ?? 0));
+$_SERVER['REQUEST_METHOD'] = 'GET';
 
 $repo = new \Ersaal\Storage\LogRepository();
 
@@ -113,8 +121,8 @@ $html = ob_get_clean();
 assertTestLogs('message_rendered', strpos($html, 'Line 1 Line 2') !== false);
 assertTestLogs('message_missing_shows_dash', strpos($html, '&mdash;') !== false); // for log 1 and 2
 assertTestLogs('no_html_injection', strpos($html, '&lt;script&gt;alert(1)&lt;/script&gt;') !== false && strpos($html, '<script>alert(1)</script>') === false);
-assertTestLogs('parts_missing_shows_dash', strpos($html, '<td class="hidden-on-mobile">&mdash;</td>') !== false);
-assertTestLogs('cost_missing_shows_dash', strpos($html, '<td class="hidden-on-mobile">&mdash;</td>') !== false);
+assertTestLogs('parts_missing_not_defaulted', strpos($html, 'parts_final&quot;:null') !== false);
+assertTestLogs('cost_missing_not_defaulted', strpos($html, 'cost_final&quot;:null') !== false);
 
 // 8. Test Delete Single
 $wpdb->insert($table, [
@@ -177,7 +185,7 @@ ob_start();
 $page = new \Ersaal\Admin\LogsPage($repo);
 $page->render();
 $html2 = ob_get_clean();
-assertTestLogs('clear_filters_url', strpos($html2, 'Clear Filters') !== false);
+assertTestLogs('clear_filters_url', strpos($html2, 'ersaal-btn-ghost ersaal-btn-sm') !== false);
 
 // 13. CSV Export Check (simulated)
 // The actual export ends script via `exit`, so we just test the log fetching part of CSV logic
@@ -189,4 +197,5 @@ assertTestLogs('csv_no_sensitive_data', !isset($testLogCsv->api_key) && !isset($
 // Clean up
 $wpdb->query("DELETE FROM {$table} WHERE idempotency_key IN ('test_log_1', 'test_log_2', 'test_log_3', 'test_log_4', 'test_date_1', 'test_date_2', 'test_event_1')");
 
-echo "\nAll Logs tests finished.\n";
+echo "\n" . ($testFailures === 0 ? 'All Logs tests passed.' : "{$testFailures} Logs test(s) failed.") . "\n";
+exit($testFailures === 0 ? 0 : 1);
