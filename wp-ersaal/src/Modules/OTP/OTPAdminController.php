@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Ersaal\Modules\OTP;
 
 use Ersaal\Core\Options;
+use Ersaal\Services\ConnectionStatusService;
 
 final class OTPAdminController
 {
@@ -82,6 +83,7 @@ final class OTPAdminController
     public function renderSettingsTab(): void
     {
         $options = $this->options;
+        $otpStatus = (new ConnectionStatusService($this->options))->getStatus();
         require ERSAAL_PLUGIN_DIR . 'admin/views/settings-otp.php';
     }
 
@@ -129,7 +131,7 @@ final class OTPAdminController
             ], $this->safeHttpStatus($result));
         }
 
-        $expiresIn = (int) ($result->getExpiresIn() ?: 300);
+        $expiresIn = (int) ($result->getExpiresIn() ?: $this->service->getConfiguredLifetimeSeconds());
         set_transient($this->testTransientKey(), [
             'reference' => $result->getReference(),
             'phone' => $phone,

@@ -55,7 +55,7 @@ final class OTPLoginTwoFactor
         }
 
         $now = time();
-        $expiresIn = (int) ($result->getExpiresIn() ?: 300);
+        $expiresIn = (int) ($result->getExpiresIn() ?: $this->service->getConfiguredLifetimeSeconds());
         $token = $this->newToken();
         $state = [
             'user_id' => $user->ID,
@@ -178,7 +178,7 @@ final class OTPLoginTwoFactor
             return;
         }
 
-        $expiresIn = (int) ($result->getExpiresIn() ?: 300);
+        $expiresIn = (int) ($result->getExpiresIn() ?: $this->service->getConfiguredLifetimeSeconds());
         $state['reference'] = $result->getReference();
         $state['expires_at'] = $now + $expiresIn;
         $state['resend_after'] = $now + $expiresIn + 5;

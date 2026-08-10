@@ -59,7 +59,9 @@ final class OTPService
             if ($reference === '') {
                 throw new ServerException(__('Ersaal did not return an OTP reference.', 'ersaal'), 500);
             }
-            $result = OTPResult::sent($reference, $response->get('cost'), $expiration * MINUTE_IN_SECONDS);
+            $apiExpiresIn = $response->get('expires_in');
+            $apiExpiresIn = is_numeric($apiExpiresIn) && (int) $apiExpiresIn > 0 ? (int) $apiExpiresIn : null;
+            $result = OTPResult::sent($reference, $response->get('cost'), $apiExpiresIn);
             $this->writeLog('initiate', 'sent', $fingerprint, $masked, $reference, $context, $metadata, 200);
             do_action('ersaal_otp_initiated', $result->toArray(), $context, $safeMetadata);
             return $result;
@@ -115,6 +117,15 @@ final class OTPService
     public function getLogRepository(): OTPLogRepository
     {
         return $this->logs;
+    }
+
+    /**
+     * Local workflow lifetime derived from the expiration submitted to Ersaal.
+     * This does not imply that the current API response returned expires_in.
+     */
+    public function getConfiguredLifetimeSeconds(): int
+    {
+        return $this->getExpiration() * MINUTE_IN_SECONDS;
     }
 
     private function getLength(): int

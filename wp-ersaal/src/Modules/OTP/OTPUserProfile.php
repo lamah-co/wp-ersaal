@@ -187,7 +187,7 @@ final class OTPUserProfile
             wp_send_json_error(['message' => $result->getErrorMessage(), 'status' => $result->getStatus()], $this->safeHttpStatus($result));
         }
         $normalized = $this->validator->normalizePhone($phone);
-        $expiresIn = (int) ($result->getExpiresIn() ?: 300);
+        $expiresIn = (int) ($result->getExpiresIn() ?: $this->service->getConfiguredLifetimeSeconds());
         set_transient($key, [
             'reference' => $result->getReference(),
             'phone' => $normalized,

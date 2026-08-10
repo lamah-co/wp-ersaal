@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Ersaal SMS Gateway 1.0.2\n"
+"Project-Id-Version: Ersaal SMS Gateway 1.1.0\n"
 "Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2026-08-09 00:00+0000\n"
-"PO-Revision-Date: 2026-08-09 00:00+0000\n"
+"POT-Creation-Date: 2026-08-10 00:00+0000\n"
+"PO-Revision-Date: 2026-08-10 00:00+0000\n"
 "Last-Translator: Ersaal Team\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -1652,3 +1652,35 @@ msgstr "يمكنك طلب رمز جديد خلال %s ثانية."
 #: admin/views/settings-otp.php:103
 msgid "Remove ERSAAL_DISABLE_LOGIN_OTP or set it to false after resolving the emergency."
 msgstr "احذف ERSAAL_DISABLE_LOGIN_OTP أو اجعله false بعد حل الحالة الطارئة."
+
+#: admin/views/settings-otp.php:38
+msgid "Connection"
+msgstr "الاتصال"
+
+#: admin/views/settings-otp.php:34
+msgid "Live project and OTP capacity values reported by the connected Ersaal API."
+msgstr "قيم مباشرة لحالة المشروع وسعة رمز التحقق كما تعيدها واجهة Ersaal المتصلة."
+
+#: admin/views/settings-otp.php:43 admin/views/settings-otp.php:47
+msgid "Not reported"
+msgstr "لم تُبلّغ عنه الواجهة"
+
+#: admin/views/settings-otp.php:42
+msgid "OTP balance"
+msgstr "رصيد رمز التحقق"
+
+#: admin/views/settings-otp.php:46
+msgid "OTP limit"
+msgstr "حد رمز التحقق"
+
+#: admin/views/settings-otp.php:51
+msgid "OTP service availability could not be confirmed. Review Connection settings before enabling a login challenge."
+msgstr "تعذر تأكيد توفر خدمة رمز التحقق. راجع إعدادات الاتصال قبل تفعيل تحدي تسجيل الدخول."
+
+#: admin/views/settings-otp.php:33
+msgid "OTP service status"
+msgstr "حالة خدمة رمز التحقق"
+
+#: admin/views/settings-otp.php:53
+msgid "The API reports no available OTP subscription units. Choose wallet payment or update the Ersaal subscription."
+msgstr "تفيد الواجهة بعدم توفر وحدات في باقة رمز التحقق. اختر المحفظة أو حدّث باقة Ersaal."

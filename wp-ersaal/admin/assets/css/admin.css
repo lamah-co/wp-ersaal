@@ -86,6 +86,10 @@
     background: var(--ersaal-bg-surface-2);
 }
 
+.ersaal-admin [data-otp-panel][hidden] {
+    display: none;
+}
+
 .ersaal-admin.ersaal-otp-logs-page .ersaal-table td,
 .ersaal-admin.ersaal-otp-logs-page .ersaal-table th {
     vertical-align: middle;

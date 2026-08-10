@@ -67,6 +67,7 @@ add_action('ersaal_otp_initiated', static function (array $resultData, string $c
 }, 10, 3);
 $result = $service->initiate('+218 91 123 4567', 'admin_test', ['user_id' => 1, 'phone' => '+218911234567', 'code' => '999999']);
 otpAssert('initiate_success', $result->isSuccess() && $result->getStatus() === 'sent' && $result->getReference() === 'otp-ref-success');
+otpAssert('expiry_not_invented_from_api', $result->getExpiresIn() === null && $service->getConfiguredLifetimeSeconds() === 180);
 otpAssert('initiate_contract_path', $captured['url'] === 'https://otp.test/api/otp/initiate');
 otpAssert('initiate_contract_payload', $captured['body']['receiver'] === '+218911234567' && $captured['body']['sender'] === 'Lamah' && $captured['body']['length'] === 6 && $captured['body']['expiration'] === 3 && $captured['body']['lang'] === 'ar' && $captured['body']['payment_type'] === 'subscription');
 otpAssert('initiate_auth_and_idempotency', $captured['args']['headers']['Authorization'] === 'Bearer test_secret_token' && !empty($captured['args']['headers']['Idempotency-Key']));

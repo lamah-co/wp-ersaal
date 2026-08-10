@@ -47,7 +47,7 @@ The submitted code goes directly to Ersaal. The service never passes it to hooks
 
 ## Result object
 
-`OTPResult` provides `isSuccess()`, `getStatus()`, `getReference()`, `getCost()`, `getExpiresIn()`, `getErrorCode()`, `getErrorMessage()`, `getHttpStatus()`, `getRetryAfter()`, and `toArray()`.
+`OTPResult` provides `isSuccess()`, `getStatus()`, `getReference()`, `getCost()`, `getExpiresIn()`, `getErrorCode()`, `getErrorMessage()`, `getHttpStatus()`, `getRetryAfter()`, and `toArray()`. `getExpiresIn()` is `null` when the API does not return expiry metadata; the current Ersaal initiate response does not return it.
 
 Stable local statuses include `sent`, `verified`, `invalid`, `expired`, `rate_limited`, `unavailable`, `failed`, and `disabled`. Drive logic from status/error code, not translated messages.
 

@@ -28,6 +28,32 @@ $emergencyDisabled = defined('ERSAAL_DISABLE_LOGIN_OTP') && ERSAAL_DISABLE_LOGIN
             </label>
         </section>
 
+        <section class="ersaal-settings-section" aria-labelledby="ersaal-otp-service-status-title">
+            <header class="ersaal-settings-section-header">
+                <h2 id="ersaal-otp-service-status-title"><?php esc_html_e('OTP service status', 'ersaal'); ?></h2>
+                <p><?php esc_html_e('Live project and OTP capacity values reported by the connected Ersaal API.', 'ersaal'); ?></p>
+            </header>
+            <dl class="ersaal-summary-list">
+                <div class="ersaal-summary-item">
+                    <dt><?php esc_html_e('Connection', 'ersaal'); ?></dt>
+                    <dd><span class="ersaal-badge <?php echo $otpStatus['connected'] ? 'ersaal-badge-success' : 'ersaal-badge-danger'; ?>"><?php echo esc_html($otpStatus['connected'] ? __('Connected', 'ersaal') : __('Unavailable', 'ersaal')); ?></span></dd>
+                </div>
+                <div class="ersaal-summary-item">
+                    <dt><?php esc_html_e('OTP balance', 'ersaal'); ?></dt>
+                    <dd><?php echo $otpStatus['otp_balance'] !== null ? esc_html(number_format_i18n((float) $otpStatus['otp_balance'])) : esc_html__('Not reported', 'ersaal'); ?></dd>
+                </div>
+                <div class="ersaal-summary-item">
+                    <dt><?php esc_html_e('OTP limit', 'ersaal'); ?></dt>
+                    <dd><?php echo $otpStatus['otp_limit'] !== null ? esc_html(number_format_i18n((float) $otpStatus['otp_limit'])) : esc_html__('Not reported', 'ersaal'); ?></dd>
+                </div>
+            </dl>
+            <?php if (!$otpStatus['connected']): ?>
+                <div class="ersaal-alert ersaal-alert-warning" role="status"><p><?php esc_html_e('OTP service availability could not be confirmed. Review Connection settings before enabling a login challenge.', 'ersaal'); ?></p></div>
+            <?php elseif ($options->get('otp_payment_type', 'wallet') === 'subscription' && $otpStatus['otp_balance'] !== null && (float) $otpStatus['otp_balance'] <= 0): ?>
+                <div class="ersaal-alert ersaal-alert-warning" role="status"><p><?php esc_html_e('The API reports no available OTP subscription units. Choose wallet payment or update the Ersaal subscription.', 'ersaal'); ?></p></div>
+            <?php endif; ?>
+        </section>
+
         <section class="ersaal-settings-section" id="ersaal-otp-configuration" aria-labelledby="ersaal-otp-config-title">
             <header class="ersaal-settings-section-header">
                 <h2 id="ersaal-otp-config-title"><?php esc_html_e('OTP defaults', 'ersaal'); ?></h2>
