@@ -85,6 +85,7 @@ try {
     profileE2eAssert('profile_send_uses_shared_otp_service', $send['status'] === 200 && !empty($send['json']['success']) && (int) ($mock['initiate'] ?? 0) === 1);
 
     $verify = profileE2ePost($authCookie, $nonce, 'ersaal_otp_profile_verify', $customer->ID, ['code' => '123456']);
+    clean_user_cache($customer->ID);
     $verifyMessage = sanitize_text_field((string) ($verify['json']['data']['message'] ?? 'no message'));
     profileE2eAssert('correct_code_marks_phone_verified', $verify['status'] === 200 && !empty($verify['json']['success']) && (bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true), 'HTTP ' . $verify['status'] . ': ' . $verifyMessage);
     profileE2eAssert('verified_phone_is_saved_normalized', get_user_meta($customer->ID, OTPUserProfile::META_PHONE, true) === '+218912345678');
@@ -104,6 +105,7 @@ try {
 
     $sendNew = profileE2ePost($authCookie, $nonce, 'ersaal_otp_profile_send', $customer->ID, ['phone' => '+218922222222']);
     $verifyNew = profileE2ePost($authCookie, $nonce, 'ersaal_otp_profile_verify', $customer->ID, ['code' => '123456']);
+    clean_user_cache($customer->ID);
     $verifyNewMessage = sanitize_text_field((string) ($verifyNew['json']['data']['message'] ?? 'no message'));
     profileE2eAssert('new_phone_can_be_verified_again', !empty($sendNew['json']['success']) && !empty($verifyNew['json']['success']) && (bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true), 'HTTP ' . $verifyNew['status'] . ': ' . $verifyNewMessage);
     profileE2eAssert('new_verification_keeps_2fa_opt_in_off', !(bool) get_user_meta($customer->ID, OTPUserProfile::META_LOGIN_ENABLED, true));
