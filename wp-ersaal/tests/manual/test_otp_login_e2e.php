@@ -143,6 +143,7 @@ try {
     $cookies = e2eCookies($jar);
     $authCookie = $cookies[AUTH_COOKIE] ?? null;
     clean_user_cache($userId);
+    $_SERVER['REQUEST_METHOD'] = 'GET';
     $authenticatedUser = $authCookie ? wp_validate_auth_cookie(rawurldecode($authCookie['value']), 'auth') : 0;
     e2eAssert('correct_otp_completes_login', $success['status'] === 302 && $authenticatedUser === $userId);
     e2eAssert('redirect_to_is_preserved_safely', e2eLocation($success['headers']) === $redirect);

@@ -10,10 +10,13 @@ if (!class_exists('WooCommerce')) {
     exit;
 }
 
+$testFailures = 0;
 function assertTestWc($name, $condition, $message = '') {
+    global $testFailures;
     if ($condition) {
         echo str_pad($name, 32) . " PASS\n";
     } else {
+        $testFailures++;
         echo str_pad($name, 32) . " FAIL" . ($message ? " ($message)" : "") . "\n";
     }
 }
@@ -22,6 +25,13 @@ function assertTestWc($name, $condition, $message = '') {
 update_option('ersaal_wc_enable', true);
 update_option('ersaal_wc_event_new_order_enable', true);
 update_option('ersaal_wc_event_new_order_template', 'Order {order_number} received.');
+foreach (['processing', 'completed', 'cancelled', 'shipped'] as $event) {
+    update_option("ersaal_wc_event_{$event}_enable", true);
+    update_option("ersaal_wc_event_{$event}_template", "Order {order_number} {$event}.");
+}
+update_option('ersaal_wc_admin_new_order_enable', true);
+update_option('ersaal_wc_admin_phone', '+218922222222');
+update_option('ersaal_wc_admin_new_order_template', 'New order {order_number}.');
 
 // Mock a lightweight WC Order if possible
 $order = wc_create_order();
@@ -46,6 +56,7 @@ $table = $wpdb->prefix . 'ersaal_logs';
 $log = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$table} WHERE source = 'woocommerce' AND source_id = %s", (string)$order_id));
 
 assertTestWc('new_order_event', $log !== null && $log->source_event === 'new_order');
+assertTestWc('admin_order_notification', (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE source_id = %s AND source_event = 'admin_new_order'", (string) $order_id)) === 1);
 
 // 3. Duplicate event blocked
 $initialCount = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE source = 'woocommerce' AND source_id = %s", (string)$order_id));
@@ -54,8 +65,26 @@ $newCount = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE s
 
 assertTestWc('duplicate_event_blocked', $initialCount === $newCount);
 
+// 4. Core status notifications.
+do_action('woocommerce_order_status_processing', $order_id, $order);
+do_action('woocommerce_order_status_completed', $order_id, $order);
+do_action('woocommerce_order_status_cancelled', $order_id, $order);
+foreach (['processing', 'completed', 'cancelled'] as $event) {
+    assertTestWc($event . '_event', (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE source_id = %s AND source_event = %s", (string) $order_id, $event)) === 1);
+}
+
+// 5. Dynamic custom status catch-all.
+do_action('woocommerce_order_status_changed', $order_id, 'processing', 'shipped', $order);
+assertTestWc('custom_status_event', (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE source_id = %s AND source_event = 'shipped'", (string) $order_id)) === 1);
+
+// 6. Manual order SMS endpoint retains its nonce/capability and unique key.
+$manualSource = (string) file_get_contents(ERSAAL_PLUGIN_DIR . 'src/Modules/WooCommerce/ManualOrderSmsBox.php');
+assertTestWc('manual_order_sms_guards', strpos($manualSource, "check_ajax_referer('ersaal_manual_order_sms'") !== false && strpos($manualSource, "current_user_can('manage_woocommerce')") !== false);
+assertTestWc('manual_order_sms_unique_key', strpos($manualSource, "'manual_woocommerce:' . \$orderId . ':' . wp_generate_uuid4()") !== false);
+
 // Clean up
 $order->delete(true);
 $wpdb->query("DELETE FROM {$table} WHERE source = 'woocommerce'");
 
-echo "\nAll WooCommerce tests finished.\n";
+echo "\n" . ($testFailures === 0 ? 'All WooCommerce tests passed.' : "{$testFailures} WooCommerce test(s) failed.") . "\n";
+exit($testFailures === 0 ? 0 : 1);
