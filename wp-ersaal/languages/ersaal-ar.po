@@ -1393,10 +1393,6 @@ msgstr "جاهز"
 msgid "Recent OTP activity"
 msgstr "أحدث نشاط لرموز التحقق"
 
-#: admin/views/settings-otp.php:103
-msgid "Remove ERSAAL_OTP_DISABLE_LOGIN_2FA or set it to false after resolving the emergency."
-msgstr "احذف ERSAAL_OTP_DISABLE_LOGIN_2FA أو اجعله false بعد حل الحالة الطارئة."
-
 #: src/Modules/OTP/OTPUserProfile.php:113
 msgid "Require a verification code after my WordPress password"
 msgstr "طلب رمز تحقق بعد كلمة مرور ووردبريس"
@@ -1652,3 +1648,7 @@ msgstr "لا تملك صلاحية التحقق من هذا الهاتف."
 #: src/Modules/OTP/OTPAdminController.php:76
 msgid "You can request a new code in %s seconds."
 msgstr "يمكنك طلب رمز جديد خلال %s ثانية."
+
+#: admin/views/settings-otp.php:103
+msgid "Remove ERSAAL_DISABLE_LOGIN_OTP or set it to false after resolving the emergency."
+msgstr "احذف ERSAAL_DISABLE_LOGIN_OTP أو اجعله false بعد حل الحالة الطارئة."

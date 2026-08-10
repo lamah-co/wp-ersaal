@@ -301,3 +301,20 @@ A: In the Logs page, there is a small copy icon next to the shortened Message ID
 * **GSM-7 / Unicode**: Character encoding methods that determine how many characters fit in a single SMS part.
 * **HPOS**: High-Performance Order Storage (WooCommerce's modern database structure).
 * **Idempotency**: A safety mechanism ensuring a specific automated event is never triggered twice.
+
+---
+
+## 24. OTP and WordPress Login 2FA
+
+OTP is a short-lived verification code, separate from ordinary notification SMS. It is disabled after upgrade until an administrator enables it.
+
+1. Configure the approved sender, payment source, code length, lifetime, and language in **Ersaal → Settings → OTP**.
+2. Run **Ersaal → OTP Test** and complete both Send and Verify.
+3. Review masked results in **Ersaal → OTP Activity**. Codes and full phones never appear there.
+4. To enroll a user, open their profile, enter an international mobile phone, send a code, verify it, then enable Login OTP and save.
+
+Login OTP requires global OTP, global Login OTP, a verified phone, and that user's explicit opt-in. A wrong password never sends a code. A correct password opens the OTP screen, and WordPress creates its session only after verification succeeds. Resend is available after the active code expires.
+
+Changing or removing the phone clears verification and disables 2FA. If Login OTP becomes unavailable, add `define('ERSAAL_DISABLE_LOGIN_OTP', true);` to `wp-config.php`; this bypasses only the login second step. Remove it after recovery.
+
+See [OTP Setup](OTP-SETUP-EN.md), [Login OTP](OTP-LOGIN-2FA-EN.md), and [Developer API](OTP-DEVELOPER-API.md) for full details and common errors.

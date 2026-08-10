@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
 }
 $otpEnabled = (bool) $options->get('otp_enabled', false);
 $loginEnabled = (bool) $options->get('otp_login_enabled', false);
-$emergencyDisabled = defined('ERSAAL_OTP_DISABLE_LOGIN_2FA') && ERSAAL_OTP_DISABLE_LOGIN_2FA;
+$emergencyDisabled = defined('ERSAAL_DISABLE_LOGIN_OTP') && ERSAAL_DISABLE_LOGIN_OTP;
 ?>
 <form method="post" action="options.php" id="ersaal-otp-settings-form">
     <?php settings_fields('ersaal_otp_settings'); ?>
@@ -100,7 +100,7 @@ $emergencyDisabled = defined('ERSAAL_OTP_DISABLE_LOGIN_2FA') && ERSAAL_OTP_DISAB
             <?php if ($emergencyDisabled): ?>
                 <div class="ersaal-alert ersaal-alert-warning" role="status">
                     <p class="ersaal-alert-title"><?php esc_html_e('Login OTP is disabled by wp-config.php', 'ersaal'); ?></p>
-                    <p><?php esc_html_e('Remove ERSAAL_OTP_DISABLE_LOGIN_2FA or set it to false after resolving the emergency.', 'ersaal'); ?></p>
+                    <p><?php esc_html_e('Remove ERSAAL_DISABLE_LOGIN_OTP or set it to false after resolving the emergency.', 'ersaal'); ?></p>
                 </div>
             <?php endif; ?>
 

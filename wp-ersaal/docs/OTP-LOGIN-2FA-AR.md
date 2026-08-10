@@ -32,7 +32,7 @@
 أضف إلى `wp-config.php`:
 
 ```php
-define('ERSAAL_OTP_DISABLE_LOGIN_2FA', true);
+define('ERSAAL_DISABLE_LOGIN_OTP', true);
 ```
 
 يتجاوز هذا الثابت OTP لتسجيل الدخول فقط، وتبقى الاختبارات والسجلات وواجهة المطور والرسائل ووكومرس والإعدادات متاحة. احذفه أو اجعله `false` بعد الحل.

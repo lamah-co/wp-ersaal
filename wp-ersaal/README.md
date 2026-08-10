@@ -12,7 +12,7 @@ Ersaal SMS Gateway integration for WordPress and WooCommerce.
 
 OTP support is optional and disabled by default. Administrators can configure an approved sender, payment source, code length, lifetime, and language; run a real send-and-verify test; and review a dedicated privacy-safe activity log.
 
-WordPress Login OTP is a separate opt-in setting. Each user must verify a phone and explicitly enable the second login step. No authenticated WordPress session is created until the submitted OTP succeeds. For emergency recovery, `ERSAAL_OTP_DISABLE_LOGIN_2FA` bypasses only the login OTP layer.
+WordPress Login OTP is a separate opt-in setting. Each user must verify a phone and explicitly enable the second login step. No authenticated WordPress session is created until the submitted OTP succeeds. For emergency recovery, `ERSAAL_DISABLE_LOGIN_OTP` bypasses only the login OTP layer.
 
 Developers can use the shared `ersaal_otp_service()` API. See [`docs/OTP-DEVELOPER-API.md`](docs/OTP-DEVELOPER-API.md).
 

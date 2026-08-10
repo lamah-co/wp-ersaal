@@ -108,6 +108,15 @@ return [
                 <li>Review the safe record in <a href="' . esc_url(admin_url('admin.php?page=ersaal-otp-logs')) . '">OTP Activity</a>.</li>
             </ol>
             <div class="notice notice-info inline"><p>OTP Activity never stores verification codes or full phone numbers. A real test may consume wallet balance or one OTP subscription unit.</p></div>
+            <h3>What OTP requires</h3>
+            <p>OTP is a short-lived identity check, not an ordinary notification SMS. It requires an active project, valid API key, approved sender, and wallet credit or an OTP subscription with available units.</p>
+            <h3>Common errors</h3>
+            <ul>
+                <li><strong>Active code:</strong> use the current code or wait until it expires.</li>
+                <li><strong>Invalid or expired:</strong> check the code, then request a new one after expiry.</li>
+                <li><strong>Sender or subscription:</strong> verify the approved sender and selected payment source.</li>
+                <li><strong>Rate limited or unavailable:</strong> wait and retry; local controls do not replace Ersaal limits.</li>
+            </ul>
         '
     ],
     [
@@ -122,8 +131,9 @@ return [
                 <li>Enable <strong>Require a verification code after my WordPress password</strong> and save the profile.</li>
             </ol>
             <p>The code is requested only after WordPress accepts the username and password. A user session is created only after the OTP succeeds.</p>
+            <p>Changing the user phone clears its verified state and disables Login OTP. Resend stays disabled while the current code is active. The challenge is one-time, bound to the user, and fails closed when Ersaal is unavailable.</p>
             <h3>Emergency recovery</h3>
-            <p>Add <code>define(\'ERSAAL_OTP_DISABLE_LOGIN_2FA\', true);</code> to <code>wp-config.php</code> to bypass only login OTP while retaining the rest of the plugin. Remove it after the issue is resolved.</p>
+            <p>Add <code>define(\'ERSAAL_DISABLE_LOGIN_OTP\', true);</code> to <code>wp-config.php</code> to bypass only login OTP while retaining the rest of the plugin. Remove it after the issue is resolved.</p>
         '
     ],
     [

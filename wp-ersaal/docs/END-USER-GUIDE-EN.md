@@ -398,3 +398,17 @@ Yes, using the Manual Send box inside the WooCommerce order page.
 No. The plugin prevents sending duplicate automatic messages for the same order status.
 
 *(Note: This plugin is fully compatible with WooCommerce High-Performance Order Storage (HPOS)).*
+
+---
+
+## 35. OTP Verification
+
+OTP is optional and separate from normal SMS.
+
+- Administrators configure and test it under **Ersaal → Settings → OTP** and **Ersaal → OTP Test**.
+- To protect your login, enter your mobile phone in your WordPress profile, send and verify the code, enable **Require a verification code after my WordPress password**, and save.
+- A code is requested only after your password is correct. Enter it on the separate screen to finish signing in.
+- Changing your phone removes verification and turns Login OTP off until the new number is verified.
+- OTP Activity shows masked phones only and never stores your code.
+
+If Login OTP is unavailable, an administrator can temporarily bypass that login step with `define('ERSAAL_DISABLE_LOGIN_OTP', true);` in `wp-config.php`.

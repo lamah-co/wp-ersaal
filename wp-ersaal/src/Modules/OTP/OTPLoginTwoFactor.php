@@ -227,7 +227,7 @@ final class OTPLoginTwoFactor
         if (!$this->service->isEnabled() || !(bool) $this->options->get('otp_login_enabled', false)) {
             return false;
         }
-        if (defined('ERSAAL_OTP_DISABLE_LOGIN_2FA') && ERSAAL_OTP_DISABLE_LOGIN_2FA) {
+        if (defined('ERSAAL_DISABLE_LOGIN_OTP') && ERSAAL_DISABLE_LOGIN_OTP) {
             return false;
         }
         return (bool) get_user_meta($user->ID, OTPUserProfile::META_VERIFIED, true)

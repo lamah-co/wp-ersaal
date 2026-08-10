@@ -83,7 +83,7 @@
 }
 
 .ersaal-admin .ersaal-settings-section.is-disabled {
-    opacity: .58;
+    background: var(--ersaal-bg-surface-2);
 }
 
 .ersaal-admin.ersaal-otp-logs-page .ersaal-table td,

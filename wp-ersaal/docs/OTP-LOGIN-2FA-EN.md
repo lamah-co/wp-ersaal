@@ -32,7 +32,7 @@ After WordPress accepts the password, Ersaal sends a code and shows a separate v
 Add this to `wp-config.php`:
 
 ```php
-define('ERSAAL_OTP_DISABLE_LOGIN_2FA', true);
+define('ERSAAL_DISABLE_LOGIN_OTP', true);
 ```
 
 This bypasses only Login OTP; tests, logs, developer OTP, SMS, WooCommerce, and settings remain available. Remove it or set it to `false` after resolving the issue.

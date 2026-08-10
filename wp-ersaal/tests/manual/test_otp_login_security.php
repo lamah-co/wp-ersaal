@@ -80,9 +80,9 @@ foreach (glob(dirname((new ReflectionClass(OTPLoginTwoFactor::class))->getFileNa
 }
 loginOtpAssert('no_code_in_user_meta', !preg_match('/(?:update|add)_user_meta\s*\([^;]*(?:otp_)?code/i', $otpSources));
 loginOtpAssert('no_code_in_transient', !preg_match('/set_transient\s*\([^;]*(?:otp_)?code/i', $otpSources));
-loginOtpAssert('emergency_constant_supported', strpos($source, 'ERSAAL_OTP_DISABLE_LOGIN_2FA') !== false);
+loginOtpAssert('emergency_constant_supported', strpos($source, 'ERSAAL_DISABLE_LOGIN_OTP') !== false);
 
-define('ERSAAL_OTP_DISABLE_LOGIN_2FA', true);
+define('ERSAAL_DISABLE_LOGIN_OTP', true);
 update_user_meta($user->ID, OTPUserProfile::META_PHONE, '+218911234567');
 update_user_meta($user->ID, OTPUserProfile::META_VERIFIED, 1);
 update_user_meta($user->ID, OTPUserProfile::META_LOGIN_ENABLED, 1);
