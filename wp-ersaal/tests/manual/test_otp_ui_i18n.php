@@ -33,7 +33,7 @@ otpUiAssert('settings_has_global_opt_in', strpos($settingsView, 'ersaal_otp_enab
 otpUiAssert('test_has_state_machine', strpos($testView, 'data-otp-panel="send"') !== false && strpos($testView, 'data-otp-panel="verify"') !== false && strpos($testView, 'data-otp-panel="done"') !== false);
 otpUiAssert('otp_logs_are_separate', strpos($logsView, 'ersaal-otp-logs') !== false && strpos($logsView, 'message_text') === false && strpos($logsView, 'parts_final') === false && strpos($logsView, 'cost_final') === false);
 otpUiAssert('profile_has_explicit_opt_in', strpos($profileSource, 'ersaal_otp_login_2fa') !== false && strpos($profileSource, 'canEnableLoginTwoFactor') !== false);
-otpUiAssert('profile_hooks_and_security_section', strpos($profileSource, "add_action('show_user_profile'") !== false && strpos($profileSource, "add_action('edit_user_profile'") !== false && strpos($profileSource, "__('Ersaal Security', 'ersaal')") !== false);
+otpUiAssert('profile_hooks_and_security_section', strpos($profileSource, "add_action('show_user_profile'") !== false && strpos($profileSource, "add_action('edit_user_profile'") !== false && strpos($profileSource, "'Ersaal Security', 'ersaal'") !== false);
 
 $css = (string) file_get_contents($pluginRoot . '/admin/assets/css/admin.css') . (string) file_get_contents($pluginRoot . '/admin/assets/css/otp-login.css');
 $js = (string) file_get_contents($pluginRoot . '/admin/assets/js/otp-admin.js') . (string) file_get_contents($pluginRoot . '/admin/assets/js/otp-profile.js');
@@ -41,9 +41,12 @@ otpUiAssert('no_physical_side_borders', !preg_match('/border-(?:left|right)\s*:/
 otpUiAssert('no_ui_framework_dependency', !preg_match('/\b(?:bootstrap|tailwind|bulma|foundation)\b/i', $css . $js));
 otpUiAssert('rtl_uses_logical_properties', strpos($css, 'inline-size') !== false && strpos($css, 'margin-block') !== false);
 
+$switchedLocale = switch_to_locale('ar');
+otpUiAssert('arabic_locale_switch_available', $switchedLocale);
 otpUiAssert('arabic_new_string_loaded', __('OTP Test', 'ersaal') === 'اختبار رمز التحقق');
 otpUiAssert('arabic_profile_security_loaded', __('Ersaal Security', 'ersaal') === 'أمان Ersaal');
 otpUiAssert('arabic_existing_string_preserved', __('Accepted', 'ersaal') === 'مقبولة');
+if ($switchedLocale) { restore_previous_locale(); }
 
 $po = (string) file_get_contents($pluginRoot . '/languages/ersaal-ar.po');
 $pot = (string) file_get_contents($pluginRoot . '/languages/ersaal.pot');
