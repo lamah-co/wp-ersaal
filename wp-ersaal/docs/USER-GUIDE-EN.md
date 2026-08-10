@@ -1,6 +1,6 @@
 # Ersaal WordPress Plugin - User Guide
 
-**Version 1.0.2**
+**Version 1.1.0**
 
 ## Table of Contents
 1. [Introduction](#1-introduction)

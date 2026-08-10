@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-08-10
+
+### Added
+- Real Ersaal OTP initiate and verify integration with a reusable internal service and documented developer hooks.
+- OTP settings, service-readiness status, administration test workflow, privacy-safe activity logs, and dashboard metrics.
+- Verified OTP phone enrollment in WordPress user profiles.
+- Optional per-user WordPress Login 2FA with secure temporary challenges, resend handling, Remember Me support, and safe redirects.
+- Runtime database migration for the dedicated OTP activity table without plugin reactivation.
+- Complete Arabic and English OTP interfaces, help content, user guides, API contract, developer guide, and manual test checklist.
+
+### Changed
+- Extended the shared Ersaal administration design system for OTP screens in RTL and LTR layouts.
+- Expanded regression coverage for messaging, WooCommerce notifications, logs, active upgrades, localization, and login security.
+
+### Security
+- OTP codes are never persisted, logged, exposed in URLs, or passed to developer hooks.
+- Login OTP starts only after WordPress validates the password and creates no authentication cookie before successful verification.
+- Added replay-safe, user-bound, expiring challenges with local attempt limits and fail-closed API behavior.
+- Changing a stored phone clears verification and disables that user's login 2FA.
+- Added the `ERSAAL_DISABLE_LOGIN_OTP` wp-config.php recovery switch for the login OTP layer only.
+
 ## [1.0.2] - 2026-08-09
 
 ### Added
