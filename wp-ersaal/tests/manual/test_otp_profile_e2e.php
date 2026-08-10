@@ -97,7 +97,7 @@ try {
     clean_user_cache($customer->ID);
     $verifyMessage = sanitize_text_field((string) ($verify['json']['data']['message'] ?? 'no message'));
     profileE2eAssert('correct_code_marks_phone_verified', $verify['status'] === 200 && !empty($verify['json']['success']) && (bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true), 'HTTP ' . $verify['status'] . ': ' . $verifyMessage);
-    profileE2eAssert('verified_phone_is_saved_normalized', get_user_meta($customer->ID, OTPUserProfile::META_PHONE, true) === '+218912345678');
+    profileE2eAssert('verified_phone_is_saved_normalized', get_user_meta($customer->ID, OTPUserProfile::META_PHONE, true) === '00218912345678');
 
     $profile = new OTPUserProfile(new Options(), ersaal_otp_service());
     $_POST = [

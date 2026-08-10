@@ -34,7 +34,8 @@ class PhoneValidator
 
     public function mask(string $phone): string
     {
-        $digits = preg_replace('/\D/', '', $phone) ?? '';
+        $display = preg_replace('/^00218/', '+218', $phone) ?? $phone;
+        $digits = preg_replace('/\D/', '', $display) ?? '';
         $length = strlen($digits);
 
         if ($length < 8) {
@@ -45,7 +46,7 @@ class PhoneValidator
         $prefix = substr($digits, 0, $prefixLength);
         $suffix = substr($digits, -4);
 
-        return ($phone !== '' && $phone[0] === '+' ? '+' : '') . $prefix . ' *** ' . $suffix;
+        return ($display !== '' && $display[0] === '+' ? '+' : '') . $prefix . ' *** ' . $suffix;
     }
 
     public function fingerprint(string $phone): string

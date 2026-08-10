@@ -62,6 +62,18 @@ function assertRejection(PhoneValidator $validator, string $input) {
     }
 }
 
+function assertMask(PhoneValidator $validator, string $input, string $expected) {
+    global $successes, $failures;
+    $result = $validator->mask($input);
+    if ($result === $expected) {
+        echo "✅ PASS: '$input' masked as '$expected'\n";
+        $successes++;
+        return;
+    }
+    echo "❌ FAIL: '$input' -> expected mask '$expected', got '$result'\n";
+    $failures++;
+}
+
 echo "=== Testing Valid Formats ===\n";
 assertNormalization($validator, "0912345678", "00218912345678");
 assertNormalization($validator, "0923553268", "00218923553268");
@@ -72,6 +84,7 @@ echo "\n=== Testing International Formats ===\n";
 assertNormalization($validator, "+218923553268", "00218923553268");
 assertNormalization($validator, "218923553268", "00218923553268");
 assertNormalization($validator, "00218923553268", "00218923553268");
+assertMask($validator, "00218923553268", "+21892 *** 3268");
 
 echo "\n=== Testing Spacing and Hyphens ===\n";
 assertNormalization($validator, "092 355 3268", "00218923553268");

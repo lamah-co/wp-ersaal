@@ -62,7 +62,7 @@ profileOtpAssert('no_saved_phone_keeps_input_visible', strpos($customerOwn, 'id=
 update_user_meta($customer->ID, 'billing_phone', '+218912345678');
 $suggested = $profile->getSuggestedPhone($customer);
 $suggestedHtml = renderOtpProfile($profile, $customer);
-profileOtpAssert('billing_phone_detected', is_array($suggested) && $suggested['phone'] === '+218912345678');
+profileOtpAssert('billing_phone_detected', is_array($suggested) && $suggested['phone'] === '00218912345678');
 profileOtpAssert('suggested_phone_is_masked_in_html', strpos($suggestedHtml, '+21891 *** 5678') !== false && strpos($suggestedHtml, '+218912345678') === false);
 profileOtpAssert('suggested_phone_is_not_verified', !(bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true));
 
