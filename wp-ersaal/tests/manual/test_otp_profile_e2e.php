@@ -8,10 +8,10 @@ use Ersaal\Modules\OTP\OTPUserProfile;
 
 echo "=== ERSAAL v1.1 OTP PROFILE HTTP END-TO-END TESTS ===\n\n";
 $failures = 0;
-function profileE2eAssert(string $name, bool $condition): void
+function profileE2eAssert(string $name, bool $condition, string $details = ''): void
 {
     global $failures;
-    echo str_pad($name, 44) . ($condition ? 'PASS' : 'FAIL') . "\n";
+    echo str_pad($name, 44) . ($condition ? 'PASS' : 'FAIL' . ($details !== '' ? " ({$details})" : '')) . "\n";
     if (!$condition) { $failures++; }
 }
 
@@ -85,7 +85,8 @@ try {
     profileE2eAssert('profile_send_uses_shared_otp_service', $send['status'] === 200 && !empty($send['json']['success']) && (int) ($mock['initiate'] ?? 0) === 1);
 
     $verify = profileE2ePost($authCookie, $nonce, 'ersaal_otp_profile_verify', $customer->ID, ['code' => '123456']);
-    profileE2eAssert('correct_code_marks_phone_verified', $verify['status'] === 200 && !empty($verify['json']['success']) && (bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true));
+    $verifyMessage = sanitize_text_field((string) ($verify['json']['data']['message'] ?? 'no message'));
+    profileE2eAssert('correct_code_marks_phone_verified', $verify['status'] === 200 && !empty($verify['json']['success']) && (bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true), 'HTTP ' . $verify['status'] . ': ' . $verifyMessage);
     profileE2eAssert('verified_phone_is_saved_normalized', get_user_meta($customer->ID, OTPUserProfile::META_PHONE, true) === '+218912345678');
 
     $profile = new OTPUserProfile(new Options(), ersaal_otp_service());
@@ -103,7 +104,8 @@ try {
 
     $sendNew = profileE2ePost($authCookie, $nonce, 'ersaal_otp_profile_send', $customer->ID, ['phone' => '+218922222222']);
     $verifyNew = profileE2ePost($authCookie, $nonce, 'ersaal_otp_profile_verify', $customer->ID, ['code' => '123456']);
-    profileE2eAssert('new_phone_can_be_verified_again', !empty($sendNew['json']['success']) && !empty($verifyNew['json']['success']) && (bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true));
+    $verifyNewMessage = sanitize_text_field((string) ($verifyNew['json']['data']['message'] ?? 'no message'));
+    profileE2eAssert('new_phone_can_be_verified_again', !empty($sendNew['json']['success']) && !empty($verifyNew['json']['success']) && (bool) get_user_meta($customer->ID, OTPUserProfile::META_VERIFIED, true), 'HTTP ' . $verifyNew['status'] . ': ' . $verifyNewMessage);
     profileE2eAssert('new_verification_keeps_2fa_opt_in_off', !(bool) get_user_meta($customer->ID, OTPUserProfile::META_LOGIN_ENABLED, true));
 
     $contexts = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT context FROM {$wpdb->prefix}ersaal_otp_logs WHERE id > %d AND user_id = %d", $otpLogFloor, $customer->ID));
