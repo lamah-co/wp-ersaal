@@ -18,8 +18,9 @@ class MessageService
     {
         // 1. Generate or use idempotency key
         $idempotencyKey = $data['idempotency_key'] ?? wp_generate_uuid4();
-        
+
         $data = apply_filters('ersaal_message_payload', $data);
+        $data['receiver'] = (new PhoneValidator())->normalize((string) ($data['receiver'] ?? ''));
 
         $logData = [
             'idempotency_key' => $idempotencyKey,

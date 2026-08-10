@@ -157,11 +157,15 @@ class ManualOrderSmsBox
             wp_send_json_error(['message' => __('Order not found.', 'ersaal')]);
         }
 
-        $phone = $order->get_billing_phone();
-        $phone = preg_replace('/[^0-9+]/', '', (string)$phone);
-
-        if (empty($phone)) {
+        $phone = (string) $order->get_billing_phone();
+        if ($phone === '') {
             wp_send_json_error(['message' => __('Customer billing phone is missing.', 'ersaal')]);
+        }
+
+        try {
+            $phone = (new \Ersaal\Services\PhoneValidator())->normalize($phone);
+        } catch (\InvalidArgumentException $e) {
+            wp_send_json_error(['message' => $e->getMessage()]);
         }
 
         $sender = get_option('ersaal_wc_sender_id', 'Lamah');

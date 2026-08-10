@@ -74,11 +74,38 @@ function assertMask(PhoneValidator $validator, string $input, string $expected) 
     $failures++;
 }
 
+function assertProvider(PhoneValidator $validator, string $input, string $expected) {
+    global $successes, $failures;
+    $result = $validator->provider($input);
+    if ($result === $expected) {
+        echo "✅ PASS: '$input' classified as '$expected'\n";
+        $successes++;
+        return;
+    }
+    echo "❌ FAIL: '$input' -> expected provider '$expected', got '$result'\n";
+    $failures++;
+}
+
+function assertSourceGuard(string $name, bool $condition) {
+    global $successes, $failures;
+    if ($condition) {
+        echo "✅ PASS: $name\n";
+        $successes++;
+        return;
+    }
+    echo "❌ FAIL: $name\n";
+    $failures++;
+}
+
 echo "=== Testing Valid Formats ===\n";
 assertNormalization($validator, "0912345678", "00218912345678");
 assertNormalization($validator, "0923553268", "00218923553268");
 assertNormalization($validator, "0931234567", "00218931234567");
 assertNormalization($validator, "0947654321", "00218947654321");
+assertProvider($validator, "0912345678", PhoneValidator::PROVIDER_ALMADAR);
+assertProvider($validator, "0923553268", PhoneValidator::PROVIDER_LIBYANA);
+assertProvider($validator, "0931234567", PhoneValidator::PROVIDER_ALMADAR);
+assertProvider($validator, "0947654321", PhoneValidator::PROVIDER_LIBYANA);
 
 echo "\n=== Testing International Formats ===\n";
 assertNormalization($validator, "+218923553268", "00218923553268");
@@ -100,6 +127,12 @@ assertRejection($validator, "09212345678"); // too long
 assertRejection($validator, "123456789"); // arbitrary
 assertRejection($validator, "+218951234567"); // unsupported prefix international
 assertRejection($validator, "abc0923553268"); // alphabetic prefix
+
+echo "\n=== Testing Send Path Guards ===\n";
+$messageServiceSource = (string) file_get_contents(__DIR__ . '/../../src/Services/MessageService.php');
+$manualOrderSource = (string) file_get_contents(__DIR__ . '/../../src/Modules/WooCommerce/ManualOrderSmsBox.php');
+assertSourceGuard('MessageService normalizes every filtered receiver', strpos($messageServiceSource, "(new PhoneValidator())->normalize") !== false);
+assertSourceGuard('Manual WooCommerce SMS uses PhoneValidator', strpos($manualOrderSource, "Services\\PhoneValidator())->normalize") !== false);
 
 echo "\n=== Results ===\n";
 echo "Total Passed: $successes\n";

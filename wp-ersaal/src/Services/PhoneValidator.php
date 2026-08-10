@@ -5,6 +5,9 @@ namespace Ersaal\Services;
 
 class PhoneValidator
 {
+    public const PROVIDER_ALMADAR = 'almadar';
+    public const PROVIDER_LIBYANA = 'libyana';
+
     /**
      * Normalizes and validates a Libyan mobile number.
      * Expected Libyan prefixes: 091, 092, 093, 094 followed by 7 digits.
@@ -47,6 +50,16 @@ class PhoneValidator
         $suffix = substr($digits, -4);
 
         return ($display !== '' && $display[0] === '+' ? '+' : '') . $prefix . ' *** ' . $suffix;
+    }
+
+    public function provider(string $phone): string
+    {
+        $normalized = $this->normalize($phone);
+        $networkDigit = $normalized[6];
+
+        return in_array($networkDigit, ['1', '3'], true)
+            ? self::PROVIDER_ALMADAR
+            : self::PROVIDER_LIBYANA;
     }
 
     public function fingerprint(string $phone): string
