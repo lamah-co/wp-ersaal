@@ -48,8 +48,14 @@ final class OTPValidator
     public function maskPhone(string $phone): string
     {
         $digits = preg_replace('/\D/', '', $phone) ?? '';
-        $visible = substr($digits, -4);
-        return str_repeat('*', max(4, min(8, strlen($digits) - 4))) . $visible;
+        $length = strlen($digits);
+        if ($length < 8) {
+            return str_repeat('*', max(4, $length));
+        }
+        $prefixLength = max(1, $length - 7);
+        $prefix = substr($digits, 0, $prefixLength);
+        $suffix = substr($digits, -4);
+        return ($phone !== '' && $phone[0] === '+' ? '+' : '') . $prefix . ' *** ' . $suffix;
     }
 
     public function fingerprintPhone(string $phone): string

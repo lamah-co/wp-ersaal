@@ -1684,3 +1684,123 @@ msgstr "حالة خدمة رمز التحقق"
 #: admin/views/settings-otp.php:53
 msgid "The API reports no available OTP subscription units. Choose wallet payment or update the Ersaal subscription."
 msgstr "تفيد الواجهة بعدم توفر وحدات في باقة رمز التحقق. اختر المحفظة أو حدّث باقة Ersaal."
+
+#: src/Modules/OTP/OTPUserProfile.php:121
+msgid "Account"
+msgstr "الحساب"
+
+#: src/Modules/OTP/OTPUserProfile.php:116
+msgid "Account identity"
+msgstr "هوية الحساب"
+
+#: src/Modules/OTP/OTPUserProfile.php:105
+msgid "Ask an administrator to enable OTP in Ersaal settings."
+msgstr "اطلب من المسؤول تفعيل رمز التحقق في إعدادات Ersaal."
+
+#: src/Modules/OTP/OTPUserProfile.php:88
+msgid "Confirm the account phone, verify it with Ersaal, then choose whether to protect WordPress login."
+msgstr "أكد هاتف الحساب وتحقق منه عبر Ersaal، ثم اختر ما إذا كنت تريد حماية تسجيل دخول ووردبريس."
+
+#: src/Modules/OTP/OTPUserProfile.php:122
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: src/Modules/OTP/OTPUserProfile.php:187
+msgid "Enable login 2FA"
+msgstr "تفعيل التحقق بخطوتين عند الدخول"
+
+#: src/Modules/OTP/OTPUserProfile.php:87
+msgid "Ersaal Security"
+msgstr "أمان Ersaal"
+
+#: src/Modules/OTP/OTPUserProfile.php:57
+msgid "Loading number..."
+msgstr "جارٍ تحميل الرقم..."
+
+#: src/Modules/OTP/OTPUserProfile.php:192
+msgid "Login 2FA cannot be enabled until the global login OTP setting is available."
+msgstr "لا يمكن تفعيل التحقق بخطوتين حتى يصبح إعداد رمز الدخول العام متاحًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:182
+msgid "Login 2FA is disabled globally by an administrator. Phone verification remains available."
+msgstr "عطّل المسؤول التحقق بخطوتين عند الدخول على مستوى الموقع. يظل التحقق من الهاتف متاحًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:180
+msgid "Login OTP is currently disabled by wp-config.php. Phone verification remains available."
+msgstr "رمز التحقق عند الدخول معطل حاليًا عبر wp-config.php. يظل التحقق من الهاتف متاحًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:175
+msgid "Login two-factor authentication"
+msgstr "التحقق بخطوتين عند تسجيل الدخول"
+
+#: src/Modules/OTP/OTPUserProfile.php:286
+msgid "No suggested phone is available for this account."
+msgstr "لا يوجد رقم هاتف مقترح لهذا الحساب."
+
+#: src/Modules/OTP/OTPUserProfile.php:130 src/Modules/OTP/OTPUserProfile.php:147
+msgid "OTP phone"
+msgstr "هاتف رمز التحقق"
+
+#: src/Modules/OTP/OTPUserProfile.php:99 tests/manual/test_otp_profile_enrollment.php:51
+msgid "OTP service is currently disabled."
+msgstr "خدمة رمز التحقق معطلة حاليًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:103
+msgid "Open Ersaal OTP settings"
+msgstr "فتح إعدادات رمز التحقق في Ersaal"
+
+#: src/Modules/OTP/OTPUserProfile.php:91
+msgid "Phone verified"
+msgstr "الهاتف مؤكد"
+
+#: src/Modules/OTP/OTPUserProfile.php:194
+msgid "Require a verification code after the WordPress password for this account."
+msgstr "اطلب رمز تحقق بعد كلمة مرور ووردبريس لهذا الحساب."
+
+#: src/Modules/OTP/OTPUserProfile.php:55 src/Modules/OTP/OTPUserProfile.php:159
+msgid "Resend code"
+msgstr "إعادة إرسال الرمز"
+
+#: src/Modules/OTP/OTPUserProfile.php:93
+msgid "Setup incomplete"
+msgstr "الإعداد غير مكتمل"
+
+#: src/Modules/OTP/OTPUserProfile.php:138
+msgid "Suggested phone"
+msgstr "رقم مقترح"
+
+#: src/Modules/OTP/OTPUserProfile.php:101
+msgid "The phone can be entered now, but verification requires OTP to be enabled."
+msgstr "يمكن إدخال الهاتف الآن، لكن التحقق منه يتطلب تفعيل خدمة رمز التحقق."
+
+#: src/Modules/OTP/OTPUserProfile.php:291
+msgid "The suggested phone was added. Send a code to verify it before enabling login 2FA."
+msgstr "أُضيف الرقم المقترح. أرسل رمزًا للتحقق منه قبل تفعيل التحقق بخطوتين عند الدخول."
+
+#: src/Modules/OTP/OTPUserProfile.php:61
+msgid "The verified phone can now be used for login 2FA. Enable it, then save the profile."
+msgstr "يمكن الآن استخدام الهاتف المؤكد للتحقق بخطوتين عند الدخول. فعّله ثم احفظ الملف الشخصي."
+
+#: src/Modules/OTP/OTPUserProfile.php:118
+msgid "This identifies the WordPress account only. Ersaal sends OTP by SMS, not email."
+msgstr "هذه البيانات تعرّف حساب ووردبريس فقط. ترسل Ersaal رمز التحقق عبر الرسائل النصية وليس البريد الإلكتروني."
+
+#: src/Modules/OTP/OTPUserProfile.php:149
+msgid "Use an international mobile number. Changing it clears verification and turns off login 2FA until the new number is verified."
+msgstr "استخدم رقم هاتف دوليًا. يؤدي تغييره إلى مسح حالة التحقق وتعطيل التحقق بخطوتين حتى تأكيد الرقم الجديد."
+
+#: src/Modules/OTP/OTPUserProfile.php:56 src/Modules/OTP/OTPUserProfile.php:142
+msgid "Use this number"
+msgstr "استخدام هذا الرقم"
+
+#: src/Modules/OTP/OTPUserProfile.php:60
+msgid "Verify the new phone before enabling login 2FA."
+msgstr "تحقق من الهاتف الجديد قبل تفعيل التحقق بخطوتين عند الدخول."
+
+#: src/Modules/OTP/OTPUserProfile.php:190
+msgid "Verify your phone number before enabling login 2FA."
+msgstr "تحقق من رقم هاتفك قبل تفعيل التحقق بخطوتين عند الدخول."
+
+#: src/Modules/OTP/OTPUserProfile.php:140
+msgid "We found this number in the WooCommerce billing details for this account. It is not verified yet."
+msgstr "وجدنا هذا الرقم في بيانات فوترة WooCommerce لهذا الحساب. لم يتم التحقق منه بعد."

@@ -31,6 +31,7 @@ final class OTPUserProfile
         add_action('personal_options_update', [$this, 'save']);
         add_action('edit_user_profile_update', [$this, 'save']);
         add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
+        add_action('wp_ajax_ersaal_otp_profile_use_suggested', [$this, 'ajaxUseSuggestedPhone']);
         add_action('wp_ajax_ersaal_otp_profile_send', [$this, 'ajaxSend']);
         add_action('wp_ajax_ersaal_otp_profile_verify', [$this, 'ajaxVerify']);
     }
@@ -51,7 +52,13 @@ final class OTPUserProfile
                 'sending' => __('Sending...', 'ersaal'),
                 'verify' => __('Verify phone', 'ersaal'),
                 'verifying' => __('Verifying...', 'ersaal'),
+                'resend' => __('Resend code', 'ersaal'),
+                'useSuggested' => __('Use this number', 'ersaal'),
+                'loadingSuggested' => __('Loading number...', 'ersaal'),
                 'verified' => __('Verified', 'ersaal'),
+                'notVerified' => __('Not verified', 'ersaal'),
+                'phoneChanged' => __('Verify the new phone before enabling login 2FA.', 'ersaal'),
+                'loginReady' => __('The verified phone can now be used for login 2FA. Enable it, then save the profile.', 'ersaal'),
                 'unexpected' => __('The phone verification request could not be completed.', 'ersaal'),
             ],
         ]);
@@ -67,57 +74,159 @@ final class OTPUserProfile
         $verifiedAt = (string) get_user_meta($user->ID, self::META_VERIFIED_AT, true);
         $loginEnabled = (bool) get_user_meta($user->ID, self::META_LOGIN_ENABLED, true);
         $otpAvailable = $this->service->isEnabled();
+        $loginGloballyAllowed = (bool) $this->options->get('otp_login_enabled', false);
+        $emergencyDisabled = defined('ERSAAL_DISABLE_LOGIN_OTP') && ERSAAL_DISABLE_LOGIN_OTP;
+        $canEnableLogin = $this->canEnableLoginTwoFactor($user->ID, $phone, $verified);
+        $suggested = $this->getSuggestedPhone($user);
+        $accountName = $user->display_name !== '' ? $user->display_name : $user->user_login;
         ?>
-        <div class="ersaal-admin ersaal-profile-otp" data-user-id="<?php echo esc_attr((string) $user->ID); ?>">
-            <h2><?php esc_html_e('Ersaal phone verification', 'ersaal'); ?></h2>
+        <section class="ersaal-admin ersaal-profile-otp" data-user-id="<?php echo esc_attr((string) $user->ID); ?>" data-login-configured="<?php echo $otpAvailable && $loginGloballyAllowed && !$emergencyDisabled ? '1' : '0'; ?>" aria-labelledby="ersaal-security-title">
             <?php wp_nonce_field('ersaal_otp_profile_save_' . $user->ID, 'ersaal_otp_profile_save_nonce'); ?>
-            <table class="form-table" role="presentation">
-                <tr>
-                    <th><label for="ersaal_otp_phone"><?php esc_html_e('Mobile phone', 'ersaal'); ?></label></th>
-                    <td>
-                        <div class="ersaal-profile-phone-row">
-                            <input type="tel" name="ersaal_otp_phone" id="ersaal_otp_phone" class="regular-text ersaal-input ersaal-ltr" value="<?php echo esc_attr($phone); ?>" autocomplete="tel" placeholder="+2189XXXXXXXX" />
-                            <?php if ($verified): ?>
-                                <span class="ersaal-badge ersaal-badge-success" id="ersaal-otp-profile-status"><?php esc_html_e('Verified', 'ersaal'); ?></span>
-                            <?php else: ?>
-                                <span class="ersaal-badge ersaal-badge-warning" id="ersaal-otp-profile-status"><?php esc_html_e('Not verified', 'ersaal'); ?></span>
-                            <?php endif; ?>
-                        </div>
-                        <p class="description"><?php esc_html_e('Changing this number removes its verified status and turns off login OTP until the new number is verified.', 'ersaal'); ?></p>
-                        <?php if ($verified && $verifiedAt !== ''): ?>
-                            <p class="description" id="ersaal-otp-profile-verified-at"><?php printf(esc_html__('Verified on %s.', 'ersaal'), esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($verifiedAt . ' UTC')))); ?></p>
+            <header class="ersaal-profile-security-header">
+                <div>
+                    <h2 id="ersaal-security-title"><?php esc_html_e('Ersaal Security', 'ersaal'); ?></h2>
+                    <p><?php esc_html_e('Confirm the account phone, verify it with Ersaal, then choose whether to protect WordPress login.', 'ersaal'); ?></p>
+                </div>
+                <?php if ($verified): ?>
+                    <span class="ersaal-badge ersaal-badge-success"><?php esc_html_e('Phone verified', 'ersaal'); ?></span>
+                <?php else: ?>
+                    <span class="ersaal-badge ersaal-badge-warning"><?php esc_html_e('Setup incomplete', 'ersaal'); ?></span>
+                <?php endif; ?>
+            </header>
+
+            <?php if (!$otpAvailable): ?>
+                <div class="ersaal-alert ersaal-alert-warning" role="status">
+                    <p class="ersaal-alert-title"><?php esc_html_e('OTP service is currently disabled.', 'ersaal'); ?></p>
+                    <p>
+                        <?php esc_html_e('The phone can be entered now, but verification requires OTP to be enabled.', 'ersaal'); ?>
+                        <?php if (current_user_can('manage_options')): ?>
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings&tab=otp')); ?>"><?php esc_html_e('Open Ersaal OTP settings', 'ersaal'); ?></a>
+                        <?php else: ?>
+                            <?php esc_html_e('Ask an administrator to enable OTP in Ersaal settings.', 'ersaal'); ?>
                         <?php endif; ?>
-                        <div id="ersaal-otp-profile-feedback" class="ersaal-alert" role="status" aria-live="polite" hidden></div>
-                        <div class="ersaal-inline-actions ersaal-profile-verify-actions">
-                            <button type="button" class="ersaal-btn ersaal-btn-secondary" id="ersaal-otp-profile-send" <?php disabled(!$otpAvailable); ?>><?php esc_html_e('Send verification code', 'ersaal'); ?></button>
-                            <span class="spinner" id="ersaal-otp-profile-spinner" aria-hidden="true"></span>
+                    </p>
+                </div>
+            <?php endif; ?>
+
+            <div class="ersaal-profile-security-grid">
+                <article class="ersaal-card ersaal-profile-security-card">
+                    <header class="ersaal-profile-card-header">
+                        <div>
+                            <span class="ersaal-profile-step" aria-hidden="true">1</span>
+                            <h3><?php esc_html_e('Account identity', 'ersaal'); ?></h3>
                         </div>
-                        <div class="ersaal-profile-code" id="ersaal-otp-profile-code-wrap" hidden>
-                            <label class="ersaal-label" for="ersaal-otp-profile-code"><?php esc_html_e('Verification code', 'ersaal'); ?></label>
-                            <div class="ersaal-inline-actions">
-                                <input type="text" id="ersaal-otp-profile-code" class="ersaal-input ersaal-ltr ersaal-otp-code-input" inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" autocomplete="one-time-code" />
-                                <button type="button" class="ersaal-btn ersaal-btn-primary" id="ersaal-otp-profile-verify"><?php esc_html_e('Verify phone', 'ersaal'); ?></button>
+                        <p><?php esc_html_e('This identifies the WordPress account only. Ersaal sends OTP by SMS, not email.', 'ersaal'); ?></p>
+                    </header>
+                    <dl class="ersaal-profile-account-list">
+                        <div><dt><?php esc_html_e('Account', 'ersaal'); ?></dt><dd><?php echo esc_html($accountName); ?> <span class="ersaal-table-meta ersaal-ltr">@<?php echo esc_html($user->user_login); ?></span></dd></div>
+                        <div><dt><?php esc_html_e('Email', 'ersaal'); ?></dt><dd class="ersaal-ltr"><?php echo esc_html($user->user_email); ?></dd></div>
+                    </dl>
+                </article>
+
+                <article class="ersaal-card ersaal-profile-security-card ersaal-profile-phone-card">
+                    <header class="ersaal-profile-card-header">
+                        <div>
+                            <span class="ersaal-profile-step" aria-hidden="true">2</span>
+                            <h3><?php esc_html_e('OTP phone', 'ersaal'); ?></h3>
+                        </div>
+                        <span class="ersaal-badge <?php echo $verified ? 'ersaal-badge-success' : 'ersaal-badge-warning'; ?>" id="ersaal-otp-profile-status"><?php echo esc_html($verified ? __('Verified', 'ersaal') : __('Not verified', 'ersaal')); ?></span>
+                    </header>
+
+                    <?php if ($suggested): ?>
+                        <div class="ersaal-profile-suggestion">
+                            <div>
+                                <span class="ersaal-label"><?php esc_html_e('Suggested phone', 'ersaal'); ?></span>
+                                <strong class="ersaal-ltr"><?php echo esc_html($suggested['masked']); ?></strong>
+                                <p><?php esc_html_e('We found this number in the WooCommerce billing details for this account. It is not verified yet.', 'ersaal'); ?></p>
                             </div>
+                            <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm" id="ersaal-otp-use-suggested"><?php esc_html_e('Use this number', 'ersaal'); ?></button>
                         </div>
-                        <?php if (!$otpAvailable): ?>
-                            <p class="description"><?php esc_html_e('An administrator must enable OTP in Ersaal settings before this phone can be verified.', 'ersaal'); ?></p>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th><?php esc_html_e('Login OTP', 'ersaal'); ?></th>
-                    <td>
-                        <label for="ersaal_otp_login_2fa">
+                    <?php endif; ?>
+
+                    <div class="ersaal-field">
+                        <label class="ersaal-label" for="ersaal_otp_phone"><?php esc_html_e('OTP phone', 'ersaal'); ?></label>
+                        <input type="tel" name="ersaal_otp_phone" id="ersaal_otp_phone" class="ersaal-input ersaal-ltr" value="<?php echo esc_attr($phone); ?>" autocomplete="tel" inputmode="tel" placeholder="+2189XXXXXXXX" />
+                        <p class="ersaal-field-help"><?php esc_html_e('Use an international mobile number. Changing it clears verification and turns off login 2FA until the new number is verified.', 'ersaal'); ?></p>
+                    </div>
+
+                    <?php if ($verified && $verifiedAt !== ''): ?>
+                        <p class="ersaal-profile-verified-at" id="ersaal-otp-profile-verified-at"><?php printf(esc_html__('Verified on %s.', 'ersaal'), esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($verifiedAt . ' UTC')))); ?></p>
+                    <?php endif; ?>
+
+                    <div id="ersaal-otp-profile-feedback" class="ersaal-alert" role="status" aria-live="polite" hidden></div>
+                    <div class="ersaal-inline-actions ersaal-profile-verify-actions">
+                        <button type="button" class="ersaal-btn ersaal-btn-primary" id="ersaal-otp-profile-send" <?php disabled(!$otpAvailable); ?>><?php esc_html_e('Send verification code', 'ersaal'); ?></button>
+                        <button type="button" class="ersaal-btn ersaal-btn-secondary" id="ersaal-otp-profile-resend" hidden <?php disabled(!$otpAvailable); ?>><?php esc_html_e('Resend code', 'ersaal'); ?></button>
+                        <span class="spinner" id="ersaal-otp-profile-spinner" aria-hidden="true"></span>
+                    </div>
+                    <div class="ersaal-profile-code" id="ersaal-otp-profile-code-wrap" hidden>
+                        <label class="ersaal-label" for="ersaal-otp-profile-code"><?php esc_html_e('Verification code', 'ersaal'); ?></label>
+                        <div class="ersaal-inline-actions">
+                            <input type="text" id="ersaal-otp-profile-code" class="ersaal-input ersaal-ltr ersaal-otp-code-input" inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" autocomplete="one-time-code" aria-describedby="ersaal-otp-profile-feedback" />
+                            <button type="button" class="ersaal-btn ersaal-btn-primary" id="ersaal-otp-profile-verify"><?php esc_html_e('Verify phone', 'ersaal'); ?></button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="ersaal-card ersaal-profile-security-card ersaal-profile-login-card">
+                    <header class="ersaal-profile-card-header">
+                        <div>
+                            <span class="ersaal-profile-step" aria-hidden="true">3</span>
+                            <h3><?php esc_html_e('Login two-factor authentication', 'ersaal'); ?></h3>
+                        </div>
+                    </header>
+
+                    <?php if ($emergencyDisabled): ?>
+                        <div class="ersaal-alert ersaal-alert-warning" role="status"><p><?php esc_html_e('Login OTP is currently disabled by wp-config.php. Phone verification remains available.', 'ersaal'); ?></p></div>
+                    <?php elseif (!$loginGloballyAllowed): ?>
+                        <div class="ersaal-alert ersaal-alert-info" role="status"><p><?php esc_html_e('Login 2FA is disabled globally by an administrator. Phone verification remains available.', 'ersaal'); ?></p></div>
+                    <?php endif; ?>
+
+                    <label class="ersaal-switch-row" for="ersaal_otp_login_2fa">
+                        <span class="ersaal-switch-copy">
+                            <span class="ersaal-switch-title"><?php esc_html_e('Enable login 2FA', 'ersaal'); ?></span>
+                            <span class="ersaal-switch-description" id="ersaal-otp-login-description">
+                                <?php if (!$phone || !$verified): ?>
+                                    <?php esc_html_e('Verify your phone number before enabling login 2FA.', 'ersaal'); ?>
+                                <?php elseif (!$canEnableLogin): ?>
+                                    <?php esc_html_e('Login 2FA cannot be enabled until the global login OTP setting is available.', 'ersaal'); ?>
+                                <?php else: ?>
+                                    <?php esc_html_e('Require a verification code after the WordPress password for this account.', 'ersaal'); ?>
+                                <?php endif; ?>
+                            </span>
+                        </span>
+                        <span class="ersaal-switch-control">
                             <input type="hidden" name="ersaal_otp_login_2fa" value="0" />
-                            <input type="checkbox" name="ersaal_otp_login_2fa" id="ersaal_otp_login_2fa" value="1" <?php checked($loginEnabled); ?> <?php disabled(!$verified); ?> />
-                            <?php esc_html_e('Require a verification code after my WordPress password', 'ersaal'); ?>
-                        </label>
-                        <p class="description" id="ersaal-otp-login-description"><?php esc_html_e('This opt-in applies only to this user and requires a verified phone. The administrator can disable login OTP globally.', 'ersaal'); ?></p>
-                    </td>
-                </tr>
-            </table>
-        </div>
+                            <input type="checkbox" name="ersaal_otp_login_2fa" id="ersaal_otp_login_2fa" value="1" <?php checked($loginEnabled && $canEnableLogin); ?> <?php disabled(!$canEnableLogin); ?> aria-describedby="ersaal-otp-login-description" />
+                            <span class="ersaal-switch-track" aria-hidden="true"></span>
+                        </span>
+                    </label>
+                </article>
+            </div>
+        </section>
         <?php
+    }
+
+    /**
+     * WooCommerce stores the real account billing phone in billing_phone user
+     * meta. WordPress Core has no standard user phone field, so no speculative
+     * meta keys are consulted.
+     */
+    public function getSuggestedPhone(\WP_User $user): ?array
+    {
+        if ((string) get_user_meta($user->ID, self::META_PHONE, true) !== '') {
+            return null;
+        }
+        $candidate = (string) get_user_meta($user->ID, 'billing_phone', true);
+        if ($candidate === '') {
+            return null;
+        }
+        try {
+            $normalized = $this->validator->normalizePhone($candidate);
+        } catch (\InvalidArgumentException $e) {
+            return null;
+        }
+        return ['phone' => $normalized, 'masked' => $this->validator->maskPhone($normalized)];
     }
 
     public function validateProfile(\WP_Error $errors, bool $update, \stdClass $user): void
@@ -165,7 +274,22 @@ final class OTPUserProfile
 
         $verified = (bool) get_user_meta($userId, self::META_VERIFIED, true);
         $loginEnabled = isset($_POST['ersaal_otp_login_2fa']) && (string) wp_unslash($_POST['ersaal_otp_login_2fa']) === '1';
-        update_user_meta($userId, self::META_LOGIN_ENABLED, $verified && $loginEnabled ? 1 : 0);
+        update_user_meta($userId, self::META_LOGIN_ENABLED, $loginEnabled && $this->canEnableLoginTwoFactor($userId, $phone, $verified) ? 1 : 0);
+    }
+
+    public function ajaxUseSuggestedPhone(): void
+    {
+        $userId = $this->authorizeAjax();
+        $user = get_userdata($userId);
+        $suggested = $user instanceof \WP_User ? $this->getSuggestedPhone($user) : null;
+        if (!$suggested) {
+            wp_send_json_error(['message' => __('No suggested phone is available for this account.', 'ersaal')], 404);
+        }
+        wp_send_json_success([
+            'phone' => $suggested['phone'],
+            'masked' => $suggested['masked'],
+            'message' => __('The suggested phone was added. Send a code to verify it before enabling login 2FA.', 'ersaal'),
+        ]);
     }
 
     public function ajaxSend(): void
@@ -232,6 +356,7 @@ final class OTPUserProfile
             'message' => __('Phone verified successfully. Save the profile to keep any login OTP preference.', 'ersaal'),
             'phone' => (string) $state['phone'],
             'login_reset' => $phoneChanged,
+            'can_enable_login' => $this->canEnableLoginTwoFactor($userId),
         ]);
     }
 
@@ -255,6 +380,18 @@ final class OTPUserProfile
         delete_user_meta($userId, self::META_VERIFIED);
         delete_user_meta($userId, self::META_VERIFIED_AT);
         update_user_meta($userId, self::META_LOGIN_ENABLED, 0);
+    }
+
+    private function canEnableLoginTwoFactor(int $userId, ?string $phone = null, ?bool $verified = null): bool
+    {
+        $phone = $phone ?? (string) get_user_meta($userId, self::META_PHONE, true);
+        $verified = $verified ?? (bool) get_user_meta($userId, self::META_VERIFIED, true);
+        $emergencyDisabled = defined('ERSAAL_DISABLE_LOGIN_OTP') && ERSAAL_DISABLE_LOGIN_OTP;
+        return $this->service->isEnabled()
+            && (bool) $this->options->get('otp_login_enabled', false)
+            && !$emergencyDisabled
+            && $phone !== ''
+            && $verified;
     }
 
     private function safeHttpStatus(OTPResult $result): int

@@ -1684,3 +1684,123 @@ msgstr ""
 #: admin/views/settings-otp.php:53
 msgid "The API reports no available OTP subscription units. Choose wallet payment or update the Ersaal subscription."
 msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:121
+msgid "Account"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:116
+msgid "Account identity"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:105
+msgid "Ask an administrator to enable OTP in Ersaal settings."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:88
+msgid "Confirm the account phone, verify it with Ersaal, then choose whether to protect WordPress login."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:122
+msgid "Email"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:187
+msgid "Enable login 2FA"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:87
+msgid "Ersaal Security"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:57
+msgid "Loading number..."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:192
+msgid "Login 2FA cannot be enabled until the global login OTP setting is available."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:182
+msgid "Login 2FA is disabled globally by an administrator. Phone verification remains available."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:180
+msgid "Login OTP is currently disabled by wp-config.php. Phone verification remains available."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:175
+msgid "Login two-factor authentication"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:286
+msgid "No suggested phone is available for this account."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:130 src/Modules/OTP/OTPUserProfile.php:147
+msgid "OTP phone"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:99 tests/manual/test_otp_profile_enrollment.php:51
+msgid "OTP service is currently disabled."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:103
+msgid "Open Ersaal OTP settings"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:91
+msgid "Phone verified"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:194
+msgid "Require a verification code after the WordPress password for this account."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:55 src/Modules/OTP/OTPUserProfile.php:159
+msgid "Resend code"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:93
+msgid "Setup incomplete"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:138
+msgid "Suggested phone"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:101
+msgid "The phone can be entered now, but verification requires OTP to be enabled."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:291
+msgid "The suggested phone was added. Send a code to verify it before enabling login 2FA."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:61
+msgid "The verified phone can now be used for login 2FA. Enable it, then save the profile."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:118
+msgid "This identifies the WordPress account only. Ersaal sends OTP by SMS, not email."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:149
+msgid "Use an international mobile number. Changing it clears verification and turns off login 2FA until the new number is verified."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:56 src/Modules/OTP/OTPUserProfile.php:142
+msgid "Use this number"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:60
+msgid "Verify the new phone before enabling login 2FA."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:190
+msgid "Verify your phone number before enabling login 2FA."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:140
+msgid "We found this number in the WooCommerce billing details for this account. It is not verified yet."
+msgstr ""
