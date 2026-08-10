@@ -7,6 +7,10 @@
  */
 require_once __DIR__ . '/../../../../../wp-load.php';
 
+// Several assertions intentionally verify the Arabic operator-facing errors.
+// Keep the test independent from the site's current language.
+$manualTestLocaleSwitched = switch_to_locale('ar');
+
 use Ersaal\Modules\ManualSend\ManualSendHandler;
 use Ersaal\Services\MessageService;
 use Ersaal\Storage\LogRepository;
@@ -279,3 +283,4 @@ $found2 = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}ersaal_logs WHERE 
 echo ((int)$found2 === 0) ? "PASS\n" : "FAIL\n";
 
 echo "\nAll Manual Send tests finished.\n";
+if ($manualTestLocaleSwitched) { restore_previous_locale(); }
