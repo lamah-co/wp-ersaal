@@ -13,6 +13,94 @@
   font-weight: var(--ersaal-fw-semibold);
 }
 
+/* OTP workflows */
+.ersaal-admin .ersaal-otp-workflow {
+    padding: var(--ersaal-space-6);
+}
+
+.ersaal-admin .ersaal-otp-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--ersaal-space-4);
+}
+
+.ersaal-admin .ersaal-otp-card-header h2,
+.ersaal-admin .ersaal-otp-card-header p {
+    margin-block-start: 0;
+}
+
+.ersaal-admin .ersaal-otp-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--ersaal-space-3);
+    margin: var(--ersaal-space-5) 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ersaal-admin .ersaal-otp-steps li {
+    display: flex;
+    align-items: center;
+    gap: var(--ersaal-space-2);
+    color: var(--ersaal-text-muted);
+    font-weight: 600;
+}
+
+.ersaal-admin .ersaal-otp-steps li span {
+    display: inline-grid;
+    inline-size: 2rem;
+    block-size: 2rem;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--ersaal-bg-surface-2);
+}
+
+.ersaal-admin .ersaal-otp-steps li.is-active {
+    color: var(--ersaal-color-primary);
+}
+
+.ersaal-admin .ersaal-otp-steps li.is-active span {
+    color: var(--ersaal-text-on-primary);
+    background: var(--ersaal-color-primary);
+}
+
+.ersaal-admin .ersaal-otp-steps li.is-complete {
+    color: var(--ersaal-color-success);
+}
+
+.ersaal-admin .ersaal-otp-steps li.is-complete span {
+    color: var(--ersaal-text-on-primary);
+    background: var(--ersaal-color-success);
+}
+
+.ersaal-admin .ersaal-otp-code-input {
+    max-inline-size: 14rem;
+    font-size: 1.5rem !important;
+    font-weight: 700;
+    letter-spacing: .35em;
+    text-align: center;
+}
+
+.ersaal-admin .ersaal-settings-section.is-disabled {
+    opacity: .58;
+}
+
+.ersaal-admin.ersaal-otp-logs-page .ersaal-table td,
+.ersaal-admin.ersaal-otp-logs-page .ersaal-table th {
+    vertical-align: middle;
+}
+
+@media (max-width: 782px) {
+    .ersaal-admin .ersaal-otp-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .ersaal-admin .ersaal-otp-card-header {
+        flex-direction: column;
+    }
+}
+
 .ersaal-admin .ersaal-status-dot {
   inline-size: 8px;
   block-size: 8px;

@@ -29,6 +29,10 @@ final class OTPModule implements ModuleInterface
     public function register(): void
     {
         add_action('admin_init', [$this, 'registerSettings']);
+
+        if (is_admin()) {
+            (new OTPAdminController($this->options, $this->service))->register();
+        }
     }
 
     public function boot(): void {}
