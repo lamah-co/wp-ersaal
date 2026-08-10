@@ -34,6 +34,16 @@ function ersaal_plugin(): \Ersaal\Core\Plugin {
     return $instance;
 }
 
+/**
+ * Return the shared OTP service for internal integrations.
+ *
+ * Call after the plugins_loaded hook. The service can be null while the
+ * plugin is still booting.
+ */
+function ersaal_otp_service(): ?\Ersaal\Modules\OTP\OTPService {
+    return ersaal_plugin()->getOtpService();
+}
+
 // Initialize the plugin
 add_action('plugins_loaded', function () {
     if (class_exists(\Ersaal\Core\Plugin::class)) {

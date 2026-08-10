@@ -41,6 +41,19 @@ class Client
         return $this->request('GET', "/api/sms/messages/{$messageId}");
     }
 
+    public function initiateOtp(array $payload, string $idempotencyKey): Response
+    {
+        return $this->request('POST', '/api/otp/initiate', $payload, ['Idempotency-Key' => $idempotencyKey]);
+    }
+
+    public function verifyOtp(string $requestId, string $code): Response
+    {
+        return $this->request('POST', '/api/otp/verify', [
+            'request_id' => $requestId,
+            'code' => $code,
+        ]);
+    }
+
     private function request(string $method, string $endpoint, array $body = [], array $headers = []): Response
     {
         $baseUrl = rtrim((string) $this->options->get('api_url', 'https://api.ersaal.com'), '/');

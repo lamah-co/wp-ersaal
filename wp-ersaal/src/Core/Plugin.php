@@ -7,6 +7,7 @@ class Plugin
 {
     private ModuleRegistry $registry;
     private Options $options;
+    private ?\Ersaal\Modules\OTP\OTPService $otpService = null;
     
     public function __construct()
     {
@@ -18,12 +19,9 @@ class Plugin
     {
         add_action('init', [$this, 'loadTextdomain'], 0);
 
-        // Automatically check and run schema upgrades on boot if outdated (no need for reactivation)
-        add_action('plugins_loaded', function () {
-            if (class_exists(\Ersaal\Core\Database::class)) {
-                (new \Ersaal\Core\Database())->upgrade();
-            }
-        });
+        // Run versioned migrations during normal plugin boot. Database::upgrade()
+        // skips dbDelta when the installed schema is already current.
+        (new Database())->upgrade();
 
         if (is_admin()) {
             add_action('admin_enqueue_scripts', [$this, 'enqueueGlobalAdminAssets']);
@@ -35,6 +33,10 @@ class Plugin
         
         $messagingModule = new \Ersaal\Modules\Messaging\MessagingModule($this->options);
         $this->registry->registerModule($messagingModule);
+
+        $otpModule = new \Ersaal\Modules\OTP\OTPModule($this->options);
+        $this->otpService = $otpModule->getService();
+        $this->registry->registerModule($otpModule);
         
         $messageService = new \Ersaal\Services\MessageService(new \Ersaal\Storage\LogRepository());
         $this->registry->registerModule(new \Ersaal\Modules\ManualSend\ManualSendModule($this->options, $messageService));
@@ -84,5 +86,10 @@ class Plugin
     public function getRegistry(): ModuleRegistry
     {
         return $this->registry;
+    }
+
+    public function getOtpService(): ?\Ersaal\Modules\OTP\OTPService
+    {
+        return $this->otpService;
     }
 }

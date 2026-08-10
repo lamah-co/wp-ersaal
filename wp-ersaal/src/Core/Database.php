@@ -6,7 +6,7 @@ namespace Ersaal\Core;
 class Database
 {
     public const VERSION_KEY = 'ersaal_db_version';
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.1.0';
 
     public function upgrade(): void
     {
@@ -65,5 +65,31 @@ class Database
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql);
+
+        $otp_table = $wpdb->prefix . 'ersaal_otp_logs';
+        $otp_sql = "CREATE TABLE {$otp_table} (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            action varchar(20) NOT NULL,
+            status varchar(30) NOT NULL,
+            phone_hash varchar(64) NOT NULL,
+            phone_masked varchar(20) NOT NULL,
+            reference varchar(100) DEFAULT NULL,
+            context varchar(50) NOT NULL,
+            user_id bigint(20) unsigned DEFAULT NULL,
+            api_http_code smallint(5) unsigned DEFAULT NULL,
+            error_code varchar(50) DEFAULT NULL,
+            error_message varchar(191) DEFAULT NULL,
+            created_at datetime NOT NULL,
+            updated_at datetime NOT NULL,
+            PRIMARY KEY  (id),
+            KEY status (status),
+            KEY action (action),
+            KEY context (context),
+            KEY phone_hash (phone_hash),
+            KEY reference (reference),
+            KEY created_at (created_at)
+        ) {$charset_collate};";
+
+        dbDelta($otp_sql);
     }
 }
