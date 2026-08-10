@@ -32,6 +32,7 @@ final class OTPModule implements ModuleInterface
 
         if (is_admin()) {
             (new OTPAdminController($this->options, $this->service))->register();
+            (new OTPUserProfile($this->options, $this->service))->register();
         }
     }
 

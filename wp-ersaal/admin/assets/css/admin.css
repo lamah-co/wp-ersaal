@@ -101,6 +101,31 @@
     }
 }
 
+.ersaal-profile-otp {
+    margin-block: var(--ersaal-space-6);
+}
+
+.ersaal-profile-otp .ersaal-profile-phone-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ersaal-space-3);
+}
+
+.ersaal-profile-otp .ersaal-profile-verify-actions,
+.ersaal-profile-otp .ersaal-profile-code {
+    margin-block-start: var(--ersaal-space-4);
+}
+
+.ersaal-profile-otp .ersaal-alert {
+    margin-block: var(--ersaal-space-4) 0;
+    max-inline-size: 48rem;
+}
+
+.ersaal-profile-otp .ersaal-otp-code-input {
+    inline-size: 12rem;
+}
+
 .ersaal-admin .ersaal-status-dot {
   inline-size: 8px;
   block-size: 8px;
