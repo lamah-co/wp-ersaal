@@ -1,0 +1,51 @@
+.login .ersaal-otp-login-intro {
+    margin-block-end: 20px;
+}
+
+.login .ersaal-otp-login-intro h2 {
+    margin-block: 0 8px;
+    color: #1d2327;
+    font-size: 20px;
+    line-height: 1.35;
+}
+
+.login .ersaal-otp-login-intro p {
+    margin: 0;
+    color: #50575e;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.login .ersaal-otp-login-phone {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 600;
+}
+
+.login #ersaal-otp-login-form {
+    margin-block-start: 0;
+}
+
+.login #ersaal-otp-login-form .ersaal-otp-login-code {
+    direction: ltr;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: .3em;
+    text-align: center;
+}
+
+.login .ersaal-otp-login-actions {
+    display: grid;
+    gap: 10px;
+}
+
+.login .ersaal-otp-login-actions .button {
+    inline-size: 100%;
+    min-block-size: 40px;
+}
+
+.login .ersaal-otp-login-back {
+    margin-block-start: 18px;
+    text-align: center;
+}

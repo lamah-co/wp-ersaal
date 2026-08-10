@@ -29,6 +29,7 @@ final class OTPModule implements ModuleInterface
     public function register(): void
     {
         add_action('admin_init', [$this, 'registerSettings']);
+        (new OTPLoginTwoFactor($this->options, $this->service))->register();
 
         if (is_admin()) {
             (new OTPAdminController($this->options, $this->service))->register();
