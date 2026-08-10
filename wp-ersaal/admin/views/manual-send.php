@@ -68,8 +68,8 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
             <form id="ersaal-manual-send-form" method="post" class="ersaal-send-form">
                 <div class="ersaal-field">
                     <label class="ersaal-label" for="ersaal_phone"><?php esc_html_e('Recipient', 'ersaal'); ?></label>
-                    <input type="tel" id="ersaal_phone" name="phone" class="ersaal-input ersaal-ltr" required placeholder="+21891XXXXXXX" autocomplete="tel" />
-                    <p class="ersaal-field-help"><?php esc_html_e('Include the country code, for example +21891XXXXXXX.', 'ersaal'); ?></p>
+                    <input type="tel" id="ersaal_phone" name="phone" class="ersaal-input ersaal-ltr" required placeholder="0912345678" autocomplete="tel" />
+                    <p class="ersaal-field-help"><?php esc_html_e('Libyana or Almadar: 091 / 092 / 093 / 094', 'ersaal'); ?></p>
                 </div>
 
                 <div class="ersaal-field">

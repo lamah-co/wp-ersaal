@@ -157,7 +157,8 @@ $renderEventEditor = static function (string $event, string $label, bool $open =
                     <div class="ersaal-form-stack">
                         <div class="ersaal-field">
                             <label class="ersaal-label" for="ersaal_wc_admin_phone"><?php esc_html_e('Admin phone number', 'ersaal'); ?></label>
-                            <input type="tel" id="ersaal_wc_admin_phone" name="ersaal_wc_admin_phone" value="<?php echo esc_attr($adminPhone); ?>" class="ersaal-input ersaal-ltr" placeholder="+21891XXXXXXX" autocomplete="tel" />
+                            <input type="tel" id="ersaal_wc_admin_phone" name="ersaal_wc_admin_phone" value="<?php echo esc_attr($adminPhone); ?>" class="ersaal-input ersaal-ltr" placeholder="0912345678" autocomplete="tel" />
+                            <span class="ersaal-help-text"><?php esc_html_e('Libyana or Almadar: 091 / 092 / 093 / 094', 'ersaal'); ?></span>
                         </div>
                         <div class="ersaal-field">
                             <label class="ersaal-label" for="ersaal_wc_admin_new_order_template"><?php esc_html_e('Message template', 'ersaal'); ?></label>

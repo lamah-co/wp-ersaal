@@ -145,8 +145,11 @@ final class OTPUserProfile
 
                     <div class="ersaal-field">
                         <label class="ersaal-label" for="ersaal_otp_phone"><?php esc_html_e('OTP phone', 'ersaal'); ?></label>
-                        <input type="tel" name="ersaal_otp_phone" id="ersaal_otp_phone" class="ersaal-input ersaal-ltr" value="<?php echo esc_attr($phone); ?>" autocomplete="tel" inputmode="tel" placeholder="+2189XXXXXXXX" />
-                        <p class="ersaal-field-help"><?php esc_html_e('Use an international mobile number. Changing it clears verification and turns off login 2FA until the new number is verified.', 'ersaal'); ?></p>
+                        <input type="tel" name="ersaal_otp_phone" id="ersaal_otp_phone" class="ersaal-input ersaal-ltr" value="<?php echo esc_attr($phone); ?>" autocomplete="tel" inputmode="tel" placeholder="0912345678" />
+                        <p class="ersaal-field-help">
+                            <?php esc_html_e('Libyana or Almadar: 091 / 092 / 093 / 094', 'ersaal'); ?><br>
+                            <?php esc_html_e('Changing it clears verification and turns off login 2FA until the new number is verified.', 'ersaal'); ?>
+                        </p>
                     </div>
 
                     <?php if ($verified && $verifiedAt !== ''): ?>

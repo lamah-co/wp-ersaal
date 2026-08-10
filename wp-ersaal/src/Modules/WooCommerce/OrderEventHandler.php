@@ -55,8 +55,9 @@ class OrderEventHandler
         }
         
         $adminPhone = get_option("ersaal_wc_admin_phone", '');
-        $normalizedPhone = $this->normalizePhone($adminPhone);
-        if (empty($normalizedPhone)) {
+        try {
+            $normalizedPhone = (new \Ersaal\Services\PhoneValidator())->normalize($adminPhone);
+        } catch (\InvalidArgumentException $e) {
             return;
         }
 
@@ -134,9 +135,9 @@ class OrderEventHandler
         }
 
         $phone = $order->get_billing_phone();
-        $normalizedPhone = $this->normalizePhone($phone);
-
-        if (empty($normalizedPhone)) {
+        try {
+            $normalizedPhone = (new \Ersaal\Services\PhoneValidator())->normalize($phone);
+        } catch (\InvalidArgumentException $e) {
             $this->logInvalidPhone($order_id, $event, $phone);
             return;
         }
@@ -174,13 +175,7 @@ class OrderEventHandler
         }
     }
 
-    private function normalizePhone(string $phone): string
-    {
-        // Simple normalization for MVP, matching core design
-        $phone = preg_replace('/[^0-9+]/', '', $phone);
-        // Assumes country code is already included by WC if it is. Otherwise rely on core API validation.
-        return $phone;
-    }
+
 
     private function logInvalidPhone($order_id, string $event, string $originalPhone): void
     {

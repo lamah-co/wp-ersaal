@@ -61,13 +61,14 @@ class ManualSendHandler
 
         // --- Validate required fields ---
 
-        // Phone: strip non-numeric/+ then check
-        $phone = preg_replace('/[^0-9+]/', '', $phone);
-        if ($phone === '') {
+        // Phone: normalize and validate via central PhoneValidator
+        try {
+            $phone = (new \Ersaal\Services\PhoneValidator())->normalize($phone);
+        } catch (\InvalidArgumentException $e) {
             return [
                 'success'     => false,
                 'status_code' => 422,
-                'data'        => ['message' => __('Invalid phone number.', 'ersaal')],
+                'data'        => ['message' => $e->getMessage()],
             ];
         }
 

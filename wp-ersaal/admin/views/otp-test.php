@@ -39,8 +39,11 @@ if (!defined('ABSPATH')) {
         <form id="ersaal-otp-send-form" class="ersaal-form-stack" data-otp-panel="send">
             <div class="ersaal-field">
                 <label class="ersaal-label" for="ersaal-otp-test-phone"><?php esc_html_e('Phone number', 'ersaal'); ?></label>
-                <input type="tel" id="ersaal-otp-test-phone" class="ersaal-input ersaal-ltr" inputmode="tel" autocomplete="tel" placeholder="+2189XXXXXXXX" required />
-                <p class="ersaal-field-help"><?php esc_html_e('Include the country code. The activity log keeps only a masked version and a one-way fingerprint.', 'ersaal'); ?></p>
+                <input type="tel" id="ersaal-otp-test-phone" class="ersaal-input ersaal-ltr" inputmode="tel" autocomplete="tel" placeholder="0912345678" required />
+                <p class="ersaal-field-help">
+                    <?php esc_html_e('Libyana or Almadar: 091 / 092 / 093 / 094', 'ersaal'); ?><br>
+                    <?php esc_html_e('The activity log keeps only a masked version and a one-way fingerprint.', 'ersaal'); ?>
+                </p>
             </div>
             <div class="ersaal-inline-actions">
                 <button type="submit" class="ersaal-btn ersaal-btn-primary" id="ersaal-otp-send-button"><?php esc_html_e('Send verification code', 'ersaal'); ?></button>
