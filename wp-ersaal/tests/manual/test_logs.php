@@ -156,17 +156,17 @@ assertTestLogs('bulk_delete_empty', $repo->deleteBulk([]) === 0);
 $wpdb->insert($table, ['idempotency_key' => 'test_date_1', 'phone_hash' => 'hash', 'phone_masked' => '+218', 'status' => 'accepted', 'source' => 'manual', 'created_at' => '2025-01-01 12:00:00']);
 $wpdb->insert($table, ['idempotency_key' => 'test_date_2', 'phone_hash' => 'hash', 'phone_masked' => '+218', 'status' => 'accepted', 'source' => 'manual', 'created_at' => '2025-01-15 12:00:00']);
 
-$logsFrom = $repo->getLogs(['date_from' => '2025-01-10', 'date_to' => '']);
+$logsFrom = $repo->getLogs(['date_from' => '2025-01-10', 'date_to' => '', 'per_page' => -1]);
 $hasDate2 = false; $hasDate1 = false;
 foreach ($logsFrom['items'] as $it) { if ($it->idempotency_key === 'test_date_1') $hasDate1 = true; if ($it->idempotency_key === 'test_date_2') $hasDate2 = true; }
 assertTestLogs('date_filter_from', !$hasDate1 && $hasDate2);
 
-$logsTo = $repo->getLogs(['date_from' => '', 'date_to' => '2025-01-10']);
+$logsTo = $repo->getLogs(['date_from' => '', 'date_to' => '2025-01-10', 'per_page' => -1]);
 $hasDate2 = false; $hasDate1 = false;
 foreach ($logsTo['items'] as $it) { if ($it->idempotency_key === 'test_date_1') $hasDate1 = true; if ($it->idempotency_key === 'test_date_2') $hasDate2 = true; }
 assertTestLogs('date_filter_to', $hasDate1 && !$hasDate2);
 
-$logsRange = $repo->getLogs(['date_from' => '2025-01-01', 'date_to' => '2025-01-15']);
+$logsRange = $repo->getLogs(['date_from' => '2025-01-01', 'date_to' => '2025-01-15', 'per_page' => -1]);
 $hasDate2 = false; $hasDate1 = false;
 foreach ($logsRange['items'] as $it) { if ($it->idempotency_key === 'test_date_1') $hasDate1 = true; if ($it->idempotency_key === 'test_date_2') $hasDate2 = true; }
 assertTestLogs('date_filter_range', $hasDate1 && $hasDate2);
