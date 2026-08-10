@@ -41,7 +41,7 @@ POST /api/otp/initiate
 
 ```json
 {
-  "receiver": "+218911234567",
+  "receiver": "00218911234567",
   "sender": "ApprovedSender",
   "length": 6,
   "expiration": 5,
@@ -52,7 +52,7 @@ POST /api/otp/initiate
 
 | Field | Required | Contract |
 |---|---:|---|
-| `receiver` | Yes | Non-empty phone string. The gateway detects the provider from it. |
+| `receiver` | Yes | Normalized Libyan mobile number in `002189XXXXXXXX` format. The gateway detects the provider from it. |
 | `sender` | Yes | Must be an active sender approved for the company and the receiver's provider. |
 | `length` | Yes | Integer `4` or `6`. |
 | `expiration` | Yes | Integer from `1` through `10`, in minutes. |

@@ -1785,8 +1785,14 @@ msgstr ""
 msgid "This identifies the WordPress account only. Ersaal sends OTP by SMS, not email."
 msgstr ""
 
-#: src/Modules/OTP/OTPUserProfile.php:149
-msgid "Use an international mobile number. Changing it clears verification and turns off login 2FA until the new number is verified."
+#: admin/views/manual-send.php:72 admin/views/otp-test.php:44
+#: admin/views/woocommerce-settings.php:161
+#: src/Modules/OTP/OTPUserProfile.php:150
+msgid "Libyana or Almadar: 091 / 092 / 093 / 094"
+msgstr ""
+
+#: src/Services/PhoneValidator.php:29
+msgid "Invalid phone number. Enter a Libyana or Almadar mobile number starting with 091, 092, 093, or 094."
 msgstr ""
 
 #: src/Modules/OTP/OTPUserProfile.php:56 src/Modules/OTP/OTPUserProfile.php:142

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * Test script for Ersaal Phone Validator
- * 
+ *
  * Run with: php -f wp-content/plugins/wp-ersaal/tests/manual/test_phone_validator.php
  */
 

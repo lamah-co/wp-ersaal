@@ -18,7 +18,7 @@ class PhoneValidator
     {
         $clean = preg_replace('/[\s\-().]/', '', $phone) ?? '';
         $clean = ltrim($clean, '+');
-        
+
         if (strpos($clean, '002189') === 0) {
             $clean = '0' . substr($clean, 5);
         } elseif (strpos($clean, '2189') === 0) {
@@ -36,15 +36,15 @@ class PhoneValidator
     {
         $digits = preg_replace('/\D/', '', $phone) ?? '';
         $length = strlen($digits);
-        
+
         if ($length < 8) {
             return str_repeat('*', max(4, $length));
         }
-        
+
         $prefixLength = max(1, $length - 7);
         $prefix = substr($digits, 0, $prefixLength);
         $suffix = substr($digits, -4);
-        
+
         return ($phone !== '' && $phone[0] === '+' ? '+' : '') . $prefix . ' *** ' . $suffix;
     }
 

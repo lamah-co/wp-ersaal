@@ -1785,9 +1785,15 @@ msgstr "يمكن الآن استخدام الهاتف المؤكد للتحقق 
 msgid "This identifies the WordPress account only. Ersaal sends OTP by SMS, not email."
 msgstr "هذه البيانات تعرّف حساب ووردبريس فقط. ترسل Ersaal رمز التحقق عبر الرسائل النصية وليس البريد الإلكتروني."
 
-#: src/Modules/OTP/OTPUserProfile.php:149
-msgid "Use an international mobile number. Changing it clears verification and turns off login 2FA until the new number is verified."
-msgstr "استخدم رقم هاتف دوليًا. يؤدي تغييره إلى مسح حالة التحقق وتعطيل التحقق بخطوتين حتى تأكيد الرقم الجديد."
+#: admin/views/manual-send.php:72 admin/views/otp-test.php:44
+#: admin/views/woocommerce-settings.php:161
+#: src/Modules/OTP/OTPUserProfile.php:150
+msgid "Libyana or Almadar: 091 / 092 / 093 / 094"
+msgstr "ليبيانا أو المدار: 091 / 092 / 093 / 094"
+
+#: src/Services/PhoneValidator.php:29
+msgid "Invalid phone number. Enter a Libyana or Almadar mobile number starting with 091, 092, 093, or 094."
+msgstr "رقم الهاتف غير صالح. أدخل رقم ليبيانا أو المدار يبدأ بـ 091 أو 092 أو 093 أو 094."
 
 #: src/Modules/OTP/OTPUserProfile.php:56 src/Modules/OTP/OTPUserProfile.php:142
 msgid "Use this number"
