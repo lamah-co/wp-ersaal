@@ -41,8 +41,9 @@ otpUiAssert('no_physical_side_borders', !preg_match('/border-(?:left|right)\s*:/
 otpUiAssert('no_ui_framework_dependency', !preg_match('/\b(?:bootstrap|tailwind|bulma|foundation)\b/i', $css . $js));
 otpUiAssert('rtl_uses_logical_properties', strpos($css, 'inline-size') !== false && strpos($css, 'margin-block') !== false);
 
-$switchedLocale = switch_to_locale('ar');
-otpUiAssert('arabic_locale_switch_available', $switchedLocale);
+$alreadyArabic = determine_locale() === 'ar';
+$switchedLocale = $alreadyArabic ? false : switch_to_locale('ar');
+otpUiAssert('arabic_locale_switch_available', $alreadyArabic || $switchedLocale);
 otpUiAssert('arabic_new_string_loaded', __('OTP Test', 'ersaal') === 'اختبار رمز التحقق');
 otpUiAssert('arabic_profile_security_loaded', __('Ersaal Security', 'ersaal') === 'أمان Ersaal');
 otpUiAssert('arabic_existing_string_preserved', __('Accepted', 'ersaal') === 'مقبولة');
