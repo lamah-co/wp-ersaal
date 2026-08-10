@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../../../../wp-load.php';
 require_once ERSAAL_PLUGIN_DIR . 'admin/LogsPage.php';
+if (!function_exists('get_settings_errors')) {
+    require_once ABSPATH . 'wp-admin/includes/template.php';
+}
 
 echo "=== ERSAAL PHASE 7 LOGS TESTS ===\n\n";
 
