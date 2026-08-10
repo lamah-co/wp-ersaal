@@ -1064,3 +1064,591 @@ msgstr "تم إكمال طلبك رقم #{order_number}. شكراً لتعامل
 #: src/Modules/WooCommerce/WooCommerceSettings.php:101
 msgid "Your order #{order_number} has been cancelled."
 msgstr "تم إلغاء الطلب رقم #{order_number}."
+
+#: admin/views/otp-logs.php:75
+msgid "%s activity"
+msgid_plural "%s activities"
+msgstr[0] "%s نشاط"
+msgstr[1] "نشاط واحد"
+msgstr[2] "نشاطان"
+msgstr[3] "%s أنشطة"
+msgstr[4] "%s نشاطًا"
+msgstr[5] "%s نشاط"
+
+#: admin/views/settings-otp.php:75
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] "%s دقيقة"
+msgstr[1] "دقيقة واحدة"
+msgstr[2] "دقيقتان"
+msgstr[3] "%s دقائق"
+msgstr[4] "%s دقيقة"
+msgstr[5] "%s دقيقة"
+
+#: admin/views/settings-otp.php:63
+msgid "4 digits"
+msgstr "4 أرقام"
+
+#: admin/views/settings-otp.php:64
+msgid "6 digits"
+msgstr "6 أرقام"
+
+#: src/Modules/OTP/OTPUserProfile.php:180
+msgid "A code is already active for this phone. Enter it before requesting another."
+msgstr "يوجد رمز نشط لهذا الهاتف. أدخله قبل طلب رمز آخر."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:189
+msgid "A new verification code was sent."
+msgstr "تم إرسال رمز تحقق جديد."
+
+#: admin/views/otp-test.php:19
+msgid "A successful send can consume wallet balance or an OTP subscription unit. Verification codes are never written to WordPress logs."
+msgstr "قد يستهلك الإرسال الناجح رصيد المحفظة أو وحدة من باقة رموز التحقق. لا تُكتب الرموز في سجلات ووردبريس مطلقًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:197 src/Modules/OTP/OTPAdminController.php:141
+msgid "A verification code was sent to %s."
+msgstr "تم إرسال رمز تحقق إلى %s."
+
+#: admin/views/otp-logs.php:88
+msgid "Action"
+msgstr "العملية"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:75
+msgid "Additional verification is required."
+msgstr "يلزم تحقق إضافي."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:42
+msgid "Additional verification is required. Sign in through the WordPress login page."
+msgstr "يلزم تحقق إضافي. سجّل الدخول من صفحة ووردبريس."
+
+#: admin/views/settings-otp.php:97
+msgid "Adds a second step after a user enters a valid WordPress username and password."
+msgstr "يضيف خطوة ثانية بعد إدخال اسم مستخدم وكلمة مرور صحيحين."
+
+#: admin/views/otp-logs.php:16 admin/views/dashboard.php:36
+msgid "Admin test"
+msgstr "اختبار الإدارة"
+
+#: admin/views/otp-logs.php:57
+msgid "All workflows"
+msgstr "كل المسارات"
+
+#: admin/views/settings-otp.php:109
+msgid "Allow OTP for WordPress login"
+msgstr "السماح برمز التحقق عند تسجيل دخول ووردبريس"
+
+#: admin/views/settings-otp.php:22
+msgid "Allows OTP tests, user phone verification, and developer integrations."
+msgstr "يسمح باختبارات رمز التحقق وتأكيد هواتف المستخدمين وتكاملات المطورين."
+
+#: src/Modules/OTP/OTPService.php:211
+msgid "An active verification code already exists for this phone. Use it or wait until it expires."
+msgstr "يوجد رمز تحقق نشط لهذا الهاتف. استخدمه أو انتظر انتهاء صلاحيته."
+
+#: src/Modules/OTP/OTPUserProfile.php:103
+msgid "An administrator must enable OTP in Ersaal settings before this phone can be verified."
+msgstr "يجب أن يفعّل المسؤول رمز التحقق في إعدادات Ersaal قبل تأكيد الهاتف."
+
+#: src/Modules/OTP/OTPService.php:219
+msgid "An unexpected OTP error occurred."
+msgstr "حدث خطأ غير متوقع في رمز التحقق."
+
+#: admin/views/settings-otp.php:87
+msgid "Arabic"
+msgstr "العربية"
+
+#: admin/views/settings-otp.php:86
+msgid "Automatic"
+msgstr "تلقائي"
+
+#: admin/views/settings-otp.php:83
+msgid "Automatic follows the current WordPress locale."
+msgstr "يتبع الخيار التلقائي لغة ووردبريس الحالية."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:196 src/Modules/OTP/OTPLoginTwoFactor.php:219
+msgid "Back to login"
+msgstr "العودة إلى تسجيل الدخول"
+
+#: src/Modules/OTP/OTPUserProfile.php:86
+msgid "Changing this number removes its verified status and turns off login OTP until the new number is verified."
+msgstr "يؤدي تغيير الرقم إلى إزالة حالة التحقق وتعطيل رمز الدخول حتى تأكيد الرقم الجديد."
+
+#: admin/views/settings-otp.php:49
+msgid "Choose the wallet or the OTP units in your subscription."
+msgstr "اختر المحفظة أو وحدات رمز التحقق في باقتك."
+
+#: admin/views/otp-logs.php:66
+msgid "Clear"
+msgstr "مسح"
+
+#: admin/views/settings-otp.php:59
+msgid "Code length"
+msgstr "طول الرمز"
+
+#: admin/views/settings-otp.php:70
+msgid "Code lifetime"
+msgstr "مدة صلاحية الرمز"
+
+#: admin/views/dashboard.php:107
+msgid "Codes sent"
+msgstr "الرموز المرسلة"
+
+#: admin/views/otp-test.php:34
+msgid "Complete"
+msgstr "مكتمل"
+
+#: admin/views/otp-test.php:26
+msgid "Complete both steps to confirm the sender, billing source, and verification endpoint."
+msgstr "أكمل الخطوتين للتأكد من المرسل ومصدر الدفع ونقطة التحقق."
+
+#: admin/views/otp-logs.php:19 admin/views/dashboard.php:39
+msgid "Developer integration"
+msgstr "تكامل المطور"
+
+#: admin/views/settings-otp.php:21
+msgid "Enable OTP services"
+msgstr "تفعيل خدمات رمز التحقق"
+
+#: admin/views/settings-otp.php:88
+msgid "English"
+msgstr "الإنجليزية"
+
+#: src/Modules/OTP/OTPValidator.php:16
+msgid "Enter a valid phone number including the country code."
+msgstr "أدخل رقم هاتف صالحًا مع مفتاح الدولة."
+
+#: src/Modules/OTP/OTPValidator.php:43
+msgid "Enter the verification code sent to your phone."
+msgstr "أدخل رمز التحقق المرسل إلى هاتفك."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:205
+msgid "Enter your verification code"
+msgstr "أدخل رمز التحقق"
+
+#: src/Modules/OTP/OTPService.php:60
+msgid "Ersaal did not return an OTP reference."
+msgstr "لم تُرجع Ersaal مرجعًا لرمز التحقق."
+
+#: src/Modules/OTP/OTPUserProfile.php:72
+msgid "Ersaal phone verification"
+msgstr "التحقق من الهاتف عبر Ersaal"
+
+#: admin/views/settings-otp.php:60
+msgid "Ersaal supports four- or six-digit codes."
+msgstr "تدعم Ersaal رموزًا من أربعة أو ستة أرقام."
+
+#: admin/views/settings-otp.php:71
+msgid "Expired and successfully used codes cannot be verified again."
+msgstr "لا يمكن التحقق مجددًا من الرموز المنتهية أو المستخدمة بنجاح."
+
+#: admin/views/dashboard.php:119
+msgid "Failed, invalid, or expired"
+msgstr "فاشل أو غير صحيح أو منتهي"
+
+#: admin/views/otp-logs.php:105
+msgid "HTTP %s"
+msgstr "HTTP %s"
+
+#: admin/views/otp-test.php:43
+msgid "Include the country code. The activity log keeps only a masked version and a one-way fingerprint."
+msgstr "أدخل مفتاح الدولة. يحتفظ سجل النشاط بنسخة مخفية وبصمة أحادية الاتجاه فقط."
+
+#: admin/views/dashboard.php:109
+msgid "Initiated today"
+msgstr "بدأت اليوم"
+
+#: admin/views/otp-logs.php:9 admin/views/dashboard.php:29
+msgid "Invalid"
+msgstr "غير صحيح"
+
+#: src/Modules/OTP/OTPValidator.php:25
+msgid "Invalid OTP context."
+msgstr "سياق رمز التحقق غير صالح."
+
+#: src/Modules/OTP/OTPValidator.php:34
+msgid "Invalid or missing OTP reference."
+msgstr "مرجع رمز التحقق مفقود أو غير صالح."
+
+#: src/Modules/OTP/OTPUserProfile.php:108
+msgid "Login OTP"
+msgstr "رمز تحقق الدخول"
+
+#: admin/views/settings-otp.php:102
+msgid "Login OTP is disabled by wp-config.php"
+msgstr "رمز تحقق الدخول معطل عبر wp-config.php"
+
+#: admin/views/settings-otp.php:82
+msgid "Message language"
+msgstr "لغة الرسالة"
+
+#: src/Modules/OTP/OTPUserProfile.php:76
+msgid "Mobile phone"
+msgstr "الهاتف المحمول"
+
+#: admin/views/dashboard.php:46
+msgid "Monitor connection readiness, SMS delivery, and OTP verification activity."
+msgstr "تابع جاهزية الاتصال وتسليم الرسائل ونشاط رموز التحقق."
+
+#: admin/views/otp-logs.php:80
+msgid "No OTP activity yet"
+msgstr "لا يوجد نشاط لرموز التحقق بعد"
+
+#: src/Modules/OTP/OTPUserProfile.php:83
+msgid "Not verified"
+msgstr "غير مؤكد"
+
+#: src/Modules/OTP/OTPAdminController.php:31
+msgid "OTP"
+msgstr "رمز التحقق"
+
+#: src/Modules/OTP/OTPAdminController.php:47 src/Modules/OTP/OTPAdminController.php:48 admin/views/otp-logs.php:34
+msgid "OTP Activity"
+msgstr "نشاط رموز التحقق"
+
+#: src/Modules/OTP/OTPAdminController.php:39 src/Modules/OTP/OTPAdminController.php:40 admin/views/otp-test.php:9 admin/views/dashboard.php:245
+msgid "OTP Test"
+msgstr "اختبار رمز التحقق"
+
+#: admin/views/otp-logs.php:114
+msgid "OTP activity pagination"
+msgstr "صفحات نشاط رموز التحقق"
+
+#: src/Modules/OTP/OTPService.php:196
+msgid "OTP authentication failed. Check the Ersaal connection settings."
+msgstr "فشلت مصادقة رمز التحقق. راجع إعدادات اتصال Ersaal."
+
+#: admin/views/settings-otp.php:33
+msgid "OTP defaults"
+msgstr "إعدادات رمز التحقق الافتراضية"
+
+#: admin/views/otp-test.php:66
+msgid "OTP flow verified"
+msgstr "تم التحقق من مسار OTP"
+
+#: src/Modules/OTP/OTPService.php:34 src/Modules/OTP/OTPService.php:79
+msgid "OTP is disabled in Ersaal settings."
+msgstr "رمز التحقق معطل في إعدادات Ersaal."
+
+#: src/Modules/OTP/OTPService.php:199
+msgid "OTP is unavailable because the wallet or OTP subscription balance is insufficient."
+msgstr "رمز التحقق غير متاح لعدم كفاية رصيد المحفظة أو الباقة."
+
+#: admin/views/otp-test.php:13
+msgid "OTP settings"
+msgstr "إعدادات رمز التحقق"
+
+#: admin/views/settings-otp.php:53
+msgid "OTP subscription"
+msgstr "باقة رمز التحقق"
+
+#: admin/views/otp-test.php:31
+msgid "OTP test steps"
+msgstr "خطوات اختبار رمز التحقق"
+
+#: admin/views/dashboard.php:97
+msgid "OTP today"
+msgstr "رموز التحقق اليوم"
+
+#: src/Modules/OTP/OTPAdminController.php:174
+msgid "OTP verified successfully. The code cannot be used again."
+msgstr "تم التحقق بنجاح، ولا يمكن استخدام الرمز مرة أخرى."
+
+#: admin/views/settings-otp.php:15
+msgid "One-time passwords"
+msgstr "رموز التحقق لمرة واحدة"
+
+#: admin/views/settings-otp.php:110
+msgid "Only users with a verified phone who opt in are challenged. Existing users remain unchanged by default."
+msgstr "يُطلب الرمز فقط من المستخدم الذي أكد هاتفه واختار التفعيل. لا يتغير المستخدمون الحاليون افتراضيًا."
+
+#: admin/views/settings-otp.php:125
+msgid "Open OTP Test"
+msgstr "فتح اختبار رمز التحقق"
+
+#: admin/views/settings-otp.php:48
+msgid "Payment source"
+msgstr "مصدر الدفع"
+
+#: admin/views/otp-test.php:41
+msgid "Phone number"
+msgstr "رقم الهاتف"
+
+#: src/Modules/OTP/OTPUserProfile.php:232
+msgid "Phone verified successfully. Save the profile to keep any login OTP preference."
+msgstr "تم تأكيد الهاتف. احفظ الملف الشخصي للاحتفاظ بتفضيل رمز الدخول."
+
+#: admin/views/otp-logs.php:17 admin/views/dashboard.php:37
+msgid "Profile verification"
+msgstr "التحقق من الملف الشخصي"
+
+#: admin/views/otp-logs.php:12 admin/views/dashboard.php:32
+msgid "Rate limited"
+msgstr "مقيّد المعدل"
+
+#: admin/views/otp-test.php:28
+msgid "Ready"
+msgstr "جاهز"
+
+#: admin/views/otp-logs.php:74
+msgid "Recent OTP activity"
+msgstr "أحدث نشاط لرموز التحقق"
+
+#: admin/views/settings-otp.php:103
+msgid "Remove ERSAAL_OTP_DISABLE_LOGIN_2FA or set it to false after resolving the emergency."
+msgstr "احذف ERSAAL_OTP_DISABLE_LOGIN_2FA أو اجعله false بعد حل الحالة الطارئة."
+
+#: src/Modules/OTP/OTPUserProfile.php:113
+msgid "Require a verification code after my WordPress password"
+msgstr "طلب رمز تحقق بعد كلمة مرور ووردبريس"
+
+#: admin/views/otp-logs.php:35
+msgid "Review OTP requests and verification outcomes without exposing codes or full phone numbers."
+msgstr "راجع طلبات ونتائج التحقق دون إظهار الرموز أو أرقام الهواتف كاملة."
+
+#: admin/views/otp-logs.php:38 admin/views/dashboard.php:101
+msgid "Run OTP Test"
+msgstr "تشغيل اختبار رمز التحقق"
+
+#: admin/views/otp-logs.php:81
+msgid "Run an OTP test or verify a user phone to create the first safe activity record."
+msgstr "شغّل اختبارًا أو أكد هاتف مستخدم لإنشاء أول سجل نشاط آمن."
+
+#: admin/views/otp-test.php:68
+msgid "Run another test"
+msgstr "تشغيل اختبار آخر"
+
+#: admin/views/dashboard.php:98
+msgid "Safe local metrics for one-time password requests and verification attempts."
+msgstr "إحصاءات محلية آمنة لطلبات رموز التحقق ومحاولات تأكيدها."
+
+#: admin/views/settings-otp.php:132
+msgid "Save OTP settings"
+msgstr "حفظ إعدادات رمز التحقق"
+
+#: admin/views/settings-otp.php:122
+msgid "Save these settings, then run a real send-and-verify test before enabling login verification for users."
+msgstr "احفظ الإعدادات ثم نفّذ اختبار إرسال وتحقق حقيقيًا قبل تفعيلها لدخول المستخدمين."
+
+#: admin/views/otp-logs.php:99 admin/views/otp-test.php:32
+msgid "Send"
+msgstr "إرسال"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:216 src/Modules/OTP/OTPAdminController.php:75 admin/views/otp-test.php:59
+msgid "Send a new code"
+msgstr "إرسال رمز جديد"
+
+#: admin/views/otp-test.php:10
+msgid "Send a real verification code and confirm the complete OTP flow."
+msgstr "أرسل رمز تحقق حقيقيًا وتأكد من المسار كاملًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:50 src/Modules/OTP/OTPUserProfile.php:92 src/Modules/OTP/OTPAdminController.php:71 admin/views/otp-test.php:46
+msgid "Send verification code"
+msgstr "إرسال رمز التحقق"
+
+#: admin/views/settings-otp.php:40
+msgid "Sender name"
+msgstr "اسم المرسل"
+
+#: admin/views/dashboard.php:114
+msgid "Successful checks"
+msgstr "عمليات تحقق ناجحة"
+
+#: src/Modules/OTP/OTPService.php:217 src/Modules/OTP/OTPAdminController.php:77
+msgid "The OTP request could not be completed."
+msgstr "تعذر إكمال طلب رمز التحقق."
+
+#: src/Modules/OTP/OTPService.php:214
+msgid "The OTP sender is invalid or unavailable for this phone provider."
+msgstr "مرسل رمز التحقق غير صالح أو غير متاح لمزود هذا الهاتف."
+
+#: src/Modules/OTP/OTPService.php:202
+msgid "The OTP service is temporarily unavailable. Please try again later."
+msgstr "خدمة رمز التحقق غير متاحة مؤقتًا. حاول لاحقًا."
+
+#: admin/views/otp-test.php:67
+msgid "The code was accepted once and the local test state was removed."
+msgstr "قُبل الرمز مرة واحدة وحُذفت حالة الاختبار المحلية."
+
+#: src/Modules/OTP/OTPUserProfile.php:55
+msgid "The phone verification request could not be completed."
+msgstr "تعذر إكمال طلب التحقق من الهاتف."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:129
+msgid "The verification code expired. Request a new code."
+msgstr "انتهت صلاحية رمز التحقق. اطلب رمزًا جديدًا."
+
+#: src/Modules/OTP/OTPService.php:205
+msgid "The verification code has expired or was already used."
+msgstr "انتهت صلاحية الرمز أو سبق استخدامه."
+
+#: src/Modules/OTP/OTPService.php:208
+msgid "The verification code is incorrect."
+msgstr "رمز التحقق غير صحيح."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:111
+msgid "The verification form expired. Refresh the page and try again."
+msgstr "انتهت صلاحية نموذج التحقق. حدّث الصفحة وحاول مجددًا."
+
+#: admin/views/settings-otp.php:34
+msgid "These values are sent to Ersaal when a new verification code is requested."
+msgstr "تُرسل هذه القيم إلى Ersaal عند طلب رمز جديد."
+
+#: src/Modules/OTP/OTPAdminController.php:151
+msgid "This OTP test has expired. Send a new code."
+msgstr "انتهى اختبار رمز التحقق. أرسل رمزًا جديدًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:115
+msgid "This opt-in applies only to this user and requires a verified phone. The administrator can disable login OTP globally."
+msgstr "ينطبق الاختيار على هذا المستخدم فقط ويتطلب هاتفًا مؤكدًا. يستطيع المسؤول تعطيله عامًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:208
+msgid "This phone verification has expired. Send a new code."
+msgstr "انتهت جلسة التحقق من الهاتف. أرسل رمزًا جديدًا."
+
+#: admin/views/otp-test.php:18
+msgid "This uses your real Ersaal account"
+msgstr "يستخدم هذا حساب Ersaal الحقيقي"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:144
+msgid "This verification session ended. Sign in again to request a new code."
+msgstr "انتهت جلسة التحقق. سجّل الدخول مجددًا لطلب رمز جديد."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:97
+msgid "This verification session is invalid or has expired. Sign in again."
+msgstr "جلسة التحقق غير صالحة أو منتهية. سجّل الدخول مجددًا."
+
+#: src/Modules/OTP/OTPService.php:193
+msgid "Too many OTP requests. Please wait before trying again."
+msgstr "طلبات رمز التحقق كثيرة جدًا. انتظر قبل المحاولة مجددًا."
+
+#: src/Modules/OTP/OTPLogRepository.php:34
+msgid "Unable to create OTP activity log."
+msgstr "تعذر إنشاء سجل نشاط رمز التحقق."
+
+#: admin/views/otp-logs.php:13 admin/views/dashboard.php:33
+msgid "Unavailable"
+msgstr "غير متاح"
+
+#: admin/views/dashboard.php:117
+msgid "Unsuccessful"
+msgstr "غير ناجح"
+
+#: admin/views/settings-otp.php:16
+msgid "Use Ersaal to send and verify short-lived codes. OTP stays off until you enable it."
+msgstr "استخدم Ersaal لإرسال رموز قصيرة الصلاحية والتحقق منها. تبقى الميزة معطلة حتى تفعيلها."
+
+#: admin/views/settings-otp.php:41
+msgid "Use an active, approved sender from the connected Ersaal project."
+msgstr "استخدم مرسلًا نشطًا ومعتمدًا من مشروع Ersaal المتصل."
+
+#: src/Modules/OTP/OTPAdminController.php:116
+msgid "Use the active code or wait %s seconds before requesting another."
+msgstr "استخدم الرمز النشط أو انتظر %s ثانية قبل طلب آخر."
+
+#: admin/views/settings-otp.php:121
+msgid "Validate the setup"
+msgstr "التحقق من الإعداد"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:211 src/Modules/OTP/OTPUserProfile.php:96 admin/views/otp-test.php:53
+msgid "Verification code"
+msgstr "رمز التحقق"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:104
+msgid "Verification is no longer available for this account. Sign in again."
+msgstr "لم يعد التحقق متاحًا لهذا الحساب. سجّل الدخول مجددًا."
+
+#: admin/views/dashboard.php:122
+msgid "Verification rate"
+msgstr "معدل التحقق"
+
+#: src/Modules/OTP/OTPUserProfile.php:54 src/Modules/OTP/OTPUserProfile.php:81 admin/views/otp-logs.php:8 admin/views/dashboard.php:28 admin/views/dashboard.php:112
+msgid "Verified"
+msgstr "مؤكد"
+
+#: admin/views/dashboard.php:124
+msgid "Verified attempts today"
+msgstr "المحاولات المؤكدة اليوم"
+
+#: src/Modules/OTP/OTPUserProfile.php:88
+msgid "Verified on %s."
+msgstr "تم التحقق في %s."
+
+#: admin/views/otp-logs.php:99 admin/views/otp-test.php:33
+msgid "Verify"
+msgstr "تحقق"
+
+#: admin/views/otp-test.php:25
+msgid "Verify a phone number"
+msgstr "التحقق من رقم هاتف"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:215
+msgid "Verify and sign in"
+msgstr "تحقق وسجّل الدخول"
+
+#: src/Modules/OTP/OTPAdminController.php:73 admin/views/otp-test.php:58
+msgid "Verify code"
+msgstr "تحقق من الرمز"
+
+#: src/Modules/OTP/OTPUserProfile.php:52 src/Modules/OTP/OTPUserProfile.php:99
+msgid "Verify phone"
+msgstr "تحقق من الهاتف"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:194
+msgid "Verify your sign-in"
+msgstr "تحقق من تسجيل دخولك"
+
+#: src/Modules/OTP/OTPUserProfile.php:53 src/Modules/OTP/OTPAdminController.php:74
+msgid "Verifying..."
+msgstr "جارٍ التحقق..."
+
+#: admin/views/dashboard.php:102 admin/views/settings-otp.php:126
+msgid "View OTP activity"
+msgstr "عرض نشاط رموز التحقق"
+
+#: admin/views/otp-logs.php:39
+msgid "View SMS logs"
+msgstr "عرض سجلات الرسائل"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:168
+msgid "Wait %s seconds before requesting a new code."
+msgstr "انتظر %s ثانية قبل طلب رمز جديد."
+
+#: admin/views/settings-otp.php:52
+msgid "Wallet balance"
+msgstr "رصيد المحفظة"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:177
+msgid "We could not send a new code. Please wait and try again."
+msgstr "تعذر إرسال رمز جديد. انتظر وحاول مجددًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:54
+msgid "We could not start the verification step. Please try again later."
+msgstr "تعذر بدء خطوة التحقق. حاول لاحقًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:206
+msgid "We sent a one-time code to %s."
+msgstr "أرسلنا رمز تحقق لمرة واحدة إلى %s."
+
+#: admin/views/otp-logs.php:18 admin/views/dashboard.php:38
+msgid "WordPress login"
+msgstr "تسجيل دخول ووردبريس"
+
+#: admin/views/settings-otp.php:96
+msgid "WordPress login verification"
+msgstr "التحقق عند تسجيل دخول ووردبريس"
+
+#: admin/views/otp-logs.php:55 admin/views/otp-logs.php:89 admin/views/dashboard.php:133
+msgid "Workflow"
+msgstr "المسار"
+
+#: src/Modules/OTP/OTPAdminController.php:181
+msgid "You are not allowed to test OTP."
+msgstr "لا تملك صلاحية اختبار رمز التحقق."
+
+#: src/Modules/OTP/OTPUserProfile.php:243
+msgid "You are not allowed to verify this phone."
+msgstr "لا تملك صلاحية التحقق من هذا الهاتف."
+
+#: src/Modules/OTP/OTPAdminController.php:76
+msgid "You can request a new code in %s seconds."
+msgstr "يمكنك طلب رمز جديد خلال %s ثانية."

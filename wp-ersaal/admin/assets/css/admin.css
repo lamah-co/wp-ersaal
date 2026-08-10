@@ -207,6 +207,10 @@
   color: var(--ersaal-color-warning);
 }
 
+.ersaal-admin .ersaal-dashboard-otp-table {
+  margin-block-start: var(--ersaal-space-lg);
+}
+
 /* Dashboard */
 .ersaal-admin .ersaal-connection-card {
   display: grid;

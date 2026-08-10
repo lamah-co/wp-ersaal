@@ -1064,3 +1064,591 @@ msgstr ""
 #: src/Modules/WooCommerce/WooCommerceSettings.php:101
 msgid "Your order #{order_number} has been cancelled."
 msgstr ""
+
+#: admin/views/otp-logs.php:75
+msgid "%s activity"
+msgid_plural "%s activities"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: admin/views/settings-otp.php:75
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: admin/views/settings-otp.php:63
+msgid "4 digits"
+msgstr ""
+
+#: admin/views/settings-otp.php:64
+msgid "6 digits"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:180
+msgid "A code is already active for this phone. Enter it before requesting another."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:189
+msgid "A new verification code was sent."
+msgstr ""
+
+#: admin/views/otp-test.php:19
+msgid "A successful send can consume wallet balance or an OTP subscription unit. Verification codes are never written to WordPress logs."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:197 src/Modules/OTP/OTPAdminController.php:141
+msgid "A verification code was sent to %s."
+msgstr ""
+
+#: admin/views/otp-logs.php:88
+msgid "Action"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:75
+msgid "Additional verification is required."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:42
+msgid "Additional verification is required. Sign in through the WordPress login page."
+msgstr ""
+
+#: admin/views/settings-otp.php:97
+msgid "Adds a second step after a user enters a valid WordPress username and password."
+msgstr ""
+
+#: admin/views/otp-logs.php:16 admin/views/dashboard.php:36
+msgid "Admin test"
+msgstr ""
+
+#: admin/views/otp-logs.php:57
+msgid "All workflows"
+msgstr ""
+
+#: admin/views/settings-otp.php:109
+msgid "Allow OTP for WordPress login"
+msgstr ""
+
+#: admin/views/settings-otp.php:22
+msgid "Allows OTP tests, user phone verification, and developer integrations."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:211
+msgid "An active verification code already exists for this phone. Use it or wait until it expires."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:103
+msgid "An administrator must enable OTP in Ersaal settings before this phone can be verified."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:219
+msgid "An unexpected OTP error occurred."
+msgstr ""
+
+#: admin/views/settings-otp.php:87
+msgid "Arabic"
+msgstr ""
+
+#: admin/views/settings-otp.php:86
+msgid "Automatic"
+msgstr ""
+
+#: admin/views/settings-otp.php:83
+msgid "Automatic follows the current WordPress locale."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:196 src/Modules/OTP/OTPLoginTwoFactor.php:219
+msgid "Back to login"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:86
+msgid "Changing this number removes its verified status and turns off login OTP until the new number is verified."
+msgstr ""
+
+#: admin/views/settings-otp.php:49
+msgid "Choose the wallet or the OTP units in your subscription."
+msgstr ""
+
+#: admin/views/otp-logs.php:66
+msgid "Clear"
+msgstr ""
+
+#: admin/views/settings-otp.php:59
+msgid "Code length"
+msgstr ""
+
+#: admin/views/settings-otp.php:70
+msgid "Code lifetime"
+msgstr ""
+
+#: admin/views/dashboard.php:107
+msgid "Codes sent"
+msgstr ""
+
+#: admin/views/otp-test.php:34
+msgid "Complete"
+msgstr ""
+
+#: admin/views/otp-test.php:26
+msgid "Complete both steps to confirm the sender, billing source, and verification endpoint."
+msgstr ""
+
+#: admin/views/otp-logs.php:19 admin/views/dashboard.php:39
+msgid "Developer integration"
+msgstr ""
+
+#: admin/views/settings-otp.php:21
+msgid "Enable OTP services"
+msgstr ""
+
+#: admin/views/settings-otp.php:88
+msgid "English"
+msgstr ""
+
+#: src/Modules/OTP/OTPValidator.php:16
+msgid "Enter a valid phone number including the country code."
+msgstr ""
+
+#: src/Modules/OTP/OTPValidator.php:43
+msgid "Enter the verification code sent to your phone."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:205
+msgid "Enter your verification code"
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:60
+msgid "Ersaal did not return an OTP reference."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:72
+msgid "Ersaal phone verification"
+msgstr ""
+
+#: admin/views/settings-otp.php:60
+msgid "Ersaal supports four- or six-digit codes."
+msgstr ""
+
+#: admin/views/settings-otp.php:71
+msgid "Expired and successfully used codes cannot be verified again."
+msgstr ""
+
+#: admin/views/dashboard.php:119
+msgid "Failed, invalid, or expired"
+msgstr ""
+
+#: admin/views/otp-logs.php:105
+msgid "HTTP %s"
+msgstr ""
+
+#: admin/views/otp-test.php:43
+msgid "Include the country code. The activity log keeps only a masked version and a one-way fingerprint."
+msgstr ""
+
+#: admin/views/dashboard.php:109
+msgid "Initiated today"
+msgstr ""
+
+#: admin/views/otp-logs.php:9 admin/views/dashboard.php:29
+msgid "Invalid"
+msgstr ""
+
+#: src/Modules/OTP/OTPValidator.php:25
+msgid "Invalid OTP context."
+msgstr ""
+
+#: src/Modules/OTP/OTPValidator.php:34
+msgid "Invalid or missing OTP reference."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:108
+msgid "Login OTP"
+msgstr ""
+
+#: admin/views/settings-otp.php:102
+msgid "Login OTP is disabled by wp-config.php"
+msgstr ""
+
+#: admin/views/settings-otp.php:82
+msgid "Message language"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:76
+msgid "Mobile phone"
+msgstr ""
+
+#: admin/views/dashboard.php:46
+msgid "Monitor connection readiness, SMS delivery, and OTP verification activity."
+msgstr ""
+
+#: admin/views/otp-logs.php:80
+msgid "No OTP activity yet"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:83
+msgid "Not verified"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:31
+msgid "OTP"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:47 src/Modules/OTP/OTPAdminController.php:48 admin/views/otp-logs.php:34
+msgid "OTP Activity"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:39 src/Modules/OTP/OTPAdminController.php:40 admin/views/otp-test.php:9 admin/views/dashboard.php:245
+msgid "OTP Test"
+msgstr ""
+
+#: admin/views/otp-logs.php:114
+msgid "OTP activity pagination"
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:196
+msgid "OTP authentication failed. Check the Ersaal connection settings."
+msgstr ""
+
+#: admin/views/settings-otp.php:33
+msgid "OTP defaults"
+msgstr ""
+
+#: admin/views/otp-test.php:66
+msgid "OTP flow verified"
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:34 src/Modules/OTP/OTPService.php:79
+msgid "OTP is disabled in Ersaal settings."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:199
+msgid "OTP is unavailable because the wallet or OTP subscription balance is insufficient."
+msgstr ""
+
+#: admin/views/otp-test.php:13
+msgid "OTP settings"
+msgstr ""
+
+#: admin/views/settings-otp.php:53
+msgid "OTP subscription"
+msgstr ""
+
+#: admin/views/otp-test.php:31
+msgid "OTP test steps"
+msgstr ""
+
+#: admin/views/dashboard.php:97
+msgid "OTP today"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:174
+msgid "OTP verified successfully. The code cannot be used again."
+msgstr ""
+
+#: admin/views/settings-otp.php:15
+msgid "One-time passwords"
+msgstr ""
+
+#: admin/views/settings-otp.php:110
+msgid "Only users with a verified phone who opt in are challenged. Existing users remain unchanged by default."
+msgstr ""
+
+#: admin/views/settings-otp.php:125
+msgid "Open OTP Test"
+msgstr ""
+
+#: admin/views/settings-otp.php:48
+msgid "Payment source"
+msgstr ""
+
+#: admin/views/otp-test.php:41
+msgid "Phone number"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:232
+msgid "Phone verified successfully. Save the profile to keep any login OTP preference."
+msgstr ""
+
+#: admin/views/otp-logs.php:17 admin/views/dashboard.php:37
+msgid "Profile verification"
+msgstr ""
+
+#: admin/views/otp-logs.php:12 admin/views/dashboard.php:32
+msgid "Rate limited"
+msgstr ""
+
+#: admin/views/otp-test.php:28
+msgid "Ready"
+msgstr ""
+
+#: admin/views/otp-logs.php:74
+msgid "Recent OTP activity"
+msgstr ""
+
+#: admin/views/settings-otp.php:103
+msgid "Remove ERSAAL_OTP_DISABLE_LOGIN_2FA or set it to false after resolving the emergency."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:113
+msgid "Require a verification code after my WordPress password"
+msgstr ""
+
+#: admin/views/otp-logs.php:35
+msgid "Review OTP requests and verification outcomes without exposing codes or full phone numbers."
+msgstr ""
+
+#: admin/views/otp-logs.php:38 admin/views/dashboard.php:101
+msgid "Run OTP Test"
+msgstr ""
+
+#: admin/views/otp-logs.php:81
+msgid "Run an OTP test or verify a user phone to create the first safe activity record."
+msgstr ""
+
+#: admin/views/otp-test.php:68
+msgid "Run another test"
+msgstr ""
+
+#: admin/views/dashboard.php:98
+msgid "Safe local metrics for one-time password requests and verification attempts."
+msgstr ""
+
+#: admin/views/settings-otp.php:132
+msgid "Save OTP settings"
+msgstr ""
+
+#: admin/views/settings-otp.php:122
+msgid "Save these settings, then run a real send-and-verify test before enabling login verification for users."
+msgstr ""
+
+#: admin/views/otp-logs.php:99 admin/views/otp-test.php:32
+msgid "Send"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:216 src/Modules/OTP/OTPAdminController.php:75 admin/views/otp-test.php:59
+msgid "Send a new code"
+msgstr ""
+
+#: admin/views/otp-test.php:10
+msgid "Send a real verification code and confirm the complete OTP flow."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:50 src/Modules/OTP/OTPUserProfile.php:92 src/Modules/OTP/OTPAdminController.php:71 admin/views/otp-test.php:46
+msgid "Send verification code"
+msgstr ""
+
+#: admin/views/settings-otp.php:40
+msgid "Sender name"
+msgstr ""
+
+#: admin/views/dashboard.php:114
+msgid "Successful checks"
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:217 src/Modules/OTP/OTPAdminController.php:77
+msgid "The OTP request could not be completed."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:214
+msgid "The OTP sender is invalid or unavailable for this phone provider."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:202
+msgid "The OTP service is temporarily unavailable. Please try again later."
+msgstr ""
+
+#: admin/views/otp-test.php:67
+msgid "The code was accepted once and the local test state was removed."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:55
+msgid "The phone verification request could not be completed."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:129
+msgid "The verification code expired. Request a new code."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:205
+msgid "The verification code has expired or was already used."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:208
+msgid "The verification code is incorrect."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:111
+msgid "The verification form expired. Refresh the page and try again."
+msgstr ""
+
+#: admin/views/settings-otp.php:34
+msgid "These values are sent to Ersaal when a new verification code is requested."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:151
+msgid "This OTP test has expired. Send a new code."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:115
+msgid "This opt-in applies only to this user and requires a verified phone. The administrator can disable login OTP globally."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:208
+msgid "This phone verification has expired. Send a new code."
+msgstr ""
+
+#: admin/views/otp-test.php:18
+msgid "This uses your real Ersaal account"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:144
+msgid "This verification session ended. Sign in again to request a new code."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:97
+msgid "This verification session is invalid or has expired. Sign in again."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:193
+msgid "Too many OTP requests. Please wait before trying again."
+msgstr ""
+
+#: src/Modules/OTP/OTPLogRepository.php:34
+msgid "Unable to create OTP activity log."
+msgstr ""
+
+#: admin/views/otp-logs.php:13 admin/views/dashboard.php:33
+msgid "Unavailable"
+msgstr ""
+
+#: admin/views/dashboard.php:117
+msgid "Unsuccessful"
+msgstr ""
+
+#: admin/views/settings-otp.php:16
+msgid "Use Ersaal to send and verify short-lived codes. OTP stays off until you enable it."
+msgstr ""
+
+#: admin/views/settings-otp.php:41
+msgid "Use an active, approved sender from the connected Ersaal project."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:116
+msgid "Use the active code or wait %s seconds before requesting another."
+msgstr ""
+
+#: admin/views/settings-otp.php:121
+msgid "Validate the setup"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:211 src/Modules/OTP/OTPUserProfile.php:96 admin/views/otp-test.php:53
+msgid "Verification code"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:104
+msgid "Verification is no longer available for this account. Sign in again."
+msgstr ""
+
+#: admin/views/dashboard.php:122
+msgid "Verification rate"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:54 src/Modules/OTP/OTPUserProfile.php:81 admin/views/otp-logs.php:8 admin/views/dashboard.php:28 admin/views/dashboard.php:112
+msgid "Verified"
+msgstr ""
+
+#: admin/views/dashboard.php:124
+msgid "Verified attempts today"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:88
+msgid "Verified on %s."
+msgstr ""
+
+#: admin/views/otp-logs.php:99 admin/views/otp-test.php:33
+msgid "Verify"
+msgstr ""
+
+#: admin/views/otp-test.php:25
+msgid "Verify a phone number"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:215
+msgid "Verify and sign in"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:73 admin/views/otp-test.php:58
+msgid "Verify code"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:52 src/Modules/OTP/OTPUserProfile.php:99
+msgid "Verify phone"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:194
+msgid "Verify your sign-in"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:53 src/Modules/OTP/OTPAdminController.php:74
+msgid "Verifying..."
+msgstr ""
+
+#: admin/views/dashboard.php:102 admin/views/settings-otp.php:126
+msgid "View OTP activity"
+msgstr ""
+
+#: admin/views/otp-logs.php:39
+msgid "View SMS logs"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:168
+msgid "Wait %s seconds before requesting a new code."
+msgstr ""
+
+#: admin/views/settings-otp.php:52
+msgid "Wallet balance"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:177
+msgid "We could not send a new code. Please wait and try again."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:54
+msgid "We could not start the verification step. Please try again later."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:206
+msgid "We sent a one-time code to %s."
+msgstr ""
+
+#: admin/views/otp-logs.php:18 admin/views/dashboard.php:38
+msgid "WordPress login"
+msgstr ""
+
+#: admin/views/settings-otp.php:96
+msgid "WordPress login verification"
+msgstr ""
+
+#: admin/views/otp-logs.php:55 admin/views/otp-logs.php:89 admin/views/dashboard.php:133
+msgid "Workflow"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:181
+msgid "You are not allowed to test OTP."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:243
+msgid "You are not allowed to verify this phone."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:76
+msgid "You can request a new code in %s seconds."
+msgstr ""

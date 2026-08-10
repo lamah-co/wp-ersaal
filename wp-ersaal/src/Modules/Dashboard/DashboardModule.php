@@ -6,6 +6,7 @@ namespace Ersaal\Modules\Dashboard;
 use Ersaal\Contracts\ModuleInterface;
 use Ersaal\Core\Options;
 use Ersaal\Storage\LogRepository;
+use Ersaal\Modules\OTP\OTPLogRepository;
 
 class DashboardModule implements ModuleInterface
 {
@@ -63,7 +64,7 @@ class DashboardModule implements ModuleInterface
     {
         require_once ERSAAL_PLUGIN_DIR . 'admin/DashboardPage.php';
         
-        $page = new \Ersaal\Admin\DashboardPage(new LogRepository(), $this->options);
+        $page = new \Ersaal\Admin\DashboardPage(new LogRepository(), new OTPLogRepository(), $this->options);
         $page->render();
     }
 }

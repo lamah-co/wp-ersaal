@@ -18,6 +18,8 @@ $sendLabel = $is_arabic ? 'إرسال رسالة' : 'Send a message';
 $sendDescription = $is_arabic ? 'إرسال رسالة نصية يدوية.' : 'Send a manual SMS message.';
 $logsLabel = $is_arabic ? 'مراجعة السجلات' : 'Review logs';
 $logsDescription = $is_arabic ? 'تتبع الحالات ومعالجة الأخطاء.' : 'Track statuses and troubleshoot errors.';
+$otpLabel = $is_arabic ? 'اختبار رمز التحقق' : 'Test OTP';
+$otpDescription = $is_arabic ? 'تحقق من الإرسال والتأكيد خطوة بخطوة.' : 'Validate sending and verification step by step.';
 ?>
 <div class="wrap ersaal-admin ersaal-page ersaal-page-wide ersaal-help-page" dir="<?php echo $is_arabic ? 'rtl' : 'ltr'; ?>" lang="<?php echo $is_arabic ? 'ar' : 'en'; ?>">
     <header class="ersaal-page-header">
@@ -72,6 +74,10 @@ $logsDescription = $is_arabic ? 'تتبع الحالات ومعالجة الأخ
                 <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-help-shortcut">
                     <?php echo ersaal_admin_icon('logs'); ?>
                     <span><strong><?php echo esc_html($logsLabel); ?></strong><small><?php echo esc_html($logsDescription); ?></small></span>
+                </a>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-otp-test')); ?>" class="ersaal-help-shortcut">
+                    <?php echo ersaal_admin_icon('check'); ?>
+                    <span><strong><?php echo esc_html($otpLabel); ?></strong><small><?php echo esc_html($otpDescription); ?></small></span>
                 </a>
             </div>
         </section>

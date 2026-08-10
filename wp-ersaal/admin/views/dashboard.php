@@ -23,12 +23,27 @@ foreach ($connection['subscriptions'] as $subscription) {
     }
 }
 $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __('Not available', 'ersaal');
+$otpStatusLabels = [
+    'sent' => __('Sent', 'ersaal'),
+    'verified' => __('Verified', 'ersaal'),
+    'invalid' => __('Invalid', 'ersaal'),
+    'expired' => __('Expired', 'ersaal'),
+    'failed' => __('Failed', 'ersaal'),
+    'rate_limited' => __('Rate limited', 'ersaal'),
+    'unavailable' => __('Unavailable', 'ersaal'),
+];
+$otpContextLabels = [
+    'admin_test' => __('Admin test', 'ersaal'),
+    'profile_verification' => __('Profile verification', 'ersaal'),
+    'wordpress_login' => __('WordPress login', 'ersaal'),
+    'custom' => __('Developer integration', 'ersaal'),
+];
 ?>
 <div class="wrap ersaal-admin ersaal-page ersaal-page-wide">
     <header class="ersaal-page-header">
         <div class="ersaal-page-header-copy">
             <h1 class="ersaal-page-title"><?php esc_html_e('Dashboard', 'ersaal'); ?></h1>
-            <p class="ersaal-page-description"><?php esc_html_e('Monitor connection readiness and today’s messaging activity.', 'ersaal'); ?></p>
+            <p class="ersaal-page-description"><?php esc_html_e('Monitor connection readiness, SMS delivery, and OTP verification activity.', 'ersaal'); ?></p>
         </div>
         <div class="ersaal-page-actions">
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary">
@@ -72,6 +87,65 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
             <div class="ersaal-alert ersaal-alert-warning" role="status">
                 <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); ?><?php esc_html_e('Connection needs attention', 'ersaal'); ?></p>
                 <p><?php echo esc_html($connection['error']); ?></p>
+            </div>
+        <?php endif; ?>
+    </section>
+
+    <section class="ersaal-section" aria-labelledby="ersaal-otp-overview-title">
+        <div class="ersaal-section-header">
+            <div>
+                <h2 id="ersaal-otp-overview-title" class="ersaal-section-title"><?php esc_html_e('OTP today', 'ersaal'); ?></h2>
+                <p class="ersaal-section-description"><?php esc_html_e('Safe local metrics for one-time password requests and verification attempts.', 'ersaal'); ?></p>
+            </div>
+            <div class="ersaal-inline-actions">
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-otp-test')); ?>" class="ersaal-btn ersaal-btn-primary ersaal-btn-sm"><?php esc_html_e('Run OTP Test', 'ersaal'); ?></a>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-otp-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php esc_html_e('View OTP activity', 'ersaal'); ?></a>
+            </div>
+        </div>
+        <div class="ersaal-stat-grid">
+            <article class="ersaal-card-stat">
+                <span class="ersaal-stat-label"><?php esc_html_e('Codes sent', 'ersaal'); ?></span>
+                <strong class="ersaal-stat-value"><?php echo esc_html(number_format_i18n($otpStats['requests'])); ?></strong>
+                <span class="ersaal-stat-context"><?php esc_html_e('Initiated today', 'ersaal'); ?></span>
+            </article>
+            <article class="ersaal-card-stat ersaal-stat-success">
+                <span class="ersaal-stat-label"><?php esc_html_e('Verified', 'ersaal'); ?></span>
+                <strong class="ersaal-stat-value"><?php echo esc_html(number_format_i18n($otpStats['verified'])); ?></strong>
+                <span class="ersaal-stat-context"><?php esc_html_e('Successful checks', 'ersaal'); ?></span>
+            </article>
+            <article class="ersaal-card-stat ersaal-stat-danger">
+                <span class="ersaal-stat-label"><?php esc_html_e('Unsuccessful', 'ersaal'); ?></span>
+                <strong class="ersaal-stat-value"><?php echo esc_html(number_format_i18n($otpStats['failed'])); ?></strong>
+                <span class="ersaal-stat-context"><?php esc_html_e('Failed, invalid, or expired', 'ersaal'); ?></span>
+            </article>
+            <article class="ersaal-card-stat">
+                <span class="ersaal-stat-label"><?php esc_html_e('Verification rate', 'ersaal'); ?></span>
+                <strong class="ersaal-stat-value"><?php echo esc_html(number_format_i18n($otpStats['verification_rate'], 1)); ?>%</strong>
+                <span class="ersaal-stat-context"><?php esc_html_e('Verified attempts today', 'ersaal'); ?></span>
+            </article>
+        </div>
+
+        <?php if (!empty($recentOtp)): ?>
+            <div class="ersaal-table-wrap ersaal-dashboard-otp-table">
+                <table class="ersaal-table">
+                    <thead><tr>
+                        <th><?php esc_html_e('Status', 'ersaal'); ?></th>
+                        <th><?php esc_html_e('Workflow', 'ersaal'); ?></th>
+                        <th><?php esc_html_e('Phone', 'ersaal'); ?></th>
+                        <th><?php esc_html_e('Created', 'ersaal'); ?></th>
+                    </tr></thead>
+                    <tbody>
+                    <?php foreach ($recentOtp as $otpLog): ?>
+                        <?php $otpBadge = in_array($otpLog->status, ['sent', 'verified'], true) ? 'success' : (in_array($otpLog->status, ['invalid', 'expired', 'rate_limited'], true) ? 'warning' : 'danger'); ?>
+                        <tr>
+                            <td><span class="ersaal-badge ersaal-badge-<?php echo esc_attr($otpBadge); ?>"><?php echo esc_html($otpStatusLabels[$otpLog->status] ?? ucwords(str_replace('_', ' ', (string) $otpLog->status))); ?></span></td>
+                            <td><?php echo esc_html($otpContextLabels[$otpLog->context] ?? ucwords(str_replace('_', ' ', (string) $otpLog->context))); ?></td>
+                            <td><span class="ersaal-code ersaal-ltr"><?php echo esc_html($otpLog->phone_masked); ?></span></td>
+                            <td><time class="ersaal-table-meta ersaal-ltr" datetime="<?php echo esc_attr($otpLog->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime((string) $otpLog->created_at . ' UTC'))); ?></time></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         <?php endif; ?>
     </section>
@@ -168,6 +242,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
         </div>
         <div class="ersaal-quick-actions">
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('send'); ?><?php esc_html_e('Send SMS', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-otp-test')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('check'); ?><?php esc_html_e('OTP Test', 'ersaal'); ?></a>
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('logs'); ?><?php esc_html_e('View logs', 'ersaal'); ?></a>
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('settings'); ?><?php esc_html_e('Settings', 'ersaal'); ?></a>
         </div>
