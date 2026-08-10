@@ -40,7 +40,7 @@ final class OTPResult
     }
 
     /** @param mixed $cost */
-    public static function sent(string $reference, $cost, int $expiresIn): self
+    public static function sent(string $reference, $cost, ?int $expiresIn): self
     {
         return new self(true, 'sent', $reference, $cost, $expiresIn, '', '', 200, null);
     }
