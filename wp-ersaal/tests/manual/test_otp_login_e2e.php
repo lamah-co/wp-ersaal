@@ -78,7 +78,7 @@ function e2ePrime(string $loginUrl, string $cookieFile): void
 
 function e2eSetMockMode(string $mode): void
 {
-    $path = '/tmp/ersaal-otp-mock-state.json';
+    $path = sys_get_temp_dir() . '/ersaal-otp-mock-state.json';
     $state = is_file($path) ? json_decode((string) file_get_contents($path), true) : [];
     $state = is_array($state) ? $state : [];
     $state += ['initiate' => 0, 'verify' => 0, 'used' => []];
@@ -94,7 +94,8 @@ $userId = 0;
 $cookieFiles = [];
 
 try {
-    file_put_contents('/tmp/ersaal-otp-mock-state.json', wp_json_encode(['mode' => 'ok', 'initiate' => 0, 'verify' => 0, 'used' => []]));
+    $mockStatePath = sys_get_temp_dir() . '/ersaal-otp-mock-state.json';
+    file_put_contents($mockStatePath, wp_json_encode(['mode' => 'ok', 'initiate' => 0, 'verify' => 0, 'used' => []]));
     update_option('ersaal_api_url', 'http://127.0.0.1:18080');
     update_option('ersaal_api_key', 'e2e-local-placeholder');
     update_option('ersaal_otp_enabled', true);
@@ -118,7 +119,7 @@ try {
     $cookieFiles[] = $wrongJar;
     e2ePrime($loginUrl, $wrongJar);
     $wrong = e2eRequest($loginUrl, $wrongJar, array_merge($loginFields, ['pwd' => 'definitely-wrong']));
-    $mockState = json_decode((string) file_get_contents('/tmp/ersaal-otp-mock-state.json'), true);
+    $mockState = json_decode((string) file_get_contents($mockStatePath), true);
     e2eAssert('wrong_password_sends_no_otp', (int) $mockState['initiate'] === 0 && strpos(e2eLocation($wrong['headers']), 'ersaal_otp') === false);
 
     $jar = tempnam(sys_get_temp_dir(), 'ersaal-otp-login-');
@@ -126,7 +127,7 @@ try {
     e2ePrime($loginUrl, $jar);
     $passwordStep = e2eRequest($loginUrl, $jar, $loginFields);
     $challengeUrl = e2eLocation($passwordStep['headers']);
-    $mockState = json_decode((string) file_get_contents('/tmp/ersaal-otp-mock-state.json'), true);
+    $mockState = json_decode((string) file_get_contents($mockStatePath), true);
     e2eAssert('correct_password_triggers_otp', $passwordStep['status'] === 302 && strpos($challengeUrl, 'action=ersaal_otp') !== false && (int) $mockState['initiate'] === 1);
     e2eAssert('challenge_token_not_exposed_in_url', strpos($challengeUrl, 'challenge=') === false);
 
@@ -170,9 +171,9 @@ try {
     $expired = e2eRequest($expiryUrl, $expiryJar, ['ersaal_otp_login_nonce' => $expiryNonce, 'ersaal_otp_code' => '123456', 'otp_action' => 'verify']);
     e2eAssert('expired_challenge_denies_login', $expired['status'] === 200 && !isset(e2eCookies($expiryJar)[AUTH_COOKIE]));
     $resendNonce = e2eNonce($expired['body']);
-    $beforeResend = json_decode((string) file_get_contents('/tmp/ersaal-otp-mock-state.json'), true);
+    $beforeResend = json_decode((string) file_get_contents($mockStatePath), true);
     $resent = e2eRequest($expiryUrl, $expiryJar, ['ersaal_otp_login_nonce' => $resendNonce, 'otp_action' => 'resend']);
-    $afterResend = json_decode((string) file_get_contents('/tmp/ersaal-otp-mock-state.json'), true);
+    $afterResend = json_decode((string) file_get_contents($mockStatePath), true);
     e2eAssert('resend_creates_new_otp', $resent['status'] === 200 && (int) $afterResend['initiate'] === (int) $beforeResend['initiate'] + 1);
 
     e2eSetMockMode('down');
@@ -195,7 +196,7 @@ try {
     $timeoutPrefix = $wpdb->esc_like('_transient_timeout_ersaal_otp_login_') . '%';
     $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s", $transientPrefix, $timeoutPrefix));
     foreach ($cookieFiles as $path) { if (is_file($path)) { unlink($path); } }
-    if (is_file('/tmp/ersaal-otp-mock-state.json')) { unlink('/tmp/ersaal-otp-mock-state.json'); }
+    if (isset($mockStatePath) && is_file($mockStatePath)) { unlink($mockStatePath); }
 }
 
 echo "\n" . ($failures === 0 ? 'ALL OTP LOGIN END-TO-END TESTS PASSED' : "{$failures} OTP LOGIN END-TO-END TEST(S) FAILED") . "\n";

@@ -5,7 +5,7 @@
  * Tests call ManualSendHandler::process() directly (returns array, no wp_die).
  * Nonce/Capability tests verified via source reflection.
  */
-require_once '/home/x414i/Local Sites/ersaal-plugin/app/public/wp-load.php';
+require_once __DIR__ . '/../../../../../wp-load.php';
 
 use Ersaal\Modules\ManualSend\ManualSendHandler;
 use Ersaal\Services\MessageService;

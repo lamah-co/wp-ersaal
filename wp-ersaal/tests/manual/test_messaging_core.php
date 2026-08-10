@@ -1,6 +1,6 @@
 <?php
 // Load WordPress from LocalWP path
-require_once '/home/x414i/Local Sites/ersaal-plugin/app/public/wp-load.php';
+require_once __DIR__ . '/../../../../../wp-load.php';
 
 use Ersaal\Storage\LogRepository;
 use Ersaal\API\Client;
