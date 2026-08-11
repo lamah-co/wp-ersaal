@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 - Optional per-user WordPress Login 2FA with secure temporary challenges, resend handling, Remember Me support, and safe redirects.
 - Runtime database migration for the dedicated OTP activity table without plugin reactivation.
 - Complete Arabic and English OTP interfaces, help content, user guides, API contract, developer guide, and manual test checklist.
+- Libyan phone validation strictly enforcing Almadar (091, 093) and Libyana (092, 094) mobile networks.
+- Central phone normalization converting inputs automatically to the standard 002189XXXXXXXX API format.
 
 ### Changed
 - Extended the shared Ersaal administration design system for OTP screens in RTL and LTR layouts.

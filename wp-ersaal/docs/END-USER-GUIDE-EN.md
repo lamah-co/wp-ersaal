@@ -115,7 +115,7 @@ The **Sender ID** is the name that appears on the customer's phone as the sender
 ## 9. Sending a Manual SMS
 To send a message quickly:
 1. Open **Ersaal → Send SMS**.
-2. **Phone Number**: Enter the number including the country code (e.g., `+218...`).
+2. **Phone Number**: Enter the Libyana or Almadar mobile number. The plugin automatically applies the country code and normalizes it to the `002189...` format.
 3. **Sender ID**: Type your approved sender name (e.g., `Lamah`).
 4. **Payment Type**: Choose either `Wallet` or `Subscription`.
 5. **Message**: Type the content of your message.

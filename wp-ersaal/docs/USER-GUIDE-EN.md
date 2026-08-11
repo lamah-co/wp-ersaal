@@ -134,7 +134,7 @@ The **Sender ID** is the name or number that appears on the recipient's phone (e
 
 ## 11. Manual SMS Sending
 Go to **Ersaal -> Send SMS** to send quick manual messages.
-1. **Phone Number**: Enter the recipient's full number including the country code (e.g., `+21892xxxxxxx`).
+1. **Phone Number**: Enter the recipient's Libyana or Almadar mobile number (starts with `091`, `092`, `093`, or `094`). The plugin automatically normalizes it to the `002189...` format.
 2. **Sender ID**: Type your approved Sender ID.
 3. **Payment Type**: Choose `Wallet` or `Subscription`.
 4. **Message**: Type the content of your message. Empty messages are not permitted.
