@@ -197,8 +197,61 @@ assertTestLogs('csv_respects_filters', count($csvLogs['items']) > 0);
 $testLogCsv = $csvLogs['items'][0];
 assertTestLogs('csv_no_sensitive_data', !isset($testLogCsv->api_key) && !isset($testLogCsv->authorization));
 
+// 14. External source and reference extensions
+$wpdb->insert($table, [
+    'idempotency_key' => 'test_external_source',
+    'phone_hash' => 'hash',
+    'phone_masked' => '+21891 *** 1111',
+    'status' => 'accepted',
+    'source' => 'mis_booking',
+    'source_id' => '125',
+    'source_event' => 'booking_paid',
+    'recipient_type' => 'customer',
+    'created_at' => current_time('mysql', true),
+]);
+$externalLog = $repo->getLogByKey('test_external_source');
+
+$sourceFilter = static function (array $sources): array {
+    $sources['mis_booking'] = 'MIS Booking';
+    return $sources;
+};
+$eventLabelFilter = static function (string $label, string $event): string {
+    return $event === 'booking_paid' ? 'Booking paid' : $label;
+};
+$referenceLabelFilter = static function (string $label, object $log): string {
+    return ($log->source ?? '') === 'mis_booking' ? 'Booking #' . $log->source_id : $label;
+};
+$referenceUrlFilter = static function (string $url, object $log): string {
+    return ($log->source ?? '') === 'mis_booking'
+        ? admin_url('admin.php?page=mis-bookings&action=view&id=' . absint($log->source_id))
+        : $url;
+};
+
+add_filter('ersaal_log_sources', $sourceFilter);
+add_filter('ersaal_log_event_label', $eventLabelFilter, 10, 2);
+add_filter('ersaal_log_reference_label', $referenceLabelFilter, 10, 2);
+add_filter('ersaal_log_reference_url', $referenceUrlFilter, 10, 2);
+
+assertTestLogs('distinct_external_sources', in_array('mis_booking', $repo->getDistinctSources(), true));
+assertTestLogs('external_source_label', ersaal_admin_source_label('mis_booking') === 'MIS Booking');
+assertTestLogs('external_event_label', ersaal_admin_event_label('booking_paid') === 'Booking paid');
+assertTestLogs('external_reference_label', $externalLog && ersaal_admin_log_reference_label($externalLog) === 'Booking #125');
+assertTestLogs('external_reference_url', $externalLog && strpos(ersaal_admin_log_reference_url($externalLog), 'page=mis-bookings') !== false);
+
+ob_start();
+$page = new \Ersaal\Admin\LogsPage($repo);
+$page->render();
+$externalHtml = ob_get_clean();
+assertTestLogs('external_source_filter_rendered', strpos($externalHtml, 'value="mis_booking"') !== false && strpos($externalHtml, 'MIS Booking') !== false);
+assertTestLogs('external_reference_rendered', strpos($externalHtml, 'Booking #125') !== false && strpos($externalHtml, 'page=mis-bookings') !== false);
+
+remove_filter('ersaal_log_sources', $sourceFilter);
+remove_filter('ersaal_log_event_label', $eventLabelFilter, 10);
+remove_filter('ersaal_log_reference_label', $referenceLabelFilter, 10);
+remove_filter('ersaal_log_reference_url', $referenceUrlFilter, 10);
+
 // Clean up
-$wpdb->query("DELETE FROM {$table} WHERE idempotency_key IN ('test_log_1', 'test_log_2', 'test_log_3', 'test_log_4', 'test_date_1', 'test_date_2', 'test_event_1')");
+$wpdb->query("DELETE FROM {$table} WHERE idempotency_key IN ('test_log_1', 'test_log_2', 'test_log_3', 'test_log_4', 'test_date_1', 'test_date_2', 'test_event_1', 'test_external_source')");
 
 echo "\n" . ($testFailures === 0 ? 'All Logs tests passed.' : "{$testFailures} Logs test(s) failed.") . "\n";
 exit($testFailures === 0 ? 0 : 1);

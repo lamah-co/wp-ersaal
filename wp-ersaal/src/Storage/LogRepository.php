@@ -399,4 +399,12 @@ class LogRepository
         $results = $wpdb->get_col("SELECT DISTINCT source_event FROM {$table} WHERE source_event != '' AND source_event IS NOT NULL ORDER BY source_event ASC");
         return $results ?: [];
     }
+
+    public function getDistinctSources(): array
+    {
+        global $wpdb;
+        $table = $this->getTableName();
+        $results = $wpdb->get_col("SELECT DISTINCT source FROM {$table} WHERE source != '' AND source IS NOT NULL ORDER BY source ASC");
+        return $results ?: [];
+    }
 }

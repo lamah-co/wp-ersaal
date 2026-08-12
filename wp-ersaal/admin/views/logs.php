@@ -41,11 +41,11 @@ $statusBadge = static function (string $status): string {
 
 $referenceHtml = static function (object $log): string {
     $meta = sprintf('<span class="ersaal-table-meta ersaal-ltr">%s</span>', esc_html(sprintf(__('Log #%s', 'ersaal'), (string) $log->id)));
-    if ($log->source === 'woocommerce' && !empty($log->source_id)) {
-        $label = sprintf(__('Order #%s', 'ersaal'), $log->source_id);
-        $link = function_exists('get_edit_post_link') ? get_edit_post_link((int) $log->source_id) : '';
-        $primary = $link
-            ? sprintf('<a href="%s"><strong>%s</strong></a>', esc_url($link), esc_html($label))
+    $label = ersaal_admin_log_reference_label($log);
+    if ($label !== '') {
+        $url = ersaal_admin_log_reference_url($log);
+        $primary = $url !== ''
+            ? sprintf('<a href="%s"><strong>%s</strong></a>', esc_url($url), esc_html($label))
             : sprintf('<strong>%s</strong>', esc_html($label));
         return '<span class="ersaal-log-reference">' . $primary . $meta . '</span>';
     }
@@ -143,8 +143,9 @@ $notices = get_settings_errors('ersaal_logs');
                     <label class="ersaal-label" for="ersaal-log-source"><?php esc_html_e('Source', 'ersaal'); ?></label>
                     <select id="ersaal-log-source" name="source" class="ersaal-select">
                         <option value="all" <?php selected($currentSource, 'all'); ?>><?php esc_html_e('All sources', 'ersaal'); ?></option>
-                        <option value="manual" <?php selected($currentSource, 'manual'); ?>><?php esc_html_e('Manual', 'ersaal'); ?></option>
-                        <option value="woocommerce" <?php selected($currentSource, 'woocommerce'); ?>><?php esc_html_e('WooCommerce', 'ersaal'); ?></option>
+                        <?php foreach ($sources as $source => $sourceLabel): ?>
+                            <option value="<?php echo esc_attr($source); ?>" <?php selected($currentSource, $source); ?>><?php echo esc_html($sourceLabel); ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="ersaal-field">

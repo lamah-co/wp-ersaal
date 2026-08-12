@@ -66,12 +66,11 @@ function ersaal_admin_status_label(string $status): string
  */
 function ersaal_admin_source_label(string $source): string
 {
-    $labels = [
-        'manual' => __('Manual', 'ersaal'),
-        'woocommerce' => __('WooCommerce', 'ersaal'),
-    ];
+    $labels = ersaal_admin_log_sources();
 
-    return $labels[$source] ?? ucwords(str_replace('_', ' ', $source));
+    $label = $labels[$source] ?? ucwords(str_replace('_', ' ', $source));
+
+    return (string) apply_filters('ersaal_log_source_label', $label, $source);
 }
 
 /**
@@ -87,15 +86,57 @@ function ersaal_admin_event_label(string $event): string
     ];
 
     if (isset($labels[$event])) {
-        return $labels[$event];
+        return (string) apply_filters('ersaal_log_event_label', $labels[$event], $event);
     }
 
     if (function_exists('wc_get_order_status_name')) {
         $woocommerceLabel = wc_get_order_status_name($event);
         if (is_string($woocommerceLabel) && $woocommerceLabel !== '' && $woocommerceLabel !== $event) {
-            return $woocommerceLabel;
+            return (string) apply_filters('ersaal_log_event_label', $woocommerceLabel, $event);
         }
     }
 
-    return ucwords(str_replace('_', ' ', $event));
+    $label = ucwords(str_replace('_', ' ', $event));
+    return (string) apply_filters('ersaal_log_event_label', $label, $event);
+}
+
+/**
+ * Return the extensible source list used by the log filter.
+ *
+ * @return array<string, string>
+ */
+function ersaal_admin_log_sources(): array
+{
+    $sources = apply_filters('ersaal_log_sources', [
+        'manual' => __('Manual', 'ersaal'),
+        'woocommerce' => __('WooCommerce', 'ersaal'),
+    ]);
+
+    return is_array($sources) ? $sources : [];
+}
+
+/**
+ * Return a source reference label without coupling the log UI to integrations.
+ */
+function ersaal_admin_log_reference_label(object $log): string
+{
+    $label = '';
+    if (($log->source ?? '') === 'woocommerce' && !empty($log->source_id)) {
+        $label = sprintf(__('Order #%s', 'ersaal'), (string) $log->source_id);
+    }
+
+    return (string) apply_filters('ersaal_log_reference_label', $label, $log);
+}
+
+/**
+ * Return a source reference URL without coupling the log UI to integrations.
+ */
+function ersaal_admin_log_reference_url(object $log): string
+{
+    $url = '';
+    if (($log->source ?? '') === 'woocommerce' && !empty($log->source_id) && function_exists('get_edit_post_link')) {
+        $url = (string) get_edit_post_link((int) $log->source_id);
+    }
+
+    return (string) apply_filters('ersaal_log_reference_url', $url, $log);
 }

@@ -38,6 +38,13 @@ class LogsPage
         
         $logsData = $this->repository->getLogs($args);
         $events = $this->repository->getDistinctEvents();
+        $sources = ersaal_admin_log_sources();
+        foreach ($this->repository->getDistinctSources() as $source) {
+            $source = sanitize_key((string) $source);
+            if ($source !== '' && !isset($sources[$source])) {
+                $sources[$source] = ersaal_admin_source_label($source);
+            }
+        }
 
         require ERSAAL_PLUGIN_DIR . 'admin/views/logs.php';
     }
