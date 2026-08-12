@@ -20,6 +20,15 @@ $service = new MessageService($repository);
 
 $mock_responses = [];
 $current_test = '';
+$accepted_hook_count = 0;
+$failed_hook_count = 0;
+
+add_action('ersaal_message_accepted', function () use (&$accepted_hook_count) {
+    $accepted_hook_count++;
+}, 10, 2);
+add_action('ersaal_message_failed', function () use (&$failed_hook_count) {
+    $failed_hook_count++;
+}, 10, 3);
 
 add_filter('pre_http_request', function ($false, $args, $url) use (&$mock_responses, &$current_test) {
     if (isset($mock_responses[$current_test])) {
@@ -68,15 +77,19 @@ $mock_success = [
 ];
 
 // 1. Success Message
-run_message_test('success_message', ['receiver' => '0911234567', 'message' => 'Hello', 'source' => 'api'], $mock_success, function($log) {
-    echo $log->status === 'accepted' ? "PASS\n" : "FAIL (Expected accepted, got {$log->status})\n";
+run_message_test('success_message', ['receiver' => '0911234567', 'message' => 'Hello', 'source' => 'api'], $mock_success, function($log) use (&$accepted_hook_count, &$failed_hook_count) {
+    echo $log->status === 'accepted' && $accepted_hook_count === 1 && $failed_hook_count === 0
+        ? "PASS\n"
+        : "FAIL (Success/failure hook semantics are incorrect)\n";
 });
 
 // 2. Validation Error -> failed
 run_message_test('validation_failure', ['receiver' => '0911234567', 'message' => 'Hello', 'source' => 'api'], 
     ['response' => ['code' => 422, 'message' => 'Unprocessable Entity'], 'body' => '{"message": "Invalid"}'], 
-function($log) {
-    echo $log->status === 'failed' ? "PASS\n" : "FAIL (Expected failed, got {$log->status})\n";
+function($log) use (&$failed_hook_count) {
+    echo $log->status === 'failed' && $failed_hook_count === 1
+        ? "PASS\n"
+        : "FAIL (Expected failed with one failure hook)\n";
 });
 
 // 3. Authentication Error -> failed

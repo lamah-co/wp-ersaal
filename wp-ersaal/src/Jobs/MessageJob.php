@@ -88,13 +88,13 @@ class MessageJob
 
         } catch (\Ersaal\API\Exceptions\ValidationException $e) {
             $this->repository->markFailed($idempotencyKey, 'failed', $e->getCode(), $e->getMessage());
-            $this->addOrderNote($idempotencyKey, sprintf(__('Ersaal SMS failed: %s', 'ersaal'), $this->sanitizeError($e->getMessage())));
+            $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
         } catch (\Ersaal\API\Exceptions\AuthenticationException $e) {
             $this->repository->markFailed($idempotencyKey, 'failed', $e->getCode(), $e->getMessage());
-            $this->addOrderNote($idempotencyKey, sprintf(__('Ersaal SMS failed: %s', 'ersaal'), $this->sanitizeError($e->getMessage())));
+            $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
         } catch (\Ersaal\API\Exceptions\BalanceException $e) {
             $this->repository->markFailed($idempotencyKey, 'failed', $e->getCode(), $e->getMessage());
-            $this->addOrderNote($idempotencyKey, sprintf(__('Ersaal SMS failed: %s', 'ersaal'), $this->sanitizeError($e->getMessage())));
+            $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
         } catch (\Ersaal\API\Exceptions\RateLimitException $e) {
             $this->handleRetryableError($log, $idempotencyKey, $payload, $e->getRetryAfterSeconds(), $e);
         } catch (\Ersaal\API\Exceptions\ConnectionException | \Ersaal\API\Exceptions\ServerException $e) {
@@ -107,7 +107,7 @@ class MessageJob
                 $e->getCode() ?: 0,
                 sprintf(__('Unexpected internal error: %s', 'ersaal'), $e->getMessage())
             );
-            $this->addOrderNote($idempotencyKey, sprintf(__('Ersaal SMS failed: %s', 'ersaal'), $this->sanitizeError($e->getMessage())));
+            $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
         }
     }
 
@@ -126,6 +126,7 @@ class MessageJob
                 (int) $e->getCode(), 
                 $this->sanitizeError($e->getMessage())
             );
+            $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
             return;
         }
 
@@ -141,7 +142,7 @@ class MessageJob
         } else {
             // Max attempts reached, fails permanently as error
             $this->repository->markFailed($idempotencyKey, 'error', $e->getCode() ?: 0, $e->getMessage());
-            $this->addOrderNote($idempotencyKey, sprintf(__('Ersaal SMS failed: %s', 'ersaal'), $this->sanitizeError($e->getMessage())));
+            $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
         }
     }
 
@@ -156,8 +157,6 @@ class MessageJob
 
     private function addOrderNote(string $idempotencyKey, string $note): void
     {
-        do_action('ersaal_message_failed', $idempotencyKey, 0, $note); // generic hook for failures that reach here, but actually we should add the hook directly when markFailed is called. 
-        
         $log = $this->repository->getLogByKey($idempotencyKey);
         if (!$log || empty($log->source_id) || $log->source !== 'woocommerce') {
             return;
@@ -169,5 +168,16 @@ class MessageJob
                 $order->add_order_note($note);
             }
         }
+    }
+
+    private function notifyFailure(string $idempotencyKey, int $code, string $message): void
+    {
+        $note = sprintf(
+            __('Ersaal SMS failed: %s', 'ersaal'),
+            $this->sanitizeError($message)
+        );
+
+        do_action('ersaal_message_failed', $idempotencyKey, $code, $note);
+        $this->addOrderNote($idempotencyKey, $note);
     }
 }
