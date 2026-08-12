@@ -44,6 +44,33 @@ function ersaal_otp_service(): ?\Ersaal\Modules\OTP\OTPService {
     return ersaal_plugin()->getOtpService();
 }
 
+/**
+ * Return whether the public SMS integration API is initialized and configured.
+ */
+function ersaal_sms_available(): bool {
+    $facade = ersaal_plugin()->getSmsFacade();
+    return $facade !== null && $facade->isAvailable();
+}
+
+/**
+ * Queue an SMS through the public integration API.
+ *
+ * @param array<string, mixed> $request Public SMS request fields.
+ */
+function ersaal_send_sms(array $request): \Ersaal\PublicApi\SmsResult {
+    $facade = ersaal_plugin()->getSmsFacade();
+    if ($facade === null) {
+        return \Ersaal\PublicApi\SmsResult::failure(
+            'unavailable',
+            'not_initialized',
+            __('Ersaal SMS is not initialized.', 'ersaal'),
+            sanitize_text_field((string) ($request['idempotency_key'] ?? ''))
+        );
+    }
+
+    return $facade->send($request);
+}
+
 // Initialize the plugin
 add_action('plugins_loaded', function () {
     if (class_exists(\Ersaal\Core\Plugin::class)) {

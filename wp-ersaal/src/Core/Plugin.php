@@ -8,6 +8,7 @@ class Plugin
     private ModuleRegistry $registry;
     private Options $options;
     private ?\Ersaal\Modules\OTP\OTPService $otpService = null;
+    private ?\Ersaal\PublicApi\SmsFacade $smsFacade = null;
     
     public function __construct()
     {
@@ -31,14 +32,21 @@ class Plugin
         $this->registry->registerModule(new \Ersaal\Modules\Settings\SettingsModule($this->options));
         $this->registry->registerModule(new \Ersaal\Modules\Logs\LogsModule($this->options));
         
-        $messagingModule = new \Ersaal\Modules\Messaging\MessagingModule($this->options);
+        $logRepository = new \Ersaal\Storage\LogRepository();
+        $messageService = new \Ersaal\Services\MessageService($logRepository);
+        $this->smsFacade = new \Ersaal\PublicApi\SmsFacade(
+            $this->options,
+            $messageService,
+            $logRepository
+        );
+
+        $messagingModule = new \Ersaal\Modules\Messaging\MessagingModule($this->options, $logRepository);
         $this->registry->registerModule($messagingModule);
 
         $otpModule = new \Ersaal\Modules\OTP\OTPModule($this->options);
         $this->otpService = $otpModule->getService();
         $this->registry->registerModule($otpModule);
         
-        $messageService = new \Ersaal\Services\MessageService(new \Ersaal\Storage\LogRepository());
         $this->registry->registerModule(new \Ersaal\Modules\ManualSend\ManualSendModule($this->options, $messageService));
         
         $this->registry->registerModule(new \Ersaal\Modules\WooCommerce\WooCommerceModule($this->options, $messageService));
@@ -91,5 +99,10 @@ class Plugin
     public function getOtpService(): ?\Ersaal\Modules\OTP\OTPService
     {
         return $this->otpService;
+    }
+
+    public function getSmsFacade(): ?\Ersaal\PublicApi\SmsFacade
+    {
+        return $this->smsFacade;
     }
 }

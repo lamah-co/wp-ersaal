@@ -16,6 +16,8 @@ WordPress Login OTP is a separate opt-in setting. Each user must verify a phone 
 
 Developers can use the shared `ersaal_otp_service()` API. See [`docs/OTP-DEVELOPER-API.md`](docs/OTP-DEVELOPER-API.md).
 
+External plugins can queue SMS through `ersaal_send_sms()` after checking `ersaal_sms_available()`. See [`docs/SMS-DEVELOPER-API.md`](docs/SMS-DEVELOPER-API.md).
+
 ## Overview
 
 Ersaal SMS Gateway plugin allows you to send SMS messages directly from your WordPress admin dashboard and automatically notify your WooCommerce customers about their order statuses using the robust Ersaal API.

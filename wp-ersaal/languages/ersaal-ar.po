@@ -1810,3 +1810,19 @@ msgstr "تحقق من رقم هاتفك قبل تفعيل التحقق بخطو�
 #: src/Modules/OTP/OTPUserProfile.php:140
 msgid "We found this number in the WooCommerce billing details for this account. It is not verified yet."
 msgstr "وجدنا هذا الرقم في بيانات فوترة WooCommerce لهذا الحساب. لم يتم التحقق منه بعد."
+
+#: ersaal.php:66
+msgid "Ersaal SMS is not initialized."
+msgstr "خدمة رسائل إرسال غير مهيأة بعد."
+
+#: src/PublicApi/SmsFacade.php:45
+msgid "The SMS idempotency key is invalid."
+msgstr "مفتاح منع تكرار رسالة SMS غير صالح."
+
+#: src/PublicApi/SmsFacade.php:53
+msgid "Ersaal SMS is not configured."
+msgstr "خدمة رسائل إرسال غير مضبوطة."
+
+#: src/PublicApi/SmsFacade.php:112
+msgid "The SMS request could not be queued."
+msgstr "تعذر وضع طلب رسالة SMS في قائمة الانتظار."

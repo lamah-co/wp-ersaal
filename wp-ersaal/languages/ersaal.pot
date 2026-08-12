@@ -1810,3 +1810,19 @@ msgstr ""
 #: src/Modules/OTP/OTPUserProfile.php:140
 msgid "We found this number in the WooCommerce billing details for this account. It is not verified yet."
 msgstr ""
+
+#: ersaal.php:66
+msgid "Ersaal SMS is not initialized."
+msgstr ""
+
+#: src/PublicApi/SmsFacade.php:45
+msgid "The SMS idempotency key is invalid."
+msgstr ""
+
+#: src/PublicApi/SmsFacade.php:53
+msgid "Ersaal SMS is not configured."
+msgstr ""
+
+#: src/PublicApi/SmsFacade.php:112
+msgid "The SMS request could not be queued."
+msgstr ""

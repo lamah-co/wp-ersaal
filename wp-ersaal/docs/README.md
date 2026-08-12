@@ -2,6 +2,11 @@
 
 Welcome to the documentation folder for the Ersaal SMS Gateway integration plugin for WordPress.
 
+## Developer APIs
+
+* [Public SMS developer API](SMS-DEVELOPER-API.md)
+* [OTP developer API](OTP-DEVELOPER-API.md)
+
 ## OTP and Login Verification
 
 * [OTP API contract](OTP-API-CONTRACT.md)
@@ -10,7 +15,6 @@ Welcome to the documentation folder for the Ersaal SMS Gateway integration plugi
 * [دليل إعداد رمز التحقق](OTP-SETUP-AR.md)
 * [English WordPress Login OTP guide](OTP-LOGIN-2FA-EN.md)
 * [دليل رمز التحقق عند تسجيل الدخول](OTP-LOGIN-2FA-AR.md)
-* [OTP developer API](OTP-DEVELOPER-API.md)
 
 We provide two types of guides depending on your needs. Please select your preferred language and guide below:
 
