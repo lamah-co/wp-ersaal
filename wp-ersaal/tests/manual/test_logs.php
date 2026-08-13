@@ -215,6 +215,9 @@ $sourceFilter = static function (array $sources): array {
     $sources['mis_booking'] = 'MIS Booking';
     return $sources;
 };
+$sourceLabelFilter = static function (string $label, string $source): string {
+    return $source === 'mis_booking' ? 'MIS Booking' : $label;
+};
 $eventLabelFilter = static function (string $label, string $event): string {
     return $event === 'booking_paid' ? 'Booking paid' : $label;
 };
@@ -228,6 +231,7 @@ $referenceUrlFilter = static function (string $url, object $log): string {
 };
 
 add_filter('ersaal_log_sources', $sourceFilter);
+add_filter('ersaal_log_source_label', $sourceLabelFilter, 99, 2);
 add_filter('ersaal_log_event_label', $eventLabelFilter, 10, 2);
 add_filter('ersaal_log_reference_label', $referenceLabelFilter, 10, 2);
 add_filter('ersaal_log_reference_url', $referenceUrlFilter, 10, 2);
@@ -246,6 +250,7 @@ assertTestLogs('external_source_filter_rendered', strpos($externalHtml, 'value="
 assertTestLogs('external_reference_rendered', strpos($externalHtml, 'Booking #125') !== false && strpos($externalHtml, 'page=mis-bookings') !== false);
 
 remove_filter('ersaal_log_sources', $sourceFilter);
+remove_filter('ersaal_log_source_label', $sourceLabelFilter, 99);
 remove_filter('ersaal_log_event_label', $eventLabelFilter, 10);
 remove_filter('ersaal_log_reference_label', $referenceLabelFilter, 10);
 remove_filter('ersaal_log_reference_url', $referenceUrlFilter, 10);

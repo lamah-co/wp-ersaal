@@ -21,7 +21,36 @@ function assertTestWc($name, $condition, $message = '') {
     }
 }
 
-// Ensure option is set
+$optionNames = [
+    'ersaal_wc_enable',
+    'ersaal_wc_event_new_order_enable',
+    'ersaal_wc_event_new_order_template',
+    'ersaal_wc_event_processing_enable',
+    'ersaal_wc_event_processing_template',
+    'ersaal_wc_event_completed_enable',
+    'ersaal_wc_event_completed_template',
+    'ersaal_wc_event_cancelled_enable',
+    'ersaal_wc_event_cancelled_template',
+    'ersaal_wc_event_shipped_enable',
+    'ersaal_wc_event_shipped_template',
+    'ersaal_wc_admin_new_order_enable',
+    'ersaal_wc_admin_phone',
+    'ersaal_wc_admin_new_order_template',
+];
+$missingOption = new stdClass();
+$optionBackups = [];
+foreach ($optionNames as $optionName) {
+    $optionBackups[$optionName] = get_option($optionName, $missingOption);
+}
+
+// Keep this regression test fully local. WooCommerce loads Action Scheduler,
+// so short-circuit only Ersaal test jobs before they are persisted.
+$queueFilter = static function ($pre, string $hook, array $args, string $group) {
+    return $hook === 'ersaal_process_message_job' && $group === 'ersaal' ? 1 : $pre;
+};
+add_filter('pre_as_enqueue_async_action', $queueFilter, 10, 4);
+
+// Ensure test options are set.
 update_option('ersaal_wc_enable', true);
 update_option('ersaal_wc_event_new_order_enable', true);
 update_option('ersaal_wc_event_new_order_template', 'Order {order_number} received.');
@@ -84,7 +113,11 @@ assertTestWc('manual_order_sms_unique_key', strpos($manualSource, "'manual_wooco
 
 // Clean up
 $order->delete(true);
-$wpdb->query("DELETE FROM {$table} WHERE source = 'woocommerce'");
+$wpdb->delete($table, ['source' => 'woocommerce', 'source_id' => (string) $order_id], ['%s', '%s']);
+remove_filter('pre_as_enqueue_async_action', $queueFilter, 10);
+foreach ($optionBackups as $optionName => $value) {
+    $value === $missingOption ? delete_option($optionName) : update_option($optionName, $value);
+}
 
 echo "\n" . ($testFailures === 0 ? 'All WooCommerce tests passed.' : "{$testFailures} WooCommerce test(s) failed.") . "\n";
 exit($testFailures === 0 ? 0 : 1);
