@@ -35,17 +35,19 @@ class MessageJob
             if (!$locked) {
                 return;
             }
-        } elseif ($log->status === 'processing' && $log->attempts > 0) {
-            // Processing and attempts > 0 means it might be stuck, but acquireForRetry is for retry_scheduled
-            // Let's release lock or ignore if it's not retry_scheduled unless it's a fresh creation
-            // The job shouldn't hit here for a stuck processing unless we have a specific recovery cron.
-            // For now, if it's processing, we assume we hold the lock (just created).
+            $this->repository->incrementAttempts($idempotencyKey);
+        } elseif ($log->status === 'processing' && (int) $log->attempts === 0) {
+            if (!$this->repository->claimInitialAttempt($idempotencyKey)) {
+                return;
+            }
         } elseif ($log->status !== 'processing') {
             return; // Accepted, Failed, Error, etc.
+        } else {
+            // Another worker already claimed the first attempt.
+            return;
         }
 
-        $this->repository->incrementAttempts($idempotencyKey);
-        // Refresh log to get updated attempts
+        // Refresh log after the atomic claim/increment.
         $log = $this->repository->getLogByKey($idempotencyKey);
 
         try {
@@ -133,7 +135,7 @@ class MessageJob
         if ($log->attempts < 3) {
             $this->repository->markRetryScheduled($idempotencyKey, $retryAfter, $e->getCode() ?: 0, $e->getMessage());
 
-            $args = ['idempotency_key' => $idempotencyKey, 'payload' => $payload];
+            $args = [$idempotencyKey, $payload];
             if (function_exists('as_schedule_single_action')) {
                 as_schedule_single_action(time() + $retryAfter, 'ersaal_process_message_job', $args, 'ersaal');
             } else {

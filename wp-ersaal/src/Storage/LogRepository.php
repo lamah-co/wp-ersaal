@@ -103,6 +103,32 @@ class LogRepository
         ));
     }
 
+    /**
+     * Atomically claim a processing log for its first delivery attempt.
+     *
+     * This prevents duplicate workers from sending the same request when a
+     * previously lost queue event is dispatched again.
+     */
+    public function claimInitialAttempt(string $idempotency_key): bool
+    {
+        global $wpdb;
+        $table = $this->getTableName();
+        $now = current_time('mysql', true);
+
+        $updated = $wpdb->query($wpdb->prepare(
+            "UPDATE {$table}
+             SET attempts = attempts + 1, last_attempt_at = %s, updated_at = %s
+             WHERE idempotency_key = %s
+               AND status = 'processing'
+               AND attempts = 0",
+            $now,
+            $now,
+            $idempotency_key
+        ));
+
+        return $updated === 1;
+    }
+
     public function markAccepted(string $idempotency_key, ?string $message_id, ?int $parts, ?float $cost): void
     {
         global $wpdb;

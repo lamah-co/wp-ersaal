@@ -88,11 +88,6 @@ final class SmsFacade
             );
         }
 
-        $existing = $this->repository->getLogByKey($idempotencyKey);
-        if ($existing) {
-            return SmsResult::fromLog($existing, $idempotencyKey);
-        }
-
         $defaults = $this->getDefaults($request);
         $payload = array_merge($metadata, [
             'receiver' => $receiver,

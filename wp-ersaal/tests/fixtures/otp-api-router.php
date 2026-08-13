@@ -5,7 +5,7 @@ declare(strict_types=1);
 $statePath = sys_get_temp_dir() . '/ersaal-otp-mock-state.json';
 $state = is_file($statePath) ? json_decode((string) file_get_contents($statePath), true) : [];
 $state = is_array($state) ? $state : [];
-$state += ['mode' => 'ok', 'initiate' => 0, 'verify' => 0, 'used' => []];
+$state += ['mode' => 'ok', 'initiate' => 0, 'verify' => 0, 'sms' => 0, 'used' => []];
 header('Content-Type: application/json; charset=utf-8');
 
 if ($state['mode'] === 'down') {
@@ -15,6 +15,19 @@ if ($state['mode'] === 'down') {
 }
 
 $path = (string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+if ($path === '/api/sms/messages') {
+    $state['sms']++;
+    file_put_contents($statePath, json_encode($state));
+    echo json_encode([
+        'data' => [
+            'message_id' => 'mock-sms-' . $state['sms'],
+            'parts' => 1,
+            'cost' => 0.01,
+        ],
+    ]);
+    exit;
+}
+
 if ($path === '/api/otp/initiate') {
     $state['initiate']++;
     $reference = 'mock-reference-' . $state['initiate'];

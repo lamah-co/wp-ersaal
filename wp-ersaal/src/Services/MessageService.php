@@ -39,7 +39,14 @@ class MessageService
         $created = $this->repository->createProcessingLog($logData);
 
         if (!$created) {
-            // Log already exists (Race Condition or duplicate retry prevention)
+            // A prior request can lose its queue event before MessageJob starts
+            // (for example, a cron callback failure). Re-dispatch only an
+            // untouched first attempt; the job claims it atomically.
+            $existing = $this->repository->getLogByKey($idempotencyKey);
+            if ($existing && $existing->status === 'processing' && (int) $existing->attempts === 0) {
+                $this->enqueueJob($idempotencyKey, $data);
+            }
+
             return $idempotencyKey;
         }
 
@@ -51,16 +58,18 @@ class MessageService
 
     private function enqueueJob(string $idempotencyKey, array $data): void
     {
+        // Positional values are required. Associative keys become PHP 8 named
+        // arguments when WP-Cron/Action Scheduler invokes the hook callback.
         $args = [
-            'idempotency_key' => $idempotencyKey,
-            'payload' => [
+            $idempotencyKey,
+            [
                 'receiver'     => $data['receiver'],
                 'message'      => $data['message'],
                 'sender'       => $data['sender'] ?? null,
                 'payment_type' => $data['payment_type'] ?? 'wallet',
                 'source'       => $data['source'] ?? 'api',
                 'source_id'    => $data['source_id'] ?? '',
-            ]
+            ],
         ];
 
         if (function_exists('as_enqueue_async_action')) {
