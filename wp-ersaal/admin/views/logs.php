@@ -86,7 +86,7 @@ $notices = get_settings_errors('ersaal_logs');
         <div class="ersaal-alert <?php echo esc_attr($noticeClass); ?>" role="status"><p><?php echo esc_html($notice['message']); ?></p></div>
     <?php endforeach; ?>
 
-    <section class="ersaal-card ersaal-section" aria-label="<?php esc_attr_e('Log summary', 'ersaal'); ?>">
+    <section class="ersaal-section" aria-label="<?php esc_attr_e('Log summary', 'ersaal'); ?>">
         <div class="ersaal-log-summary">
             <div class="ersaal-log-summary-item is-total">
                 <span class="ersaal-log-summary-label"><span class="ersaal-log-summary-dot" aria-hidden="true"></span><?php esc_html_e('Total', 'ersaal'); ?></span>
