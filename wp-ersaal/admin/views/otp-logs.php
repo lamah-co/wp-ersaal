@@ -13,11 +13,27 @@ $statusLabels = [
     'unavailable' => __('Unavailable', 'ersaal'),
 ];
 $contextLabels = [
-    'admin_test' => __('Admin test', 'ersaal'),
-    'profile_verification' => __('Profile verification', 'ersaal'),
-    'wordpress_login' => __('WordPress login', 'ersaal'),
-    'custom' => __('Developer integration', 'ersaal'),
+    'admin_test'          => __('Admin test', 'ersaal'),
+    'profile_verification'=> __('Profile verification', 'ersaal'),
+    'wordpress_login'     => __('WordPress login', 'ersaal'),
+    'custom'              => __('Developer integration', 'ersaal'),
 ];
+
+/**
+ * Filters the OTP context labels displayed in the OTP Activity log.
+ *
+ * External plugins can use this filter to register additional OTP
+ * workflow contexts without modifying wp-ersaal.
+ *
+ * Example usage in an external plugin:
+ *   add_filter( 'ersaal_otp_context_labels', function ( $labels ) {
+ *       $labels['my_context'] = 'My Workflow Label';
+ *       return $labels;
+ *   } );
+ *
+ * @param array $contextLabels Associative array of context_key => label.
+ */
+$contextLabels = apply_filters( 'ersaal_otp_context_labels', $contextLabels );
 $badgeType = static function (string $value): string {
     if (in_array($value, ['sent', 'verified'], true)) {
         return 'success';
