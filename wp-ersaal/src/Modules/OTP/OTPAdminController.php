@@ -55,7 +55,7 @@ final class OTPAdminController
 
     public function enqueueAssets(string $hook): void
     {
-        if (strpos($hook, 'ersaal-otp-test') === false && strpos($hook, 'ersaal-settings') === false) {
+        if (strpos($hook, 'ersaal-otp-test') === false && strpos($hook, 'ersaal-settings') === false && strpos($hook, 'ersaal-otp-logs') === false) {
             return;
         }
         wp_enqueue_script(
@@ -76,6 +76,20 @@ final class OTPAdminController
                 'resend' => __('Send a new code', 'ersaal'),
                 'wait' => __('You can request a new code in %s seconds.', 'ersaal'),
                 'unexpected' => __('The OTP request could not be completed.', 'ersaal'),
+                'fields' => [
+                    'id' => __('Log ID', 'ersaal'),
+                    'action' => __('Action', 'ersaal'),
+                    'status' => __('Status', 'ersaal'),
+                    'context' => __('Workflow', 'ersaal'),
+                    'phone_masked' => __('Phone', 'ersaal'),
+                    'reference' => __('Reference', 'ersaal'),
+                    'user_id' => __('User ID', 'ersaal'),
+                    'api_http_code' => __('HTTP code', 'ersaal'),
+                    'error_code' => __('Error code', 'ersaal'),
+                    'error_message' => __('Error message', 'ersaal'),
+                    'created_at' => __('Created at', 'ersaal'),
+                    'updated_at' => __('Updated at', 'ersaal'),
+                ],
             ],
         ]);
     }
