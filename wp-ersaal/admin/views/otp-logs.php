@@ -105,22 +105,29 @@ $badgeType = static function (string $value): string {
                         <th><?php esc_html_e('Workflow', 'ersaal'); ?></th>
                         <th><?php esc_html_e('Phone', 'ersaal'); ?></th>
                         <th><?php esc_html_e('Reference', 'ersaal'); ?></th>
-                        <th><?php esc_html_e('Details', 'ersaal'); ?></th>
                         <th><?php esc_html_e('Created', 'ersaal'); ?></th>
+                        <th class="column-actions"><?php esc_html_e('Actions', 'ersaal'); ?></th>
                     </tr></thead>
                     <tbody>
                     <?php foreach ($logsData['items'] as $log): ?>
+                        <?php
+                        $logDetails = (array) $log;
+                        $logDetails['status'] = $statusLabels[$log->status] ?? ucwords(str_replace('_', ' ', (string) $log->status));
+                        $logDetails['context'] = $contextLabels[$log->context] ?? ucwords(str_replace('_', ' ', (string) $log->context));
+                        $logDetails['action'] = $log->action === 'verify' ? __('Verify', 'ersaal') : __('Send', 'ersaal');
+                        ?>
                         <tr>
-                            <td><span class="ersaal-badge ersaal-badge-<?php echo esc_attr($badgeType((string) $log->status)); ?>"><?php echo esc_html($statusLabels[$log->status] ?? ucwords(str_replace('_', ' ', (string) $log->status))); ?></span></td>
-                            <td><?php echo esc_html($log->action === 'verify' ? __('Verify', 'ersaal') : __('Send', 'ersaal')); ?></td>
-                            <td><?php echo esc_html($contextLabels[$log->context] ?? ucwords(str_replace('_', ' ', (string) $log->context))); ?></td>
+                            <td><span class="ersaal-badge ersaal-badge-<?php echo esc_attr($badgeType((string) $log->status)); ?>"><?php echo esc_html($logDetails['status']); ?></span></td>
+                            <td><?php echo esc_html($logDetails['action']); ?></td>
+                            <td><?php echo esc_html($logDetails['context']); ?></td>
                             <td><span class="ersaal-code ersaal-ltr"><?php echo esc_html($log->phone_masked); ?></span></td>
                             <td><span class="ersaal-code ersaal-ltr"><?php echo esc_html($log->reference ? mb_substr((string) $log->reference, 0, 12) . '…' : '—'); ?></span></td>
-                            <td>
-                                <?php if (!empty($log->error_message)): ?><span class="ersaal-table-meta"><?php echo esc_html($log->error_message); ?></span><?php else: ?>&mdash;<?php endif; ?>
-                                <?php if (!empty($log->api_http_code)): ?><span class="ersaal-table-meta ersaal-ltr"><?php printf(esc_html__('HTTP %s', 'ersaal'), esc_html((string) $log->api_http_code)); ?></span><?php endif; ?>
-                            </td>
                             <td><time class="ersaal-table-meta ersaal-ltr" datetime="<?php echo esc_attr($log->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime((string) $log->created_at . ' UTC'))); ?></time></td>
+                            <td>
+                                <div class="ersaal-inline-actions ersaal-log-actions">
+                                    <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm ersaal-view-otp-log" data-log="<?php echo esc_attr(wp_json_encode($logDetails)); ?>"><?php esc_html_e('Details', 'ersaal'); ?></button>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -140,4 +147,16 @@ $badgeType = static function (string $value): string {
             <?php endif; ?>
         <?php endif; ?>
     </section>
+
+    <div id="ersaal-otp-log-modal" class="ersaal-modal" aria-hidden="true">
+        <section class="ersaal-modal-panel" role="dialog" aria-modal="true" aria-labelledby="ersaal-otp-log-modal-title" tabindex="-1">
+            <header class="ersaal-modal-header">
+                <h2 id="ersaal-otp-log-modal-title" class="ersaal-modal-title"><?php esc_html_e('Log details', 'ersaal'); ?></h2>
+                <button type="button" id="ersaal-otp-close-modal" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button" aria-label="<?php esc_attr_e('Close details', 'ersaal'); ?>"><?php echo ersaal_admin_icon('close'); ?></button>
+            </header>
+            <div class="ersaal-modal-body">
+                <dl id="ersaal-otp-log-detail-list" class="ersaal-detail-list"></dl>
+            </div>
+        </section>
+    </div>
 </div>
