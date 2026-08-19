@@ -111,8 +111,8 @@ $notices = get_settings_errors('ersaal_logs');
         </div>
     </section>
 
-    <section class="ersaal-section" aria-labelledby="ersaal-log-filters-title">
-        <div class="ersaal-section-header">
+    <section class="ersaal-card ersaal-section" aria-labelledby="ersaal-log-filters-title">
+        <div class="ersaal-section-header ersaal-card-header">
             <div>
                 <h2 id="ersaal-log-filters-title" class="ersaal-section-title"><?php esc_html_e('Find messages', 'ersaal'); ?></h2>
                 <p class="ersaal-section-description"><?php esc_html_e('Search by reference, then narrow the results only when needed.', 'ersaal'); ?></p>
@@ -175,28 +175,26 @@ $notices = get_settings_errors('ersaal_logs');
         </div>
     </section>
 
-    <section class="ersaal-section" aria-labelledby="ersaal-log-results-title">
-        <div class="ersaal-section-header">
+    <section class="ersaal-card ersaal-section" aria-labelledby="ersaal-log-results-title">
+        <header class="ersaal-card-header ersaal-section-header">
             <div>
                 <h2 id="ersaal-log-results-title" class="ersaal-section-title"><?php esc_html_e('Message activity', 'ersaal'); ?></h2>
                 <p class="ersaal-section-description"><?php printf(esc_html(_n('%s matching record', '%s matching records', $logsData['total'], 'ersaal')), esc_html(number_format_i18n($logsData['total']))); ?></p>
             </div>
-        </div>
+        </header>
 
         <?php if (empty($logsData['items'])): ?>
-            <div class="ersaal-card ersaal-card-flat">
-                <div class="ersaal-empty-state">
-                    <?php echo ersaal_admin_icon('logs'); ?>
-                    <div>
-                        <p class="ersaal-empty-state-title"><?php echo esc_html($hasFilters ? __('No messages match these filters', 'ersaal') : __('No messages yet', 'ersaal')); ?></p>
-                        <p class="ersaal-empty-state-text"><?php echo esc_html($hasFilters ? __('Reset the filters or broaden your search.', 'ersaal') : __('Messages sent through Ersaal will appear here.', 'ersaal')); ?></p>
-                    </div>
-                    <?php if ($hasFilters): ?>
-                        <a href="<?php echo esc_url($pageUrl); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php esc_html_e('Reset filters', 'ersaal'); ?></a>
-                    <?php else: ?>
-                        <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary ersaal-btn-sm"><?php esc_html_e('Send SMS', 'ersaal'); ?></a>
-                    <?php endif; ?>
+            <div class="ersaal-empty-state">
+                <?php echo ersaal_admin_icon('logs'); ?>
+                <div>
+                    <p class="ersaal-empty-state-title"><?php echo esc_html($hasFilters ? __('No messages match these filters', 'ersaal') : __('No messages yet', 'ersaal')); ?></p>
+                    <p class="ersaal-empty-state-text"><?php echo esc_html($hasFilters ? __('Reset the filters or broaden your search.', 'ersaal') : __('Messages sent through Ersaal will appear here.', 'ersaal')); ?></p>
                 </div>
+                <?php if ($hasFilters): ?>
+                    <a href="<?php echo esc_url($pageUrl); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php esc_html_e('Reset filters', 'ersaal'); ?></a>
+                <?php else: ?>
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary ersaal-btn-sm"><?php esc_html_e('Send SMS', 'ersaal'); ?></a>
+                <?php endif; ?>
             </div>
         <?php else: ?>
             <form method="post" action="<?php echo esc_url($pageUrl); ?>" id="ersaal-logs-form">

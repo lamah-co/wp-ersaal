@@ -181,8 +181,8 @@ $otpContextLabels = [
         </div>
     </section>
 
-    <section class="ersaal-section" aria-labelledby="ersaal-recent-title">
-        <div class="ersaal-section-header">
+    <section class="ersaal-card ersaal-section" aria-labelledby="ersaal-recent-title">
+        <header class="ersaal-card-header ersaal-section-header">
             <div>
                 <h2 id="ersaal-recent-title" class="ersaal-section-title"><?php esc_html_e('Recent activity', 'ersaal'); ?></h2>
                 <p class="ersaal-section-description"><?php esc_html_e('The latest messages across manual and WooCommerce sources.', 'ersaal'); ?></p>
@@ -192,18 +192,16 @@ $otpContextLabels = [
                 <?php esc_html_e('View all logs', 'ersaal'); ?>
                 <?php echo ersaal_admin_icon('arrow'); ?>
             </a>
-        </div>
+        </header>
 
         <?php if (empty($recent['items'])): ?>
-            <div class="ersaal-card ersaal-card-flat">
-                <div class="ersaal-empty-state">
-                    <?php echo ersaal_admin_icon('logs'); ?>
-                    <div>
-                        <p class="ersaal-empty-state-title"><?php esc_html_e('No activity yet', 'ersaal'); ?></p>
-                        <p class="ersaal-empty-state-text"><?php esc_html_e('Messages sent through Ersaal will appear here.', 'ersaal'); ?></p>
-                    </div>
-                    <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php esc_html_e('Send your first SMS', 'ersaal'); ?></a>
+            <div class="ersaal-empty-state">
+                <?php echo ersaal_admin_icon('logs'); ?>
+                <div>
+                    <p class="ersaal-empty-state-title"><?php esc_html_e('No activity yet', 'ersaal'); ?></p>
+                    <p class="ersaal-empty-state-text"><?php esc_html_e('Messages sent through Ersaal will appear here.', 'ersaal'); ?></p>
                 </div>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php esc_html_e('Send your first SMS', 'ersaal'); ?></a>
             </div>
         <?php else: ?>
             <div class="ersaal-table-wrap">
