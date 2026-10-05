@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -51,7 +52,7 @@ $hasApiKey = !empty($this->options->get('api_key', ''));
                 <p><?php esc_html_e('Verify the currently saved credentials before configuring messaging.', 'ersaal'); ?></p>
             </header>
             <div class="ersaal-inline-actions">
-                <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent" id="ersaal-test-api-btn"><?php echo ersaal_admin_icon('check'); ?><?php esc_html_e('Test connection', 'ersaal'); ?></button>
+                <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent" id="ersaal-test-api-btn"><?php echo ersaal_admin_icon('check'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Test connection', 'ersaal'); ?></button>
                 <span class="spinner" id="ersaal-test-api-spinner" aria-hidden="true"></span>
             </div>
             <div id="ersaal-test-api-result" class="ersaal-alert ersaal-test-result" role="status" aria-live="polite" hidden></div>

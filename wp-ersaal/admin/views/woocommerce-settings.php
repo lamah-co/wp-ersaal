@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -26,12 +27,13 @@ $renderEventEditor = static function (string $event, string $label, bool $open =
             <span id="state_<?php echo esc_attr($event); ?>" class="ersaal-badge <?php echo $eventEnabled ? 'ersaal-badge-success' : 'ersaal-badge-muted'; ?>">
                 <?php echo esc_html($eventEnabled ? __('Enabled', 'ersaal') : __('Disabled', 'ersaal')); ?>
             </span>
-            <?php echo ersaal_admin_icon('chevron', 'ersaal-event-chevron'); ?>
+            <?php echo ersaal_admin_icon('chevron', 'ersaal-event-chevron'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         </summary>
         <div class="ersaal-event-content">
             <div class="ersaal-form-stack">
                 <label class="ersaal-switch-row" for="ersaal_wc_event_<?php echo esc_attr($event); ?>_enable">
                     <span class="ersaal-switch-copy">
+                        <?php /* translators: %s: Order event label (e.g. New order, Completed) */ ?>
                         <span class="ersaal-switch-title"><?php printf(esc_html__('Send SMS for %s', 'ersaal'), esc_html($label)); ?></span>
                         <span class="ersaal-switch-description"><?php esc_html_e('Uses the template below when this event occurs.', 'ersaal'); ?></span>
                     </span>
@@ -100,7 +102,7 @@ $renderEventEditor = static function (string $event, string $label, bool $open =
                 <p class="ersaal-section-description"><?php esc_html_e('Expand only the order event you want to configure.', 'ersaal'); ?></p>
             </div>
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#woocommerce')); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm">
-                <?php echo ersaal_admin_icon('help'); ?>
+                <?php echo ersaal_admin_icon('help'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php esc_html_e('Template help', 'ersaal'); ?>
             </a>
         </div>
@@ -208,7 +210,7 @@ $renderEventEditor = static function (string $event, string $label, bool $open =
                     <h2 id="ersaal-manual-order-title"><?php esc_html_e('Manual order messaging', 'ersaal'); ?></h2>
                     <p><?php esc_html_e('Manual SMS is available from the Ersaal panel on each WooCommerce order.', 'ersaal'); ?></p>
                 </header>
-                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#woocommerce')); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm"><?php esc_html_e('Read how it works', 'ersaal'); ?><?php echo ersaal_admin_icon('arrow'); ?></a>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#woocommerce')); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm"><?php esc_html_e('Read how it works', 'ersaal'); ?><?php echo ersaal_admin_icon('arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
             </div>
         </div>
     </section>

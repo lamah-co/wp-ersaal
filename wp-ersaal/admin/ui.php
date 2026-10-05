@@ -5,6 +5,43 @@ if (!defined('ABSPATH')) {
     exit;
 }
 /**
+ * Return allowed HTML tags for Ersaal admin SVG icons.
+ *
+ * @return array<string, array<string, bool>>
+ */
+function ersaal_allowed_svg_tags(): array
+{
+    return [
+        'svg' => [
+            'class' => true,
+            'viewbox' => true,
+            'fill' => true,
+            'stroke' => true,
+            'stroke-width' => true,
+            'stroke-linecap' => true,
+            'stroke-linejoin' => true,
+            'aria-hidden' => true,
+            'focusable' => true,
+        ],
+        'path' => [
+            'd' => true,
+        ],
+        'rect' => [
+            'width' => true,
+            'height' => true,
+            'x' => true,
+            'y' => true,
+            'rx' => true,
+        ],
+        'circle' => [
+            'cx' => true,
+            'cy' => true,
+            'r' => true,
+        ],
+    ];
+}
+
+/**
  * Render a small, consistent Ersaal admin icon.
  */
 function ersaal_admin_icon(string $name, string $class = ''): string
@@ -31,10 +68,13 @@ function ersaal_admin_icon(string $name, string $class = ''): string
 
     $classes = trim('ersaal-icon ersaal-icon-' . $name . ' ' . $class);
 
-    return sprintf(
-        '<svg class="%s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">%s</svg>',
-        esc_attr($classes),
-        $paths[$name]
+    return wp_kses(
+        sprintf(
+            '<svg class="%s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">%s</svg>',
+            esc_attr($classes),
+            $paths[$name]
+        ),
+        ersaal_allowed_svg_tags()
     );
 }
 
@@ -122,6 +162,7 @@ function ersaal_admin_log_reference_label(object $log): string
 {
     $label = '';
     if (($log->source ?? '') === 'woocommerce' && !empty($log->source_id)) {
+        /* translators: %s: Order ID */
         $label = sprintf(__('Order #%s', 'ersaal'), (string) $log->source_id);
     }
 

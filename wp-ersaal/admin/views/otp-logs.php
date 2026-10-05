@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -79,7 +80,7 @@ $badgeType = static function (string $value): string {
                     </select>
                 </div>
                 <div class="ersaal-filter-actions">
-                    <button type="submit" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('search'); ?><?php esc_html_e('Apply filters', 'ersaal'); ?></button>
+                    <button type="submit" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('search'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Apply filters', 'ersaal'); ?></button>
                     <?php if ($status !== 'all' || $context !== 'all'): ?>
                         <a class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm" href="<?php echo esc_url($pageUrl); ?>"><?php esc_html_e('Reset', 'ersaal'); ?></a>
                     <?php endif; ?>
@@ -100,13 +101,14 @@ $badgeType = static function (string $value): string {
         <header class="ersaal-card-header ersaal-section-header">
             <div>
                 <h2 id="ersaal-otp-results-title" class="ersaal-card-title"><?php esc_html_e('OTP activity records', 'ersaal'); ?></h2>
+                <?php /* translators: %s: Number of matching records */ ?>
                 <p class="ersaal-section-description"><?php printf(esc_html(_n('Showing %s matching record', 'Showing %s matching records', $logsData['total'], 'ersaal')), esc_html(number_format_i18n($logsData['total']))); ?></p>
             </div>
         </header>
 
         <?php if (empty($logsData['items'])): ?>
             <div class="ersaal-empty-state">
-                <?php echo ersaal_admin_icon('logs'); ?>
+                <?php echo ersaal_admin_icon('logs'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <div>
                     <p class="ersaal-empty-state-title"><?php esc_html_e('No OTP activity yet', 'ersaal'); ?></p>
                     <p class="ersaal-empty-state-text"><?php esc_html_e('Run an OTP test or verify a user phone to create the first safe activity record.', 'ersaal'); ?></p>
@@ -168,7 +170,7 @@ $badgeType = static function (string $value): string {
         <section class="ersaal-modal-panel" role="dialog" aria-modal="true" aria-labelledby="ersaal-otp-log-modal-title" tabindex="-1">
             <header class="ersaal-modal-header">
                 <h2 id="ersaal-otp-log-modal-title" class="ersaal-modal-title"><?php esc_html_e('Log details', 'ersaal'); ?></h2>
-                <button type="button" id="ersaal-otp-close-modal" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button" aria-label="<?php esc_attr_e('Close details', 'ersaal'); ?>"><?php echo ersaal_admin_icon('close'); ?></button>
+                <button type="button" id="ersaal-otp-close-modal" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button" aria-label="<?php esc_attr_e('Close details', 'ersaal'); ?>"><?php echo ersaal_admin_icon('close'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
             </header>
             <div class="ersaal-modal-body">
                 <dl id="ersaal-otp-log-detail-list" class="ersaal-detail-list"></dl>

@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -98,7 +99,10 @@ $emergencyDisabled = defined('ERSAAL_DISABLE_LOGIN_OTP') && ERSAAL_DISABLE_LOGIN
                     </div>
                     <select name="ersaal_otp_expiration" id="ersaal_otp_expiration" class="ersaal-select">
                         <?php for ($minute = 1; $minute <= 10; $minute++): ?>
-                            <option value="<?php echo esc_attr((string) $minute); ?>" <?php selected((int) $options->get('otp_expiration', 5), $minute); ?>><?php printf(esc_html(_n('%s minute', '%s minutes', $minute, 'ersaal')), esc_html(number_format_i18n($minute))); ?></option>
+                            <option value="<?php echo esc_attr((string) $minute); ?>" <?php selected((int) $options->get('otp_expiration', 5), $minute); ?>><?php
+                                /* translators: %s: number of minutes */
+                                printf(esc_html(_n('%s minute', '%s minutes', $minute, 'ersaal')), esc_html(number_format_i18n($minute)));
+                            ?></option>
                         <?php endfor; ?>
                     </select>
                 </div>

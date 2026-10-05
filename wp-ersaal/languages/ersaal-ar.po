@@ -139,7 +139,7 @@ msgstr "تطبيق"
 
 #: admin/views/logs.php:168
 msgid "Apply filters"
-msgstr "تطبيق عوامل التصفية"
+msgstr "تصفية"
 
 #: admin/views/logs.php:210
 msgid "Are you sure you want to delete selected logs?"

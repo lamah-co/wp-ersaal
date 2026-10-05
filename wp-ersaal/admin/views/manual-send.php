@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -24,7 +25,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
         </div>
         <div class="ersaal-page-actions">
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#send-sms')); ?>" class="ersaal-btn ersaal-btn-secondary">
-                <?php echo ersaal_admin_icon('help'); ?>
+                <?php echo ersaal_admin_icon('help'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php esc_html_e('Need help?', 'ersaal'); ?>
             </a>
         </div>
@@ -33,7 +34,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
     <?php if (!$status['connected']): ?>
         <div class="ersaal-card">
             <div class="ersaal-alert ersaal-alert-danger" role="alert">
-                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); ?><?php esc_html_e('Ersaal is not connected', 'ersaal'); ?></p>
+                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Ersaal is not connected', 'ersaal'); ?></p>
                 <p><?php echo esc_html($status['error']); ?></p>
             </div>
             <div class="ersaal-send-actions">
@@ -53,6 +54,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                 </div>
                 <?php if ($status['sms_balance'] !== null): ?>
                     <span class="ersaal-badge <?php echo ((float) $status['sms_balance'] > 0 || $hasSmsSubscription) ? 'ersaal-badge-info' : 'ersaal-badge-warning'; ?>">
+                        <?php /* translators: %s: SMS balance amount */ ?>
                         <?php printf(esc_html__('SMS balance: %s', 'ersaal'), esc_html((string) $status['sms_balance'])); ?>
                     </span>
                 <?php endif; ?>
@@ -60,7 +62,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
 
             <?php if ($status['sms_balance'] !== null && (float) $status['sms_balance'] <= 0 && !$hasSmsSubscription): ?>
                 <div class="ersaal-alert ersaal-alert-warning" role="note">
-                    <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); ?><?php esc_html_e('No available SMS balance or subscription', 'ersaal'); ?></p>
+                    <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('No available SMS balance or subscription', 'ersaal'); ?></p>
                     <p><?php esc_html_e('The API may reject this message until the project has an eligible SMS payment source.', 'ersaal'); ?></p>
                 </div>
             <?php endif; ?>
@@ -85,7 +87,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                 <details class="ersaal-disclosure">
                     <summary>
                         <span><?php esc_html_e('Payment and advanced options', 'ersaal'); ?></span>
-                        <?php echo ersaal_admin_icon('chevron'); ?>
+                        <?php echo ersaal_admin_icon('chevron'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </summary>
                     <div class="ersaal-disclosure-content ersaal-form-stack">
                         <div class="ersaal-field">
@@ -106,16 +108,16 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                 <div class="ersaal-send-actions">
                     <span class="spinner ersaal-send-spinner" id="ersaal_spinner" aria-hidden="true"></span>
                     <button type="submit" id="ersaal_submit_btn" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent">
-                        <?php echo ersaal_admin_icon('send'); ?>
+                        <?php echo ersaal_admin_icon('send'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                         <?php esc_html_e('Send SMS', 'ersaal'); ?>
                     </button>
                 </div>
             </form>
 
-            <div id="ersaal_response_area" class="ersaal-alert ersaal-send-result" role="status" aria-live="polite" hidden>
+            <div id="ersaal_response_area" class="ersaal-alert border-l-4 p-4 mb-4 ersaal-send-result" role="status" aria-live="polite" hidden>
                 <p class="ersaal-alert-title">
-                    <span id="ersaal_response_success_icon"><?php echo ersaal_admin_icon('check'); ?></span>
-                    <span id="ersaal_response_error_icon" hidden><?php echo ersaal_admin_icon('warning'); ?></span>
+                    <span id="ersaal_response_success_icon"><?php echo ersaal_admin_icon('check'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+                    <span id="ersaal_response_error_icon" hidden><?php echo ersaal_admin_icon('warning'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
                     <span id="ersaal_response_title"></span>
                 </p>
                 <p id="ersaal_response_message" hidden></p>
@@ -130,7 +132,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                     </div>
                     <div>
                         <span class="ersaal-result-label"><?php esc_html_e('Log ID', 'ersaal'); ?></span>
-                        <span id="ersaal_result_log_id" class="ersaal-result-value ersaal-code ersaal-ltr"></span>
+                        <span id="ersaal_result_log_id" class="ersaal-result-value solid-code ersaal-ltr"></span>
                     </div>
                     <div id="ersaal_result_parts_wrap">
                         <span class="ersaal-result-label"><?php esc_html_e('Parts', 'ersaal'); ?></span>
@@ -139,7 +141,7 @@ $subscriptionLabel = $subscriptionNames ? implode(', ', $subscriptionNames) : __
                 </div>
                 <a id="ersaal_response_logs_link" href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm">
                     <?php esc_html_e('View in logs', 'ersaal'); ?>
-                    <?php echo ersaal_admin_icon('arrow'); ?>
+                    <?php echo ersaal_admin_icon('arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 </a>
             </div>
         </div>

@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -65,7 +66,7 @@ if (!defined('ABSPATH')) {
         </form>
 
         <div id="ersaal-otp-complete" class="ersaal-empty-state" data-otp-panel="done" hidden>
-            <span aria-hidden="true"><?php echo ersaal_admin_icon('check'); ?></span>
+            <span aria-hidden="true"><?php echo ersaal_admin_icon('check'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
             <h3 class="ersaal-empty-state-title"><?php esc_html_e('OTP flow verified', 'ersaal'); ?></h3>
             <p class="ersaal-empty-state-text"><?php esc_html_e('The code was accepted once and the local test state was removed.', 'ersaal'); ?></p>
             <button type="button" class="ersaal-btn ersaal-btn-secondary" id="ersaal-otp-start-over"><?php esc_html_e('Run another test', 'ersaal'); ?></button>

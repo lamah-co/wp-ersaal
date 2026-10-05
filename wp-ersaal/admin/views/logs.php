@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -40,6 +41,7 @@ $statusBadge = static function (string $status): string {
 };
 
 $referenceHtml = static function (object $log): string {
+    /* translators: %s: Log entry ID */
     $meta = sprintf('<span class="ersaal-table-meta ersaal-ltr">%s</span>', esc_html(sprintf(__('Log #%s', 'ersaal'), (string) $log->id)));
     $label = ersaal_admin_log_reference_label($log);
     if ($label !== '') {
@@ -74,7 +76,7 @@ $notices = get_settings_errors('ersaal_logs');
                 <?php wp_nonce_field('ersaal_export_csv'); ?>
                 <input type="hidden" name="ersaal_export_csv" value="1" />
                 <button type="submit" class="ersaal-btn ersaal-btn-secondary">
-                    <?php echo ersaal_admin_icon('download'); ?>
+                    <?php echo ersaal_admin_icon('download'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <?php esc_html_e('Export CSV', 'ersaal'); ?>
                 </button>
             </form>
@@ -118,6 +120,7 @@ $notices = get_settings_errors('ersaal_logs');
                 <p class="ersaal-section-description"><?php esc_html_e('Search by reference, then narrow the results only when needed.', 'ersaal'); ?></p>
             </div>
             <?php if ($activeFilterCount > 0): ?>
+                <?php /* translators: %s: Number of active filters */ ?>
                 <span class="ersaal-filter-count"><?php printf(esc_html(_n('%s active filter', '%s active filters', $activeFilterCount, 'ersaal')), esc_html(number_format_i18n($activeFilterCount))); ?></span>
             <?php endif; ?>
         </div>
@@ -166,7 +169,7 @@ $notices = get_settings_errors('ersaal_logs');
                     <input id="ersaal-log-date-to" type="date" name="date_to" value="<?php echo esc_attr($dateTo); ?>" class="ersaal-input ersaal-ltr" />
                 </div>
                 <div class="ersaal-filter-actions">
-                    <button type="submit" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('search'); ?><?php esc_html_e('Apply filters', 'ersaal'); ?></button>
+                    <button type="submit" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('search'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Apply filters', 'ersaal'); ?></button>
                     <?php if ($hasFilters): ?>
                         <a href="<?php echo esc_url($pageUrl); ?>" class="ersaal-btn ersaal-btn-ghost ersaal-btn-sm"><?php esc_html_e('Reset', 'ersaal'); ?></a>
                     <?php endif; ?>
@@ -179,13 +182,14 @@ $notices = get_settings_errors('ersaal_logs');
         <header class="ersaal-card-header ersaal-section-header">
             <div>
                 <h2 id="ersaal-log-results-title" class="ersaal-section-title"><?php esc_html_e('Message activity', 'ersaal'); ?></h2>
+                <?php /* translators: %s: Number of matching records */ ?>
                 <p class="ersaal-section-description"><?php printf(esc_html(_n('%s matching record', '%s matching records', $logsData['total'], 'ersaal')), esc_html(number_format_i18n($logsData['total']))); ?></p>
             </div>
         </header>
 
         <?php if (empty($logsData['items'])): ?>
             <div class="ersaal-empty-state">
-                <?php echo ersaal_admin_icon('logs'); ?>
+                <?php echo ersaal_admin_icon('logs'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <div>
                     <p class="ersaal-empty-state-title"><?php echo esc_html($hasFilters ? __('No messages match these filters', 'ersaal') : __('No messages yet', 'ersaal')); ?></p>
                     <p class="ersaal-empty-state-text"><?php echo esc_html($hasFilters ? __('Reset the filters or broaden your search.', 'ersaal') : __('Messages sent through Ersaal will appear here.', 'ersaal')); ?></p>
@@ -206,8 +210,9 @@ $notices = get_settings_errors('ersaal_logs');
                             <option value="-1"><?php esc_html_e('Bulk actions', 'ersaal'); ?></option>
                             <option value="delete"><?php esc_html_e('Delete', 'ersaal'); ?></option>
                         </select>
-                        <button type="submit" class="ersaal-btn ersaal-btn-secondary ersaal-btn-bulk-apply" name="ersaal_bulk_action" value="1" data-confirm="<?php esc_attr_e('Are you sure you want to delete selected logs?', 'ersaal'); ?>" disabled><?php echo ersaal_admin_icon('check'); ?><?php esc_html_e('Apply', 'ersaal'); ?></button>
+                        <button type="submit" class="ersaal-btn ersaal-btn-secondary ersaal-btn-bulk-apply" name="ersaal_bulk_action" value="1" data-confirm="<?php esc_attr_e('Are you sure you want to delete selected logs?', 'ersaal'); ?>" disabled><?php echo ersaal_admin_icon('check'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Apply', 'ersaal'); ?></button>
                     </div>
+                    <?php /* translators: %s: Number of log items */ ?>
                     <span class="ersaal-table-meta"><?php printf(esc_html(_n('%s item', '%s items', $logsData['total'], 'ersaal')), esc_html(number_format_i18n($logsData['total']))); ?></span>
                 </div>
 
@@ -238,8 +243,8 @@ $notices = get_settings_errors('ersaal_logs');
                                 ?>
                                 <tr class="ersaal-log-row">
                                     <th scope="row" class="column-check check-column"><input type="checkbox" name="log_ids[]" value="<?php echo esc_attr($log->id); ?>" /></th>
-                                    <td><?php echo $statusBadge((string) $log->status); ?></td>
-                                    <td><?php echo $referenceHtml($log); ?></td>
+                                    <td><?php echo wp_kses_post($statusBadge((string) $log->status)); ?></td>
+                                    <td><?php echo wp_kses_post($referenceHtml($log)); ?></td>
                                     <td><span class="ersaal-code ersaal-ltr ersaal-log-phone"><?php echo esc_html($log->phone_masked); ?></span></td>
                                     <td><div class="ersaal-table-message ersaal-log-message"><?php echo !empty($log->message_excerpt) ? esc_html($log->message_excerpt) : '&mdash;'; ?></div></td>
                                     <td>
@@ -247,19 +252,26 @@ $notices = get_settings_errors('ersaal_logs');
                                             <?php if (!empty($log->message_id)): ?>
                                                 <div class="ersaal-inline-actions">
                                                     <span class="ersaal-code ersaal-ltr" title="<?php echo esc_attr($log->message_id); ?>"><?php echo esc_html(mb_substr((string) $log->message_id, 0, 8)); ?>&hellip;</span>
-                                                    <button type="button" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button ersaal-copy-id" data-clipboard="<?php echo esc_attr($log->message_id); ?>" aria-label="<?php esc_attr_e('Copy message ID', 'ersaal'); ?>"><?php echo ersaal_admin_icon('copy'); ?></button>
+                                                    <button type="button" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button ersaal-copy-id" data-clipboard="<?php echo esc_attr($log->message_id); ?>" aria-label="<?php esc_attr_e('Copy message ID', 'ersaal'); ?>"><?php echo ersaal_admin_icon('copy'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
                                                 </div>
                                             <?php else: ?>
                                                 <span class="ersaal-table-meta">&mdash;</span>
                                             <?php endif; ?>
-                                            <span class="ersaal-table-meta"><?php printf(esc_html__('Parts %1$s · Attempts %2$s', 'ersaal'), esc_html((string) ($log->parts_final ?? '—')), esc_html((string) $log->attempts)); ?></span>
+                                            <?php
+                                             /* translators: 1: Message parts count, 2: Send attempts count */
+                                            $deliveryMeta = sprintf(esc_html__('Parts %1$s · Attempts %2$s', 'ersaal'), esc_html((string) ($log->parts_final ?? '—')), esc_html((string) $log->attempts));
+                                            if (!empty($log->cost_final) && (float) $log->cost_final > 0) {
+                                                $deliveryMeta .= ' · ' . esc_html(number_format((float) $log->cost_final, 3) . ' د.ل');
+                                            }
+                                            ?>
+                                            <span class="ersaal-table-meta"><?php echo esc_html($deliveryMeta); ?></span>
                                         </div>
                                     </td>
                                     <td><time class="ersaal-table-meta ersaal-ltr ersaal-log-created" datetime="<?php echo esc_attr($log->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($log->created_at))); ?></time></td>
                                     <td>
                                         <div class="ersaal-inline-actions ersaal-log-actions">
                                             <button type="button" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm ersaal-view-log" data-log="<?php echo esc_attr(wp_json_encode($logDetails)); ?>"><?php esc_html_e('Details', 'ersaal'); ?></button>
-                                            <button type="button" class="ersaal-btn ersaal-btn-danger ersaal-icon-button ersaal-delete-log" data-log-id="<?php echo esc_attr($log->id); ?>" aria-label="<?php esc_attr_e('Delete log', 'ersaal'); ?>"><?php echo ersaal_admin_icon('trash'); ?></button>
+                                            <button type="button" class="ersaal-btn ersaal-btn-danger ersaal-icon-button ersaal-delete-log" data-log-id="<?php echo esc_attr($log->id); ?>" aria-label="<?php esc_attr_e('Delete log', 'ersaal'); ?>"><?php echo ersaal_admin_icon('trash'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -296,14 +308,14 @@ $notices = get_settings_errors('ersaal_logs');
         <section class="ersaal-modal-panel" role="dialog" aria-modal="true" aria-labelledby="ersaal-log-modal-title" tabindex="-1">
             <header class="ersaal-modal-header">
                 <h2 id="ersaal-log-modal-title" class="ersaal-modal-title"><?php esc_html_e('Log details', 'ersaal'); ?></h2>
-                <button type="button" id="ersaal-close-modal" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button" aria-label="<?php esc_attr_e('Close details', 'ersaal'); ?>"><?php echo ersaal_admin_icon('close'); ?></button>
+                <button type="button" id="ersaal-close-modal" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button" aria-label="<?php esc_attr_e('Close details', 'ersaal'); ?>"><?php echo ersaal_admin_icon('close'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
             </header>
             <div class="ersaal-modal-body">
                 <dl id="ersaal-log-detail-list" class="ersaal-detail-list"></dl>
                 <div id="ersaal-log-message-section" class="ersaal-section">
                     <h3 class="ersaal-card-title"><?php esc_html_e('Message', 'ersaal'); ?></h3>
                     <div id="ersaal-log-message" class="ersaal-message-block"></div>
-                    <button type="button" id="ersaal-copy-message" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php echo ersaal_admin_icon('copy'); ?><?php esc_html_e('Copy message', 'ersaal'); ?></button>
+                    <button type="button" id="ersaal-copy-message" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm"><?php echo ersaal_admin_icon('copy'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Copy message', 'ersaal'); ?></button>
                 </div>
             </div>
         </section>

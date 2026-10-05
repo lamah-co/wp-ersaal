@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -64,19 +65,19 @@ $otpDescription = $is_arabic ? 'تحقق من الإرسال والتأكيد خ
 
             <div class="ersaal-help-shortcuts" aria-label="<?php echo esc_attr($shortcutsLabel); ?>">
                 <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-help-shortcut">
-                    <?php echo ersaal_admin_icon('settings'); ?>
+                    <?php echo ersaal_admin_icon('settings'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <span><strong><?php echo esc_html($settingsLabel); ?></strong><small><?php echo esc_html($settingsDescription); ?></small></span>
                 </a>
                 <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-help-shortcut">
-                    <?php echo ersaal_admin_icon('send'); ?>
+                    <?php echo ersaal_admin_icon('send'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <span><strong><?php echo esc_html($sendLabel); ?></strong><small><?php echo esc_html($sendDescription); ?></small></span>
                 </a>
                 <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-help-shortcut">
-                    <?php echo ersaal_admin_icon('logs'); ?>
+                    <?php echo ersaal_admin_icon('logs'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <span><strong><?php echo esc_html($logsLabel); ?></strong><small><?php echo esc_html($logsDescription); ?></small></span>
                 </a>
                 <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-otp-test')); ?>" class="ersaal-help-shortcut">
-                    <?php echo ersaal_admin_icon('check'); ?>
+                    <?php echo ersaal_admin_icon('check'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <span><strong><?php echo esc_html($otpLabel); ?></strong><small><?php echo esc_html($otpDescription); ?></small></span>
                 </a>
             </div>
@@ -91,7 +92,7 @@ $otpDescription = $is_arabic ? 'تحقق من الإرسال والتأكيد خ
                 <details id="<?php echo esc_attr($section['id']); ?>" class="ersaal-help-section" <?php echo $index === 0 ? 'open' : ''; ?>>
                     <summary>
                         <span><?php echo esc_html($section['title']); ?></span>
-                        <?php echo ersaal_admin_icon('chevron', 'ersaal-help-chevron'); ?>
+                        <?php echo ersaal_admin_icon('chevron', 'ersaal-help-chevron'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </summary>
                     <div class="ersaal-help-section-body">
                         <?php echo wp_kses_post($section['content']); ?>

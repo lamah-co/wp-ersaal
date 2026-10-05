@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -47,7 +48,7 @@ $otpContextLabels = [
         </div>
         <div class="ersaal-page-actions">
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary">
-                <?php echo ersaal_admin_icon('send'); ?>
+                <?php echo ersaal_admin_icon('send'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php esc_html_e('Send SMS', 'ersaal'); ?>
             </a>
         </div>
@@ -79,13 +80,13 @@ $otpContextLabels = [
             </dl>
 
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent ersaal-connection-settings-action">
-                <?php echo ersaal_admin_icon('settings'); ?>
+                <?php echo ersaal_admin_icon('settings'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php esc_html_e('Connection settings', 'ersaal'); ?>
             </a>
         </div>
         <?php if (!$connection['connected'] && !empty($connection['error'])): ?>
             <div class="ersaal-alert ersaal-alert-warning" role="status">
-                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); ?><?php esc_html_e('Connection needs attention', 'ersaal'); ?></p>
+                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Connection needs attention', 'ersaal'); ?></p>
                 <p><?php echo esc_html($connection['error']); ?></p>
             </div>
         <?php endif; ?>
@@ -188,15 +189,15 @@ $otpContextLabels = [
                 <p class="ersaal-section-description"><?php esc_html_e('The latest messages across manual and WooCommerce sources.', 'ersaal'); ?></p>
             </div>
             <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-sm ersaal-view-all-logs">
-                <?php echo ersaal_admin_icon('logs'); ?>
+                <?php echo ersaal_admin_icon('logs'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php esc_html_e('View all logs', 'ersaal'); ?>
-                <?php echo ersaal_admin_icon('arrow'); ?>
+                <?php echo ersaal_admin_icon('arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             </a>
         </header>
 
         <?php if (empty($recent['items'])): ?>
             <div class="ersaal-empty-state">
-                <?php echo ersaal_admin_icon('logs'); ?>
+                <?php echo ersaal_admin_icon('logs'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <div>
                     <p class="ersaal-empty-state-title"><?php esc_html_e('No activity yet', 'ersaal'); ?></p>
                     <p class="ersaal-empty-state-text"><?php esc_html_e('Messages sent through Ersaal will appear here.', 'ersaal'); ?></p>
@@ -239,10 +240,10 @@ $otpContextLabels = [
             </div>
         </div>
         <div class="ersaal-quick-actions">
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('send'); ?><?php esc_html_e('Send SMS', 'ersaal'); ?></a>
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-otp-test')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('check'); ?><?php esc_html_e('OTP Test', 'ersaal'); ?></a>
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('logs'); ?><?php esc_html_e('View logs', 'ersaal'); ?></a>
-            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('settings'); ?><?php esc_html_e('Settings', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-send-message')); ?>" class="ersaal-btn ersaal-btn-primary ersaal-btn-prominent"><?php echo ersaal_admin_icon('send'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Send SMS', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-otp-test')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('check'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('OTP Test', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-logs')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('logs'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('View logs', 'ersaal'); ?></a>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-settings')); ?>" class="ersaal-btn ersaal-btn-secondary ersaal-btn-prominent"><?php echo ersaal_admin_icon('settings'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Settings', 'ersaal'); ?></a>
         </div>
     </section>
 </div>

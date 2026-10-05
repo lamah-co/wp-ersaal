@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -26,7 +27,7 @@ $cleanOnUninstall = get_option('ersaal_clean_on_uninstall', false);
             </label>
 
             <div class="ersaal-alert ersaal-alert-warning" role="note">
-                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); ?><?php esc_html_e('Permanent deletion', 'ersaal'); ?></p>
+                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Permanent deletion', 'ersaal'); ?></p>
                 <p><?php esc_html_e('When enabled, the local logs and settings cannot be recovered after uninstalling the plugin.', 'ersaal'); ?></p>
             </div>
         </section>
