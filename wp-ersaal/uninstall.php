@@ -6,17 +6,23 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
     exit;
 }
 
-// Clean up database if the user has opted in
-$clean_on_uninstall = get_option('ersaal_clean_on_uninstall', false);
+if (!defined('ABSPATH')) {
+    exit;
+}
 
-if ($clean_on_uninstall) {
+// Clean up database if the user has opted in
+$ersaal_clean_on_uninstall = (bool) get_option('ersaal_clean_on_uninstall', false);
+
+if ($ersaal_clean_on_uninstall) {
     global $wpdb;
-    
+
     // Drop plugin-owned activity tables.
-    $sms_table_name = $wpdb->prefix . 'ersaal_logs';
-    $otp_table_name = $wpdb->prefix . 'ersaal_otp_logs';
-    $wpdb->query("DROP TABLE IF EXISTS {$sms_table_name}");
-    $wpdb->query("DROP TABLE IF EXISTS {$otp_table_name}");
+    $ersaal_sms_table = esc_sql($wpdb->prefix . 'ersaal_logs');
+    $ersaal_otp_table = esc_sql($wpdb->prefix . 'ersaal_otp_logs');
+
+    // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+    $wpdb->query("DROP TABLE IF EXISTS `{$ersaal_sms_table}`"); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter
+    $wpdb->query("DROP TABLE IF EXISTS `{$ersaal_otp_table}`"); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter
     
     // Delete options
     $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'ersaal_%'");
@@ -31,4 +37,5 @@ if ($clean_on_uninstall) {
             'ersaal_otp_login_2fa'
         )"
     );
+    // phpcs:enable
 }

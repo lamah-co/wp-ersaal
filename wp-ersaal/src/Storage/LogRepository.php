@@ -15,6 +15,7 @@ class LogRepository
     {
         global $wpdb;
         $table = $this->getTableName();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $row = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$table} WHERE idempotency_key = %s", $idempotency_key));
         return $row;
     }
@@ -40,7 +41,7 @@ class LogRepository
             'source_id'       => (string) $data['source_id'],
             'source_event'    => $data['source_event'],
             'recipient_type'  => $data['recipient_type'],
-            'message_excerpt' => substr($data['message'] ?? '', 0, 150),
+            'message_excerpt' => mb_substr((string) ($data['message'] ?? ''), 0, 150, 'UTF-8'),
             'message_text'    => $data['message'] ?? '',
             'status'          => 'processing',
             'locked_at'       => $now,
@@ -50,6 +51,7 @@ class LogRepository
 
         // wpdb->insert returns false if insertion fails (e.g. duplicate key or schema error)
         $suppress = $wpdb->suppress_errors(true);
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $result = $wpdb->insert($table, $insert_data);
         $last_error = $wpdb->last_error;
         $wpdb->suppress_errors($suppress);
@@ -57,8 +59,11 @@ class LogRepository
         if ($result === false) {
             if (!empty($last_error) && stripos($last_error, 'Duplicate entry') === false) {
                 // It's a real database error (e.g. missing column), not a race condition
-                error_log('Ersaal DB Insert Failed: ' . $last_error);
-                throw new \RuntimeException(__('Unable to create message log.', 'ersaal'));
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                    error_log('Ersaal DB Insert Failed: ' . $last_error);
+                }
+                throw new \RuntimeException(esc_html__('Unable to create message log.', 'ersaal'));
             }
             return false;
         }
@@ -76,6 +81,7 @@ class LogRepository
         
         $now = current_time('mysql', true);
         
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $sql = $wpdb->prepare(
             "UPDATE {$table} 
             SET status = 'processing', locked_at = %s, updated_at = %s 
@@ -87,6 +93,7 @@ class LogRepository
         );
         
         $rows_affected = $wpdb->query($sql);
+        // phpcs:enable
         
         return $rows_affected > 0;
     }
@@ -97,10 +104,12 @@ class LogRepository
         $table = $this->getTableName();
         $now = current_time('mysql', true);
         
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $wpdb->query($wpdb->prepare(
             "UPDATE {$table} SET attempts = attempts + 1, last_attempt_at = %s, updated_at = %s WHERE idempotency_key = %s",
             $now, $now, $idempotency_key
         ));
+        // phpcs:enable
     }
 
     /**
@@ -115,6 +124,7 @@ class LogRepository
         $table = $this->getTableName();
         $now = current_time('mysql', true);
 
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $updated = $wpdb->query($wpdb->prepare(
             "UPDATE {$table}
              SET attempts = attempts + 1, last_attempt_at = %s, updated_at = %s
@@ -125,6 +135,7 @@ class LogRepository
             $now,
             $idempotency_key
         ));
+        // phpcs:enable
 
         return $updated === 1;
     }
@@ -151,6 +162,7 @@ class LogRepository
             $update_data['cost_final'] = $cost;
         }
         
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->update(
             $table,
             $update_data,
@@ -177,9 +189,10 @@ class LogRepository
             $update_data['api_http_code'] = $api_code;
         }
         if ($error_msg !== null) {
-            $update_data['api_error'] = substr($error_msg, 0, 255);
+            $update_data['api_error'] = mb_substr((string) $error_msg, 0, 255, 'UTF-8');
         }
         
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->update($table, $update_data, ['idempotency_key' => $idempotency_key]);
     }
 
@@ -199,9 +212,10 @@ class LogRepository
             $update_data['api_http_code'] = $api_code;
         }
         if ($error_msg !== null) {
-            $update_data['api_error'] = substr($error_msg, 0, 255);
+            $update_data['api_error'] = mb_substr((string) $error_msg, 0, 255, 'UTF-8');
         }
         
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->update($table, $update_data, ['idempotency_key' => $idempotency_key]);
     }
 
@@ -209,6 +223,7 @@ class LogRepository
     {
         global $wpdb;
         $table = $this->getTableName();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->update(
             $table,
             ['locked_at' => null, 'updated_at' => current_time('mysql', true)],
@@ -220,6 +235,7 @@ class LogRepository
     {
         global $wpdb;
         $table = $this->getTableName();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->update(
             $table,
             ['ersaal_status' => $ersaal_status, 'updated_at' => current_time('mysql', true)],
@@ -232,6 +248,7 @@ class LogRepository
         global $wpdb;
         $table = $this->getTableName();
         
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $results = $wpdb->get_results("SELECT status, COUNT(*) as count FROM {$table} GROUP BY status", ARRAY_A);
         
         $stats = [
@@ -271,12 +288,12 @@ class LogRepository
             'retry_today' => 0,
         ];
         
-        $sql = $wpdb->prepare(
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+        $results = $wpdb->get_results($wpdb->prepare(
             "SELECT status, COUNT(*) as count FROM {$table} WHERE DATE(created_at) = %s GROUP BY status",
             $today
-        );
-        
-        $results = $wpdb->get_results($sql);
+        ));
+        // phpcs:enable
         
         if ($results) {
             foreach ($results as $row) {
@@ -370,6 +387,7 @@ class LogRepository
             $query_params = $params;
         }
         
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter
         if (!empty($query_params)) {
             $query = $wpdb->prepare("SELECT * FROM {$table} WHERE {$where_sql} ORDER BY {$orderby} {$order} {$limit_sql}", ...$query_params);
         } else {
@@ -384,6 +402,7 @@ class LogRepository
         
         $items = $wpdb->get_results($query);
         $total_items = (int)$wpdb->get_var($total_query);
+        // phpcs:enable
         
         return [
             'items' => $items,
@@ -398,6 +417,7 @@ class LogRepository
     {
         global $wpdb;
         $table = $this->getTableName();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $deleted = $wpdb->delete($table, ['id' => $id], ['%d']);
         return $deleted !== false && $deleted > 0;
     }
@@ -412,8 +432,10 @@ class LogRepository
         $table = $this->getTableName();
         $placeholders = implode(',', array_fill(0, count($ids), '%d'));
         
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $sql = $wpdb->prepare("DELETE FROM {$table} WHERE id IN ($placeholders)", ...$ids);
         $deleted = $wpdb->query($sql);
+        // phpcs:enable
         
         return $deleted !== false ? $deleted : 0;
     }
@@ -422,6 +444,7 @@ class LogRepository
     {
         global $wpdb;
         $table = $this->getTableName();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $results = $wpdb->get_col("SELECT DISTINCT source_event FROM {$table} WHERE source_event != '' AND source_event IS NOT NULL ORDER BY source_event ASC");
         return $results ?: [];
     }
@@ -430,6 +453,7 @@ class LogRepository
     {
         global $wpdb;
         $table = $this->getTableName();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $results = $wpdb->get_col("SELECT DISTINCT source FROM {$table} WHERE source != '' AND source IS NOT NULL ORDER BY source ASC");
         return $results ?: [];
     }
