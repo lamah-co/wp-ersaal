@@ -13,6 +13,16 @@ if (!function_exists('__')) {
         return $text;
     }
 }
+if (!function_exists('esc_html__')) {
+    function esc_html__(string $text, string $domain = 'default'): string {
+        return $text;
+    }
+}
+if (!function_exists('esc_html')) {
+    function esc_html(string $text): string {
+        return $text;
+    }
+}
 if (!function_exists('wp_salt')) {
     function wp_salt(string $scheme = 'auth'): string {
         return 'mocked_salt_12345';

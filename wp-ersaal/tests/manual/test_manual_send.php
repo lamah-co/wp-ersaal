@@ -49,7 +49,7 @@ function pad(string $name): void {
 
 $mock_success = [
     'response' => ['code' => 202, 'message' => 'Accepted'],
-    'body'     => json_encode(['status' => 'pending', 'data' => ['id' => 'msg-uuid-123', 'parts' => 2, 'cost' => 0.10]]),
+    'body'     => json_encode(['status' => 'pending', 'data' => ['id' => 'msg-uuid-123', 'parts' => 2, 'cost' => 0.470]]),
 ];
 
 // ================================================================

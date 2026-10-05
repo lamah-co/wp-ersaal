@@ -73,7 +73,7 @@ function run_message_test($name, $payload, $mockResponse, $assertCallback) {
 
 $mock_success = [
     'response' => ['code' => 202, 'message' => 'Accepted'],
-    'body' => json_encode(['status' => 'pending', 'data' => ['id' => 'msg-123', 'parts' => 1, 'cost' => 0.05]])
+    'body' => json_encode(['status' => 'pending', 'data' => ['id' => 'msg-123', 'parts' => 1, 'cost' => 0.235]])
 ];
 
 // 1. Success Message
