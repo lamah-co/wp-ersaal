@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
-
-require_once __DIR__ . '/../../../../../wp-load.php';
+if (php_sapi_name() === 'cli' && !defined('ABSPATH')) {
+    require_once dirname(__DIR__, 5) . '/wp-load.php';
+}
+defined('ABSPATH') || exit;
 
 use Ersaal\Core\Database;
 use Ersaal\Core\Options;

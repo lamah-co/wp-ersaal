@@ -5,7 +5,10 @@
  * Tests call ManualSendHandler::process() directly (returns array, no wp_die).
  * Nonce/Capability tests verified via source reflection.
  */
-require_once __DIR__ . '/../../../../../wp-load.php';
+if (php_sapi_name() === 'cli' && !defined('ABSPATH')) {
+    require_once dirname(__DIR__, 5) . '/wp-load.php';
+}
+defined('ABSPATH') || exit;
 
 // Several assertions intentionally verify the Arabic operator-facing errors.
 // Keep the test independent from the site's current language.

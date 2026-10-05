@@ -2,6 +2,12 @@
 declare(strict_types=1);
 
 // Local-only HTTP fixture for tests/manual/test_otp_login_e2e.php.
+// phpcs:ignoreFile
+if (in_array(php_sapi_name(), ['cli', 'cli-server'], true) && !defined('ABSPATH')) {
+    define('ABSPATH', __DIR__ . '/');
+}
+defined('ABSPATH') || exit;
+
 $statePath = sys_get_temp_dir() . '/ersaal-otp-mock-state.json';
 $state = is_file($statePath) ? json_decode((string) file_get_contents($statePath), true) : [];
 $state = is_array($state) ? $state : [];

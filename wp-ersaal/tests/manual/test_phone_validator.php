@@ -7,6 +7,11 @@ declare(strict_types=1);
  * Run with: php -f wp-content/plugins/wp-ersaal/tests/manual/test_phone_validator.php
  */
 
+if (php_sapi_name() === 'cli' && !defined('ABSPATH')) {
+    define('ABSPATH', __DIR__ . '/');
+}
+defined('ABSPATH') || exit;
+
 // Mock translation function for isolated testing
 if (!function_exists('__')) {
     function __(string $text, string $domain = 'default'): string {

@@ -1,8 +1,12 @@
 <?php
 declare(strict_types=1);
-
-define('WP_ADMIN', true);
-require_once __DIR__ . '/../../../../../wp-load.php';
+if (php_sapi_name() === 'cli' && !defined('ABSPATH')) {
+    if (!defined('WP_ADMIN')) {
+        define('WP_ADMIN', true);
+    }
+    require_once dirname(__DIR__, 5) . '/wp-load.php';
+}
+defined('ABSPATH') || exit;
 
 echo "=== ERSAAL v1.1 OTP UI & I18N TESTS ===\n\n";
 $failures = 0;
