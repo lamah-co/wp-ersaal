@@ -96,6 +96,7 @@ class SettingsModule implements ModuleInterface
             $response = $client->getProjectDetails();
             $projectName = $response->getProjectName();
             if (!empty($projectName)) {
+                /* translators: %s: Ersaal project name */
                 $msg = sprintf(__('Connected successfully! Project: %s', 'ersaal'), esc_html($projectName));
             } else {
                 $msg = __('Connected successfully!', 'ersaal');

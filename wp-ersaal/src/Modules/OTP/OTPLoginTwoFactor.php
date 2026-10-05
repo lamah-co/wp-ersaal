@@ -61,8 +61,10 @@ final class OTPLoginTwoFactor
             'user_id' => $user->ID,
             'reference' => $result->getReference(),
             'phone' => $phone,
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             'remember' => !empty($_POST['rememberme']),
-            'redirect_to' => $this->safeRedirect(isset($_POST['redirect_to']) ? (string) wp_unslash($_POST['redirect_to']) : ''),
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            'redirect_to' => $this->safeRedirect(isset($_POST['redirect_to']) ? sanitize_text_field(wp_unslash($_POST['redirect_to'])) : ''),
             'expires_at' => $now + $expiresIn,
             'resend_after' => $now + $expiresIn + 5,
             'cleanup_at' => $now + $expiresIn + (5 * MINUTE_IN_SECONDS),
@@ -77,6 +79,7 @@ final class OTPLoginTwoFactor
 
     public function enqueueAssets(): void
     {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $action = isset($_REQUEST['action']) ? sanitize_key(wp_unslash($_REQUEST['action'])) : '';
         if ($action !== 'ersaal_otp') {
             return;
@@ -96,6 +99,7 @@ final class OTPLoginTwoFactor
         if (!$this->isToken($token) || !is_array($state)) {
             $error->add('ersaal_otp_expired', __('This verification session is invalid or has expired. Sign in again.', 'ersaal'));
             $this->renderChallenge('', null, $error);
+            return;
         }
 
         $user = get_user_by('id', (int) $state['user_id']);
@@ -103,9 +107,12 @@ final class OTPLoginTwoFactor
             $this->destroyChallenge($token);
             $error->add('ersaal_otp_unavailable', __('Verification is no longer available for this account. Sign in again.', 'ersaal'));
             $this->renderChallenge('', null, $error);
+            return;
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $requestMethod = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : 'GET';
+
+        if ($requestMethod === 'POST') {
             $nonce = isset($_POST['ersaal_otp_login_nonce']) ? sanitize_text_field(wp_unslash($_POST['ersaal_otp_login_nonce'])) : '';
             if (!wp_verify_nonce($nonce, 'ersaal_otp_login_' . $token)) {
                 $error->add('ersaal_otp_nonce', __('The verification form expired. Refresh the page and try again.', 'ersaal'));
@@ -129,6 +136,8 @@ final class OTPLoginTwoFactor
             $error->add('ersaal_otp_expired', __('The verification code expired. Request a new code.', 'ersaal'));
             return;
         }
+        // Nonce is verified in caller handleChallenge()
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         $code = isset($_POST['ersaal_otp_code']) ? sanitize_text_field(wp_unslash($_POST['ersaal_otp_code'])) : '';
         $result = $this->service->verify(
             (string) $state['reference'],
@@ -155,6 +164,7 @@ final class OTPLoginTwoFactor
         $this->destroyChallenge($token);
         wp_set_current_user($user->ID);
         wp_set_auth_cookie($user->ID, $remember, is_ssl());
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
         do_action('wp_login', $user->user_login, $user);
         wp_safe_redirect($redirect);
         exit;
@@ -165,7 +175,8 @@ final class OTPLoginTwoFactor
         $now = time();
         if ((int) ($state['resend_after'] ?? 0) > $now) {
             $wait = (int) $state['resend_after'] - $now;
-            $error->add('ersaal_otp_wait', sprintf(__('Wait %s seconds before requesting a new code.', 'ersaal'), $wait));
+            /* translators: %s: Wait time in seconds */
+            $error->add('ersaal_otp_wait', sprintf(esc_html__('Wait %s seconds before requesting a new code.', 'ersaal'), $wait));
             return;
         }
 
@@ -203,7 +214,10 @@ final class OTPLoginTwoFactor
         ?>
         <div class="ersaal-otp-login-intro">
             <h2><?php esc_html_e('Enter your verification code', 'ersaal'); ?></h2>
-            <p><?php printf(esc_html__('We sent a one-time code to %s.', 'ersaal'), '<span class="ersaal-otp-login-phone">' . esc_html($masked) . '</span>'); ?></p>
+            <p><?php
+                /* translators: %s: Masked phone number */
+                printf(esc_html__('We sent a one-time code to %s.', 'ersaal'), '<span class="ersaal-otp-login-phone">' . esc_html($masked) . '</span>');
+            ?></p>
         </div>
         <form name="ersaal-otp-login-form" id="ersaal-otp-login-form" action="<?php echo esc_url($this->challengeUrl()); ?>" method="post">
             <?php wp_nonce_field('ersaal_otp_login_' . $token, 'ersaal_otp_login_nonce'); ?>
@@ -237,8 +251,10 @@ final class OTPLoginTwoFactor
 
     private function isInteractiveLogin(): bool
     {
-        return isset($_SERVER['REQUEST_METHOD'])
-            && strtoupper((string) $_SERVER['REQUEST_METHOD']) === 'POST'
+        $method = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        return strtoupper($method) === 'POST'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             && isset($_POST['log'], $_POST['pwd'])
             && !(function_exists('wp_doing_ajax') && wp_doing_ajax())
             && !(defined('XMLRPC_REQUEST') && XMLRPC_REQUEST)

@@ -153,7 +153,10 @@ final class OTPUserProfile
                     </div>
 
                     <?php if ($verified && $verifiedAt !== ''): ?>
-                        <p class="ersaal-profile-verified-at" id="ersaal-otp-profile-verified-at"><?php printf(esc_html__('Verified on %s.', 'ersaal'), esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($verifiedAt . ' UTC')))); ?></p>
+                        <p class="ersaal-profile-verified-at" id="ersaal-otp-profile-verified-at"><?php
+                            /* translators: %s: Formatted verification date and time */
+                            printf(esc_html__('Verified on %s.', 'ersaal'), esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($verifiedAt . ' UTC'))));
+                        ?></p>
                     <?php endif; ?>
 
                     <div id="ersaal-otp-profile-feedback" class="ersaal-alert" role="status" aria-live="polite" hidden></div>
@@ -276,7 +279,7 @@ final class OTPUserProfile
         }
 
         $verified = (bool) get_user_meta($userId, self::META_VERIFIED, true);
-        $loginEnabled = isset($_POST['ersaal_otp_login_2fa']) && (string) wp_unslash($_POST['ersaal_otp_login_2fa']) === '1';
+        $loginEnabled = isset($_POST['ersaal_otp_login_2fa']) && sanitize_text_field(wp_unslash($_POST['ersaal_otp_login_2fa'])) === '1';
         update_user_meta($userId, self::META_LOGIN_ENABLED, $loginEnabled && $this->canEnableLoginTwoFactor($userId, $phone, $verified) ? 1 : 0);
     }
 
@@ -297,6 +300,7 @@ final class OTPUserProfile
 
     public function ajaxSend(): void
     {
+        check_ajax_referer('ersaal_otp_profile', 'nonce');
         $userId = $this->authorizeAjax();
         $phone = isset($_POST['phone']) ? sanitize_text_field(wp_unslash($_POST['phone'])) : '';
         $key = $this->transientKey($userId);
@@ -321,6 +325,7 @@ final class OTPUserProfile
             'expires_at' => $now + $expiresIn,
         ], $expiresIn + (5 * MINUTE_IN_SECONDS));
         wp_send_json_success([
+            /* translators: %s: Masked phone number */
             'message' => sprintf(__('A verification code was sent to %s.', 'ersaal'), $this->validator->maskPhone($normalized)),
             'expires_in' => $expiresIn,
         ]);
@@ -328,6 +333,7 @@ final class OTPUserProfile
 
     public function ajaxVerify(): void
     {
+        check_ajax_referer('ersaal_otp_profile', 'nonce');
         $userId = $this->authorizeAjax();
         $key = $this->transientKey($userId);
         $state = get_transient($key);

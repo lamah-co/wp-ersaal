@@ -75,6 +75,15 @@ class MessageJob
             
             $cost = isset($data['data']['cost']) ? (float) $data['data']['cost']
                 : (isset($data['cost']) ? (float) $data['cost'] : null);
+
+            $paymentType = $payload['payment_type'] ?? 'wallet';
+            if ($paymentType === 'wallet') {
+                if ($cost !== null && $cost > 0 && $parts === null) {
+                    $parts = max(1, (int) round($cost / 0.235));
+                } elseif ($cost === null && $parts !== null && $parts > 0) {
+                    $cost = round($parts * 0.235, 3);
+                }
+            }
             
             $this->repository->markAccepted(
                 $idempotencyKey,
@@ -83,6 +92,7 @@ class MessageJob
                 $cost
             );
             
+            /* translators: %s: Message ID */
             $note = $messageId ? sprintf(__('Ersaal SMS accepted. Message ID: %s', 'ersaal'), $messageId) : __('Ersaal SMS accepted.', 'ersaal');
             $this->addOrderNote($idempotencyKey, $note);
             
@@ -107,6 +117,7 @@ class MessageJob
                 $idempotencyKey,
                 'error',
                 $e->getCode() ?: 0,
+                /* translators: %s: Error message */
                 sprintf(__('Unexpected internal error: %s', 'ersaal'), $e->getMessage())
             );
             $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
@@ -175,6 +186,7 @@ class MessageJob
     private function notifyFailure(string $idempotencyKey, int $code, string $message): void
     {
         $note = sprintf(
+            /* translators: %s: Failure reason */
             __('Ersaal SMS failed: %s', 'ersaal'),
             $this->sanitizeError($message)
         );

@@ -842,8 +842,38 @@
   grid-column: auto;
 }
 
-.ersaal-admin .ersaal-filter-actions .ersaal-btn-primary {
-  min-inline-size: 150px;
+.ersaal-admin .ersaal-filter-actions .ersaal-btn-primary,
+.ersaal-admin .ersaal-filter-actions .ersaal-btn-prominent {
+  min-inline-size: auto;
+  padding-inline: var(--ersaal-space-xl);
+  font-weight: var(--ersaal-fw-semibold);
+  letter-spacing: normal;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ersaal-space-xs);
+  transition: all var(--ersaal-transition-normal);
+}
+
+.ersaal-admin .ersaal-filter-actions .ersaal-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(33, 41, 127, 0.22);
+}
+
+.ersaal-admin.ersaal-otp-logs-page .ersaal-filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--ersaal-space-md);
+}
+
+.ersaal-admin.ersaal-otp-logs-page .ersaal-filter-form .ersaal-field {
+  flex: 1 1 200px;
+  max-inline-size: 260px;
+}
+
+.ersaal-admin.ersaal-otp-logs-page .ersaal-filter-actions {
+  margin-inline-start: auto;
 }
 
 .ersaal-admin .ersaal-filter-count {

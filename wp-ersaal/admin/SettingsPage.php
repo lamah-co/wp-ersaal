@@ -17,7 +17,8 @@ class SettingsPage
 
     public function render(): void
     {
-        $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'general';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $active_tab = isset($_GET['tab']) ? sanitize_key(wp_unslash($_GET['tab'])) : 'general';
         $tabs = [
             'general' => __('General Settings', 'ersaal'),
             'advanced' => __('Advanced', 'ersaal'),
@@ -36,7 +37,7 @@ class SettingsPage
                 </div>
                 <div class="ersaal-page-actions">
                     <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" class="ersaal-btn ersaal-btn-secondary">
-                        <?php echo ersaal_admin_icon('help'); ?>
+                        <?php echo ersaal_admin_icon('help'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                         <?php esc_html_e('Need help?', 'ersaal'); ?>
                     </a>
                 </div>

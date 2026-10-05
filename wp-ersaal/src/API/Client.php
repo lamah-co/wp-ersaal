@@ -58,12 +58,12 @@ class Client
     {
         $baseUrl = rtrim((string) $this->options->get('api_url', 'https://api.ersaal.com'), '/');
         if (empty($baseUrl) || !filter_var($baseUrl, FILTER_VALIDATE_URL)) {
-            throw new ConnectionException(__('Invalid Base URL configured.', 'ersaal'));
+            throw new ConnectionException(esc_html__('Invalid Base URL configured.', 'ersaal'));
         }
 
         $apiKey = trim((string) $this->options->get('api_key', ''));
         if (empty($apiKey)) {
-            throw new AuthenticationException(__('API Key is missing.', 'ersaal'));
+            throw new AuthenticationException(esc_html__('API Key is missing.', 'ersaal'));
         }
 
         // Clean token if user prefixed with Bearer
@@ -94,9 +94,9 @@ class Client
         if (is_wp_error($response)) {
             $errMsg = $response->get_error_message();
             if (str_contains($errMsg, 'timed out') || str_contains($errMsg, 'Could not resolve host') || str_contains($errMsg, 'Connection refused')) {
-                $errMsg = __('Could not connect to Ersaal. Check the API URL and service status.', 'ersaal');
+                $errMsg = esc_html__('Could not connect to Ersaal. Check the API URL and service status.', 'ersaal');
             }
-            throw new ConnectionException($this->sanitizeErrorMessage($errMsg));
+            throw new ConnectionException(esc_html($this->sanitizeErrorMessage($errMsg)));
         }
 
         $statusCode = (int) wp_remote_retrieve_response_code($response);
@@ -126,9 +126,9 @@ class Client
         // Handle raw HTML error pages or sensitive stack traces / logs
         if (empty($message) || str_contains($rawBody, '<html') || str_contains($rawBody, 'Permission denied') || str_contains($rawBody, 'Stack trace')) {
             if ($statusCode >= 500) {
-                $message = __('Ersaal server returned an internal error. Check the Ersaal service logs.', 'ersaal');
+                $message = esc_html__('Ersaal server returned an internal error. Check the Ersaal service logs.', 'ersaal');
             } else {
-                $message = __('Unexpected API response received.', 'ersaal');
+                $message = esc_html__('Unexpected API response received.', 'ersaal');
             }
         }
 
@@ -136,39 +136,41 @@ class Client
 
         if ($statusCode === 401) {
             if (empty($body['message']) || $body['message'] === 'Unauthenticated.') {
-                $message = __('Authentication failed. Check the API Key.', 'ersaal');
+                $message = esc_html__('Authentication failed. Check the API Key.', 'ersaal');
             }
-            throw new AuthenticationException($message, $statusCode);
+            throw new AuthenticationException(esc_html($message), absint($statusCode));
         }
 
         if ($statusCode === 403) {
             if (stripos($rawBody, 'ip') !== false || stripos($rawBody, 'whitelist') !== false || stripos($rawBody, 'not allowed') !== false) {
-                $message = __('This server IP is not allowed by the Ersaal project.', 'ersaal');
+                $message = esc_html__('This server IP is not allowed by the Ersaal project.', 'ersaal');
             } elseif (stripos($rawBody, 'inactive') !== false) {
-                $message = __('The Ersaal project is inactive.', 'ersaal');
+                $message = esc_html__('The Ersaal project is inactive.', 'ersaal');
             } else {
-                $message = __('Authentication failed or access forbidden.', 'ersaal');
+                $message = esc_html__('Authentication failed or access forbidden.', 'ersaal');
             }
-            throw new AuthenticationException($message, $statusCode);
+            throw new AuthenticationException(esc_html($message), absint($statusCode));
         }
 
         if ($statusCode === 429) {
             $retryAfter = $this->parseRetryAfter(wp_remote_retrieve_header($response, 'retry-after'));
-            throw new RateLimitException($message, $statusCode, null, $retryAfter);
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new RateLimitException(esc_html($message), absint($statusCode), null, $retryAfter);
         }
 
         if ($statusCode === 400 || $statusCode === 422) {
             if (stripos($message, 'balance') !== false) {
-                throw new BalanceException($message, $statusCode);
+                throw new BalanceException(esc_html($message), absint($statusCode));
             }
-            throw new ValidationException($message, $statusCode, null, $body['errors'] ?? []);
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new ValidationException(esc_html($message), absint($statusCode), null, is_array($body['errors'] ?? null) ? $body['errors'] : []);
         }
 
         if ($statusCode >= 500) {
-            throw new ServerException($message, $statusCode);
+            throw new ServerException(esc_html($message), absint($statusCode));
         }
 
-        throw new ApiException($message, $statusCode);
+        throw new ApiException(esc_html($message), absint($statusCode));
     }
 
     private function sanitizeErrorMessage(string $message): string

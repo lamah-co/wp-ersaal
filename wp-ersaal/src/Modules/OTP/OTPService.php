@@ -188,9 +188,10 @@ final class OTPService
                 'error_message' => $errorMessage,
             ]);
         } catch (\Throwable $e) {
-            // OTP success/failure remains authoritative even if local activity
-            // logging is unavailable. Never include request secrets here.
-            error_log('Ersaal OTP activity log unavailable.');
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                error_log('Ersaal OTP activity log unavailable.');
+            }
         }
     }
 

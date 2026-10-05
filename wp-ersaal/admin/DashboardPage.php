@@ -24,7 +24,7 @@ class DashboardPage
     public function render(): void
     {
         if (!current_user_can('manage_options')) {
-            wp_die(__('Unauthorized', 'ersaal'));
+            wp_die(esc_html__('Unauthorized', 'ersaal'));
         }
 
         $stats = $this->repo->getDashboardStats();

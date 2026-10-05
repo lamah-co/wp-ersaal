@@ -13,11 +13,11 @@ class OrderEventHandler
     private MessageService $messageService;
     private LogRepository $logRepo;
 
-    public function __construct(Options $options, MessageService $messageService)
+    public function __construct(Options $options, MessageService $messageService, ?LogRepository $logRepo = null)
     {
         $this->options = $options;
         $this->messageService = $messageService;
-        $this->logRepo = new LogRepository();
+        $this->logRepo = $logRepo ?? new LogRepository();
     }
 
     public function register(): void
@@ -94,7 +94,10 @@ class OrderEventHandler
                 'source_event' => 'admin_' . $event,
             ]);
         } catch (\Throwable $e) {
-            error_log('Ersaal SMS Admin Notification Failed: ' . $e->getMessage());
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                error_log('Ersaal SMS Admin Notification Failed: ' . $e->getMessage());
+            }
         }
     }
 
@@ -171,7 +174,10 @@ class OrderEventHandler
                 'source_event' => $event,
             ]);
         } catch (\Throwable $e) {
-            error_log('Ersaal SMS Customer Notification Failed: ' . $e->getMessage());
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                error_log('Ersaal SMS Customer Notification Failed: ' . $e->getMessage());
+            }
         }
     }
 

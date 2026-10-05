@@ -73,6 +73,7 @@ class LogsModule implements ModuleInterface
         );
 
         wp_localize_script('ersaal-logs', 'ersaalLogs', [
+            'currency_symbol' => 'د.ل',
             'i18n' => [
                 'copied' => __('Copied', 'ersaal'),
                 'copy_id' => __('Copy message ID', 'ersaal'),

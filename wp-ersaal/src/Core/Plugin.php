@@ -57,6 +57,7 @@ class Plugin
 
     public function loadTextdomain(): void
     {
+        // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
         load_plugin_textdomain(
             'ersaal',
             false,
@@ -67,7 +68,9 @@ class Plugin
     public function enqueueGlobalAdminAssets(string $hook): void
     {
         $isErsaalPage = strpos($hook, 'ersaal') !== false;
-        $isWooCommerceSettings = ($hook === 'woocommerce_page_wc-settings' && isset($_GET['tab']) && $_GET['tab'] === 'ersaal');
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $tab = isset($_GET['tab']) ? sanitize_key(wp_unslash($_GET['tab'])) : '';
+        $isWooCommerceSettings = ($hook === 'woocommerce_page_wc-settings' && $tab === 'ersaal');
         
         if ($isErsaalPage || $isWooCommerceSettings) {
             wp_enqueue_style(

@@ -74,6 +74,7 @@ final class OTPAdminController
                 'verify' => __('Verify code', 'ersaal'),
                 'verifying' => __('Verifying...', 'ersaal'),
                 'resend' => __('Send a new code', 'ersaal'),
+                /* translators: %s: Wait time in seconds */
                 'wait' => __('You can request a new code in %s seconds.', 'ersaal'),
                 'unexpected' => __('The OTP request could not be completed.', 'ersaal'),
                 'fields' => [
@@ -108,8 +109,11 @@ final class OTPAdminController
 
     public function renderLogsPage(): void
     {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $status = isset($_GET['status']) ? sanitize_key(wp_unslash($_GET['status'])) : 'all';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $context = isset($_GET['context']) ? sanitize_key(wp_unslash($_GET['context'])) : 'all';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $page = isset($_GET['paged']) ? max(1, absint($_GET['paged'])) : 1;
         $logsData = $this->service->getLogRepository()->getLogs([
             'status' => $status,
@@ -122,6 +126,7 @@ final class OTPAdminController
 
     public function ajaxTestSend(): void
     {
+        check_ajax_referer('ersaal_otp_test', 'nonce');
         $this->authorizeAjax();
         $phone = isset($_POST['phone']) ? sanitize_text_field(wp_unslash($_POST['phone'])) : '';
         $state = get_transient($this->testTransientKey());
@@ -129,6 +134,7 @@ final class OTPAdminController
         if (is_array($state) && !empty($state['expires_at']) && (int) $state['expires_at'] > $now) {
             $retry = max(1, (int) $state['expires_at'] - $now);
             wp_send_json_error([
+                /* translators: %s: Wait time in seconds */
                 'message' => sprintf(__('Use the active code or wait %s seconds before requesting another.', 'ersaal'), $retry),
                 'retry_after' => $retry,
                 'can_verify' => true,
@@ -154,6 +160,7 @@ final class OTPAdminController
 
         $validator = new OTPValidator();
         wp_send_json_success([
+            /* translators: %s: Masked phone number */
             'message' => sprintf(__('A verification code was sent to %s.', 'ersaal'), $validator->maskPhone($validator->normalizePhone($phone))),
             'expires_in' => $expiresIn,
         ]);
@@ -161,6 +168,7 @@ final class OTPAdminController
 
     public function ajaxTestVerify(): void
     {
+        check_ajax_referer('ersaal_otp_test', 'nonce');
         $this->authorizeAjax();
         $state = get_transient($this->testTransientKey());
         if (!is_array($state) || empty($state['reference']) || empty($state['phone'])) {

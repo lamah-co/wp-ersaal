@@ -89,11 +89,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     updateBulkState();
 
+    function formatDetailValue(field, value) {
+        if (value === null || value === undefined || value === '') {
+            return '—';
+        }
+        if (field === 'cost_final') {
+            const num = parseFloat(value);
+            if (!isNaN(num)) {
+                const currency = (typeof ersaalLogs !== 'undefined' && ersaalLogs.currency_symbol) ? ersaalLogs.currency_symbol : 'د.ل';
+                return num.toFixed(3) + ' ' + currency;
+            }
+        }
+        return String(value);
+    }
+
     function addDetail(label, value) {
         const term = document.createElement('dt');
         const description = document.createElement('dd');
         term.textContent = label;
-        description.textContent = value === null || value === undefined || value === '' ? '—' : String(value);
+        description.textContent = value;
         detailList.append(term, description);
     }
 
@@ -104,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         detailList.replaceChildren();
 
         fields.forEach(function(field) {
-            addDetail(ersaalLogs.i18n.fields[field], log[field]);
+            addDetail(ersaalLogs.i18n.fields[field], formatDetailValue(field, log[field]));
         });
 
         currentMessage = log.message_text || log.message_excerpt || '';

@@ -144,9 +144,9 @@ class ManualOrderSmsBox
             wp_send_json_error(['message' => __('Unauthorized', 'ersaal')]);
         }
 
-        $orderId = isset($_POST['order_id']) ? intval($_POST['order_id']) : 0;
-        $message = isset($_POST['message']) ? trim(sanitize_textarea_field($_POST['message'])) : '';
-        $payment = isset($_POST['payment_type']) ? sanitize_text_field($_POST['payment_type']) : 'wallet';
+        $orderId = isset($_POST['order_id']) ? absint(wp_unslash($_POST['order_id'])) : 0;
+        $message = isset($_POST['message']) ? trim(sanitize_textarea_field(wp_unslash($_POST['message']))) : '';
+        $payment = isset($_POST['payment_type']) ? sanitize_text_field(wp_unslash($_POST['payment_type'])) : 'wallet';
 
         if ($message === '') {
             wp_send_json_error(['message' => __('Message text is required.', 'ersaal')]);

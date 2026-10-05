@@ -29,7 +29,7 @@ class PhoneValidator
         }
 
         if (!preg_match('/^09[1-4][0-9]{7}$/', $clean)) {
-            throw new \InvalidArgumentException(__('Invalid phone number. Enter a Libyana or Almadar mobile number starting with 091, 092, 093, or 094.', 'ersaal'));
+            throw new \InvalidArgumentException(esc_html__('Invalid phone number. Enter a Libyana or Almadar mobile number starting with 091, 092, 093, or 094.', 'ersaal'));
         }
 
         return '00218' . substr($clean, 1);
