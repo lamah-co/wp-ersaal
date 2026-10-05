@@ -1,10 +1,15 @@
 <?php
 /**
  * Plugin Name: Ersaal SMS Gateway
+ * Plugin URI: https://ersaal.com/
  * Description: Ersaal SMS Gateway integration for WordPress and WooCommerce.
  * Version: 1.2.0
+ * Requires at least: 6.0
+ * Requires PHP: 8.0
  * Author: Lamah
  * Author URI: https://lamah.co/
+ * License: GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ersaal
  * Domain Path: /languages
  */

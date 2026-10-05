@@ -3,7 +3,7 @@
     "description": "Ersaal SMS Gateway Integration for WordPress and WooCommerce",
     "type": "wordpress-plugin",
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.0"
     },
     "autoload": {
         "psr-4": {
