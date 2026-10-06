@@ -6,16 +6,26 @@ namespace Ersaal\Modules\ManualSend;
 use Ersaal\Contracts\ModuleInterface;
 use Ersaal\Core\Options;
 use Ersaal\Services\MessageService;
+use Ersaal\Storage\LogRepository;
+use Ersaal\API\Client;
 
 class ManualSendModule implements ModuleInterface
 {
     private Options $options;
     private MessageService $messageService;
+    private LogRepository $repository;
+    private Client $client;
 
-    public function __construct(Options $options, MessageService $messageService)
-    {
-        $this->options = $options;
+    public function __construct(
+        Options $options,
+        MessageService $messageService,
+        ?LogRepository $repository = null,
+        ?Client $client = null
+    ) {
+        $this->options        = $options;
         $this->messageService = $messageService;
+        $this->repository     = $repository ?? new LogRepository();
+        $this->client         = $client ?? new Client($options);
     }
 
     public function id(): string
@@ -34,7 +44,7 @@ class ManualSendModule implements ModuleInterface
             add_action('admin_menu', [$this, 'addAdminMenu'], 30);
             add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
             
-            $handler = new ManualSendHandler($this->messageService);
+            $handler = new ManualSendHandler($this->messageService, $this->repository, $this->client);
             add_action('wp_ajax_ersaal_manual_send', [$handler, 'handleRequest']);
         }
     }

@@ -47,9 +47,10 @@ class Plugin
         $this->otpService = $otpModule->getService();
         $this->registry->registerModule($otpModule);
         
-        $this->registry->registerModule(new \Ersaal\Modules\ManualSend\ManualSendModule($this->options, $messageService));
+        $client = new \Ersaal\API\Client($this->options);
+        $this->registry->registerModule(new \Ersaal\Modules\ManualSend\ManualSendModule($this->options, $messageService, $logRepository, $client));
         
-        $this->registry->registerModule(new \Ersaal\Modules\WooCommerce\WooCommerceModule($this->options, $messageService));
+        $this->registry->registerModule(new \Ersaal\Modules\WooCommerce\WooCommerceModule($this->options, $messageService, $logRepository));
         $this->registry->registerModule(new \Ersaal\Modules\Help\HelpModule($this->options));
         
         $this->registry->boot();

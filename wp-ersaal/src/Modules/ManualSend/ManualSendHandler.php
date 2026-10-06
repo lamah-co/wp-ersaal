@@ -12,10 +12,14 @@ use Ersaal\Core\Options;
 class ManualSendHandler
 {
     private MessageService $messageService;
+    private LogRepository $repository;
+    private Client $client;
 
-    public function __construct(MessageService $messageService)
+    public function __construct(MessageService $messageService, LogRepository $repository, Client $client)
     {
         $this->messageService = $messageService;
+        $this->repository     = $repository;
+        $this->client         = $client;
     }
 
     /**
@@ -115,9 +119,7 @@ class ManualSendHandler
             }
 
             // 2. Execute Job synchronously — pass only API fields + source
-            $repository = new LogRepository();
-            $client     = new Client(new Options());
-            $job        = new MessageJob($repository, $client);
+            $job = new MessageJob($this->repository, $this->client);
 
             $jobPayload = array_merge($apiPayload, [
                 'source' => 'manual',
@@ -126,7 +128,7 @@ class ManualSendHandler
             $job->handle($idempotencyKey, $jobPayload);
 
             // 3. Read final log status from DB
-            $log = $repository->getLogByKey($idempotencyKey);
+            $log = $this->repository->getLogByKey($idempotencyKey);
 
             if (!$log) {
                 return [

@@ -6,19 +6,22 @@ namespace Ersaal\Modules\WooCommerce;
 use Ersaal\Contracts\ModuleInterface;
 use Ersaal\Core\Options;
 use Ersaal\Services\MessageService;
+use Ersaal\Storage\LogRepository;
 
 class WooCommerceModule implements ModuleInterface
 {
     private Options $options;
     private MessageService $messageService;
+    private LogRepository $logRepo;
     private WooCommerceSettings $settings;
     private OrderEventHandler $eventHandler;
     private ManualOrderSmsBox $manualBox;
 
-    public function __construct(Options $options, MessageService $messageService)
+    public function __construct(Options $options, MessageService $messageService, LogRepository $logRepo)
     {
         $this->options = $options;
         $this->messageService = $messageService;
+        $this->logRepo = $logRepo;
     }
 
     public function id(): string
@@ -40,7 +43,7 @@ class WooCommerceModule implements ModuleInterface
         $this->settings = new WooCommerceSettings();
         $this->settings->register();
         
-        $this->eventHandler = new OrderEventHandler($this->options, $this->messageService);
+        $this->eventHandler = new OrderEventHandler($this->options, $this->messageService, $this->logRepo);
         $this->eventHandler->register();
         
         $this->manualBox = new ManualOrderSmsBox($this->options, $this->messageService);

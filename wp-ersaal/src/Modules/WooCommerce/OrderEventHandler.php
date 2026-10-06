@@ -13,11 +13,11 @@ class OrderEventHandler
     private MessageService $messageService;
     private LogRepository $logRepo;
 
-    public function __construct(Options $options, MessageService $messageService, ?LogRepository $logRepo = null)
+    public function __construct(Options $options, MessageService $messageService, LogRepository $logRepo)
     {
         $this->options = $options;
         $this->messageService = $messageService;
-        $this->logRepo = $logRepo ?? new LogRepository();
+        $this->logRepo = $logRepo;
     }
 
     public function register(): void
