@@ -79,8 +79,8 @@ $isCustom         = ($retentionDays > 0 && !in_array($retentionDays, $commonPres
                             <?php if ($retentionDays > 0): ?>
                                 <?php
                                 if ($nextCleanup) {
-                                    /* translators: %s: human-readable time until next cleanup */
                                     printf(
+                                        /* translators: %s: human-readable time until next cleanup */
                                         esc_html__('Cleanup runs daily via WP-Cron. Next run in %s.', 'ersaal'),
                                         esc_html(human_time_diff((int) $nextCleanup))
                                     );
