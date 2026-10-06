@@ -1,0 +1,12 @@
+# Git archive export ignore rules for clean release distribution
+.gitattributes export-ignore
+.gitignore export-ignore
+.editorconfig export-ignore
+AGENTS.md export-ignore
+composer.json export-ignore
+composer.lock export-ignore
+tests/ export-ignore
+docs/ export-ignore
+bin/ export-ignore
+phpunit.xml export-ignore
+phpunit.xml.dist export-ignore
