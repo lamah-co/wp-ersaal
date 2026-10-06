@@ -260,8 +260,17 @@ $notices = get_settings_errors('ersaal_logs');
                                             <?php
                                              /* translators: 1: Message parts count, 2: Send attempts count */
                                             $deliveryMeta = sprintf(esc_html__('Parts %1$s · Attempts %2$s', 'ersaal'), esc_html((string) ($log->parts_final ?? '—')), esc_html((string) $log->attempts));
-                                            if (!empty($log->cost_final) && (float) $log->cost_final > 0) {
-                                                $deliveryMeta .= ' · ' . esc_html(number_format((float) $log->cost_final, 3) . ' د.ل');
+                                            $logPaymentType = (string) ($log->payment_type ?? 'wallet');
+                                            $logCost        = isset($log->cost_final) ? (float) $log->cost_final : 0.0;
+                                            if ($logCost > 0) {
+                                                if ($logPaymentType === 'subscription') {
+                                                    // Subscription billing: cost is measured in quota parts, not LYD.
+                                                    /* translators: %s: number of subscription parts consumed */
+                                                    $deliveryMeta .= ' · ' . esc_html(sprintf(__('%s part(s)', 'ersaal'), number_format($logCost, 0)));
+                                                } else {
+                                                    // Wallet billing: cost is in Libyan Dinar (LYD).
+                                                    $deliveryMeta .= ' · ' . esc_html(number_format($logCost, 3) . ' د.ل');
+                                                }
                                             }
                                             ?>
                                             <span class="ersaal-table-meta"><?php echo esc_html($deliveryMeta); ?></span>

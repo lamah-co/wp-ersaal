@@ -457,4 +457,29 @@ class LogRepository
         $results = $wpdb->get_col("SELECT DISTINCT source FROM {$table} WHERE source != '' AND source IS NOT NULL ORDER BY source ASC");
         return $results ?: [];
     }
+
+    /**
+     * Delete log rows older than the given number of days.
+     *
+     * @param int $days Minimum age in days. Must be ≥ 1.
+     * @return int Number of rows deleted.
+     */
+    public function deleteOlderThan(int $days): int
+    {
+        if ($days < 1) {
+            return 0;
+        }
+
+        global $wpdb;
+        $table     = $this->getTableName();
+        $threshold = gmdate('Y-m-d H:i:s', strtotime("-{$days} days", (int) current_time('timestamp', true)));
+
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+        $deleted = $wpdb->query(
+            $wpdb->prepare("DELETE FROM {$table} WHERE created_at < %s", $threshold)
+        );
+        // phpcs:enable
+
+        return $deleted !== false ? (int) $deleted : 0;
+    }
 }

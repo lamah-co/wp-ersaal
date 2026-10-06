@@ -54,6 +54,28 @@ class Plugin
         $this->registry->registerModule(new \Ersaal\Modules\Help\HelpModule($this->options));
         
         $this->registry->boot();
+
+        // ── Log Retention Cron (#17) ─────────────────────────────────────────
+        // Schedule the daily cleanup event once; the callback reads the option
+        // at runtime so changes in settings take effect the next day.
+        if (!wp_next_scheduled('ersaal_daily_log_cleanup')) {
+            wp_schedule_event(time(), 'daily', 'ersaal_daily_log_cleanup');
+        }
+        add_action('ersaal_daily_log_cleanup', [$this, 'runLogCleanup']);
+    }
+
+    /**
+     * WP-Cron callback: delete log rows older than the configured retention period.
+     * Skips silently when retention is disabled (0) or the option is not set.
+     */
+    public function runLogCleanup(): void
+    {
+        $days = (int) get_option('ersaal_log_retention_days', 0);
+        if ($days < 1) {
+            return;
+        }
+        $repo = new \Ersaal\Storage\LogRepository();
+        $repo->deleteOlderThan($days);
     }
 
     public function loadTextdomain(): void

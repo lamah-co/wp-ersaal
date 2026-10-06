@@ -81,6 +81,16 @@ class SettingsModule implements ModuleInterface
             'sanitize_callback' => 'rest_sanitize_boolean',
             'default' => false
         ]);
+
+        register_setting('ersaal_advanced_settings', 'ersaal_log_retention_days', [
+            'type'              => 'integer',
+            'sanitize_callback' => static function ($value): int {
+                $int = (int) $value;
+                // 0 = disabled; otherwise clamp to 1–3650 (10 years max)
+                return ($int === 0) ? 0 : max(1, min(3650, $int));
+            },
+            'default' => 0,
+        ]);
     }
 
     public function ajaxTestApi(): void
