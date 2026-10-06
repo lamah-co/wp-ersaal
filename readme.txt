@@ -4,7 +4,7 @@ Tags: sms, woocommerce, ersaal, otp, notifications
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,15 @@ No. OTP features and Login Two-Factor Authentication (2FA) are opt-in and disabl
 4. Detailed SMS activity logs and filters.
 
 == Changelog ==
+
+= 1.3.0 =
+* Added automatic log retention and scheduled daily cleanup via WP-Cron with customizable retention window (#17).
+* Flattened repository structure to support direct WordPress installation and clean git workflows (#13).
+* Refactored dependency injection for LogRepository and Client across WooCommerce and Manual Send modules (#14, #15).
+* Corrected message cost calculation, display, and currency handling for wallet (LYD) and subscription parts (#10).
+* Hardened OTP Login Two-Factor Authentication flow against invalid challenge execution escape (#16).
+* Enhanced Advanced Settings UI with native design tokens and comprehensive Arabic/English translations.
+
 
 = 1.2.0 =
 * Full WordPress.org plugin directory compliance.

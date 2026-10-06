@@ -3,12 +3,14 @@ set -euo pipefail
 
 # Ersaal SMS Gateway - WordPress.org Release Packaging Script
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DIST_DIR="${PLUGIN_DIR}/../../../../dist-release"
+DIST_DIR="${PLUGIN_DIR}/dist"
 SLUG="ersaal"
+VERSION="1.3.0"
 TARGET_DIR="${DIST_DIR}/${SLUG}"
 ZIP_FILE="${DIST_DIR}/${SLUG}.zip"
+VERSIONED_ZIP="${DIST_DIR}/${SLUG}-v${VERSION}.zip"
 
-echo "==> Preparing clean release build for WordPress.org: ${SLUG}"
+echo "==> Preparing clean release build for WordPress: ${SLUG} v${VERSION}"
 rm -rf "${DIST_DIR}"
 mkdir -p "${TARGET_DIR}"
 
@@ -29,6 +31,12 @@ rsync -av \
 # Create clean production zip
 cd "${DIST_DIR}"
 zip -q -r "${ZIP_FILE}" "${SLUG}"
-echo "==> Build complete: ${ZIP_FILE}"
-echo "==> Contents:"
+cp "${ZIP_FILE}" "${VERSIONED_ZIP}"
+
+echo "==> Build complete:"
+echo "    - ${ZIP_FILE}"
+echo "    - ${VERSIONED_ZIP}"
+echo ""
+echo "==> Zip file contents (top 20 entries):"
 unzip -l "${ZIP_FILE}" | head -25
+

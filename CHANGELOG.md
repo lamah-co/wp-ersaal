@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2026-10-06
+
+### Added
+- Automated log retention and scheduled cleanup via WP-Cron (`ersaal_daily_log_cleanup`) with configurable retention periods (#17).
+- Native preset dropdowns and custom days retention settings in Advanced Settings with full Arabic and English localization.
+- Direct repository root structure for instant WordPress installation via `git clone` (#13).
+
+### Changed
+- Refactored dependency injection in `OrderEventHandler` and `ManualSendHandler` to inject `LogRepository` and `Client` (#14, #15).
+- Rebuilt cost and billing display in logs and manual send UI to distinguish between wallet (LYD) and subscription quota parts (#10).
+- Standardized UI styling across Advanced Settings using unified design tokens (`ersaal-form-stack`, `ersaal-form-row`, `ersaal-select`, `ersaal-alert`).
+
+### Security & Hardening
+- Defensive hardening in OTP Login 2FA against execution flow escape on invalid challenge states (#16).
+- Resolved WordPress.WP.I18n translator comment compliance in Plugin Check.
+
+## [1.2.0] - 2026-08-10
+
+### Changed
+- Full WordPress.org plugin directory compliance and security hardening.
+- Sanitized database queries with prepared statements.
+- Added official GPLv2 licensing and clean distribution packaging.
+
 ## [1.1.0] - 2026-08-10
 
 ### Added
