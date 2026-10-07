@@ -1,10 +1,17 @@
 # Ersaal SMS Gateway
 
-**Requires at least:** 6.0
-**Tested up to:** 6.7
-**Requires PHP:** 8.0
-**Stable tag:** 1.2.0
-**License:** GPLv2 or later
+[![License: GPL v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![WordPress](https://img.shields.io/badge/WordPress-%3E%3D%206.0-blue.svg)](https://wordpress.org/)
+[![PHP](https://img.shields.io/badge/PHP-%3E%3D%208.0-purple.svg)](https://www.php.net/)
+[![Release](https://img.shields.io/badge/Release-v1.3.0-green.svg)](https://github.com/lamah-co/wp-ersaal/releases)
+
+**Requires at least:** 6.0  
+**Tested up to:** 7.1  
+**Requires PHP:** 8.0  
+**Stable tag:** 1.3.0  
+**License:** GPLv2 or later  
+**Service Website:** [https://getersaal.com/](https://getersaal.com/)  
+**Developer:** [Lamah](https://lamah.com/)  
 
 Ersaal SMS Gateway integration for WordPress and WooCommerce.
 
@@ -24,14 +31,14 @@ Ersaal SMS Gateway plugin allows you to send SMS messages directly from your Wor
 
 ## Requirements
 
-* WordPress 5.8 or higher.
-* PHP 7.4 or higher.
-* An active Ersaal Gateway account.
+* WordPress 6.0 or higher.
+* PHP 8.0 or higher.
+* An active [Ersaal](https://getersaal.com/) Gateway account.
 * WooCommerce (Optional, for automatic order notifications).
 
 ## Installation
 
-1. Upload the `wp-ersaal` folder to the `/wp-content/plugins/` directory.
+1. Upload the `ersaal` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Navigate to **Ersaal Settings** to configure your API URL and Token.
 

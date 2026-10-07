@@ -24,6 +24,14 @@ Ersaal SMS Gateway allows WordPress administrators to send SMS messages directly
 * **Comprehensive Logs & Privacy:** Detailed local logging with sensitive number masking, carrier telemetry, and CSV export.
 * **Fully Localized:** Complete Arabic and English native interfaces with full RTL and LTR support.
 
+== Third-Party Services ==
+
+This plugin connects to the external Ersaal SMS Gateway API to send SMS notifications, estimate message parts, and verify mobile phone numbers via One-Time Passwords (OTP).
+
+* **Service Provider:** Ersaal SMS Gateway
+* **Website:** [https://getersaal.com/](https://getersaal.com/)
+* **Data Transmitted:** Recipient mobile phone numbers, sender IDs, and notification message contents. No user passwords or WordPress administrative credentials are transmitted to the service.
+
 == Installation ==
 
 1. Upload the `ersaal` folder to the `/wp-content/plugins/` directory, or install directly through the WordPress Plugins screen.
@@ -34,7 +42,7 @@ Ersaal SMS Gateway allows WordPress administrators to send SMS messages directly
 == Frequently Asked Questions ==
 
 = Do I need an Ersaal account? =
-Yes. You need an active account and API Bearer Token from [Ersaal](https://ersaal.com/).
+Yes. You need an active account and API Bearer Token from [Ersaal](https://getersaal.com/).
 
 = Which Libyan telecom networks are supported? =
 The plugin natively validates and normalizes Libyan mobile numbers for Almadar Aljaded (091, 093) and Libyana Mobile Phone (092, 094).

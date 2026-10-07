@@ -1,7 +1,21 @@
-woocommerce/
-index.php
-git/
-mis-booking-system/
-ct-registrations-disabled/
-dist/
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
+# IDE & Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build artifacts & logs
+*.log
+dist/
+dist-release/
+*.zip

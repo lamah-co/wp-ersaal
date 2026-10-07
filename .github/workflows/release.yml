@@ -1,0 +1,32 @@
+name: Build Release Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Build & Attach Release ZIP
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Release ZIP
+        run: |
+          mkdir -p build/ersaal
+          # Use git archive to respect .gitattributes export-ignore rules
+          git archive HEAD | tar -x -C build/ersaal
+          cd build
+          zip -r ersaal.zip ersaal
+          echo "Package built successfully: build/ersaal.zip"
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: build/ersaal.zip

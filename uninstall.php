@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Clear any scheduled WP-Cron hooks.
+wp_clear_scheduled_hook('ersaal_daily_log_cleanup');
+
 // Clean up database if the user has opted in
 $ersaal_clean_on_uninstall = (bool) get_option('ersaal_clean_on_uninstall', false);
 
