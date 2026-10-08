@@ -4,13 +4,17 @@ set -euo pipefail
 # Ersaal SMS Gateway - WordPress.org Release Packaging Script
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST_DIR="${PLUGIN_DIR}/dist"
-SLUG="ersaal"
-VERSION="1.3.0"
-TARGET_DIR="${DIST_DIR}/${SLUG}"
-ZIP_FILE="${DIST_DIR}/${SLUG}.zip"
-VERSIONED_ZIP="${DIST_DIR}/${SLUG}-v${VERSION}.zip"
+PACKAGE_DIR="wp-ersaal"
+VERSION="$(sed -n 's/^ \* Version: //p' "${PLUGIN_DIR}/ersaal.php" | head -n 1)"
+if [[ -z "${VERSION}" ]]; then
+    echo "Unable to read the plugin version from ersaal.php" >&2
+    exit 1
+fi
+TARGET_DIR="${DIST_DIR}/${PACKAGE_DIR}"
+ZIP_FILE="${DIST_DIR}/${PACKAGE_DIR}.zip"
+VERSIONED_ZIP="${DIST_DIR}/${PACKAGE_DIR}-v${VERSION}.zip"
 
-echo "==> Preparing clean release build for WordPress: ${SLUG} v${VERSION}"
+echo "==> Preparing clean release build for WordPress: ${PACKAGE_DIR} v${VERSION}"
 rm -rf "${DIST_DIR}"
 mkdir -p "${TARGET_DIR}"
 
@@ -22,6 +26,7 @@ rsync -av \
     --exclude="bin/" \
     --exclude="dist/" \
     --exclude="AGENTS.md" \
+    --exclude="composer.json" \
     --exclude="composer.lock" \
     --exclude="phpunit.xml*" \
     --exclude="run_dbdelta.php" \
@@ -30,7 +35,7 @@ rsync -av \
 
 # Create clean production zip
 cd "${DIST_DIR}"
-zip -q -r "${ZIP_FILE}" "${SLUG}"
+zip -q -r "${ZIP_FILE}" "${PACKAGE_DIR}"
 cp "${ZIP_FILE}" "${VERSIONED_ZIP}"
 
 echo "==> Build complete:"
@@ -38,5 +43,4 @@ echo "    - ${ZIP_FILE}"
 echo "    - ${VERSIONED_ZIP}"
 echo ""
 echo "==> Zip file contents (top 20 entries):"
-unzip -l "${ZIP_FILE}" | head -25
-
+unzip -l "${ZIP_FILE}" | sed -n '1,25p'
