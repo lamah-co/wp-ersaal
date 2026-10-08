@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
@@ -139,7 +140,7 @@ $badgeType = static function (string $value): string {
                             <td><?php echo esc_html($logDetails['action']); ?></td>
                             <td><?php echo esc_html($logDetails['context']); ?></td>
                             <td><span class="ersaal-code ersaal-ltr ersaal-log-phone"><?php echo esc_html($log->phone_masked); ?></span></td>
-                            <td><span class="ersaal-code ersaal-ltr"><?php echo esc_html($log->reference ? mb_substr((string) $log->reference, 0, 12) . '…' : '—'); ?></span></td>
+                            <td><span class="ersaal-code ersaal-ltr"><?php echo esc_html($log->reference ? \Ersaal\Support\Utf8::substr((string) $log->reference, 0, 12) . '…' : '—'); ?></span></td>
                             <td><time class="ersaal-table-meta ersaal-ltr ersaal-log-created" datetime="<?php echo esc_attr($log->created_at); ?>"><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime((string) $log->created_at . ' UTC'))); ?></time></td>
                             <td>
                                 <div class="ersaal-inline-actions ersaal-log-actions">

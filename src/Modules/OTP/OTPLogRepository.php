@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Ersaal\Modules\OTP;
 
+use Ersaal\Support\Utf8;
+
 final class OTPLogRepository
 {
     public function getTableName(): string
@@ -27,7 +29,7 @@ final class OTPLogRepository
             'user_id' => !empty($data['user_id']) ? absint($data['user_id']) : null,
             'api_http_code' => !empty($data['api_http_code']) ? absint($data['api_http_code']) : null,
             'error_code' => !empty($data['error_code']) ? sanitize_key((string) $data['error_code']) : null,
-            'error_message' => !empty($data['error_message']) ? mb_substr(sanitize_text_field((string) $data['error_message']), 0, 191) : null,
+            'error_message' => !empty($data['error_message']) ? Utf8::substr(sanitize_text_field((string) $data['error_message']), 0, 191) : null,
             'created_at' => $now,
             'updated_at' => $now,
         ]);

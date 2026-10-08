@@ -11,6 +11,7 @@ use Ersaal\API\Exceptions\RateLimitException;
 use Ersaal\API\Exceptions\ServerException;
 use Ersaal\API\Exceptions\ValidationException;
 use Ersaal\Core\Options;
+use Ersaal\Support\Utf8;
 
 class Client
 {
@@ -57,8 +58,17 @@ class Client
     private function request(string $method, string $endpoint, array $body = [], array $headers = []): Response
     {
         $baseUrl = rtrim((string) $this->options->get('api_url', 'https://api.ersaal.com'), '/');
-        if (empty($baseUrl) || !filter_var($baseUrl, FILTER_VALIDATE_URL)) {
-            throw new ConnectionException(esc_html__('Invalid Base URL configured.', 'ersaal'));
+        $urlParts = wp_parse_url($baseUrl);
+        if (
+            empty($baseUrl)
+            || !filter_var($baseUrl, FILTER_VALIDATE_URL)
+            || !is_array($urlParts)
+            || strtolower((string) ($urlParts['scheme'] ?? '')) !== 'https'
+            || empty($urlParts['host'])
+            || isset($urlParts['user'])
+            || isset($urlParts['pass'])
+        ) {
+            throw new ConnectionException(esc_html__('Invalid Base URL configured. Use an HTTPS URL without embedded credentials.', 'ersaal'));
         }
 
         $apiKey = trim((string) $this->options->get('api_key', ''));
@@ -83,6 +93,8 @@ class Client
             'method'  => $method,
             'headers' => array_merge($defaultHeaders, $headers),
             'timeout' => 10,
+            // Do not forward the bearer token to a redirect target.
+            'redirection' => 0,
         ];
 
         if (!empty($body) && $method !== 'GET') {
@@ -121,7 +133,7 @@ class Client
             return;
         }
 
-        $message = $body['message'] ?? '';
+        $message = isset($body['message']) && is_string($body['message']) ? $body['message'] : '';
 
         // Handle raw HTML error pages or sensitive stack traces / logs
         if (empty($message) || str_contains($rawBody, '<html') || str_contains($rawBody, 'Permission denied') || str_contains($rawBody, 'Stack trace')) {
@@ -176,8 +188,8 @@ class Client
     private function sanitizeErrorMessage(string $message): string
     {
         $clean = sanitize_text_field($message);
-        if (mb_strlen($clean) > 255) {
-            $clean = mb_substr($clean, 0, 252) . '...';
+        if (Utf8::length($clean) > 255) {
+            $clean = Utf8::substr($clean, 0, 252) . '...';
         }
         return $clean;
     }

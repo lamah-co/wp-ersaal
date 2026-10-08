@@ -20,11 +20,14 @@ class MessageService
         $idempotencyKey = $data['idempotency_key'] ?? wp_generate_uuid4();
 
         $data = apply_filters('ersaal_message_payload', $data);
-        $data['receiver'] = (new PhoneValidator())->normalize((string) ($data['receiver'] ?? ''));
+        $phoneValidator = new PhoneValidator();
+        $data['receiver'] = $phoneValidator->normalize((string) ($data['receiver'] ?? ''));
 
         $logData = [
             'idempotency_key' => $idempotencyKey,
-            'phone_hash'      => hash('sha256', $data['receiver']),
+            // Phone numbers have a small search space. A keyed fingerprint
+            // prevents an exported database from being brute-forced offline.
+            'phone_hash'      => $phoneValidator->fingerprint($data['receiver']),
             'phone_masked'    => $this->maskPhone($data['receiver']),
             'sender'          => $data['sender'] ?? '',
             'payment_type'    => $data['payment_type'] ?? 'wallet',

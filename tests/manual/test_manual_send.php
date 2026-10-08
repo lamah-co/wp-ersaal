@@ -5,6 +5,7 @@
  * Tests call ManualSendHandler::process() directly (returns array, no wp_die).
  * Nonce/Capability tests verified via source reflection.
  */
+declare(strict_types=1);
 if (php_sapi_name() === 'cli' && !defined('ABSPATH')) {
     require_once dirname(__DIR__, 5) . '/wp-load.php';
 }
@@ -104,7 +105,7 @@ $logsBefore6 = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}ersaal_
 pad('empty_message_rejected');
 $r = $handler->process(['phone' => '+218911234567', 'message' => '']);
 $logsAfter6 = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}ersaal_logs");
-echo ($r['success'] === false && $r['status_code'] === 422 && mb_strpos($r['data']['message'], 'مطلوب') !== false && $logsAfter6 === $logsBefore6)
+echo ($r['success'] === false && $r['status_code'] === 422 && strpos($r['data']['message'], 'مطلوب') !== false && $logsAfter6 === $logsBefore6)
     ? "PASS\n" : "FAIL (success={$r['success']}, code={$r['status_code']}, logs_created=" . ($logsAfter6 - $logsBefore6) . ")\n";
 
 // ================================================================
@@ -161,7 +162,7 @@ $mock_responses[$current_test] = [
 ];
 pad('authentication_failure');
 $r = $handler->process(['phone' => '+218911234567', 'message' => 'Hello']);
-echo ($r['success'] === false && mb_strpos($r['data']['message'], 'المصادقة') !== false) ? "PASS\n" : "FAIL\n";
+echo ($r['success'] === false && strpos($r['data']['message'], 'المصادقة') !== false) ? "PASS\n" : "FAIL\n";
 
 // ================================================================
 // 12. wallet_zero_balance_message — 422 with "balance", payment=wallet
@@ -177,7 +178,7 @@ $logW = isset($r['data']['log_id']) ? $wpdb->get_row($wpdb->prepare(
     "SELECT status FROM {$wpdb->prefix}ersaal_logs WHERE id = %d", $r['data']['log_id']
 )) : null;
 echo ($r['success'] === false
-    && mb_strpos($r['data']['message'], 'المحفظة') !== false
+    && strpos($r['data']['message'], 'المحفظة') !== false
     && $logW && $logW->status === 'failed')
     ? "PASS\n" : "FAIL (msg={$r['data']['message']}, status=" . ($logW->status ?? '?') . ")\n";
 
@@ -192,8 +193,8 @@ $mock_responses[$current_test] = [
 pad('subscription_error_message');
 $r = $handler->process(['phone' => '+218911234567', 'message' => 'Hello', 'payment_type' => 'subscription']);
 echo ($r['success'] === false
-    && mb_strpos($r['data']['message'], 'اشتراك') !== false
-    && mb_strpos($r['data']['message'], 'المحفظة') === false)
+    && strpos($r['data']['message'], 'اشتراك') !== false
+    && strpos($r['data']['message'], 'المحفظة') === false)
     ? "PASS\n" : "FAIL ({$r['data']['message']})\n";
 
 // ================================================================
@@ -248,7 +249,7 @@ $logRL = isset($r['data']['log_id']) ? $wpdb->get_row($wpdb->prepare(
     "SELECT status, next_retry_at FROM {$wpdb->prefix}ersaal_logs WHERE id = %d", $r['data']['log_id']
 )) : null;
 echo ($r['success'] === false
-    && mb_strpos($r['data']['message'], 'تجاوز') !== false
+    && strpos($r['data']['message'], 'تجاوز') !== false
     && $logRL && $logRL->status === 'error'
     && $logRL->next_retry_at === null)
     ? "PASS\n" : "FAIL\n";
@@ -267,7 +268,7 @@ $logSE = isset($r['data']['log_id']) ? $wpdb->get_row($wpdb->prepare(
     "SELECT status FROM {$wpdb->prefix}ersaal_logs WHERE id = %d", $r['data']['log_id']
 )) : null;
 echo ($r['success'] === false
-    && mb_strpos($r['data']['message'], 'تعذر إكمال الطلب') !== false
+    && strpos($r['data']['message'], 'تعذر إكمال الطلب') !== false
     && $logSE && $logSE->status === 'error')
     ? "PASS\n" : "FAIL\n";
 

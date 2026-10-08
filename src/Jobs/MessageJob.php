@@ -8,6 +8,7 @@ use Ersaal\API\Client;
 use Ersaal\API\Exceptions\RateLimitException;
 use Ersaal\API\Exceptions\ServerException;
 use Ersaal\API\Exceptions\ConnectionException;
+use Ersaal\Support\Utf8;
 
 class MessageJob
 {
@@ -162,8 +163,8 @@ class MessageJob
     private function sanitizeError(string $message): string
     {
         $clean = sanitize_text_field($message);
-        if (mb_strlen($clean) > 255) {
-            $clean = mb_substr($clean, 0, 252) . '...';
+        if (Utf8::length($clean) > 255) {
+            $clean = Utf8::substr($clean, 0, 252) . '...';
         }
         return $clean;
     }

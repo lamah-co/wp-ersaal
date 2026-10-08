@@ -190,7 +190,7 @@ class OrderEventHandler
         
         $logData = [
             'idempotency_key' => $idempotencyKey,
-            'phone_hash'      => hash('sha256', $originalPhone),
+            'phone_hash'      => (new \Ersaal\Services\PhoneValidator())->fingerprint($originalPhone),
             'phone_masked'    => 'invalid',
             'sender'          => get_option('ersaal_wc_sender_id', 'Lamah'),
             'payment_type'    => get_option('ersaal_wc_payment_type', 'wallet'),

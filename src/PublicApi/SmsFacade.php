@@ -7,6 +7,7 @@ use Ersaal\Core\Options;
 use Ersaal\Services\MessageService;
 use Ersaal\Services\PhoneValidator;
 use Ersaal\Storage\LogRepository;
+use Ersaal\Support\Utf8;
 
 final class SmsFacade
 {
@@ -31,8 +32,15 @@ final class SmsFacade
     {
         $apiUrl = trim((string) $this->options->get('api_url', 'https://api.ersaal.com/'));
         $apiKey = trim((string) $this->options->get('api_key', ''));
+        $urlParts = wp_parse_url($apiUrl);
 
-        return $apiKey !== '' && filter_var($apiUrl, FILTER_VALIDATE_URL) !== false;
+        return $apiKey !== ''
+            && filter_var($apiUrl, FILTER_VALIDATE_URL) !== false
+            && is_array($urlParts)
+            && strtolower((string) ($urlParts['scheme'] ?? '')) === 'https'
+            && !empty($urlParts['host'])
+            && !isset($urlParts['user'])
+            && !isset($urlParts['pass']);
     }
 
     public function send(array $request): SmsResult
@@ -127,7 +135,7 @@ final class SmsFacade
             ? sanitize_text_field((string) $request['idempotency_key'])
             : wp_generate_uuid4();
 
-        if ($key === '' || mb_strlen($key) > 100) {
+        if ($key === '' || Utf8::length($key) > 100) {
             return '';
         }
 
@@ -136,13 +144,13 @@ final class SmsFacade
 
     private function sanitizeMetadata(array $request): array
     {
-        $source = mb_substr(sanitize_key((string) ($request['source'] ?? 'api')), 0, 30);
-        $recipientType = mb_substr(sanitize_key((string) ($request['recipient_type'] ?? 'customer')), 0, 30);
+        $source = Utf8::substr(sanitize_key((string) ($request['source'] ?? 'api')), 0, 30);
+        $recipientType = Utf8::substr(sanitize_key((string) ($request['recipient_type'] ?? 'customer')), 0, 30);
 
         return [
             'source' => $source !== '' ? $source : 'api',
-            'source_id' => mb_substr(sanitize_text_field((string) ($request['source_id'] ?? '')), 0, 50),
-            'source_event' => mb_substr(sanitize_key((string) ($request['source_event'] ?? '')), 0, 50),
+            'source_id' => Utf8::substr(sanitize_text_field((string) ($request['source_id'] ?? '')), 0, 50),
+            'source_event' => Utf8::substr(sanitize_key((string) ($request['source_event'] ?? '')), 0, 50),
             'recipient_type' => $recipientType !== '' ? $recipientType : 'customer',
         ];
     }
@@ -165,7 +173,7 @@ final class SmsFacade
         $paymentType = sanitize_key((string) ($defaults['payment_type'] ?? 'wallet'));
 
         return [
-            'sender' => $sender !== '' ? mb_substr($sender, 0, 50) : 'Lamah',
+            'sender' => $sender !== '' ? Utf8::substr($sender, 0, 50) : 'Lamah',
             'payment_type' => in_array($paymentType, ['wallet', 'subscription'], true)
                 ? $paymentType
                 : 'wallet',
@@ -208,6 +216,6 @@ final class SmsFacade
     private function sanitizeError(string $message): string
     {
         $message = sanitize_text_field($message);
-        return mb_strlen($message) > 255 ? mb_substr($message, 0, 252) . '...' : $message;
+        return Utf8::length($message) > 255 ? Utf8::substr($message, 0, 252) . '...' : $message;
     }
 }
