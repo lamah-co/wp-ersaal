@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Ersaal\Storage;
 
-use Ersaal\Support\Utf8;
-
 class LogRepository
 {
     public function getTableName(): string
@@ -43,7 +41,7 @@ class LogRepository
             'source_id'       => (string) $data['source_id'],
             'source_event'    => $data['source_event'],
             'recipient_type'  => $data['recipient_type'],
-            'message_excerpt' => Utf8::substr((string) ($data['message'] ?? ''), 0, 150),
+            'message_excerpt' => mb_substr((string) ($data['message'] ?? ''), 0, 150, 'UTF-8'),
             'message_text'    => $data['message'] ?? '',
             'status'          => 'processing',
             'locked_at'       => $now,
@@ -191,7 +189,7 @@ class LogRepository
             $update_data['api_http_code'] = $api_code;
         }
         if ($error_msg !== null) {
-            $update_data['api_error'] = Utf8::substr((string) $error_msg, 0, 255);
+            $update_data['api_error'] = mb_substr((string) $error_msg, 0, 255, 'UTF-8');
         }
         
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -214,7 +212,7 @@ class LogRepository
             $update_data['api_http_code'] = $api_code;
         }
         if ($error_msg !== null) {
-            $update_data['api_error'] = Utf8::substr((string) $error_msg, 0, 255);
+            $update_data['api_error'] = mb_substr((string) $error_msg, 0, 255, 'UTF-8');
         }
         
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

@@ -6,7 +6,6 @@ namespace Ersaal\Modules\Settings;
 use Ersaal\Contracts\ModuleInterface;
 use Ersaal\Core\Options;
 use Ersaal\API\Client;
-use Ersaal\Support\Utf8;
 
 class SettingsModule implements ModuleInterface
 {
@@ -115,8 +114,8 @@ class SettingsModule implements ModuleInterface
             wp_send_json_success(['message' => $msg]);
         } catch (\Exception $e) {
             $cleanError = sanitize_text_field($e->getMessage());
-            if (Utf8::length($cleanError) > 255) {
-                $cleanError = Utf8::substr($cleanError, 0, 252) . '...';
+            if (mb_strlen($cleanError) > 255) {
+                $cleanError = mb_substr($cleanError, 0, 252) . '...';
             }
             wp_send_json_error(['message' => $cleanError]);
         }

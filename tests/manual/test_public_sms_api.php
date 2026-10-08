@@ -99,7 +99,7 @@ $log = $repository->getLogByKey($key);
 publicSmsAssert('public_send_returns_result', $result instanceof SmsResult);
 publicSmsAssert('valid_phone_is_queued', $result->isSuccess() && $result->getStatus() === 'processing');
 publicSmsAssert('result_contains_log_contract', $result->getLogId() === (int) ($log->id ?? 0) && $result->getMessageId() === null);
-publicSmsAssert('phone_is_normalized_before_log', $log && hash_hmac('sha256', '00218912345678', wp_salt('auth')) === $log->phone_hash);
+publicSmsAssert('phone_is_normalized_before_log', $log && hash('sha256', '00218912345678') === $log->phone_hash);
 publicSmsAssert('external_metadata_is_logged', $log && $log->source === 'mis_booking' && $log->source_id === '125' && $log->source_event === 'booking_paid' && $log->recipient_type === 'customer');
 
 $scheduled = $findScheduledMessage($key);

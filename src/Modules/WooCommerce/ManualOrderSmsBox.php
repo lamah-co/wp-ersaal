@@ -46,9 +46,6 @@ class ManualOrderSmsBox
         if (!$order) {
             return;
         }
-        if (!current_user_can('edit_shop_order', $order->get_id())) {
-            return;
-        }
 
         $phone = $order->get_billing_phone();
         $sender = get_option('ersaal_wc_sender_id', 'Lamah');
@@ -85,30 +82,23 @@ class ManualOrderSmsBox
         document.addEventListener('DOMContentLoaded', function() {
             const btn = document.getElementById('ersaal_order_send_btn');
             if (!btn) return;
-            const responseDiv = document.getElementById('ersaal_order_response');
-
-            function setResponse(message, success) {
-                const paragraph = document.createElement('p');
-                paragraph.textContent = message;
-                paragraph.setAttribute('role', success ? 'status' : 'alert');
-                responseDiv.replaceChildren(paragraph);
-            }
             
             btn.addEventListener('click', function() {
                 const message = document.getElementById('ersaal_order_message').value.trim();
                 const payment = document.getElementById('ersaal_order_payment_type').value;
                 const nonce = document.getElementById('ersaal_manual_order_sms_nonce').value;
                 const orderId = this.getAttribute('data-order-id');
+                const responseDiv = document.getElementById('ersaal_order_response');
                 const spinner = document.getElementById('ersaal_order_spinner');
 
                 if (message === '') {
-                    setResponse('<?php echo esc_js(__('Message text is required.', 'ersaal')); ?>', false);
+                    responseDiv.innerHTML = '<p style="color:red;"><?php esc_html_e('Message text is required.', 'ersaal'); ?></p>';
                     return;
                 }
 
                 btn.disabled = true;
                 spinner.classList.add('is-active');
-                responseDiv.replaceChildren();
+                responseDiv.innerHTML = '';
 
                 const formData = new URLSearchParams();
                 formData.append('action', 'ersaal_manual_order_sms');
@@ -129,16 +119,16 @@ class ManualOrderSmsBox
                     btn.disabled = false;
                     spinner.classList.remove('is-active');
                     if (res.success) {
-                        setResponse(res.data.message, true);
+                        responseDiv.innerHTML = '<p style="color:green;">' + res.data.message + '</p>';
                         document.getElementById('ersaal_order_message').value = '';
                     } else {
-                        setResponse(res.data.message, false);
+                        responseDiv.innerHTML = '<p style="color:red;">' + res.data.message + '</p>';
                     }
                 })
-                .catch(() => {
+                .catch(err => {
                     btn.disabled = false;
                     spinner.classList.remove('is-active');
-                    setResponse('<?php echo esc_js(__('An unexpected error occurred.', 'ersaal')); ?>', false);
+                    responseDiv.innerHTML = '<p style="color:red;"><?php echo esc_js(__('An unexpected error occurred.', 'ersaal')); ?></p>';
                 });
             });
         });
@@ -156,10 +146,7 @@ class ManualOrderSmsBox
 
         $orderId = isset($_POST['order_id']) ? absint(wp_unslash($_POST['order_id'])) : 0;
         $message = isset($_POST['message']) ? trim(sanitize_textarea_field(wp_unslash($_POST['message']))) : '';
-        $payment = isset($_POST['payment_type']) ? sanitize_key(wp_unslash($_POST['payment_type'])) : 'wallet';
-        if (!in_array($payment, ['wallet', 'subscription'], true)) {
-            $payment = 'wallet';
-        }
+        $payment = isset($_POST['payment_type']) ? sanitize_text_field(wp_unslash($_POST['payment_type'])) : 'wallet';
 
         if ($message === '') {
             wp_send_json_error(['message' => __('Message text is required.', 'ersaal')]);
@@ -168,9 +155,6 @@ class ManualOrderSmsBox
         $order = wc_get_order($orderId);
         if (!$order) {
             wp_send_json_error(['message' => __('Order not found.', 'ersaal')]);
-        }
-        if (!current_user_can('edit_shop_order', $order->get_id())) {
-            wp_send_json_error(['message' => __('You are not allowed to edit this order.', 'ersaal')], 403);
         }
 
         $phone = (string) $order->get_billing_phone();
@@ -203,8 +187,8 @@ class ManualOrderSmsBox
             $order->add_order_note(__('Ersaal SMS Scheduled manually.', 'ersaal'));
 
             wp_send_json_success(['message' => __('Message scheduled for sending.', 'ersaal')]);
-        } catch (\Throwable $e) {
-            wp_send_json_error(['message' => __('Unable to schedule this SMS. Please try again.', 'ersaal')], 500);
+        } catch (\Exception $e) {
+            wp_send_json_error(['message' => $e->getMessage()]);
         }
     }
 }

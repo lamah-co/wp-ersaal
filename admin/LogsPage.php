@@ -90,94 +90,56 @@ class LogsPage
         // Nonce is verified in handleActions() via check_admin_referer prior to export.
         // phpcs:disable WordPress.Security.NonceVerification.Recommended
         $args = [
-            // Export in bounded batches to avoid loading all log rows at once.
-            'per_page' => 500,
-            'page' => 1,
+            'per_page' => -1, // all matching records
             'status' => isset($_GET['status']) ? sanitize_text_field(wp_unslash($_GET['status'])) : 'all',
             'source' => isset($_GET['source']) ? sanitize_text_field(wp_unslash($_GET['source'])) : 'all',
             'event' => isset($_GET['event']) ? sanitize_text_field(wp_unslash($_GET['event'])) : 'all',
             'date_from' => isset($_GET['date_from']) ? sanitize_text_field(wp_unslash($_GET['date_from'])) : '',
             'date_to' => isset($_GET['date_to']) ? sanitize_text_field(wp_unslash($_GET['date_to'])) : '',
             'search' => isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '',
-            // A unique order keeps pagination stable while the export runs.
-            'orderby' => 'id',
-            'order' => 'ASC'
+            'orderby' => isset($_GET['orderby']) ? sanitize_text_field(wp_unslash($_GET['orderby'])) : 'created_at',
+            'order' => isset($_GET['order']) ? sanitize_text_field(wp_unslash($_GET['order'])) : 'DESC'
         ];
         // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
+        $logsData = $this->repository->getLogs($args);
+
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="ersaal-logs-' . gmdate('Y-m-d') . '.csv"');
-        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-        header('Pragma: no-cache');
         
         // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fclose
         $output = fopen('php://output', 'w');
         // Add BOM for UTF-8 Excel support
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
 
-        $headers = [
+        fputcsv($output, [
             __('Log ID', 'ersaal'), __('Status', 'ersaal'), __('Source', 'ersaal'), __('Source ID', 'ersaal'), __('Source event', 'ersaal'),
             __('Masked phone', 'ersaal'), __('Message', 'ersaal'), __('Message ID', 'ersaal'), __('Parts', 'ersaal'), __('Cost', 'ersaal'),
             __('Attempts', 'ersaal'), __('HTTP code', 'ersaal'), __('API error', 'ersaal'), __('Created at', 'ersaal'), __('Updated at', 'ersaal')
-        ];
-        fputcsv($output, $this->sanitizeCsvCells($headers), ',', '"', '');
+        ]);
 
-        do {
-            $logsData = $this->repository->getLogs($args);
-            foreach ($logsData['items'] as $log) {
-                $row = [
-                    $log->id,
-                    ersaal_admin_status_label((string) $log->status),
-                    ersaal_admin_source_label((string) $log->source),
-                    $log->source_id,
-                    !empty($log->source_event) ? ersaal_admin_event_label((string) $log->source_event) : '',
-                    $log->phone_masked,
-                    $log->message_text ?: $log->message_excerpt,
-                    $log->message_id,
-                    $log->parts_final,
-                    $log->cost_final,
-                    $log->attempts,
-                    $log->api_http_code,
-                    $log->api_error,
-                    $log->created_at,
-                    $log->updated_at,
-                ];
-
-                fputcsv($output, $this->sanitizeCsvCells($row), ',', '"', '');
-            }
-            $args['page']++;
-        } while (count($logsData['items']) === $args['per_page']);
+        foreach ($logsData['items'] as $log) {
+            fputcsv($output, [
+                $log->id,
+                ersaal_admin_status_label((string) $log->status),
+                ersaal_admin_source_label((string) $log->source),
+                $log->source_id,
+                !empty($log->source_event) ? ersaal_admin_event_label((string) $log->source_event) : '',
+                $log->phone_masked,
+                $log->message_text ?: $log->message_excerpt,
+                $log->message_id,
+                $log->parts_final,
+                $log->cost_final,
+                $log->attempts,
+                $log->api_http_code,
+                $log->api_error,
+                $log->created_at,
+                $log->updated_at
+            ]);
+        }
 
         fclose($output);
         // phpcs:enable WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fclose
         exit;
-    }
-
-    /**
-     * Prefix spreadsheet formulas so exported user-controlled data remains text.
-     *
-     * @param mixed $value
-     */
-    private function sanitizeCsvCell($value): string
-    {
-        if (!is_scalar($value) && $value !== null) {
-            return '';
-        }
-
-        $cell = (string) ($value ?? '');
-        if (preg_match('/^(?:[\x00-\x20]|\xEF\xBB\xBF)*[=+@-]/', $cell) === 1 || preg_match('/^[\t\r\n]/', $cell) === 1) {
-            return "'" . $cell;
-        }
-
-        return $cell;
-    }
-
-    /**
-     * @param array<int, mixed> $cells
-     * @return array<int, string>
-     */
-    private function sanitizeCsvCells(array $cells): array
-    {
-        return array_map(fn($value) => $this->sanitizeCsvCell($value), $cells);
     }
 }

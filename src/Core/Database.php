@@ -6,7 +6,7 @@ namespace Ersaal\Core;
 class Database
 {
     public const VERSION_KEY = 'ersaal_db_version';
-    public const VERSION = '1.2.0';
+    public const VERSION = '1.1.0';
 
     public function upgrade(): void
     {
@@ -14,20 +14,6 @@ class Database
 
         if (version_compare($current_version, self::VERSION, '<')) {
             $this->installTables();
-
-            // Earlier releases stored unkeyed SHA-256 phone hashes. They are
-            // not used for lookups, so clear them rather than retain hashes
-            // that can be brute-forced from a database export.
-            global $wpdb;
-            $sms_table = $wpdb->prefix . 'ersaal_logs';
-            $updated = $wpdb->query($wpdb->prepare(
-                "UPDATE {$sms_table} SET phone_hash = %s",
-                ''
-            ));
-            if ($updated === false) {
-                return;
-            }
-
             update_option(self::VERSION_KEY, self::VERSION);
         }
     }

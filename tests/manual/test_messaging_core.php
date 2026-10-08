@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 if (php_sapi_name() === 'cli' && !defined('ABSPATH')) {
     require_once dirname(__DIR__, 5) . '/wp-load.php';
 }
