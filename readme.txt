@@ -3,7 +3,7 @@ Contributors: lamah
 Tags: sms, woocommerce, ersaal, otp, notifications
 Requires at least: 6.0
 Tested up to: 7.1
-Requires PHP: 8.0
+Requires PHP: 8.1
 Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -31,6 +31,13 @@ This plugin connects to the external Ersaal SMS Gateway API to send SMS notifica
 * **Service Provider:** Ersaal SMS Gateway
 * **Website:** [https://getersaal.com/](https://getersaal.com/)
 * **Data Transmitted:** Recipient mobile phone numbers, sender IDs, and notification message contents. No user passwords or WordPress administrative credentials are transmitted to the service.
+
+== Requirements ==
+
+* WordPress 6.0 or higher
+* PHP 8.1 or higher (PHP 8.2+ recommended)
+* PHP `curl`, `json`, and `openssl` extensions
+* PHP `mbstring` extension recommended for optimal multibyte Arabic character handling (safe fallbacks are included)
 
 == Installation ==
 

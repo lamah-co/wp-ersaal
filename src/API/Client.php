@@ -11,6 +11,7 @@ use Ersaal\API\Exceptions\RateLimitException;
 use Ersaal\API\Exceptions\ServerException;
 use Ersaal\API\Exceptions\ValidationException;
 use Ersaal\Core\Options;
+use Ersaal\Support\Str;
 
 class Client
 {
@@ -61,6 +62,17 @@ class Client
             throw new ConnectionException(esc_html__('Invalid Base URL configured.', 'ersaal'));
         }
 
+        $scheme = wp_parse_url($baseUrl, PHP_URL_SCHEME);
+        if (strtolower((string) $scheme) !== 'https') {
+            throw new ConnectionException(esc_html__('Ersaal API requires a secure HTTPS connection.', 'ersaal'));
+        }
+
+        $user = wp_parse_url($baseUrl, PHP_URL_USER);
+        $pass = wp_parse_url($baseUrl, PHP_URL_PASS);
+        if (!empty($user) || !empty($pass)) {
+            throw new ConnectionException(esc_html__('API Base URL must not contain embedded user credentials.', 'ersaal'));
+        }
+
         $apiKey = trim((string) $this->options->get('api_key', ''));
         if (empty($apiKey)) {
             throw new AuthenticationException(esc_html__('API Key is missing.', 'ersaal'));
@@ -80,9 +92,10 @@ class Client
         ];
 
         $args = [
-            'method'  => $method,
-            'headers' => array_merge($defaultHeaders, $headers),
-            'timeout' => 10,
+            'method'      => $method,
+            'headers'     => array_merge($defaultHeaders, $headers),
+            'timeout'     => 10,
+            'redirection' => 0,
         ];
 
         if (!empty($body) && $method !== 'GET') {
@@ -96,7 +109,7 @@ class Client
             if (str_contains($errMsg, 'timed out') || str_contains($errMsg, 'Could not resolve host') || str_contains($errMsg, 'Connection refused')) {
                 $errMsg = esc_html__('Could not connect to Ersaal. Check the API URL and service status.', 'ersaal');
             }
-            throw new ConnectionException(esc_html($this->sanitizeErrorMessage($errMsg)));
+            throw new ConnectionException(esc_html($this->sanitizeErrorMessage((string) $errMsg)));
         }
 
         $statusCode = (int) wp_remote_retrieve_response_code($response);
@@ -121,7 +134,22 @@ class Client
             return;
         }
 
-        $message = $body['message'] ?? '';
+        if ($statusCode >= 300 && $statusCode < 400) {
+            throw new ConnectionException(esc_html__('Redirects are disabled for security reasons.', 'ersaal'), absint($statusCode));
+        }
+
+        $rawMsg = $body['message'] ?? '';
+        $message = is_string($rawMsg) ? $rawMsg : (is_scalar($rawMsg) ? (string) $rawMsg : '');
+
+        if (empty($message) && isset($body['errors']) && is_array($body['errors'])) {
+            $firstError = reset($body['errors']);
+            if (is_array($firstError)) {
+                $firstError = reset($firstError);
+            }
+            if (is_string($firstError)) {
+                $message = $firstError;
+            }
+        }
 
         // Handle raw HTML error pages or sensitive stack traces / logs
         if (empty($message) || str_contains($rawBody, '<html') || str_contains($rawBody, 'Permission denied') || str_contains($rawBody, 'Stack trace')) {
@@ -135,7 +163,7 @@ class Client
         $message = $this->sanitizeErrorMessage($message);
 
         if ($statusCode === 401) {
-            if (empty($body['message']) || $body['message'] === 'Unauthenticated.') {
+            if (empty($message) || $message === 'Unauthenticated.') {
                 $message = esc_html__('Authentication failed. Check the API Key.', 'ersaal');
             }
             throw new AuthenticationException(esc_html($message), absint($statusCode));
@@ -176,10 +204,7 @@ class Client
     private function sanitizeErrorMessage(string $message): string
     {
         $clean = sanitize_text_field($message);
-        if (mb_strlen($clean) > 255) {
-            $clean = mb_substr($clean, 0, 252) . '...';
-        }
-        return $clean;
+        return Str::limit($clean, 255);
     }
 
     private function parseRetryAfter($header): int

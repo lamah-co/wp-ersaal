@@ -2,12 +2,12 @@
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![WordPress](https://img.shields.io/badge/WordPress-%3E%3D%206.0-blue.svg)](https://wordpress.org/)
-[![PHP](https://img.shields.io/badge/PHP-%3E%3D%208.0-purple.svg)](https://www.php.net/)
+[![PHP](https://img.shields.io/badge/PHP-%3E%3D%208.1-purple.svg)](https://www.php.net/)
 [![Release](https://img.shields.io/badge/Release-v1.3.0-green.svg)](https://github.com/lamah-co/wp-ersaal/releases)
 
 **Requires at least:** 6.0  
 **Tested up to:** 7.1  
-**Requires PHP:** 8.0  
+**Requires PHP:** 8.1  
 **Stable tag:** 1.3.0  
 **License:** GPLv2 or later  
 **Service Website:** [https://getersaal.com/](https://getersaal.com/)  
@@ -32,7 +32,9 @@ Ersaal SMS Gateway plugin allows you to send SMS messages directly from your Wor
 ## Requirements
 
 * WordPress 6.0 or higher.
-* PHP 8.0 or higher.
+* PHP 8.1 or higher (PHP 8.2+ recommended).
+* PHP `curl`, `json`, and `openssl` extensions.
+* PHP `mbstring` extension recommended for optimal multibyte Arabic character handling (graceful fallbacks provided).
 * An active [Ersaal](https://getersaal.com/) Gateway account.
 * WooCommerce (Optional, for automatic order notifications).
 

@@ -26,6 +26,7 @@ class Plugin
 
         if (is_admin()) {
             add_action('admin_enqueue_scripts', [$this, 'enqueueGlobalAdminAssets']);
+            add_action('admin_notices', [$this, 'checkMbstringNotice']);
         }
         
         $this->registry->registerModule(new \Ersaal\Modules\Dashboard\DashboardModule($this->options));
@@ -76,6 +77,21 @@ class Plugin
         }
         $repo = new \Ersaal\Storage\LogRepository();
         $repo->deleteOlderThan($days);
+
+        $otpRepo = new \Ersaal\Modules\OTP\OTPLogRepository();
+        $otpRepo->deleteOlderThan($days);
+    }
+
+    public function checkMbstringNotice(): void
+    {
+        if (!extension_loaded('mbstring') && current_user_can('manage_options')) {
+            $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+            if ($screen && (strpos($screen->id, 'ersaal') !== false || strpos($screen->id, 'woocommerce') !== false)) {
+                echo '<div class="notice notice-warning is-dismissible"><p>' .
+                    esc_html__('Ersaal SMS Gateway: The PHP mbstring extension is not installed. Standard UTF-8 fallbacks are in use, but installing php-mbstring is recommended for optimal Arabic SMS processing.', 'ersaal') .
+                    '</p></div>';
+            }
+        }
     }
 
     public function loadTextdomain(): void

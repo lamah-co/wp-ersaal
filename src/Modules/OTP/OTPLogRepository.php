@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Ersaal\Modules\OTP;
 
+use Ersaal\Support\Str;
+
 final class OTPLogRepository
 {
     public function getTableName(): string
@@ -27,7 +29,7 @@ final class OTPLogRepository
             'user_id' => !empty($data['user_id']) ? absint($data['user_id']) : null,
             'api_http_code' => !empty($data['api_http_code']) ? absint($data['api_http_code']) : null,
             'error_code' => !empty($data['error_code']) ? sanitize_key((string) $data['error_code']) : null,
-            'error_message' => !empty($data['error_message']) ? mb_substr(sanitize_text_field((string) $data['error_message']), 0, 191) : null,
+            'error_message' => !empty($data['error_message']) ? Str::substr(sanitize_text_field((string) $data['error_message']), 0, 191) : null,
             'created_at' => $now,
             'updated_at' => $now,
         ]);
@@ -121,5 +123,30 @@ final class OTPLogRepository
             'page' => $page,
             'per_page' => $perPage,
         ];
+    }
+
+    /**
+     * Delete OTP log rows older than the given number of days.
+     *
+     * @param int $days Minimum age in days. Must be >= 1.
+     * @return int Number of rows deleted.
+     */
+    public function deleteOlderThan(int $days): int
+    {
+        if ($days < 1) {
+            return 0;
+        }
+
+        global $wpdb;
+        $table     = $this->getTableName();
+        $threshold = gmdate('Y-m-d H:i:s', strtotime("-{$days} days", (int) current_time('timestamp', true)));
+
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+        $deleted = $wpdb->query(
+            $wpdb->prepare("DELETE FROM {$table} WHERE created_at < %s", $threshold)
+        );
+        // phpcs:enable
+
+        return $deleted !== false ? (int) $deleted : 0;
     }
 }

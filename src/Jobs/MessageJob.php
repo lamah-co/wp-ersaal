@@ -8,6 +8,7 @@ use Ersaal\API\Client;
 use Ersaal\API\Exceptions\RateLimitException;
 use Ersaal\API\Exceptions\ServerException;
 use Ersaal\API\Exceptions\ConnectionException;
+use Ersaal\Support\Str;
 
 class MessageJob
 {
@@ -162,10 +163,7 @@ class MessageJob
     private function sanitizeError(string $message): string
     {
         $clean = sanitize_text_field($message);
-        if (mb_strlen($clean) > 255) {
-            $clean = mb_substr($clean, 0, 252) . '...';
-        }
-        return $clean;
+        return Str::limit($clean, 255);
     }
 
     private function addOrderNote(string $idempotencyKey, string $note): void

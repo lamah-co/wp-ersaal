@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Ersaal\Modules\Settings;
 
+use Ersaal\API\Client;
 use Ersaal\Contracts\ModuleInterface;
 use Ersaal\Core\Options;
-use Ersaal\API\Client;
+use Ersaal\Services\ConnectionStatusService;
+use Ersaal\Support\Str;
 
 class SettingsModule implements ModuleInterface
 {
@@ -111,12 +113,11 @@ class SettingsModule implements ModuleInterface
             } else {
                 $msg = __('Connected successfully!', 'ersaal');
             }
+            (new ConnectionStatusService($this->options))->clearCache();
             wp_send_json_success(['message' => $msg]);
         } catch (\Exception $e) {
             $cleanError = sanitize_text_field($e->getMessage());
-            if (mb_strlen($cleanError) > 255) {
-                $cleanError = mb_substr($cleanError, 0, 252) . '...';
-            }
+            $cleanError = Str::limit($cleanError, 255);
             wp_send_json_error(['message' => $cleanError]);
         }
     }

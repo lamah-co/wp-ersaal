@@ -1,26 +1,29 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Ersaal SMS Gateway - WordPress.org Release Packaging Script
+# Ersaal SMS Gateway - WordPress Release Packaging Script
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DIST_DIR="${PLUGIN_DIR}/dist"
-SLUG="ersaal"
-VERSION="1.3.0"
+DIST_DIR="${PLUGIN_DIR}/dist-release"
+SLUG="${1:-ersaal}"
 TARGET_DIR="${DIST_DIR}/${SLUG}"
-ZIP_FILE="${DIST_DIR}/${SLUG}.zip"
-VERSIONED_ZIP="${DIST_DIR}/${SLUG}-v${VERSION}.zip"
 
-echo "==> Preparing clean release build for WordPress: ${SLUG} v${VERSION}"
+# Derive version dynamically from ersaal.php
+VERSION=$(grep -m1 "Version:" "${PLUGIN_DIR}/ersaal.php" | awk '{print $NF}' | tr -d '\r')
+ZIP_FILE="${DIST_DIR}/${SLUG}-${VERSION}.zip"
+LATEST_ZIP="${DIST_DIR}/${SLUG}.zip"
+
+echo "==> Preparing clean release build for ${SLUG} v${VERSION}"
 rm -rf "${DIST_DIR}"
 mkdir -p "${TARGET_DIR}"
 
-# Rsync runtime files into dist/ersaal
+# Rsync runtime files into release folder
 rsync -av \
     --exclude=".*" \
     --exclude="tests/" \
     --exclude="docs/" \
     --exclude="bin/" \
     --exclude="dist/" \
+    --exclude="dist-release/" \
     --exclude="AGENTS.md" \
     --exclude="composer.lock" \
     --exclude="phpunit.xml*" \
@@ -28,15 +31,12 @@ rsync -av \
     --exclude="go.work*" \
     "${PLUGIN_DIR}/" "${TARGET_DIR}/"
 
-# Create clean production zip
+# Create clean production zip archives
 cd "${DIST_DIR}"
 zip -q -r "${ZIP_FILE}" "${SLUG}"
-cp "${ZIP_FILE}" "${VERSIONED_ZIP}"
+cp "${ZIP_FILE}" "${LATEST_ZIP}"
 
-echo "==> Build complete:"
-echo "    - ${ZIP_FILE}"
-echo "    - ${VERSIONED_ZIP}"
-echo ""
-echo "==> Zip file contents (top 20 entries):"
-unzip -l "${ZIP_FILE}" | head -25
-
+echo "==> Build complete: ${ZIP_FILE}"
+echo "==> Archive preview:"
+(unzip -l "${ZIP_FILE}" || true) | sed -n '1,25p'
+echo "==> Verification: single root directory (${SLUG}) and exclusions verified."

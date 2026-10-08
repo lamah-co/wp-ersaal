@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
@@ -251,7 +253,7 @@ $notices = get_settings_errors('ersaal_logs');
                                         <div class="ersaal-log-delivery">
                                             <?php if (!empty($log->message_id)): ?>
                                                 <div class="ersaal-inline-actions">
-                                                    <span class="ersaal-code ersaal-ltr" title="<?php echo esc_attr($log->message_id); ?>"><?php echo esc_html(mb_substr((string) $log->message_id, 0, 8)); ?>&hellip;</span>
+                                                    <span class="ersaal-code ersaal-ltr" title="<?php echo esc_attr($log->message_id); ?>"><?php echo esc_html(\Ersaal\Support\Str::substr((string) $log->message_id, 0, 8)); ?>&hellip;</span>
                                                     <button type="button" class="ersaal-btn ersaal-btn-ghost ersaal-icon-button ersaal-copy-id" data-clipboard="<?php echo esc_attr($log->message_id); ?>" aria-label="<?php esc_attr_e('Copy message ID', 'ersaal'); ?>"><?php echo ersaal_admin_icon('copy'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
                                                 </div>
                                             <?php else: ?>

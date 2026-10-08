@@ -118,17 +118,24 @@ class ManualOrderSmsBox
                 .then(res => {
                     btn.disabled = false;
                     spinner.classList.remove('is-active');
+                    const p = document.createElement('p');
+                    p.style.color = res.success ? 'green' : 'red';
+                    p.textContent = res.data && res.data.message ? res.data.message : '';
+                    responseDiv.innerHTML = '';
+                    responseDiv.appendChild(p);
+
                     if (res.success) {
-                        responseDiv.innerHTML = '<p style="color:green;">' + res.data.message + '</p>';
                         document.getElementById('ersaal_order_message').value = '';
-                    } else {
-                        responseDiv.innerHTML = '<p style="color:red;">' + res.data.message + '</p>';
                     }
                 })
                 .catch(err => {
                     btn.disabled = false;
                     spinner.classList.remove('is-active');
-                    responseDiv.innerHTML = '<p style="color:red;"><?php echo esc_js(__('An unexpected error occurred.', 'ersaal')); ?></p>';
+                    const p = document.createElement('p');
+                    p.style.color = 'red';
+                    p.textContent = '<?php echo esc_js(__('An unexpected error occurred.', 'ersaal')); ?>';
+                    responseDiv.innerHTML = '';
+                    responseDiv.appendChild(p);
                 });
             });
         });
@@ -141,31 +148,41 @@ class ManualOrderSmsBox
         check_ajax_referer('ersaal_manual_order_sms', 'nonce');
 
         if (!current_user_can('manage_woocommerce')) {
-            wp_send_json_error(['message' => __('Unauthorized', 'ersaal')]);
+            wp_send_json_error(['message' => __('Unauthorized', 'ersaal')], 403);
         }
 
         $orderId = isset($_POST['order_id']) ? absint(wp_unslash($_POST['order_id'])) : 0;
+        if ($orderId <= 0) {
+            wp_send_json_error(['message' => __('Invalid order ID.', 'ersaal')], 400);
+        }
+
+        // Object-level capability check: verify the caller can edit this specific order
+        if (!current_user_can('edit_shop_order', $orderId) && !current_user_can('edit_post', $orderId)) {
+            wp_send_json_error(['message' => __('You do not have permission to edit this order.', 'ersaal')], 403);
+        }
+
         $message = isset($_POST['message']) ? trim(sanitize_textarea_field(wp_unslash($_POST['message']))) : '';
-        $payment = isset($_POST['payment_type']) ? sanitize_text_field(wp_unslash($_POST['payment_type'])) : 'wallet';
+        $rawPayment = isset($_POST['payment_type']) ? sanitize_key(wp_unslash($_POST['payment_type'])) : 'wallet';
+        $payment = in_array($rawPayment, ['wallet', 'credit'], true) ? $rawPayment : 'wallet';
 
         if ($message === '') {
-            wp_send_json_error(['message' => __('Message text is required.', 'ersaal')]);
+            wp_send_json_error(['message' => __('Message text is required.', 'ersaal')], 400);
         }
 
         $order = wc_get_order($orderId);
         if (!$order) {
-            wp_send_json_error(['message' => __('Order not found.', 'ersaal')]);
+            wp_send_json_error(['message' => __('Order not found.', 'ersaal')], 404);
         }
 
         $phone = (string) $order->get_billing_phone();
         if ($phone === '') {
-            wp_send_json_error(['message' => __('Customer billing phone is missing.', 'ersaal')]);
+            wp_send_json_error(['message' => __('Customer billing phone is missing.', 'ersaal')], 400);
         }
 
         try {
             $phone = (new \Ersaal\Services\PhoneValidator())->normalize($phone);
         } catch (\InvalidArgumentException $e) {
-            wp_send_json_error(['message' => $e->getMessage()]);
+            wp_send_json_error(['message' => __('Invalid customer phone number for SMS delivery.', 'ersaal')], 400);
         }
 
         $sender = get_option('ersaal_wc_sender_id', 'Lamah');
@@ -187,8 +204,13 @@ class ManualOrderSmsBox
             $order->add_order_note(__('Ersaal SMS Scheduled manually.', 'ersaal'));
 
             wp_send_json_success(['message' => __('Message scheduled for sending.', 'ersaal')]);
-        } catch (\Exception $e) {
-            wp_send_json_error(['message' => $e->getMessage()]);
+        } catch (\Throwable $e) {
+            // Log full diagnostic detail to error log
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+            error_log(sprintf('[Ersaal] Manual WooCommerce order SMS failed for order #%d: %s', $orderId, $e->getMessage()));
+            
+            $userMessage = __('Failed to schedule SMS message. Please check the Ersaal logs.', 'ersaal');
+            wp_send_json_error(['message' => $userMessage], 500);
         }
     }
 }
