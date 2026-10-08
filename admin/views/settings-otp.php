@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 if (!defined('ABSPATH')) {
     exit;
