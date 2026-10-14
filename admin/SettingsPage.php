@@ -20,9 +20,9 @@ class SettingsPage
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $active_tab = isset($_GET['tab']) ? sanitize_key(wp_unslash($_GET['tab'])) : 'general';
         $tabs = [
-            'general' => __('General Settings', 'ersaal'),
-            'advanced' => __('Advanced', 'ersaal'),
-            'status' => __('System Status', 'ersaal')
+            'general' => __('General Settings', 'ersaal-sms-gateway'),
+            'advanced' => __('Advanced', 'ersaal-sms-gateway'),
+            'status' => __('System Status', 'ersaal-sms-gateway')
         ];
 
         $tabs = apply_filters('ersaal_settings_tabs', $tabs);
@@ -32,20 +32,20 @@ class SettingsPage
         <div class="wrap ersaal-admin ersaal-page <?php echo esc_attr($page_width_class); ?>">
             <header class="ersaal-page-header">
                 <div class="ersaal-page-header-copy">
-                    <h1 class="ersaal-page-title"><?php esc_html_e('Settings', 'ersaal'); ?></h1>
-                    <p class="ersaal-page-description"><?php esc_html_e('Manage API connection, defaults, and system preferences.', 'ersaal'); ?></p>
+                    <h1 class="ersaal-page-title"><?php esc_html_e('Settings', 'ersaal-sms-gateway'); ?></h1>
+                    <p class="ersaal-page-description"><?php esc_html_e('Manage API connection, defaults, and system preferences.', 'ersaal-sms-gateway'); ?></p>
                 </div>
                 <div class="ersaal-page-actions">
                     <a href="<?php echo esc_url(admin_url('admin.php?page=ersaal-help#connection-account')); ?>" class="ersaal-btn ersaal-btn-secondary">
                         <?php echo ersaal_admin_icon('help'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                        <?php esc_html_e('Need help?', 'ersaal'); ?>
+                        <?php esc_html_e('Need help?', 'ersaal-sms-gateway'); ?>
                     </a>
                 </div>
             </header>
 
-            <nav class="ersaal-tabs-list" aria-label="<?php esc_attr_e('Settings sections', 'ersaal'); ?>">
+            <nav class="ersaal-tabs-list" aria-label="<?php esc_attr_e('Settings sections', 'ersaal-sms-gateway'); ?>">
                 <?php foreach ($tabs as $tab_id => $tab_name): ?>
-                    <a href="?page=ersaal-settings&amp;tab=<?php echo esc_attr($tab_id); ?>" class="ersaal-tab <?php echo $active_tab === $tab_id ? 'ersaal-tab-active' : ''; ?>" <?php echo $active_tab === $tab_id ? 'aria-current="page"' : ''; ?>>
+                    <a href="?page=ersaal-settings&amp;tab=<?php echo esc_attr($tab_id); ?>" class="ersaal-tab<?php echo esc_attr($active_tab === $tab_id ? ' ersaal-tab-active' : ''); ?>"<?php if ($active_tab === $tab_id): ?> aria-current="page"<?php endif; ?>>
                         <?php echo esc_html($tab_name); ?>
                     </a>
                 <?php endforeach; ?>

@@ -14,7 +14,7 @@ final class OTPValidator
     {
         $context = sanitize_key($context);
         if ($context === '' || strlen($context) > 50) {
-            throw new \InvalidArgumentException(esc_html__('Invalid OTP context.', 'ersaal'));
+            throw new \InvalidArgumentException(esc_html__('Invalid OTP context.', 'ersaal-sms-gateway'));
         }
         return $context;
     }
@@ -23,7 +23,7 @@ final class OTPValidator
     {
         $reference = sanitize_text_field(trim($reference));
         if ($reference === '' || strlen($reference) > 100) {
-            throw new \InvalidArgumentException(esc_html__('Invalid or missing OTP reference.', 'ersaal'));
+            throw new \InvalidArgumentException(esc_html__('Invalid or missing OTP reference.', 'ersaal-sms-gateway'));
         }
         return $reference;
     }
@@ -32,7 +32,7 @@ final class OTPValidator
     {
         $code = trim($code);
         if (!preg_match('/^[0-9]{4,6}$/', $code)) {
-            throw new \InvalidArgumentException(esc_html__('Enter the verification code sent to your phone.', 'ersaal'));
+            throw new \InvalidArgumentException(esc_html__('Enter the verification code sent to your phone.', 'ersaal-sms-gateway'));
         }
         return $code;
     }

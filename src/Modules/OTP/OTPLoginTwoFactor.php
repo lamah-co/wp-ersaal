@@ -39,7 +39,7 @@ final class OTPLoginTwoFactor
         }
 
         if (!$this->isInteractiveLogin()) {
-            return new \WP_Error('ersaal_otp_required', __('Additional verification is required. Sign in through the WordPress login page.', 'ersaal'));
+            return new \WP_Error('ersaal_otp_required', __('Additional verification is required. Sign in through the WordPress login page.', 'ersaal-sms-gateway'));
         }
 
         $existingToken = isset($_COOKIE[self::COOKIE_NAME]) ? sanitize_text_field(wp_unslash($_COOKIE[self::COOKIE_NAME])) : '';
@@ -51,7 +51,7 @@ final class OTPLoginTwoFactor
         $phone = (string) get_user_meta($user->ID, OTPUserProfile::META_PHONE, true);
         $result = $this->service->initiate($phone, 'wordpress_login', ['user_id' => $user->ID]);
         if (!$result->isSuccess()) {
-            return new \WP_Error('ersaal_otp_unavailable', __('We could not start the verification step. Please try again later.', 'ersaal'));
+            return new \WP_Error('ersaal_otp_unavailable', __('We could not start the verification step. Please try again later.', 'ersaal-sms-gateway'));
         }
 
         $now = time();
@@ -74,7 +74,7 @@ final class OTPLoginTwoFactor
         $this->setChallengeCookie($token, (int) $state['cleanup_at']);
         $this->redirectToChallenge();
 
-        return new \WP_Error('ersaal_otp_required', __('Additional verification is required.', 'ersaal'));
+        return new \WP_Error('ersaal_otp_required', __('Additional verification is required.', 'ersaal-sms-gateway'));
     }
 
     public function enqueueAssets(): void
@@ -97,7 +97,7 @@ final class OTPLoginTwoFactor
         $state = $this->getChallenge($token);
 
         if (!$this->isToken($token) || !is_array($state)) {
-            $error->add('ersaal_otp_expired', __('This verification session is invalid or has expired. Sign in again.', 'ersaal'));
+            $error->add('ersaal_otp_expired', __('This verification session is invalid or has expired. Sign in again.', 'ersaal-sms-gateway'));
             $this->renderChallenge('', null, $error);
             return;
         }
@@ -105,7 +105,7 @@ final class OTPLoginTwoFactor
         $user = get_user_by('id', (int) $state['user_id']);
         if (!$user instanceof \WP_User || !$this->isRequiredFor($user)) {
             $this->destroyChallenge($token);
-            $error->add('ersaal_otp_unavailable', __('Verification is no longer available for this account. Sign in again.', 'ersaal'));
+            $error->add('ersaal_otp_unavailable', __('Verification is no longer available for this account. Sign in again.', 'ersaal-sms-gateway'));
             $this->renderChallenge('', null, $error);
             return;
         }
@@ -115,7 +115,7 @@ final class OTPLoginTwoFactor
         if ($requestMethod === 'POST') {
             $nonce = isset($_POST['ersaal_otp_login_nonce']) ? sanitize_text_field(wp_unslash($_POST['ersaal_otp_login_nonce'])) : '';
             if (!wp_verify_nonce($nonce, 'ersaal_otp_login_' . $token)) {
-                $error->add('ersaal_otp_nonce', __('The verification form expired. Refresh the page and try again.', 'ersaal'));
+                $error->add('ersaal_otp_nonce', __('The verification form expired. Refresh the page and try again.', 'ersaal-sms-gateway'));
             } else {
                 $operation = isset($_POST['otp_action']) ? sanitize_key(wp_unslash($_POST['otp_action'])) : 'verify';
                 if ($operation === 'resend') {
@@ -133,7 +133,7 @@ final class OTPLoginTwoFactor
     private function handleVerify(string $token, array $state, \WP_User $user, \WP_Error $error): void
     {
         if ((int) $state['expires_at'] < time()) {
-            $error->add('ersaal_otp_expired', __('The verification code expired. Request a new code.', 'ersaal'));
+            $error->add('ersaal_otp_expired', __('The verification code expired. Request a new code.', 'ersaal-sms-gateway'));
             return;
         }
         // Nonce is verified in caller handleChallenge()
@@ -150,7 +150,7 @@ final class OTPLoginTwoFactor
             $state['failures'] = (int) ($state['failures'] ?? 0) + 1;
             if ($state['failures'] >= self::MAX_FAILURES || $result->getStatus() === 'expired') {
                 $this->destroyChallenge($token);
-                $error->add('ersaal_otp_failed', __('This verification session ended. Sign in again to request a new code.', 'ersaal'));
+                $error->add('ersaal_otp_failed', __('This verification session ended. Sign in again to request a new code.', 'ersaal-sms-gateway'));
                 return;
             }
             $remaining = max(60, (int) $state['cleanup_at'] - time());
@@ -176,7 +176,7 @@ final class OTPLoginTwoFactor
         if ((int) ($state['resend_after'] ?? 0) > $now) {
             $wait = (int) $state['resend_after'] - $now;
             /* translators: %s: Wait time in seconds */
-            $error->add('ersaal_otp_wait', sprintf(esc_html__('Wait %s seconds before requesting a new code.', 'ersaal'), $wait));
+            $error->add('ersaal_otp_wait', sprintf(esc_html__('Wait %s seconds before requesting a new code.', 'ersaal-sms-gateway'), $wait));
             return;
         }
 
@@ -185,7 +185,7 @@ final class OTPLoginTwoFactor
             $state['resend_after'] = $now + max(30, (int) ($result->getRetryAfter() ?: 0));
             $remaining = max(60, (int) $state['cleanup_at'] - $now);
             set_transient($this->challengeKey($token), $state, $remaining);
-            $error->add('ersaal_otp_resend_failed', __('We could not send a new code. Please wait and try again.', 'ersaal'));
+            $error->add('ersaal_otp_resend_failed', __('We could not send a new code. Please wait and try again.', 'ersaal-sms-gateway'));
             return;
         }
 
@@ -197,14 +197,14 @@ final class OTPLoginTwoFactor
         $state['failures'] = 0;
         set_transient($this->challengeKey($token), $state, $expiresIn + (5 * MINUTE_IN_SECONDS));
         $this->setChallengeCookie($token, (int) $state['cleanup_at']);
-        $error->add('ersaal_otp_sent', __('A new verification code was sent.', 'ersaal'), 'message');
+        $error->add('ersaal_otp_sent', __('A new verification code was sent.', 'ersaal-sms-gateway'), 'message');
     }
 
     private function renderChallenge(string $token, ?array $state, \WP_Error $error): void
     {
-        login_header(__('Verify your sign-in', 'ersaal'), '', $error);
+        login_header(__('Verify your sign-in', 'ersaal-sms-gateway'), '', $error);
         if (!$state || $token === '') {
-            echo '<p class="ersaal-otp-login-back"><a href="' . esc_url(wp_login_url()) . '">' . esc_html__('Back to login', 'ersaal') . '</a></p>';
+            echo '<p class="ersaal-otp-login-back"><a href="' . esc_url(wp_login_url()) . '">' . esc_html__('Back to login', 'ersaal-sms-gateway') . '</a></p>';
             login_footer();
             exit;
         }
@@ -213,24 +213,24 @@ final class OTPLoginTwoFactor
         $canResend = time() >= (int) ($state['resend_after'] ?? 0);
         ?>
         <div class="ersaal-otp-login-intro">
-            <h2><?php esc_html_e('Enter your verification code', 'ersaal'); ?></h2>
+            <h2><?php esc_html_e('Enter your verification code', 'ersaal-sms-gateway'); ?></h2>
             <p><?php
                 /* translators: %s: Masked phone number */
-                printf(esc_html__('We sent a one-time code to %s.', 'ersaal'), '<span class="ersaal-otp-login-phone">' . esc_html($masked) . '</span>');
+                printf(esc_html__('We sent a one-time code to %s.', 'ersaal-sms-gateway'), '<span class="ersaal-otp-login-phone">' . esc_html($masked) . '</span>');
             ?></p>
         </div>
         <form name="ersaal-otp-login-form" id="ersaal-otp-login-form" action="<?php echo esc_url($this->challengeUrl()); ?>" method="post">
             <?php wp_nonce_field('ersaal_otp_login_' . $token, 'ersaal_otp_login_nonce'); ?>
             <p>
-                <label for="ersaal_otp_code"><?php esc_html_e('Verification code', 'ersaal'); ?></label>
+                <label for="ersaal_otp_code"><?php esc_html_e('Verification code', 'ersaal-sms-gateway'); ?></label>
                 <input type="text" name="ersaal_otp_code" id="ersaal_otp_code" class="input ersaal-otp-login-code" inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" autocomplete="one-time-code" autofocus required />
             </p>
             <p class="submit ersaal-otp-login-actions">
-                <button type="submit" name="otp_action" value="verify" class="button button-primary button-large"><?php esc_html_e('Verify and sign in', 'ersaal'); ?></button>
-                <button type="submit" name="otp_action" value="resend" class="button button-secondary button-large" formnovalidate <?php disabled(!$canResend); ?>><?php esc_html_e('Send a new code', 'ersaal'); ?></button>
+                <button type="submit" name="otp_action" value="verify" class="button button-primary button-large"><?php esc_html_e('Verify and sign in', 'ersaal-sms-gateway'); ?></button>
+                <button type="submit" name="otp_action" value="resend" class="button button-secondary button-large" formnovalidate <?php disabled(!$canResend); ?>><?php esc_html_e('Send a new code', 'ersaal-sms-gateway'); ?></button>
             </p>
         </form>
-        <p class="ersaal-otp-login-back"><a href="<?php echo esc_url(wp_login_url()); ?>"><?php esc_html_e('Back to login', 'ersaal'); ?></a></p>
+        <p class="ersaal-otp-login-back"><a href="<?php echo esc_url(wp_login_url()); ?>"><?php esc_html_e('Back to login', 'ersaal-sms-gateway'); ?></a></p>
         <?php
         login_footer();
         exit;

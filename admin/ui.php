@@ -84,18 +84,18 @@ function ersaal_admin_icon(string $name, string $class = ''): string
 function ersaal_admin_status_label(string $status): string
 {
     $labels = [
-        'processing' => __('Processing', 'ersaal'),
-        'accepted' => __('Accepted', 'ersaal'),
-        'delivered' => __('Delivered', 'ersaal'),
-        'sent' => __('Sent', 'ersaal'),
-        'retry_scheduled' => __('Retry scheduled', 'ersaal'),
-        'queued' => __('Queued', 'ersaal'),
-        'pending' => __('Pending', 'ersaal'),
-        'failed' => __('Failed', 'ersaal'),
-        'error' => __('Error', 'ersaal'),
-        'rejected' => __('Rejected', 'ersaal'),
-        'expired' => __('Expired', 'ersaal'),
-        'unknown' => __('Unknown', 'ersaal'),
+        'processing' => __('Processing', 'ersaal-sms-gateway'),
+        'accepted' => __('Accepted', 'ersaal-sms-gateway'),
+        'delivered' => __('Delivered', 'ersaal-sms-gateway'),
+        'sent' => __('Sent', 'ersaal-sms-gateway'),
+        'retry_scheduled' => __('Retry scheduled', 'ersaal-sms-gateway'),
+        'queued' => __('Queued', 'ersaal-sms-gateway'),
+        'pending' => __('Pending', 'ersaal-sms-gateway'),
+        'failed' => __('Failed', 'ersaal-sms-gateway'),
+        'error' => __('Error', 'ersaal-sms-gateway'),
+        'rejected' => __('Rejected', 'ersaal-sms-gateway'),
+        'expired' => __('Expired', 'ersaal-sms-gateway'),
+        'unknown' => __('Unknown', 'ersaal-sms-gateway'),
     ];
 
     return $labels[$status] ?? ucwords(str_replace('_', ' ', $status));
@@ -119,10 +119,10 @@ function ersaal_admin_source_label(string $source): string
 function ersaal_admin_event_label(string $event): string
 {
     $labels = [
-        'new_order' => __('New order', 'ersaal'),
-        'processing' => __('Processing', 'ersaal'),
-        'completed' => __('Completed', 'ersaal'),
-        'cancelled' => __('Cancelled', 'ersaal'),
+        'new_order' => __('New order', 'ersaal-sms-gateway'),
+        'processing' => __('Processing', 'ersaal-sms-gateway'),
+        'completed' => __('Completed', 'ersaal-sms-gateway'),
+        'cancelled' => __('Cancelled', 'ersaal-sms-gateway'),
     ];
 
     if (isset($labels[$event])) {
@@ -148,8 +148,8 @@ function ersaal_admin_event_label(string $event): string
 function ersaal_admin_log_sources(): array
 {
     $sources = apply_filters('ersaal_log_sources', [
-        'manual' => __('Manual', 'ersaal'),
-        'woocommerce' => __('WooCommerce', 'ersaal'),
+        'manual' => __('Manual', 'ersaal-sms-gateway'),
+        'woocommerce' => __('WooCommerce', 'ersaal-sms-gateway'),
     ]);
 
     return is_array($sources) ? $sources : [];
@@ -163,7 +163,7 @@ function ersaal_admin_log_reference_label(object $log): string
     $label = '';
     if (($log->source ?? '') === 'woocommerce' && !empty($log->source_id)) {
         /* translators: %s: Order ID */
-        $label = sprintf(__('Order #%s', 'ersaal'), (string) $log->source_id);
+        $label = sprintf(__('Order #%s', 'ersaal-sms-gateway'), (string) $log->source_id);
     }
 
     return (string) apply_filters('ersaal_log_reference_label', $label, $log);

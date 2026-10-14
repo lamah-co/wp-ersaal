@@ -40,8 +40,8 @@ class HelpModule implements ModuleInterface
     {
         add_submenu_page(
             'ersaal-dashboard',
-            __('Help & User Guide', 'ersaal'),
-            __('Help & User Guide', 'ersaal'),
+            __('Help & User Guide', 'ersaal-sms-gateway'),
+            __('Help & User Guide', 'ersaal-sms-gateway'),
             'manage_options',
             'ersaal-help',
             [$this, 'renderHelpPage']

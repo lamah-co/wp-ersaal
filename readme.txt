@@ -1,10 +1,10 @@
 === Ersaal SMS Gateway ===
-Contributors: lamah
+Contributors: lamahly
 Tags: sms, woocommerce, ersaal, otp, notifications
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,13 @@ No. OTP features and Login Two-Factor Authentication (2FA) are opt-in and disabl
 4. Detailed SMS activity logs and filters.
 
 == Changelog ==
+
+= 1.3.1 =
+* Resolved security, stability, compatibility, and build issues (#23-#32).
+* Hardened HTTP/HTTPS connection validation and API error handling.
+* Enhanced UTF-8 multibyte string handling for Arabic SMS content (Str::substr, Str::length, Str::limit).
+* Improved WooCommerce order SMS status transitions and carrier validation.
+* Refined admin views with strict typing and WordPress standard compliance.
 
 = 1.3.0 =
 * Added automatic log retention and scheduled daily cleanup via WP-Cron with customizable retention window (#17).

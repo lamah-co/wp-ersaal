@@ -35,7 +35,7 @@ final class OTPLogRepository
         ]);
 
         if ($inserted === false) {
-            throw new \RuntimeException(esc_html__('Unable to create OTP activity log.', 'ersaal'));
+            throw new \RuntimeException(esc_html__('Unable to create OTP activity log.', 'ersaal-sms-gateway'));
         }
         return (int) $wpdb->insert_id;
     }

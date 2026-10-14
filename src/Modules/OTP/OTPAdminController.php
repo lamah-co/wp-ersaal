@@ -29,7 +29,7 @@ final class OTPAdminController
 
     public function addSettingsTab(array $tabs): array
     {
-        $tabs['otp'] = __('OTP', 'ersaal');
+        $tabs['otp'] = __('OTP', 'ersaal-sms-gateway');
         return $tabs;
     }
 
@@ -37,16 +37,16 @@ final class OTPAdminController
     {
         add_submenu_page(
             'ersaal-dashboard',
-            __('OTP Test', 'ersaal'),
-            __('OTP Test', 'ersaal'),
+            __('OTP Test', 'ersaal-sms-gateway'),
+            __('OTP Test', 'ersaal-sms-gateway'),
             'manage_options',
             'ersaal-otp-test',
             [$this, 'renderTestPage']
         );
         add_submenu_page(
             'ersaal-dashboard',
-            __('OTP Activity', 'ersaal'),
-            __('OTP Activity', 'ersaal'),
+            __('OTP Activity', 'ersaal-sms-gateway'),
+            __('OTP Activity', 'ersaal-sms-gateway'),
             'manage_options',
             'ersaal-otp-logs',
             [$this, 'renderLogsPage']
@@ -69,27 +69,27 @@ final class OTPAdminController
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('ersaal_otp_test'),
             'i18n' => [
-                'send' => __('Send verification code', 'ersaal'),
-                'sending' => __('Sending...', 'ersaal'),
-                'verify' => __('Verify code', 'ersaal'),
-                'verifying' => __('Verifying...', 'ersaal'),
-                'resend' => __('Send a new code', 'ersaal'),
+                'send' => __('Send verification code', 'ersaal-sms-gateway'),
+                'sending' => __('Sending...', 'ersaal-sms-gateway'),
+                'verify' => __('Verify code', 'ersaal-sms-gateway'),
+                'verifying' => __('Verifying...', 'ersaal-sms-gateway'),
+                'resend' => __('Send a new code', 'ersaal-sms-gateway'),
                 /* translators: %s: Wait time in seconds */
-                'wait' => __('You can request a new code in %s seconds.', 'ersaal'),
-                'unexpected' => __('The OTP request could not be completed.', 'ersaal'),
+                'wait' => __('You can request a new code in %s seconds.', 'ersaal-sms-gateway'),
+                'unexpected' => __('The OTP request could not be completed.', 'ersaal-sms-gateway'),
                 'fields' => [
-                    'id' => __('Log ID', 'ersaal'),
-                    'action' => __('Action', 'ersaal'),
-                    'status' => __('Status', 'ersaal'),
-                    'context' => __('Workflow', 'ersaal'),
-                    'phone_masked' => __('Phone', 'ersaal'),
-                    'reference' => __('Reference', 'ersaal'),
-                    'user_id' => __('User ID', 'ersaal'),
-                    'api_http_code' => __('HTTP code', 'ersaal'),
-                    'error_code' => __('Error code', 'ersaal'),
-                    'error_message' => __('Error message', 'ersaal'),
-                    'created_at' => __('Created at', 'ersaal'),
-                    'updated_at' => __('Updated at', 'ersaal'),
+                    'id' => __('Log ID', 'ersaal-sms-gateway'),
+                    'action' => __('Action', 'ersaal-sms-gateway'),
+                    'status' => __('Status', 'ersaal-sms-gateway'),
+                    'context' => __('Workflow', 'ersaal-sms-gateway'),
+                    'phone_masked' => __('Phone', 'ersaal-sms-gateway'),
+                    'reference' => __('Reference', 'ersaal-sms-gateway'),
+                    'user_id' => __('User ID', 'ersaal-sms-gateway'),
+                    'api_http_code' => __('HTTP code', 'ersaal-sms-gateway'),
+                    'error_code' => __('Error code', 'ersaal-sms-gateway'),
+                    'error_message' => __('Error message', 'ersaal-sms-gateway'),
+                    'created_at' => __('Created at', 'ersaal-sms-gateway'),
+                    'updated_at' => __('Updated at', 'ersaal-sms-gateway'),
                 ],
             ],
         ]);
@@ -135,7 +135,7 @@ final class OTPAdminController
             $retry = max(1, (int) $state['expires_at'] - $now);
             wp_send_json_error([
                 /* translators: %s: Wait time in seconds */
-                'message' => sprintf(__('Use the active code or wait %s seconds before requesting another.', 'ersaal'), $retry),
+                'message' => sprintf(__('Use the active code or wait %s seconds before requesting another.', 'ersaal-sms-gateway'), $retry),
                 'retry_after' => $retry,
                 'can_verify' => true,
             ], 429);
@@ -161,7 +161,7 @@ final class OTPAdminController
         $validator = new OTPValidator();
         wp_send_json_success([
             /* translators: %s: Masked phone number */
-            'message' => sprintf(__('A verification code was sent to %s.', 'ersaal'), $validator->maskPhone($validator->normalizePhone($phone))),
+            'message' => sprintf(__('A verification code was sent to %s.', 'ersaal-sms-gateway'), $validator->maskPhone($validator->normalizePhone($phone))),
             'expires_in' => $expiresIn,
         ]);
     }
@@ -172,7 +172,7 @@ final class OTPAdminController
         $this->authorizeAjax();
         $state = get_transient($this->testTransientKey());
         if (!is_array($state) || empty($state['reference']) || empty($state['phone'])) {
-            wp_send_json_error(['message' => __('This OTP test has expired. Send a new code.', 'ersaal')], 410);
+            wp_send_json_error(['message' => __('This OTP test has expired. Send a new code.', 'ersaal-sms-gateway')], 410);
         }
         $code = isset($_POST['code']) ? sanitize_text_field(wp_unslash($_POST['code'])) : '';
         $result = $this->service->verify(
@@ -195,14 +195,14 @@ final class OTPAdminController
         }
 
         delete_transient($this->testTransientKey());
-        wp_send_json_success(['message' => __('OTP verified successfully. The code cannot be used again.', 'ersaal')]);
+        wp_send_json_success(['message' => __('OTP verified successfully. The code cannot be used again.', 'ersaal-sms-gateway')]);
     }
 
     private function authorizeAjax(): void
     {
         check_ajax_referer('ersaal_otp_test', 'nonce');
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => __('You are not allowed to test OTP.', 'ersaal')], 403);
+            wp_send_json_error(['message' => __('You are not allowed to test OTP.', 'ersaal-sms-gateway')], 403);
         }
     }
 

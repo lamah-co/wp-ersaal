@@ -33,8 +33,37 @@ class SettingsModule implements ModuleInterface
         if (is_admin()) {
             add_action('admin_menu', [$this, 'addAdminMenu'], 10);
             add_action('admin_init', [$this, 'registerSettings']);
+            add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
             add_action('wp_ajax_ersaal_test_api', [$this, 'ajaxTestApi']);
         }
+    }
+
+    public function enqueueAssets(string $hook): void
+    {
+        if (strpos($hook, 'ersaal-settings') === false) {
+            return;
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $tab = isset($_GET['tab']) ? sanitize_key(wp_unslash($_GET['tab'])) : 'general';
+        if ($tab !== 'general') {
+            return;
+        }
+
+        wp_enqueue_script(
+            'ersaal-settings-general',
+            ERSAAL_PLUGIN_URL . 'admin/assets/js/settings-general.js',
+            ['jquery'],
+            ERSAAL_VERSION,
+            true
+        );
+
+        wp_localize_script('ersaal-settings-general', 'ersaalSettingsGeneral', [
+            'nonce' => wp_create_nonce('ersaal_test_api'),
+            'i18n'  => [
+                'connectionFailed' => __('The connection test could not be completed.', 'ersaal-sms-gateway'),
+            ],
+        ]);
     }
 
     public function boot(): void
@@ -45,8 +74,8 @@ class SettingsModule implements ModuleInterface
     {
         add_submenu_page(
             'ersaal-dashboard',
-            __('Settings', 'ersaal'),
-            __('Settings', 'ersaal'),
+            __('Settings', 'ersaal-sms-gateway'),
+            __('Settings', 'ersaal-sms-gateway'),
             'manage_options',
             'ersaal-settings',
             [$this, 'renderSettingsPage']
@@ -100,7 +129,7 @@ class SettingsModule implements ModuleInterface
         check_ajax_referer('ersaal_test_api', 'nonce');
         
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => __('Unauthorized', 'ersaal')]);
+            wp_send_json_error(['message' => __('Unauthorized', 'ersaal-sms-gateway')]);
         }
 
         $client = new Client($this->options);
@@ -109,9 +138,9 @@ class SettingsModule implements ModuleInterface
             $projectName = $response->getProjectName();
             if (!empty($projectName)) {
                 /* translators: %s: Ersaal project name */
-                $msg = sprintf(__('Connected successfully! Project: %s', 'ersaal'), esc_html($projectName));
+                $msg = sprintf(__('Connected successfully! Project: %s', 'ersaal-sms-gateway'), esc_html($projectName));
             } else {
-                $msg = __('Connected successfully!', 'ersaal');
+                $msg = __('Connected successfully!', 'ersaal-sms-gateway');
             }
             (new ConnectionStatusService($this->options))->clearCache();
             wp_send_json_success(['message' => $msg]);

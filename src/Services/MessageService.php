@@ -73,7 +73,7 @@ class MessageService
         ];
 
         if (function_exists('as_enqueue_async_action')) {
-            as_enqueue_async_action('ersaal_process_message_job', $args, 'ersaal');
+            as_enqueue_async_action('ersaal_process_message_job', $args, 'ersaal-sms-gateway');
         } else {
             // Fallback to WP-Cron
             wp_schedule_single_event(time(), 'ersaal_process_message_job', $args);

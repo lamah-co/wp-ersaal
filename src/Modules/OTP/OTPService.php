@@ -31,7 +31,7 @@ final class OTPService
     {
         try {
             if (!$this->isEnabled()) {
-                return OTPResult::failed('disabled', 'otp_disabled', __('OTP is disabled in Ersaal settings.', 'ersaal'));
+                return OTPResult::failed('disabled', 'otp_disabled', __('OTP is disabled in Ersaal settings.', 'ersaal-sms-gateway'));
             }
             $phone = $this->validator->normalizePhone($phone);
             $context = $this->validator->normalizeContext($context);
@@ -57,7 +57,7 @@ final class OTPService
 
             $reference = sanitize_text_field((string) $response->get('request_id', ''));
             if ($reference === '') {
-                throw new ServerException(__('Ersaal did not return an OTP reference.', 'ersaal'), 500);
+                throw new ServerException(__('Ersaal did not return an OTP reference.', 'ersaal-sms-gateway'), 500);
             }
             $apiExpiresIn = $response->get('expires_in');
             $apiExpiresIn = is_numeric($apiExpiresIn) && (int) $apiExpiresIn > 0 ? (int) $apiExpiresIn : null;
@@ -78,7 +78,7 @@ final class OTPService
         $phone = isset($metadata['phone']) ? (string) $metadata['phone'] : '';
         try {
             if (!$this->isEnabled()) {
-                return OTPResult::failed('disabled', 'otp_disabled', __('OTP is disabled in Ersaal settings.', 'ersaal'));
+                return OTPResult::failed('disabled', 'otp_disabled', __('OTP is disabled in Ersaal settings.', 'ersaal-sms-gateway'));
             }
             $reference = $this->validator->validateReference($reference);
             $code = $this->validator->validateCode($code);
@@ -202,32 +202,32 @@ final class OTPService
         $message = strtolower($e->getMessage());
 
         if ($e instanceof RateLimitException) {
-            return OTPResult::failed('rate_limited', 'rate_limited', __('Too many OTP requests. Please wait before trying again.', 'ersaal'), $http ?: 429, $retry);
+            return OTPResult::failed('rate_limited', 'rate_limited', __('Too many OTP requests. Please wait before trying again.', 'ersaal-sms-gateway'), $http ?: 429, $retry);
         }
         if ($e instanceof AuthenticationException) {
-            return OTPResult::failed('failed', 'authentication_failed', __('OTP authentication failed. Check the Ersaal connection settings.', 'ersaal'), $http ?: 401);
+            return OTPResult::failed('failed', 'authentication_failed', __('OTP authentication failed. Check the Ersaal connection settings.', 'ersaal-sms-gateway'), $http ?: 401);
         }
         if ($e instanceof BalanceException || strpos($message, 'balance') !== false) {
-            return OTPResult::failed('failed', 'subscription_or_balance', __('OTP is unavailable because the wallet or OTP subscription balance is insufficient.', 'ersaal'), $http ?: 400);
+            return OTPResult::failed('failed', 'subscription_or_balance', __('OTP is unavailable because the wallet or OTP subscription balance is insufficient.', 'ersaal-sms-gateway'), $http ?: 400);
         }
         if ($e instanceof ConnectionException || $e instanceof ServerException) {
-            return OTPResult::failed('unavailable', 'service_unavailable', __('The OTP service is temporarily unavailable. Please try again later.', 'ersaal'), $http ?: 503);
+            return OTPResult::failed('unavailable', 'service_unavailable', __('The OTP service is temporarily unavailable. Please try again later.', 'ersaal-sms-gateway'), $http ?: 503);
         }
         if ($operation === 'verify' && ($http === 404 || strpos($message, 'expired') !== false || strpos($message, 'not found') !== false)) {
-            return OTPResult::failed('expired', 'expired', __('The verification code has expired or was already used.', 'ersaal'), $http ?: 404);
+            return OTPResult::failed('expired', 'expired', __('The verification code has expired or was already used.', 'ersaal-sms-gateway'), $http ?: 404);
         }
         if ($operation === 'verify' && ($http === 400 || strpos($message, 'invalid otp') !== false)) {
-            return OTPResult::failed('invalid', 'invalid_code', __('The verification code is incorrect.', 'ersaal'), $http ?: 400);
+            return OTPResult::failed('invalid', 'invalid_code', __('The verification code is incorrect.', 'ersaal-sms-gateway'), $http ?: 400);
         }
         if (strpos($message, 'already sent') !== false) {
-            return OTPResult::failed('rate_limited', 'active_otp_exists', __('An active verification code already exists for this phone. Use it or wait until it expires.', 'ersaal'), $http ?: 400);
+            return OTPResult::failed('rate_limited', 'active_otp_exists', __('An active verification code already exists for this phone. Use it or wait until it expires.', 'ersaal-sms-gateway'), $http ?: 400);
         }
         if (strpos($message, 'sender') !== false) {
-            return OTPResult::failed('failed', 'sender_invalid', __('The OTP sender is invalid or unavailable for this phone provider.', 'ersaal'), $http ?: 400);
+            return OTPResult::failed('failed', 'sender_invalid', __('The OTP sender is invalid or unavailable for this phone provider.', 'ersaal-sms-gateway'), $http ?: 400);
         }
         if ($e instanceof ValidationException || $e instanceof ApiException) {
-            return OTPResult::failed('failed', 'api_error', __('The OTP request could not be completed.', 'ersaal'), $http);
+            return OTPResult::failed('failed', 'api_error', __('The OTP request could not be completed.', 'ersaal-sms-gateway'), $http);
         }
-        return OTPResult::failed('failed', 'unexpected_error', __('An unexpected OTP error occurred.', 'ersaal'), $http);
+        return OTPResult::failed('failed', 'unexpected_error', __('An unexpected OTP error occurred.', 'ersaal-sms-gateway'), $http);
     }
 }

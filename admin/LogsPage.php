@@ -17,7 +17,7 @@ class LogsPage
     public function render(): void
     {
         if (!current_user_can('manage_options')) {
-            wp_die(esc_html__('Unauthorized', 'ersaal'));
+            wp_die(esc_html__('Unauthorized', 'ersaal-sms-gateway'));
         }
 
         $this->handleActions();
@@ -61,9 +61,9 @@ class LogsPage
                 check_admin_referer('ersaal_delete_log');
                 $id = (int)$_POST['log_id'];
                 if ($this->repository->deleteById($id)) {
-                    add_settings_error('ersaal_logs', 'log_deleted', __('Log deleted successfully.', 'ersaal'), 'success');
+                    add_settings_error('ersaal_logs', 'log_deleted', __('Log deleted successfully.', 'ersaal-sms-gateway'), 'success');
                 } else {
-                    add_settings_error('ersaal_logs', 'log_delete_failed', __('Unable to delete selected log.', 'ersaal'), 'error');
+                    add_settings_error('ersaal_logs', 'log_delete_failed', __('Unable to delete selected log.', 'ersaal-sms-gateway'), 'error');
                 }
             } elseif (isset($_POST['ersaal_bulk_action']) && isset($_POST['log_ids']) && is_array($_POST['log_ids'])) {
                 check_admin_referer('ersaal_bulk_logs');
@@ -73,9 +73,9 @@ class LogsPage
                     $count = $this->repository->deleteBulk($ids);
                     if ($count > 0) {
                         /* translators: %s: Number of logs deleted */
-                        add_settings_error('ersaal_logs', 'logs_bulk_deleted', sprintf(_n('%s log deleted successfully.', '%s logs deleted successfully.', $count, 'ersaal'), $count), 'success');
+                        add_settings_error('ersaal_logs', 'logs_bulk_deleted', sprintf(_n('%s log deleted successfully.', '%s logs deleted successfully.', $count, 'ersaal-sms-gateway'), $count), 'success');
                     } else {
-                        add_settings_error('ersaal_logs', 'logs_bulk_delete_failed', __('Unable to delete selected logs.', 'ersaal'), 'error');
+                        add_settings_error('ersaal_logs', 'logs_bulk_delete_failed', __('Unable to delete selected logs.', 'ersaal-sms-gateway'), 'error');
                     }
                 }
             }
@@ -113,9 +113,9 @@ class LogsPage
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
 
         fputcsv($output, [
-            __('Log ID', 'ersaal'), __('Status', 'ersaal'), __('Source', 'ersaal'), __('Source ID', 'ersaal'), __('Source event', 'ersaal'),
-            __('Masked phone', 'ersaal'), __('Message', 'ersaal'), __('Message ID', 'ersaal'), __('Parts', 'ersaal'), __('Cost', 'ersaal'),
-            __('Attempts', 'ersaal'), __('HTTP code', 'ersaal'), __('API error', 'ersaal'), __('Created at', 'ersaal'), __('Updated at', 'ersaal')
+            __('Log ID', 'ersaal-sms-gateway'), __('Status', 'ersaal-sms-gateway'), __('Source', 'ersaal-sms-gateway'), __('Source ID', 'ersaal-sms-gateway'), __('Source event', 'ersaal-sms-gateway'),
+            __('Masked phone', 'ersaal-sms-gateway'), __('Message', 'ersaal-sms-gateway'), __('Message ID', 'ersaal-sms-gateway'), __('Parts', 'ersaal-sms-gateway'), __('Cost', 'ersaal-sms-gateway'),
+            __('Attempts', 'ersaal-sms-gateway'), __('HTTP code', 'ersaal-sms-gateway'), __('API error', 'ersaal-sms-gateway'), __('Created at', 'ersaal-sms-gateway'), __('Updated at', 'ersaal-sms-gateway')
         ]);
 
         foreach ($logsData['items'] as $log) {

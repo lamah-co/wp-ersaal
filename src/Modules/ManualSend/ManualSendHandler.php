@@ -29,11 +29,11 @@ class ManualSendHandler
     public function handleRequest(): void
     {
         if (!check_ajax_referer('ersaal_manual_send', 'nonce', false)) {
-            wp_send_json_error(['message' => __('Invalid security token.', 'ersaal')], 403);
+            wp_send_json_error(['message' => __('Invalid security token.', 'ersaal-sms-gateway')], 403);
         }
 
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => __('Insufficient capabilities.', 'ersaal')], 403);
+            wp_send_json_error(['message' => __('Insufficient capabilities.', 'ersaal-sms-gateway')], 403);
         }
 
         $input = [
@@ -81,7 +81,7 @@ class ManualSendHandler
             return [
                 'success'     => false,
                 'status_code' => 422,
-                'data'        => ['message' => __('Message text is required.', 'ersaal')],
+                'data'        => ['message' => __('Message text is required.', 'ersaal-sms-gateway')],
             ];
         }
 
@@ -114,7 +114,7 @@ class ManualSendHandler
                 return [
                     'success'     => false,
                     'status_code' => 500,
-                    'data'        => ['message' => __('Unexpected idempotency key conflict.', 'ersaal')],
+                    'data'        => ['message' => __('Unexpected idempotency key conflict.', 'ersaal-sms-gateway')],
                 ];
             }
 
@@ -134,7 +134,7 @@ class ManualSendHandler
                 return [
                     'success'     => false,
                     'status_code' => 500,
-                    'data'        => ['message' => __('Log not found after execution.', 'ersaal')],
+                    'data'        => ['message' => __('Log not found after execution.', 'ersaal-sms-gateway')],
                 ];
             }
 
@@ -151,7 +151,7 @@ class ManualSendHandler
             return [
                 'success'     => false,
                 'status_code' => 500,
-                'data'        => ['message' => __('An unexpected internal error occurred.', 'ersaal')],
+                'data'        => ['message' => __('An unexpected internal error occurred.', 'ersaal-sms-gateway')],
             ];
         }
     }
@@ -163,7 +163,7 @@ class ManualSendHandler
     {
         if ($log->status === 'accepted') {
             $data = [
-                'message' => __('Message accepted by Ersaal platform.', 'ersaal'),
+                'message' => __('Message accepted by Ersaal platform.', 'ersaal-sms-gateway'),
                 'log_id'  => $log->id,
             ];
 
@@ -229,39 +229,39 @@ class ManualSendHandler
         // Balance / insufficient funds — context-aware
         if (stripos($apiError, 'balance') !== false || stripos($apiError, 'insufficient') !== false) {
             if ($paymentType === 'subscription') {
-                return __('No valid subscription allows sending this message.', 'ersaal');
+                return __('No valid subscription allows sending this message.', 'ersaal-sms-gateway');
             }
-            return __('Insufficient wallet balance to send this message.', 'ersaal');
+            return __('Insufficient wallet balance to send this message.', 'ersaal-sms-gateway');
         }
         // Subscription-specific errors
         if (stripos($apiError, 'subscription') !== false) {
-            return __('No valid subscription allows sending this message.', 'ersaal');
+            return __('No valid subscription allows sending this message.', 'ersaal-sms-gateway');
         }
         // Sender ID
         if (stripos($apiError, 'sender') !== false) {
-            return __('Sender ID is invalid or not approved for this project.', 'ersaal');
+            return __('Sender ID is invalid or not approved for this project.', 'ersaal-sms-gateway');
         }
         // Validation (400/422 generic)
         if ($code === 400 || $code === 422) {
-            return __('Please review the phone number and message details.', 'ersaal');
+            return __('Please review the phone number and message details.', 'ersaal-sms-gateway');
         }
         // Authentication
         if ($code === 401) {
-            return __('Authentication with Ersaal failed. Check the API key.', 'ersaal');
+            return __('Authentication with Ersaal failed. Check the API key.', 'ersaal-sms-gateway');
         }
         // IP / Forbidden
         if ($code === 403) {
-            return __('The server IP address is not allowed by the Ersaal project.', 'ersaal');
+            return __('The server IP address is not allowed by the Ersaal project.', 'ersaal-sms-gateway');
         }
         // Rate limit
         if ($code === 429) {
-            return __('Request limit exceeded. Try again later.', 'ersaal');
+            return __('Request limit exceeded. Try again later.', 'ersaal-sms-gateway');
         }
         // Server / Connection / transient
         if ($code >= 500 || $status === 'error') {
-            return __('The Ersaal request could not be completed.', 'ersaal');
+            return __('The Ersaal request could not be completed.', 'ersaal-sms-gateway');
         }
 
-        return $apiError ?: __('An unexpected error occurred while sending the message.', 'ersaal');
+        return $apiError ?: __('An unexpected error occurred while sending the message.', 'ersaal-sms-gateway');
     }
 }

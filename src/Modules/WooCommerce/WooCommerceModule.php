@@ -48,6 +48,38 @@ class WooCommerceModule implements ModuleInterface
         
         $this->manualBox = new ManualOrderSmsBox($this->options, $this->messageService);
         $this->manualBox->register();
+
+        add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
+    }
+
+    public function enqueueAssets(string $hook): void
+    {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $tab = isset($_GET['tab']) ? sanitize_key(wp_unslash($_GET['tab'])) : '';
+        $isWcErsaalTab = ($hook === 'woocommerce_page_wc-settings' && $tab === 'ersaal');
+        if (!$isWcErsaalTab) {
+            return;
+        }
+
+        wp_enqueue_script(
+            'ersaal-woocommerce-settings',
+            ERSAAL_PLUGIN_URL . 'admin/assets/js/woocommerce-settings.js',
+            [],
+            ERSAAL_VERSION,
+            true
+        );
+
+        wp_localize_script('ersaal-woocommerce-settings', 'ersaalWcSettings', [
+            'i18n' => [
+                'characters'      => __('Characters', 'ersaal-sms-gateway'),
+                'parts'           => __('Estimated parts', 'ersaal-sms-gateway'),
+                'encoding'        => __('Encoding', 'ersaal-sms-gateway'),
+                'empty'           => __('Preview appears as you type.', 'ersaal-sms-gateway'),
+                'enabled'         => __('Enabled', 'ersaal-sms-gateway'),
+                'disabled'        => __('Disabled', 'ersaal-sms-gateway'),
+                'select_template' => __('Focus a message template before inserting a variable.', 'ersaal-sms-gateway'),
+            ],
+        ]);
     }
 
     public function boot(): void

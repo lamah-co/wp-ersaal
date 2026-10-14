@@ -94,7 +94,7 @@ class MessageJob
             );
             
             /* translators: %s: Message ID */
-            $note = $messageId ? sprintf(__('Ersaal SMS accepted. Message ID: %s', 'ersaal'), $messageId) : __('Ersaal SMS accepted.', 'ersaal');
+            $note = $messageId ? sprintf(__('Ersaal SMS accepted. Message ID: %s', 'ersaal-sms-gateway'), $messageId) : __('Ersaal SMS accepted.', 'ersaal-sms-gateway');
             $this->addOrderNote($idempotencyKey, $note);
             
             do_action('ersaal_message_accepted', $idempotencyKey, $messageId);
@@ -119,7 +119,7 @@ class MessageJob
                 'error',
                 $e->getCode() ?: 0,
                 /* translators: %s: Error message */
-                sprintf(__('Unexpected internal error: %s', 'ersaal'), $e->getMessage())
+                sprintf(__('Unexpected internal error: %s', 'ersaal-sms-gateway'), $e->getMessage())
             );
             $this->notifyFailure($idempotencyKey, (int) $e->getCode(), $e->getMessage());
         }
@@ -149,7 +149,7 @@ class MessageJob
 
             $args = [$idempotencyKey, $payload];
             if (function_exists('as_schedule_single_action')) {
-                as_schedule_single_action(time() + $retryAfter, 'ersaal_process_message_job', $args, 'ersaal');
+                as_schedule_single_action(time() + $retryAfter, 'ersaal_process_message_job', $args, 'ersaal-sms-gateway');
             } else {
                 wp_schedule_single_event(time() + $retryAfter, 'ersaal_process_message_job', $args);
             }
@@ -185,7 +185,7 @@ class MessageJob
     {
         $note = sprintf(
             /* translators: %s: Failure reason */
-            __('Ersaal SMS failed: %s', 'ersaal'),
+            __('Ersaal SMS failed: %s', 'ersaal-sms-gateway'),
             $this->sanitizeError($message)
         );
 

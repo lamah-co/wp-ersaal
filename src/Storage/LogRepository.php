@@ -65,7 +65,7 @@ class LogRepository
                     // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('Ersaal DB Insert Failed: ' . $last_error);
                 }
-                throw new \RuntimeException(esc_html__('Unable to create message log.', 'ersaal'));
+                throw new \RuntimeException(esc_html__('Unable to create message log.', 'ersaal-sms-gateway'));
             }
             return false;
         }

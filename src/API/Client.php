@@ -59,23 +59,30 @@ class Client
     {
         $baseUrl = rtrim((string) $this->options->get('api_url', 'https://api.ersaal.com'), '/');
         if (empty($baseUrl) || !filter_var($baseUrl, FILTER_VALIDATE_URL)) {
-            throw new ConnectionException(esc_html__('Invalid Base URL configured.', 'ersaal'));
+            throw new ConnectionException(esc_html__('Invalid Base URL configured.', 'ersaal-sms-gateway'));
         }
 
-        $scheme = wp_parse_url($baseUrl, PHP_URL_SCHEME);
-        if (strtolower((string) $scheme) !== 'https') {
-            throw new ConnectionException(esc_html__('Ersaal API requires a secure HTTPS connection.', 'ersaal'));
+        $scheme = strtolower((string) wp_parse_url($baseUrl, PHP_URL_SCHEME));
+        $host   = strtolower((string) wp_parse_url($baseUrl, PHP_URL_HOST));
+        $isLocal = in_array($host, ['localhost', '127.0.0.1', '::1'], true)
+            || str_ends_with($host, '.test')
+            || str_ends_with($host, '.local')
+            || (defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local')
+            || (defined('WP_DEBUG') && WP_DEBUG);
+
+        if ($scheme !== 'https' && !($scheme === 'http' && $isLocal)) {
+            throw new ConnectionException(esc_html__('Ersaal API requires a secure HTTPS connection.', 'ersaal-sms-gateway'));
         }
 
         $user = wp_parse_url($baseUrl, PHP_URL_USER);
         $pass = wp_parse_url($baseUrl, PHP_URL_PASS);
         if (!empty($user) || !empty($pass)) {
-            throw new ConnectionException(esc_html__('API Base URL must not contain embedded user credentials.', 'ersaal'));
+            throw new ConnectionException(esc_html__('API Base URL must not contain embedded user credentials.', 'ersaal-sms-gateway'));
         }
 
         $apiKey = trim((string) $this->options->get('api_key', ''));
         if (empty($apiKey)) {
-            throw new AuthenticationException(esc_html__('API Key is missing.', 'ersaal'));
+            throw new AuthenticationException(esc_html__('API Key is missing.', 'ersaal-sms-gateway'));
         }
 
         // Clean token if user prefixed with Bearer
@@ -107,7 +114,7 @@ class Client
         if (is_wp_error($response)) {
             $errMsg = $response->get_error_message();
             if (str_contains($errMsg, 'timed out') || str_contains($errMsg, 'Could not resolve host') || str_contains($errMsg, 'Connection refused')) {
-                $errMsg = esc_html__('Could not connect to Ersaal. Check the API URL and service status.', 'ersaal');
+                $errMsg = esc_html__('Could not connect to Ersaal. Check the API URL and service status.', 'ersaal-sms-gateway');
             }
             throw new ConnectionException(esc_html($this->sanitizeErrorMessage((string) $errMsg)));
         }
@@ -135,7 +142,7 @@ class Client
         }
 
         if ($statusCode >= 300 && $statusCode < 400) {
-            throw new ConnectionException(esc_html__('Redirects are disabled for security reasons.', 'ersaal'), absint($statusCode));
+            throw new ConnectionException(esc_html__('Redirects are disabled for security reasons.', 'ersaal-sms-gateway'), absint($statusCode));
         }
 
         $rawMsg = $body['message'] ?? '';
@@ -154,9 +161,9 @@ class Client
         // Handle raw HTML error pages or sensitive stack traces / logs
         if (empty($message) || str_contains($rawBody, '<html') || str_contains($rawBody, 'Permission denied') || str_contains($rawBody, 'Stack trace')) {
             if ($statusCode >= 500) {
-                $message = esc_html__('Ersaal server returned an internal error. Check the Ersaal service logs.', 'ersaal');
+                $message = esc_html__('Ersaal server returned an internal error. Check the Ersaal service logs.', 'ersaal-sms-gateway');
             } else {
-                $message = esc_html__('Unexpected API response received.', 'ersaal');
+                $message = esc_html__('Unexpected API response received.', 'ersaal-sms-gateway');
             }
         }
 
@@ -164,18 +171,18 @@ class Client
 
         if ($statusCode === 401) {
             if (empty($message) || $message === 'Unauthenticated.') {
-                $message = esc_html__('Authentication failed. Check the API Key.', 'ersaal');
+                $message = esc_html__('Authentication failed. Check the API Key.', 'ersaal-sms-gateway');
             }
             throw new AuthenticationException(esc_html($message), absint($statusCode));
         }
 
         if ($statusCode === 403) {
             if (stripos($rawBody, 'ip') !== false || stripos($rawBody, 'whitelist') !== false || stripos($rawBody, 'not allowed') !== false) {
-                $message = esc_html__('This server IP is not allowed by the Ersaal project.', 'ersaal');
+                $message = esc_html__('This server IP is not allowed by the Ersaal project.', 'ersaal-sms-gateway');
             } elseif (stripos($rawBody, 'inactive') !== false) {
-                $message = esc_html__('The Ersaal project is inactive.', 'ersaal');
+                $message = esc_html__('The Ersaal project is inactive.', 'ersaal-sms-gateway');
             } else {
-                $message = esc_html__('Authentication failed or access forbidden.', 'ersaal');
+                $message = esc_html__('Authentication failed or access forbidden.', 'ersaal-sms-gateway');
             }
             throw new AuthenticationException(esc_html($message), absint($statusCode));
         }

@@ -57,8 +57,8 @@ class ManualSendModule implements ModuleInterface
     {
         add_submenu_page(
             'ersaal-dashboard',
-            __('Send SMS', 'ersaal'),
-            __('Send SMS', 'ersaal'),
+            __('Send SMS', 'ersaal-sms-gateway'),
+            __('Send SMS', 'ersaal-sms-gateway'),
             'manage_options',
             'ersaal-send-message',
             [$this, 'renderPage']
@@ -90,11 +90,11 @@ class ManualSendModule implements ModuleInterface
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce'    => wp_create_nonce('ersaal_manual_send'),
             'i18n'     => [
-                'sending' => __('Sending...', 'ersaal'),
-                'send'    => __('Send SMS', 'ersaal'),
-                'error'   => __('An unexpected error occurred.', 'ersaal'),
-                'success' => __('Message accepted by Ersaal.', 'ersaal'),
-                'error_label' => __('Message could not be sent.', 'ersaal')
+                'sending' => __('Sending...', 'ersaal-sms-gateway'),
+                'send'    => __('Send SMS', 'ersaal-sms-gateway'),
+                'error'   => __('An unexpected error occurred.', 'ersaal-sms-gateway'),
+                'success' => __('Message accepted by Ersaal.', 'ersaal-sms-gateway'),
+                'error_label' => __('Message could not be sent.', 'ersaal-sms-gateway')
             ]
         ]);
     }

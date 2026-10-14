@@ -8,7 +8,7 @@ class HelpPage
     public function render(): void
     {
         if (!current_user_can('manage_options')) {
-            wp_die(esc_html__('Unauthorized', 'ersaal'));
+            wp_die(esc_html__('Unauthorized', 'ersaal-sms-gateway'));
         }
 
         wp_enqueue_style('ersaal-help-style', ERSAAL_PLUGIN_URL . 'admin/assets/css/help.css', [], ERSAAL_VERSION);

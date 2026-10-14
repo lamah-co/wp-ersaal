@@ -13,14 +13,14 @@ $cleanOnUninstall = get_option('ersaal_clean_on_uninstall', false);
     <div class="ersaal-settings-panel">
         <section class="ersaal-settings-section" aria-labelledby="ersaal-uninstall-title">
             <header class="ersaal-settings-section-header">
-                <h2 id="ersaal-uninstall-title"><?php esc_html_e('Uninstall behavior', 'ersaal'); ?></h2>
-                <p><?php esc_html_e('Choose whether local Ersaal data should remain after the plugin is deleted.', 'ersaal'); ?></p>
+                <h2 id="ersaal-uninstall-title"><?php esc_html_e('Uninstall behavior', 'ersaal-sms-gateway'); ?></h2>
+                <p><?php esc_html_e('Choose whether local Ersaal data should remain after the plugin is deleted.', 'ersaal-sms-gateway'); ?></p>
             </header>
 
             <label class="ersaal-switch-row" for="ersaal_clean_on_uninstall">
                 <span class="ersaal-switch-copy">
-                    <span class="ersaal-switch-title"><?php esc_html_e('Delete all local data on uninstall', 'ersaal'); ?></span>
-                    <span class="ersaal-switch-description"><?php esc_html_e('Removes saved settings and SMS logs when the plugin is deleted.', 'ersaal'); ?></span>
+                    <span class="ersaal-switch-title"><?php esc_html_e('Delete all local data on uninstall', 'ersaal-sms-gateway'); ?></span>
+                    <span class="ersaal-switch-description"><?php esc_html_e('Removes saved settings and SMS logs when the plugin is deleted.', 'ersaal-sms-gateway'); ?></span>
                 </span>
                 <span class="ersaal-switch-control">
                     <input name="ersaal_clean_on_uninstall" type="checkbox" id="ersaal_clean_on_uninstall" value="1" <?php checked($cleanOnUninstall, 1); ?> />
@@ -29,13 +29,13 @@ $cleanOnUninstall = get_option('ersaal_clean_on_uninstall', false);
             </label>
 
             <div class="ersaal-alert ersaal-alert-warning" role="note">
-                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Permanent deletion', 'ersaal'); ?></p>
-                <p><?php esc_html_e('When enabled, the local logs and settings cannot be recovered after uninstalling the plugin.', 'ersaal'); ?></p>
+                <p class="ersaal-alert-title"><?php echo ersaal_admin_icon('warning'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e('Permanent deletion', 'ersaal-sms-gateway'); ?></p>
+                <p><?php esc_html_e('When enabled, the local logs and settings cannot be recovered after uninstalling the plugin.', 'ersaal-sms-gateway'); ?></p>
             </div>
         </section>
     </div>
 
     <div class="ersaal-save-bar">
-        <button type="submit" class="ersaal-btn ersaal-btn-primary"><?php esc_html_e('Save settings', 'ersaal'); ?></button>
+        <button type="submit" class="ersaal-btn ersaal-btn-primary"><?php esc_html_e('Save settings', 'ersaal-sms-gateway'); ?></button>
     </div>
 </form>

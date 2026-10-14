@@ -46,7 +46,7 @@ final class ConnectionStatusService
 
             return [
                 'connected' => true,
-                'project_name' => $details['project_name'] ?? __('Unknown Project', 'ersaal'),
+                'project_name' => $details['project_name'] ?? __('Unknown Project', 'ersaal-sms-gateway'),
                 'status' => $details['status'] ?? 'unknown',
                 'subscriptions' => is_array($details['subscription'] ?? null) ? $details['subscription'] : [],
                 'sms_balance' => $smsBalance,

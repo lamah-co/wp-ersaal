@@ -86,9 +86,9 @@ class Plugin
     {
         if (!extension_loaded('mbstring') && current_user_can('manage_options')) {
             $screen = function_exists('get_current_screen') ? get_current_screen() : null;
-            if ($screen && (strpos($screen->id, 'ersaal') !== false || strpos($screen->id, 'woocommerce') !== false)) {
+            if ($screen && (strpos($screen->id, 'ersaal-sms-gateway') !== false || strpos($screen->id, 'woocommerce') !== false)) {
                 echo '<div class="notice notice-warning is-dismissible"><p>' .
-                    esc_html__('Ersaal SMS Gateway: The PHP mbstring extension is not installed. Standard UTF-8 fallbacks are in use, but installing php-mbstring is recommended for optimal Arabic SMS processing.', 'ersaal') .
+                    esc_html__('Ersaal SMS Gateway: The PHP mbstring extension is not installed. Standard UTF-8 fallbacks are in use, but installing php-mbstring is recommended for optimal Arabic SMS processing.', 'ersaal-sms-gateway') .
                     '</p></div>';
             }
         }
@@ -98,7 +98,7 @@ class Plugin
     {
         // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
         load_plugin_textdomain(
-            'ersaal',
+            'ersaal-sms-gateway',
             false,
             dirname(plugin_basename(ERSAAL_PLUGIN_FILE)) . '/languages'
         );
@@ -106,7 +106,7 @@ class Plugin
     
     public function enqueueGlobalAdminAssets(string $hook): void
     {
-        $isErsaalPage = strpos($hook, 'ersaal') !== false;
+        $isErsaalPage = strpos($hook, 'ersaal-sms-gateway') !== false;
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $tab = isset($_GET['tab']) ? sanitize_key(wp_unslash($_GET['tab'])) : '';
         $isWooCommerceSettings = ($hook === 'woocommerce_page_wc-settings' && $tab === 'ersaal');

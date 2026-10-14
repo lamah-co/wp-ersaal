@@ -14,7 +14,7 @@ class WooCommerceSettings
 
     public function addTab(array $tabs): array
     {
-        $tabs['woocommerce'] = __('WooCommerce', 'ersaal');
+        $tabs['woocommerce'] = __('WooCommerce', 'ersaal-sms-gateway');
         return $tabs;
     }
 
@@ -84,7 +84,7 @@ class WooCommerceSettings
         register_setting('ersaal_woocommerce_settings', 'ersaal_wc_admin_new_order_template', [
             'type' => 'string',
             'sanitize_callback' => 'sanitize_textarea_field',
-            'default' => __('New order #{order_number} from {customer_name}. Total: {order_total}', 'ersaal')
+            'default' => __('New order #{order_number} from {customer_name}. Total: {order_total}', 'ersaal-sms-gateway')
         ]);
     }
 
@@ -92,13 +92,13 @@ class WooCommerceSettings
     {
         switch ($event) {
             case 'new_order':
-                return __('Hello {customer_name}, we received your order #{order_number}. Thank you for choosing {site_name}.', 'ersaal');
+                return __('Hello {customer_name}, we received your order #{order_number}. Thank you for choosing {site_name}.', 'ersaal-sms-gateway');
             case 'processing':
-                return __('Your order #{order_number} is now being processed.', 'ersaal');
+                return __('Your order #{order_number} is now being processed.', 'ersaal-sms-gateway');
             case 'completed':
-                return __('Your order #{order_number} has been completed. Thank you for choosing {site_name}.', 'ersaal');
+                return __('Your order #{order_number} has been completed. Thank you for choosing {site_name}.', 'ersaal-sms-gateway');
             case 'cancelled':
-                return __('Your order #{order_number} has been cancelled.', 'ersaal');
+                return __('Your order #{order_number} has been cancelled.', 'ersaal-sms-gateway');
             default:
                 return '';
         }

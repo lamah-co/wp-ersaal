@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2026-10-14
+
+### Fixed
+- Resolved security, stability, compatibility, and build issues (#23-#32).
+- Hardened HTTP/HTTPS connection validation and API error handling.
+- Enhanced UTF-8 multibyte string handling for Arabic SMS content using `Str::substr`, `Str::length`, `Str::limit`.
+- Improved WooCommerce order SMS status transitions and carrier validation.
+- Refined admin views with strict typing and WordPress standard compliance.
+
+## [1.3.0] - 2026-10-06
+
+### Added
+- Automatic log retention and scheduled daily cleanup via WP-Cron with customizable retention window (#17).
+- Flattened repository structure to support direct WordPress installation and clean git workflows (#13).
+- Refactored dependency injection for LogRepository and Client across WooCommerce and Manual Send modules (#14, #15).
+- Corrected message cost calculation, display, and currency handling for wallet (LYD) and subscription parts (#10).
+- Hardened OTP Login Two-Factor Authentication flow against invalid challenge execution escape (#16).
+- Enhanced Advanced Settings UI with native design tokens and comprehensive Arabic/English translations.
+
 ## [1.1.0] - 2026-08-10
 
 ### Added

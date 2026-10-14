@@ -37,11 +37,20 @@ final class SmsFacade
             return false;
         }
 
-        $scheme = wp_parse_url($apiUrl, PHP_URL_SCHEME);
-        $user = wp_parse_url($apiUrl, PHP_URL_USER);
-        $pass = wp_parse_url($apiUrl, PHP_URL_PASS);
+        $scheme = strtolower((string) wp_parse_url($apiUrl, PHP_URL_SCHEME));
+        $host   = strtolower((string) wp_parse_url($apiUrl, PHP_URL_HOST));
+        $user   = wp_parse_url($apiUrl, PHP_URL_USER);
+        $pass   = wp_parse_url($apiUrl, PHP_URL_PASS);
 
-        return strtolower((string) $scheme) === 'https' && empty($user) && empty($pass);
+        $isLocal = in_array($host, ['localhost', '127.0.0.1', '::1'], true)
+            || str_ends_with($host, '.test')
+            || str_ends_with($host, '.local')
+            || (defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local')
+            || (defined('WP_DEBUG') && WP_DEBUG);
+
+        $isSchemeValid = ($scheme === 'https') || ($scheme === 'http' && $isLocal);
+
+        return $isSchemeValid && empty($user) && empty($pass);
     }
 
     public function send(array $request): SmsResult
@@ -51,7 +60,7 @@ final class SmsFacade
             return SmsResult::failure(
                 'invalid_request',
                 'invalid_idempotency_key',
-                __('The SMS idempotency key is invalid.', 'ersaal')
+                __('The SMS idempotency key is invalid.', 'ersaal-sms-gateway')
             );
         }
 
@@ -59,7 +68,7 @@ final class SmsFacade
             return SmsResult::failure(
                 'unavailable',
                 'missing_configuration',
-                __('Ersaal SMS is not configured.', 'ersaal'),
+                __('Ersaal SMS is not configured.', 'ersaal-sms-gateway'),
                 $idempotencyKey
             );
         }
@@ -69,7 +78,7 @@ final class SmsFacade
             return SmsResult::failure(
                 'invalid_request',
                 'invalid_message',
-                __('Message text is required.', 'ersaal'),
+                __('Message text is required.', 'ersaal-sms-gateway'),
                 $idempotencyKey
             );
         }
@@ -114,7 +123,7 @@ final class SmsFacade
                 return SmsResult::failure(
                     'error',
                     'log_not_created',
-                    __('The SMS request could not be queued.', 'ersaal'),
+                    __('The SMS request could not be queued.', 'ersaal-sms-gateway'),
                     $idempotencyKey
                 );
             }

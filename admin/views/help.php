@@ -24,7 +24,7 @@ $logsDescription = $is_arabic ? 'تتبع الحالات ومعالجة الأخ
 $otpLabel = $is_arabic ? 'اختبار رمز التحقق' : 'Test OTP';
 $otpDescription = $is_arabic ? 'تحقق من الإرسال والتأكيد خطوة بخطوة.' : 'Validate sending and verification step by step.';
 ?>
-<div class="wrap ersaal-admin ersaal-page ersaal-page-wide ersaal-help-page" dir="<?php echo $is_arabic ? 'rtl' : 'ltr'; ?>" lang="<?php echo $is_arabic ? 'ar' : 'en'; ?>">
+<div class="wrap ersaal-admin ersaal-page ersaal-page-wide ersaal-help-page" dir="<?php echo esc_attr($is_arabic ? 'rtl' : 'ltr'); ?>" lang="<?php echo esc_attr($is_arabic ? 'ar' : 'en'); ?>">
     <header class="ersaal-page-header">
         <div class="ersaal-page-header-copy">
             <h1 class="ersaal-page-title"><?php echo esc_html($pageTitle); ?></h1>
@@ -54,7 +54,7 @@ $otpDescription = $is_arabic ? 'تحقق من الإرسال والتأكيد خ
 
     <nav id="ersaal-help-toc" class="ersaal-help-nav" aria-label="<?php echo esc_attr($topicsLabel); ?>">
         <?php foreach ($sections as $index => $section): ?>
-            <a href="#<?php echo esc_attr($section['id']); ?>" <?php echo $index === 0 ? 'class="active" aria-current="location"' : ''; ?>><?php echo esc_html($section['title']); ?></a>
+            <a href="#<?php echo esc_attr($section['id']); ?>"<?php if ($index === 0): ?> class="active" aria-current="location"<?php endif; ?>><?php echo esc_html($section['title']); ?></a>
         <?php endforeach; ?>
     </nav>
 
@@ -91,7 +91,7 @@ $otpDescription = $is_arabic ? 'تحقق من الإرسال والتأكيد خ
 
         <div class="ersaal-help-sections">
             <?php foreach ($sections as $index => $section): ?>
-                <details id="<?php echo esc_attr($section['id']); ?>" class="ersaal-help-section" <?php echo $index === 0 ? 'open' : ''; ?>>
+                <details id="<?php echo esc_attr($section['id']); ?>" class="ersaal-help-section"<?php if ($index === 0): ?> open<?php endif; ?>>
                     <summary>
                         <span><?php echo esc_html($section['title']); ?></span>
                         <?php echo ersaal_admin_icon('chevron', 'ersaal-help-chevron'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

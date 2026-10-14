@@ -207,7 +207,7 @@ class OrderEventHandler
                 $idempotencyKey,
                 'failed',
                 null,
-                __('Customer billing phone is missing or invalid.', 'ersaal')
+                __('Customer billing phone is missing or invalid.', 'ersaal-sms-gateway')
             );
         }
     }

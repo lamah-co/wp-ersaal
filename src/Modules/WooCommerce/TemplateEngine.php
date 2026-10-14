@@ -8,7 +8,7 @@ class TemplateEngine
     public static function render(string $template, \WC_Order $order): string
     {
         $customer_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
-        $customer_name = trim($customer_name) !== '' ? trim($customer_name) : __('Customer', 'ersaal');
+        $customer_name = trim($customer_name) !== '' ? trim($customer_name) : __('Customer', 'ersaal-sms-gateway');
         
         $variables = [
             '{customer_name}' => $customer_name,

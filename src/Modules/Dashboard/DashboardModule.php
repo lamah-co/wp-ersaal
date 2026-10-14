@@ -41,8 +41,8 @@ class DashboardModule implements ModuleInterface
     public function addAdminMenu(): void
     {
         add_menu_page(
-            __('Ersaal SMS', 'ersaal'),
-            __('Ersaal SMS', 'ersaal'),
+            __('Ersaal SMS', 'ersaal-sms-gateway'),
+            __('Ersaal SMS', 'ersaal-sms-gateway'),
             'manage_options',
             'ersaal-dashboard',
             [$this, 'renderDashboardPage'],
@@ -52,8 +52,8 @@ class DashboardModule implements ModuleInterface
 
         add_submenu_page(
             'ersaal-dashboard',
-            __('Dashboard', 'ersaal'),
-            __('Dashboard', 'ersaal'),
+            __('Dashboard', 'ersaal-sms-gateway'),
+            __('Dashboard', 'ersaal-sms-gateway'),
             'manage_options',
             'ersaal-dashboard',
             [$this, 'renderDashboardPage']
