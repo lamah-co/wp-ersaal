@@ -1,0 +1,2089 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ersaal SMS Gateway 1.3.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ersaal-sms-"
+"gateway\n"
+"POT-Creation-Date: 2026-11-12T11:03:23+02:00\n"
+"PO-Revision-Date: 2026-11-12 09:04+0000\n"
+"Last-Translator: Ersaal Team\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Domain: ersaal-sms-gateway\n"
+
+#. Plugin Name of the plugin
+#: ersaal.php
+msgid "Ersaal SMS Gateway"
+msgstr "بوابة رسائل إرسال"
+
+#. Plugin URI of the plugin
+#: ersaal.php
+msgid "https://getersaal.com/"
+msgstr "https://getersaal.com/"
+
+#. Description of the plugin
+#: ersaal.php
+msgid ""
+"Official Ersaal SMS Gateway integration for WordPress & WooCommerce. Send "
+"SMS notifications, verify phone numbers via OTP, and enable 2FA login for "
+"Libyan networks."
+msgstr ""
+"إضافة إرسال الرسمية لووردبريس وWooCommerce. أرسل إشعارات SMS، وتحقق من أرقام "
+"الهواتف برمز تحقق لمرة واحدة، وفعّل التحقق بخطوتين عند تسجيل الدخول لأرقام "
+"الشبكات الليبية."
+
+#. Author of the plugin
+#: ersaal.php
+msgid "Lamah"
+msgstr "Lamah"
+
+#. Author URI of the plugin
+#: ersaal.php
+msgid "https://lamah.com/"
+msgstr "https://lamah.com/"
+
+#: admin/DashboardPage.php:27 admin/HelpPage.php:11 admin/LogsPage.php:20
+#: src/Modules/Settings/SettingsModule.php:132
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:114
+msgid "Unauthorized"
+msgstr "غير مصرح لك."
+
+#: admin/LogsPage.php:64
+msgid "Log deleted successfully."
+msgstr "تم حذف السجل بنجاح."
+
+#: admin/LogsPage.php:66
+msgid "Unable to delete selected log."
+msgstr "تعذر حذف السجل المحدد."
+
+#. translators: %s: Number of logs deleted
+#: admin/LogsPage.php:76
+#, php-format
+msgid "%s log deleted successfully."
+msgid_plural "%s logs deleted successfully."
+msgstr[0] "تم حذف %s سجل بنجاح."
+msgstr[1] "تم حذف %s سجل بنجاح."
+msgstr[2] "تم حذف %s سجل بنجاح."
+msgstr[3] "تم حذف %s سجل بنجاح."
+msgstr[4] "تم حذف %s سجل بنجاح."
+msgstr[5] "تم حذف %s سجل بنجاح."
+
+#: admin/LogsPage.php:78
+msgid "Unable to delete selected logs."
+msgstr "تعذر حذف السجلات المحددة."
+
+#: admin/LogsPage.php:116 admin/views/manual-send.php:136
+#: src/Modules/Logs/LogsModule.php:83 src/Modules/OTP/OTPAdminController.php:81
+msgid "Log ID"
+msgstr "معرّف السجل"
+
+#: admin/LogsPage.php:116 admin/views/dashboard.php:135
+#: admin/views/dashboard.php:214 admin/views/logs.php:137
+#: admin/views/logs.php:229 admin/views/manual-send.php:132
+#: admin/views/otp-logs.php:67 admin/views/otp-logs.php:123
+#: admin/views/system-status.php:21 src/Modules/Logs/LogsModule.php:84
+#: src/Modules/OTP/OTPAdminController.php:83
+msgid "Status"
+msgstr "الحالة"
+
+#: admin/LogsPage.php:116 admin/views/dashboard.php:216
+#: admin/views/logs.php:148 src/Modules/Logs/LogsModule.php:85
+msgid "Source"
+msgstr "المصدر"
+
+#: admin/LogsPage.php:116 src/Modules/Logs/LogsModule.php:86
+msgid "Source ID"
+msgstr "معرّف المصدر"
+
+#: admin/LogsPage.php:116
+msgid "Source event"
+msgstr "حدث المصدر"
+
+#: admin/LogsPage.php:117 src/Modules/Logs/LogsModule.php:88
+msgid "Masked phone"
+msgstr "رقم الهاتف المخفي"
+
+#: admin/LogsPage.php:117 admin/views/dashboard.php:217
+#: admin/views/logs.php:232 admin/views/logs.php:327
+#: admin/views/manual-send.php:80
+msgid "Message"
+msgstr "الرسالة"
+
+#: admin/LogsPage.php:117 admin/views/manual-send.php:128
+#: src/Modules/Logs/LogsModule.php:89
+msgid "Message ID"
+msgstr "معرّف الرسالة"
+
+#: admin/LogsPage.php:117 admin/views/manual-send.php:140
+#: src/Modules/Logs/LogsModule.php:90
+msgid "Parts"
+msgstr "الأجزاء"
+
+#: admin/LogsPage.php:117 src/Modules/Logs/LogsModule.php:91
+msgid "Cost"
+msgstr "التكلفة"
+
+#: admin/LogsPage.php:118 src/Modules/Logs/LogsModule.php:92
+msgid "Attempts"
+msgstr "المحاولات"
+
+#: admin/LogsPage.php:118 src/Modules/Logs/LogsModule.php:93
+#: src/Modules/OTP/OTPAdminController.php:88
+msgid "HTTP code"
+msgstr "رمز HTTP"
+
+#: admin/LogsPage.php:118 src/Modules/Logs/LogsModule.php:94
+msgid "API error"
+msgstr "خطأ واجهة API"
+
+#: admin/LogsPage.php:118 src/Modules/OTP/OTPAdminController.php:91
+msgid "Created at"
+msgstr "تاريخ الإنشاء"
+
+#: admin/LogsPage.php:118 src/Modules/OTP/OTPAdminController.php:92
+msgid "Updated at"
+msgstr "تاريخ التحديث"
+
+#: admin/SettingsPage.php:23
+msgid "General Settings"
+msgstr "الإعدادات العامة"
+
+#: admin/SettingsPage.php:24
+msgid "Advanced"
+msgstr "متقدم"
+
+#: admin/SettingsPage.php:25
+msgid "System Status"
+msgstr "حالة النظام"
+
+#: admin/SettingsPage.php:35 admin/views/dashboard.php:248
+#: src/Modules/Settings/SettingsModule.php:77
+#: src/Modules/Settings/SettingsModule.php:78
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: admin/SettingsPage.php:36
+msgid "Manage API connection, defaults, and system preferences."
+msgstr "إدارة اتصال API والإعدادات الافتراضية وتفضيلات النظام."
+
+#: admin/SettingsPage.php:41 admin/views/manual-send.php:31
+msgid "Need help?"
+msgstr "هل تحتاج إلى مساعدة؟"
+
+#: admin/SettingsPage.php:46
+msgid "Settings sections"
+msgstr "أقسام الإعدادات"
+
+#: admin/ui.php:87 admin/ui.php:123 admin/views/logs.php:140
+#: admin/views/woocommerce-settings.php:15
+msgid "Processing"
+msgstr "قيد المعالجة"
+
+#: admin/ui.php:88 admin/views/dashboard.php:170 admin/views/logs.php:101
+#: admin/views/logs.php:141 admin/views/manual-send.php:133
+msgid "Accepted"
+msgstr "مقبولة"
+
+#: admin/ui.php:89
+msgid "Delivered"
+msgstr "تم التسليم"
+
+#: admin/ui.php:90 admin/views/dashboard.php:30 admin/views/otp-logs.php:10
+msgid "Sent"
+msgstr "تم الإرسال"
+
+#: admin/ui.php:91 admin/views/logs.php:142
+msgid "Retry scheduled"
+msgstr "تمت جدولة إعادة المحاولة"
+
+#: admin/ui.php:92
+msgid "Queued"
+msgstr "في قائمة الانتظار"
+
+#: admin/ui.php:93
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: admin/ui.php:94 admin/views/dashboard.php:34 admin/views/dashboard.php:175
+#: admin/views/logs.php:106 admin/views/logs.php:143
+#: admin/views/otp-logs.php:14
+msgid "Failed"
+msgstr "فاشلة"
+
+#: admin/ui.php:95 admin/views/logs.php:144
+msgid "Error"
+msgstr "خطأ"
+
+#: admin/ui.php:96
+msgid "Rejected"
+msgstr "مرفوضة"
+
+#: admin/ui.php:97 admin/views/dashboard.php:33 admin/views/otp-logs.php:13
+msgid "Expired"
+msgstr "منتهية الصلاحية"
+
+#: admin/ui.php:98
+msgid "Unknown"
+msgstr "غير معروفة"
+
+#: admin/ui.php:122 admin/views/woocommerce-settings.php:14
+msgid "New order"
+msgstr "طلب جديد"
+
+#: admin/ui.php:124 admin/views/woocommerce-settings.php:16
+msgid "Completed"
+msgstr "مكتمل"
+
+#: admin/ui.php:125 admin/views/woocommerce-settings.php:17
+msgid "Cancelled"
+msgstr "ملغي"
+
+#: admin/ui.php:151
+msgid "Manual"
+msgstr "يدوي"
+
+#: admin/ui.php:152 src/Modules/WooCommerce/WooCommerceSettings.php:17
+msgid "WooCommerce"
+msgstr "ووكومرس"
+
+#. translators: %s: Order ID
+#: admin/ui.php:166
+#, php-format
+msgid "Order #%s"
+msgstr "الطلب رقم %s"
+
+#: admin/views/dashboard.php:28 admin/views/dashboard.php:72
+#: admin/views/manual-send.php:20
+msgid "Not available"
+msgstr "غير متوفر"
+
+#: admin/views/dashboard.php:31 admin/views/dashboard.php:115
+#: admin/views/otp-logs.php:11 src/Modules/OTP/OTPUserProfile.php:58
+#: src/Modules/OTP/OTPUserProfile.php:132
+msgid "Verified"
+msgstr "مؤكد"
+
+#: admin/views/dashboard.php:32 admin/views/otp-logs.php:12
+msgid "Invalid"
+msgstr "غير صحيح"
+
+#: admin/views/dashboard.php:35 admin/views/otp-logs.php:15
+msgid "Rate limited"
+msgstr "مقيّد المعدل"
+
+#: admin/views/dashboard.php:36 admin/views/otp-logs.php:16
+#: admin/views/settings-otp.php:42
+msgid "Unavailable"
+msgstr "غير متاح"
+
+#: admin/views/dashboard.php:39 admin/views/otp-logs.php:19
+msgid "Admin test"
+msgstr "اختبار الإدارة"
+
+#: admin/views/dashboard.php:40 admin/views/otp-logs.php:20
+msgid "Profile verification"
+msgstr "التحقق من الملف الشخصي"
+
+#: admin/views/dashboard.php:41 admin/views/otp-logs.php:21
+msgid "WordPress login"
+msgstr "تسجيل دخول ووردبريس"
+
+#: admin/views/dashboard.php:42 admin/views/otp-logs.php:22
+msgid "Developer integration"
+msgstr "تكامل المطور"
+
+#: admin/views/dashboard.php:48 src/Modules/Dashboard/DashboardModule.php:55
+#: src/Modules/Dashboard/DashboardModule.php:56
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: admin/views/dashboard.php:49
+msgid ""
+"Monitor connection readiness, SMS delivery, and OTP verification activity."
+msgstr "تابع جاهزية الاتصال وتسليم الرسائل ونشاط رموز التحقق."
+
+#: admin/views/dashboard.php:54 admin/views/dashboard.php:245
+#: admin/views/logs.php:202 admin/views/manual-send.php:25
+#: admin/views/manual-send.php:114
+#: src/Modules/ManualSend/ManualSendModule.php:60
+#: src/Modules/ManualSend/ManualSendModule.php:61
+#: src/Modules/ManualSend/ManualSendModule.php:94
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:100
+msgid "Send SMS"
+msgstr "إرسال رسالة"
+
+#: admin/views/dashboard.php:62
+msgid "Ersaal Connection"
+msgstr "الاتصال بمنصة إرسال"
+
+#: admin/views/dashboard.php:65 admin/views/settings-otp.php:42
+msgid "Connected"
+msgstr "متصل"
+
+#: admin/views/dashboard.php:65
+msgid "Not connected"
+msgstr "غير متصل"
+
+#: admin/views/dashboard.php:71 admin/views/manual-send.php:54
+msgid "Project"
+msgstr "المشروع"
+
+#: admin/views/dashboard.php:75
+msgid "Project status"
+msgstr "حالة المشروع"
+
+#: admin/views/dashboard.php:79 admin/views/manual-send.php:55
+#: admin/views/manual-send.php:104 admin/views/woocommerce-settings.php:93
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:91
+msgid "Subscription"
+msgstr "الاشتراك"
+
+#: admin/views/dashboard.php:86 admin/views/settings-general.php:18
+msgid "Connection settings"
+msgstr "إعدادات الاتصال"
+
+#: admin/views/dashboard.php:91
+msgid "Connection needs attention"
+msgstr "الاتصال يحتاج إلى مراجعة"
+
+#: admin/views/dashboard.php:100
+msgid "OTP today"
+msgstr "رموز التحقق اليوم"
+
+#: admin/views/dashboard.php:101
+msgid ""
+"Safe local metrics for one-time password requests and verification attempts."
+msgstr "إحصاءات محلية آمنة لطلبات رموز التحقق ومحاولات تأكيدها."
+
+#: admin/views/dashboard.php:104 admin/views/otp-logs.php:57
+msgid "Run OTP Test"
+msgstr "تشغيل اختبار رمز التحقق"
+
+#: admin/views/dashboard.php:105 admin/views/settings-otp.php:158
+msgid "View OTP activity"
+msgstr "عرض نشاط رموز التحقق"
+
+#: admin/views/dashboard.php:110
+msgid "Codes sent"
+msgstr "الرموز المرسلة"
+
+#: admin/views/dashboard.php:112
+msgid "Initiated today"
+msgstr "بدأت اليوم"
+
+#: admin/views/dashboard.php:117
+msgid "Successful checks"
+msgstr "عمليات تحقق ناجحة"
+
+#: admin/views/dashboard.php:120
+msgid "Unsuccessful"
+msgstr "غير ناجح"
+
+#: admin/views/dashboard.php:122
+msgid "Failed, invalid, or expired"
+msgstr "فاشل أو غير صحيح أو منتهي"
+
+#: admin/views/dashboard.php:125
+msgid "Verification rate"
+msgstr "معدل التحقق"
+
+#: admin/views/dashboard.php:127
+msgid "Verified attempts today"
+msgstr "المحاولات المؤكدة اليوم"
+
+#: admin/views/dashboard.php:136 admin/views/otp-logs.php:76
+#: admin/views/otp-logs.php:125 src/Modules/OTP/OTPAdminController.php:84
+msgid "Workflow"
+msgstr "المسار"
+
+#: admin/views/dashboard.php:137 admin/views/dashboard.php:215
+#: admin/views/logs.php:231 admin/views/otp-logs.php:126
+#: src/Modules/OTP/OTPAdminController.php:85
+msgid "Phone"
+msgstr "الهاتف"
+
+#: admin/views/dashboard.php:138 admin/views/dashboard.php:218
+#: admin/views/logs.php:234 admin/views/otp-logs.php:128
+#: src/Modules/Logs/LogsModule.php:95
+msgid "Created"
+msgstr "تاريخ الإنشاء"
+
+#: admin/views/dashboard.php:159
+msgid "Today’s activity"
+msgstr "نشاط اليوم"
+
+#: admin/views/dashboard.php:160
+msgid "A current snapshot of local message records."
+msgstr "ملخص محدث لسجلات الرسائل المحلية."
+
+#: admin/views/dashboard.php:165
+msgid "Messages today"
+msgstr "رسائل اليوم"
+
+#: admin/views/dashboard.php:167 admin/views/logs.php:139
+#: admin/views/otp-logs.php:69
+msgid "All statuses"
+msgstr "كل الحالات"
+
+#: admin/views/dashboard.php:172
+msgid "Accepted by Ersaal"
+msgstr "قبلتها منصة إرسال"
+
+#: admin/views/dashboard.php:177
+msgid "Failed or errored"
+msgstr "فشلت أو حدث خطأ"
+
+#: admin/views/dashboard.php:180
+msgid "Retrying"
+msgstr "إعادة المحاولة"
+
+#: admin/views/dashboard.php:182
+msgid "Processing or scheduled"
+msgstr "قيد المعالجة أو مجدولة"
+
+#: admin/views/dashboard.php:190
+msgid "Recent activity"
+msgstr "النشاط الأخير"
+
+#: admin/views/dashboard.php:191
+msgid "The latest messages across manual and WooCommerce sources."
+msgstr "أحدث الرسائل من الإرسال اليدوي ووكومرس."
+
+#: admin/views/dashboard.php:195
+msgid "View all logs"
+msgstr "عرض كل السجلات"
+
+#: admin/views/dashboard.php:204
+msgid "No activity yet"
+msgstr "لا يوجد نشاط حتى الآن"
+
+#: admin/views/dashboard.php:205 admin/views/logs.php:197
+msgid "Messages sent through Ersaal will appear here."
+msgstr "ستظهر هنا الرسائل المرسلة عبر منصة إرسال."
+
+#: admin/views/dashboard.php:207
+msgid "Send your first SMS"
+msgstr "أرسل رسالتك الأولى"
+
+#: admin/views/dashboard.php:241
+msgid "Quick actions"
+msgstr "إجراءات سريعة"
+
+#: admin/views/dashboard.php:246 admin/views/otp-test.php:12
+#: src/Modules/OTP/OTPAdminController.php:40
+#: src/Modules/OTP/OTPAdminController.php:41
+msgid "OTP Test"
+msgstr "اختبار رمز التحقق"
+
+#: admin/views/dashboard.php:247
+msgid "View logs"
+msgstr "عرض السجلات"
+
+#. translators: %s: Log entry ID
+#: admin/views/logs.php:47
+#, php-format
+msgid "Log #%s"
+msgstr "السجل رقم %s"
+
+#: admin/views/logs.php:67 src/Modules/Logs/LogsModule.php:46
+msgid "Logs"
+msgstr "السجلات"
+
+#: admin/views/logs.php:68
+msgid "Track SMS activity and troubleshoot requests."
+msgstr "تابع نشاط الرسائل وشخّص مشكلات الطلبات."
+
+#: admin/views/logs.php:82
+msgid "Export CSV"
+msgstr "تصدير CSV"
+
+#: admin/views/logs.php:93
+msgid "Log summary"
+msgstr "ملخص السجلات"
+
+#: admin/views/logs.php:96
+msgid "Total"
+msgstr "الإجمالي"
+
+#: admin/views/logs.php:98
+msgid "All recorded requests"
+msgstr "كل الطلبات المسجلة"
+
+#: admin/views/logs.php:103
+msgid "Received by Ersaal"
+msgstr "استلمتها منصة إرسال"
+
+#: admin/views/logs.php:108
+msgid "Needs attention"
+msgstr "تحتاج إلى مراجعة"
+
+#: admin/views/logs.php:111
+msgid "Retries"
+msgstr "إعادات المحاولة"
+
+#: admin/views/logs.php:113
+msgid "Scheduled again"
+msgstr "مجدولة مجددًا"
+
+#: admin/views/logs.php:121
+msgid "Find messages"
+msgstr "البحث عن الرسائل"
+
+#: admin/views/logs.php:122
+msgid "Search by reference, then narrow the results only when needed."
+msgstr "ابحث بالمرجع، ثم ضيّق النتائج عند الحاجة."
+
+#. translators: %s: Number of active filters
+#: admin/views/logs.php:126
+#, php-format
+msgid "%s active filter"
+msgid_plural "%s active filters"
+msgstr[0] "%s من عوامل التصفية النشطة"
+msgstr[1] "%s من عوامل التصفية النشطة"
+msgstr[2] "%s من عوامل التصفية النشطة"
+msgstr[3] "%s من عوامل التصفية النشطة"
+msgstr[4] "%s من عوامل التصفية النشطة"
+msgstr[5] "%s من عوامل التصفية النشطة"
+
+#: admin/views/logs.php:133
+msgid "Search"
+msgstr "بحث"
+
+#: admin/views/logs.php:134
+msgid "Log ID, message ID, order or phone"
+msgstr "معرّف السجل أو الرسالة أو الطلب أو رقم الهاتف"
+
+#: admin/views/logs.php:150
+msgid "All sources"
+msgstr "كل المصادر"
+
+#: admin/views/logs.php:157 src/Modules/Logs/LogsModule.php:87
+msgid "Event"
+msgstr "الحدث"
+
+#: admin/views/logs.php:159
+msgid "All events"
+msgstr "كل الأحداث"
+
+#: admin/views/logs.php:166
+msgid "From"
+msgstr "من"
+
+#: admin/views/logs.php:170
+msgid "To"
+msgstr "إلى"
+
+#: admin/views/logs.php:174 admin/views/otp-logs.php:85
+msgid "Apply filters"
+msgstr "تطبيق عوامل التصفية"
+
+#: admin/views/logs.php:176 admin/views/otp-logs.php:87
+msgid "Reset"
+msgstr "إعادة ضبط"
+
+#: admin/views/logs.php:186
+msgid "Message activity"
+msgstr "نشاط الرسائل"
+
+#. translators: %s: Number of matching records
+#: admin/views/logs.php:188
+#, php-format
+msgid "%s matching record"
+msgid_plural "%s matching records"
+msgstr[0] "%s سجل مطابق"
+msgstr[1] "%s سجل مطابق"
+msgstr[2] "%s سجل مطابق"
+msgstr[3] "%s سجل مطابق"
+msgstr[4] "%s سجل مطابق"
+msgstr[5] "%s سجل مطابق"
+
+#: admin/views/logs.php:196
+msgid "No messages match these filters"
+msgstr "لا توجد رسائل تطابق عوامل التصفية"
+
+#: admin/views/logs.php:196
+msgid "No messages yet"
+msgstr "لا توجد رسائل حتى الآن"
+
+#: admin/views/logs.php:197
+msgid "Reset the filters or broaden your search."
+msgstr "أعد ضبط عوامل التصفية أو وسّع نطاق البحث."
+
+#: admin/views/logs.php:200
+msgid "Reset filters"
+msgstr "إعادة ضبط عوامل التصفية"
+
+#: admin/views/logs.php:210
+msgid "Bulk action"
+msgstr "إجراء جماعي"
+
+#: admin/views/logs.php:212
+msgid "Bulk actions"
+msgstr "إجراءات جماعية"
+
+#: admin/views/logs.php:213
+msgid "Delete"
+msgstr "حذف"
+
+#: admin/views/logs.php:215
+msgid "Are you sure you want to delete selected logs?"
+msgstr "هل أنت متأكد من حذف السجلات المحددة؟"
+
+#: admin/views/logs.php:215
+msgid "Apply"
+msgstr "تطبيق"
+
+#. translators: %s: Number of log items
+#: admin/views/logs.php:218
+#, php-format
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s عنصر"
+msgstr[1] "%s عنصر"
+msgstr[2] "%s عنصر"
+msgstr[3] "%s عنصر"
+msgstr[4] "%s عنصر"
+msgstr[5] "%s عنصر"
+
+#: admin/views/logs.php:226
+msgid "Select all"
+msgstr "تحديد الكل"
+
+#: admin/views/logs.php:230 admin/views/otp-logs.php:127
+#: src/Modules/OTP/OTPAdminController.php:86
+msgid "Reference"
+msgstr "المرجع"
+
+#: admin/views/logs.php:233
+msgid "Delivery"
+msgstr "التسليم"
+
+#: admin/views/logs.php:235 admin/views/otp-logs.php:129
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: admin/views/logs.php:257 src/Modules/Logs/LogsModule.php:79
+msgid "Copy message ID"
+msgstr "نسخ معرّف الرسالة"
+
+#. translators: 1: Message parts count, 2: Send attempts count
+#: admin/views/logs.php:264
+#, php-format
+msgid "Parts %1$s · Attempts %2$s"
+msgstr "الأجزاء %1$s · المحاولات %2$s"
+
+#. translators: %s: number of subscription parts consumed
+#: admin/views/logs.php:271
+#, php-format
+msgid "%s part(s)"
+msgstr "%s جزء"
+
+#: admin/views/logs.php:284 admin/views/otp-logs.php:148
+msgid "Details"
+msgstr "التفاصيل"
+
+#: admin/views/logs.php:285
+msgid "Delete log"
+msgstr "حذف السجل"
+
+#: admin/views/logs.php:295
+msgid "Logs pagination"
+msgstr "التنقل بين صفحات السجلات"
+
+#: admin/views/logs.php:300 admin/views/otp-logs.php:161
+msgid "Previous"
+msgstr "السابق"
+
+#: admin/views/logs.php:301 admin/views/otp-logs.php:162
+msgid "Next"
+msgstr "التالي"
+
+#: admin/views/logs.php:321 admin/views/otp-logs.php:174
+msgid "Log details"
+msgstr "تفاصيل السجل"
+
+#: admin/views/logs.php:322 admin/views/otp-logs.php:175
+msgid "Close details"
+msgstr "إغلاق التفاصيل"
+
+#: admin/views/logs.php:329 src/Modules/Logs/LogsModule.php:80
+msgid "Copy message"
+msgstr "نسخ الرسالة"
+
+#: admin/views/manual-send.php:26
+msgid "Send one message through the connected Ersaal project."
+msgstr "أرسل رسالة واحدة عبر مشروع إرسال المتصل."
+
+#: admin/views/manual-send.php:39
+msgid "Ersaal is not connected"
+msgstr "الإضافة غير متصلة بمنصة إرسال"
+
+#: admin/views/manual-send.php:43
+msgid "Open connection settings"
+msgstr "فتح إعدادات الاتصال"
+
+#: admin/views/manual-send.php:52
+msgid "Ready to send"
+msgstr "جاهز للإرسال"
+
+#. translators: %s: SMS balance amount
+#: admin/views/manual-send.php:60
+#, php-format
+msgid "SMS balance: %s"
+msgstr "رصيد الرسائل: %s"
+
+#: admin/views/manual-send.php:67
+msgid "No available SMS balance or subscription"
+msgstr "لا يوجد رصيد أو اشتراك متاح للرسائل"
+
+#: admin/views/manual-send.php:68
+msgid ""
+"The API may reject this message until the project has an eligible SMS "
+"payment source."
+msgstr "قد ترفض الواجهة الرسالة حتى يتوفر للمشروع مصدر دفع صالح للرسائل."
+
+#: admin/views/manual-send.php:74
+msgid "Recipient"
+msgstr "المستلم"
+
+#: admin/views/manual-send.php:76 admin/views/otp-test.php:47
+#: admin/views/woocommerce-settings.php:165
+#: src/Modules/OTP/OTPUserProfile.php:150
+msgid "Libyana or Almadar: 091 / 092 / 093 / 094"
+msgstr "ليبيانا أو المدار: 091 / 092 / 093 / 094"
+
+#: admin/views/manual-send.php:83
+#: src/Modules/WooCommerce/WooCommerceModule.php:74
+msgid "Characters"
+msgstr "الأحرف"
+
+#: admin/views/manual-send.php:84
+#: src/Modules/WooCommerce/WooCommerceModule.php:76
+msgid "Encoding"
+msgstr "الترميز"
+
+#: admin/views/manual-send.php:85
+#: src/Modules/WooCommerce/WooCommerceModule.php:75
+msgid "Estimated parts"
+msgstr "الأجزاء المتوقعة"
+
+#: admin/views/manual-send.php:91
+msgid "Payment and advanced options"
+msgstr "خيارات الدفع والخيارات المتقدمة"
+
+#: admin/views/manual-send.php:96 admin/views/woocommerce-settings.php:86
+msgid "Sender ID"
+msgstr "اسم المرسل"
+
+#: admin/views/manual-send.php:98
+msgid "Use an approved Sender ID for this project."
+msgstr "استخدم اسم مرسل معتمدًا لهذا المشروع."
+
+#: admin/views/manual-send.php:101 admin/views/woocommerce-settings.php:90
+msgid "Payment type"
+msgstr "طريقة الدفع"
+
+#: admin/views/manual-send.php:103 admin/views/woocommerce-settings.php:92
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:90
+msgid "Wallet"
+msgstr "المحفظة"
+
+#: admin/views/manual-send.php:145
+msgid "View in logs"
+msgstr "عرض في السجلات"
+
+#: admin/views/otp-logs.php:53 src/Modules/OTP/OTPAdminController.php:48
+#: src/Modules/OTP/OTPAdminController.php:49
+msgid "OTP Activity"
+msgstr "نشاط رموز التحقق"
+
+#: admin/views/otp-logs.php:54
+msgid ""
+"Review OTP requests and verification outcomes without exposing codes or full "
+"phone numbers."
+msgstr "راجع طلبات ونتائج التحقق دون إظهار الرموز أو أرقام الهواتف كاملة."
+
+#: admin/views/otp-logs.php:58
+msgid "View SMS logs"
+msgstr "عرض سجلات الرسائل"
+
+#: admin/views/otp-logs.php:62
+msgid "Filter OTP Activity"
+msgstr "تصفية نشاط رموز التحقق"
+
+#: admin/views/otp-logs.php:78
+msgid "All workflows"
+msgstr "كل المسارات"
+
+#: admin/views/otp-logs.php:94
+msgid "OTP Activity Summary"
+msgstr "ملخص نشاط رموز التحقق"
+
+#: admin/views/otp-logs.php:96
+msgid "Total records"
+msgstr "إجمالي السجلات"
+
+#: admin/views/otp-logs.php:105
+msgid "OTP activity records"
+msgstr "سجلات نشاط رموز التحقق"
+
+#. translators: %s: Number of matching records
+#: admin/views/otp-logs.php:107
+#, php-format
+msgid "Showing %s matching record"
+msgid_plural "Showing %s matching records"
+msgstr[0] "لا توجد سجلات مطابقة (%s)"
+msgstr[1] "عرض سجل مطابق واحد (%s)"
+msgstr[2] "عرض سجلين مطابقين (%s)"
+msgstr[3] "عرض %s سجلات مطابقة"
+msgstr[4] "عرض %s سجلاً مطابقاً"
+msgstr[5] "عرض %s سجل مطابق"
+
+#: admin/views/otp-logs.php:115
+msgid "No OTP activity yet"
+msgstr "لا يوجد نشاط لرموز التحقق بعد"
+
+#: admin/views/otp-logs.php:116
+msgid ""
+"Run an OTP test or verify a user phone to create the first safe activity "
+"record."
+msgstr "شغّل اختبارًا أو أكد هاتف مستخدم لإنشاء أول سجل نشاط آمن."
+
+#: admin/views/otp-logs.php:124 src/Modules/OTP/OTPAdminController.php:82
+msgid "Action"
+msgstr "العملية"
+
+#: admin/views/otp-logs.php:137 admin/views/otp-test.php:36
+msgid "Verify"
+msgstr "تحقق"
+
+#: admin/views/otp-logs.php:137 admin/views/otp-test.php:35
+msgid "Send"
+msgstr "إرسال"
+
+#: admin/views/otp-logs.php:157
+msgid "OTP activity pagination"
+msgstr "صفحات نشاط رموز التحقق"
+
+#: admin/views/otp-test.php:13
+msgid "Send a real verification code and confirm the complete OTP flow."
+msgstr "أرسل رمز تحقق حقيقيًا وتأكد من المسار كاملًا."
+
+#: admin/views/otp-test.php:16
+msgid "OTP settings"
+msgstr "إعدادات رمز التحقق"
+
+#: admin/views/otp-test.php:21
+msgid "This uses your real Ersaal account"
+msgstr "يستخدم هذا حساب Ersaal الحقيقي"
+
+#: admin/views/otp-test.php:22
+msgid ""
+"A successful send can consume wallet balance or an OTP subscription unit. "
+"Verification codes are never written to WordPress logs."
+msgstr ""
+"قد يستهلك الإرسال الناجح رصيد المحفظة أو وحدة من باقة رموز التحقق. لا تُكتب "
+"الرموز في سجلات ووردبريس مطلقًا."
+
+#: admin/views/otp-test.php:28
+msgid "Verify a phone number"
+msgstr "التحقق من رقم هاتف"
+
+#: admin/views/otp-test.php:29
+msgid ""
+"Complete both steps to confirm the sender, billing source, and verification "
+"endpoint."
+msgstr "أكمل الخطوتين للتأكد من المرسل ومصدر الدفع ونقطة التحقق."
+
+#: admin/views/otp-test.php:31
+msgid "Ready"
+msgstr "جاهز"
+
+#: admin/views/otp-test.php:34
+msgid "OTP test steps"
+msgstr "خطوات اختبار رمز التحقق"
+
+#: admin/views/otp-test.php:37
+msgid "Complete"
+msgstr "مكتمل"
+
+#: admin/views/otp-test.php:44
+msgid "Phone number"
+msgstr "رقم الهاتف"
+
+#: admin/views/otp-test.php:48
+msgid "The activity log keeps only a masked version and a one-way fingerprint."
+msgstr "يحتفظ سجل النشاط بنسخة مخفية وبصمة أحادية الاتجاه فقط."
+
+#: admin/views/otp-test.php:52 src/Modules/OTP/OTPAdminController.php:72
+#: src/Modules/OTP/OTPUserProfile.php:51 src/Modules/OTP/OTPUserProfile.php:164
+msgid "Send verification code"
+msgstr "إرسال رمز التحقق"
+
+#: admin/views/otp-test.php:59 src/Modules/OTP/OTPLoginTwoFactor.php:225
+#: src/Modules/OTP/OTPUserProfile.php:169
+msgid "Verification code"
+msgstr "رمز التحقق"
+
+#: admin/views/otp-test.php:64 src/Modules/OTP/OTPAdminController.php:74
+msgid "Verify code"
+msgstr "تحقق من الرمز"
+
+#: admin/views/otp-test.php:65 src/Modules/OTP/OTPAdminController.php:76
+#: src/Modules/OTP/OTPLoginTwoFactor.php:230
+msgid "Send a new code"
+msgstr "إرسال رمز جديد"
+
+#: admin/views/otp-test.php:72
+msgid "OTP flow verified"
+msgstr "تم التحقق من مسار OTP"
+
+#: admin/views/otp-test.php:73
+msgid "The code was accepted once and the local test state was removed."
+msgstr "قُبل الرمز مرة واحدة وحُذفت حالة الاختبار المحلية."
+
+#: admin/views/otp-test.php:74
+msgid "Run another test"
+msgstr "تشغيل اختبار آخر"
+
+#: admin/views/settings-advanced.php:16
+msgid "Uninstall behavior"
+msgstr "سلوك إزالة الإضافة"
+
+#: admin/views/settings-advanced.php:17
+msgid ""
+"Choose whether local Ersaal data should remain after the plugin is deleted."
+msgstr "اختر ما إذا كانت بيانات إرسال المحلية ستبقى بعد حذف الإضافة."
+
+#: admin/views/settings-advanced.php:22
+msgid "Delete all local data on uninstall"
+msgstr "حذف جميع البيانات المحلية عند إزالة الإضافة"
+
+#: admin/views/settings-advanced.php:23
+msgid "Removes saved settings and SMS logs when the plugin is deleted."
+msgstr "يحذف الإعدادات المحفوظة وسجلات الرسائل عند حذف الإضافة."
+
+#: admin/views/settings-advanced.php:32
+msgid "Permanent deletion"
+msgstr "حذف نهائي"
+
+#: admin/views/settings-advanced.php:33
+msgid ""
+"When enabled, the local logs and settings cannot be recovered after "
+"uninstalling the plugin."
+msgstr ""
+"عند التفعيل، لا يمكن استعادة السجلات والإعدادات المحلية بعد إزالة الإضافة."
+
+#: admin/views/settings-advanced.php:39 admin/views/settings-general.php:65
+msgid "Save settings"
+msgstr "حفظ الإعدادات"
+
+#: admin/views/settings-general.php:19
+msgid "Connect this WordPress site to the intended Ersaal project."
+msgstr "اربط موقع ووردبريس بمشروع إرسال المطلوب."
+
+#: admin/views/settings-general.php:25
+msgid "API base URL"
+msgstr "رابط واجهة API الأساسي"
+
+#: admin/views/settings-general.php:26
+msgid "The Ersaal Gateway endpoint used for API requests."
+msgstr "عنوان بوابة إرسال المستخدم لطلبات API."
+
+#: admin/views/settings-general.php:33
+msgid "API key"
+msgstr "مفتاح API"
+
+#: admin/views/settings-general.php:34
+msgid "Bearer token for the connected Ersaal project."
+msgstr "رمز المصادقة الخاص بمشروع إرسال المتصل."
+
+#: admin/views/settings-general.php:39
+msgid "Defined in wp-config.php and cannot be changed here."
+msgstr "مُعرّف في ملف wp-config.php ولا يمكن تغييره من هنا."
+
+#: admin/views/settings-general.php:41
+msgid "Enter your Bearer Token"
+msgstr "أدخل رمز المصادقة"
+
+#: admin/views/settings-general.php:43
+msgid "The API key is set. Keep ******** to retain the existing key."
+msgstr "مفتاح API محفوظ. اترك ******** للاحتفاظ بالمفتاح الحالي."
+
+#: admin/views/settings-general.php:53
+msgid "Connection test"
+msgstr "اختبار الاتصال"
+
+#: admin/views/settings-general.php:54
+msgid "Verify the currently saved credentials before configuring messaging."
+msgstr "تحقق من بيانات الاتصال المحفوظة قبل إعداد الرسائل."
+
+#: admin/views/settings-general.php:57
+msgid "Test connection"
+msgstr "اختبار الاتصال"
+
+#: admin/views/settings-otp.php:18
+msgid "One-time passwords"
+msgstr "رموز التحقق لمرة واحدة"
+
+#: admin/views/settings-otp.php:19
+msgid ""
+"Use Ersaal to send and verify short-lived codes. OTP stays off until you "
+"enable it."
+msgstr ""
+"استخدم Ersaal لإرسال رموز قصيرة الصلاحية والتحقق منها. تبقى الميزة معطلة حتى "
+"تفعيلها."
+
+#: admin/views/settings-otp.php:24
+msgid "Enable OTP services"
+msgstr "تفعيل خدمات رمز التحقق"
+
+#: admin/views/settings-otp.php:25
+msgid "Allows OTP tests, user phone verification, and developer integrations."
+msgstr "يسمح باختبارات رمز التحقق وتأكيد هواتف المستخدمين وتكاملات المطورين."
+
+#: admin/views/settings-otp.php:36
+msgid "OTP service status"
+msgstr "حالة خدمة رمز التحقق"
+
+#: admin/views/settings-otp.php:37
+msgid ""
+"Live project and OTP capacity values reported by the connected Ersaal API."
+msgstr ""
+"قيم مباشرة لحالة المشروع وسعة رمز التحقق كما تعيدها واجهة Ersaal المتصلة."
+
+#: admin/views/settings-otp.php:41
+msgid "Connection"
+msgstr "الاتصال"
+
+#: admin/views/settings-otp.php:45
+msgid "OTP balance"
+msgstr "رصيد رمز التحقق"
+
+#: admin/views/settings-otp.php:46 admin/views/settings-otp.php:50
+msgid "Not reported"
+msgstr "لم تُبلّغ عنه الواجهة"
+
+#: admin/views/settings-otp.php:49
+msgid "OTP limit"
+msgstr "حد رمز التحقق"
+
+#: admin/views/settings-otp.php:54
+msgid ""
+"OTP service availability could not be confirmed. Review Connection settings "
+"before enabling a login challenge."
+msgstr ""
+"تعذر تأكيد توفر خدمة رمز التحقق. راجع إعدادات الاتصال قبل تفعيل تحدي تسجيل "
+"الدخول."
+
+#: admin/views/settings-otp.php:56
+msgid ""
+"The API reports no available OTP subscription units. Choose wallet payment "
+"or update the Ersaal subscription."
+msgstr ""
+"تفيد الواجهة بعدم توفر وحدات في باقة رمز التحقق. اختر المحفظة أو حدّث باقة "
+"Ersaal."
+
+#: admin/views/settings-otp.php:62
+msgid "OTP defaults"
+msgstr "إعدادات رمز التحقق الافتراضية"
+
+#: admin/views/settings-otp.php:63
+msgid ""
+"These values are sent to Ersaal when a new verification code is requested."
+msgstr "تُرسل هذه القيم إلى Ersaal عند طلب رمز جديد."
+
+#: admin/views/settings-otp.php:69
+msgid "Sender name"
+msgstr "اسم المرسل"
+
+#: admin/views/settings-otp.php:70
+msgid "Use an active, approved sender from the connected Ersaal project."
+msgstr "استخدم مرسلًا نشطًا ومعتمدًا من مشروع Ersaal المتصل."
+
+#: admin/views/settings-otp.php:77
+msgid "Payment source"
+msgstr "مصدر الدفع"
+
+#: admin/views/settings-otp.php:78
+msgid "Choose the wallet or the OTP units in your subscription."
+msgstr "اختر المحفظة أو وحدات رمز التحقق في باقتك."
+
+#: admin/views/settings-otp.php:81
+msgid "Wallet balance"
+msgstr "رصيد المحفظة"
+
+#: admin/views/settings-otp.php:82
+msgid "OTP subscription"
+msgstr "باقة رمز التحقق"
+
+#: admin/views/settings-otp.php:88
+msgid "Code length"
+msgstr "طول الرمز"
+
+#: admin/views/settings-otp.php:89
+msgid "Ersaal supports four- or six-digit codes."
+msgstr "تدعم Ersaal رموزًا من أربعة أو ستة أرقام."
+
+#: admin/views/settings-otp.php:92
+msgid "4 digits"
+msgstr "4 أرقام"
+
+#: admin/views/settings-otp.php:93
+msgid "6 digits"
+msgstr "6 أرقام"
+
+#: admin/views/settings-otp.php:99
+msgid "Code lifetime"
+msgstr "مدة صلاحية الرمز"
+
+#: admin/views/settings-otp.php:100
+msgid "Expired and successfully used codes cannot be verified again."
+msgstr "لا يمكن التحقق مجددًا من الرموز المنتهية أو المستخدمة بنجاح."
+
+#. translators: %s: number of minutes
+#: admin/views/settings-otp.php:106
+#, php-format
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] "%s دقيقة"
+msgstr[1] "دقيقة واحدة"
+msgstr[2] "دقيقتان"
+msgstr[3] "%s دقائق"
+msgstr[4] "%s دقيقة"
+msgstr[5] "%s دقيقة"
+
+#: admin/views/settings-otp.php:114
+msgid "Message language"
+msgstr "لغة الرسالة"
+
+#: admin/views/settings-otp.php:115
+msgid "Automatic follows the current WordPress locale."
+msgstr "يتبع الخيار التلقائي لغة ووردبريس الحالية."
+
+#: admin/views/settings-otp.php:118
+msgid "Automatic"
+msgstr "تلقائي"
+
+#: admin/views/settings-otp.php:119
+msgid "Arabic"
+msgstr "العربية"
+
+#: admin/views/settings-otp.php:120
+msgid "English"
+msgstr "الإنجليزية"
+
+#: admin/views/settings-otp.php:128
+msgid "WordPress login verification"
+msgstr "التحقق عند تسجيل دخول ووردبريس"
+
+#: admin/views/settings-otp.php:129
+msgid ""
+"Adds a second step after a user enters a valid WordPress username and "
+"password."
+msgstr "يضيف خطوة ثانية بعد إدخال اسم مستخدم وكلمة مرور صحيحين."
+
+#: admin/views/settings-otp.php:134
+msgid "Login OTP is disabled by wp-config.php"
+msgstr "رمز تحقق الدخول معطل عبر wp-config.php"
+
+#: admin/views/settings-otp.php:135
+msgid ""
+"Remove ERSAAL_DISABLE_LOGIN_OTP or set it to false after resolving the "
+"emergency."
+msgstr "احذف ERSAAL_DISABLE_LOGIN_OTP أو اجعله false بعد حل الحالة الطارئة."
+
+#: admin/views/settings-otp.php:141
+msgid "Allow OTP for WordPress login"
+msgstr "السماح برمز التحقق عند تسجيل دخول ووردبريس"
+
+#: admin/views/settings-otp.php:142
+msgid ""
+"Only users with a verified phone who opt in are challenged. Existing users "
+"remain unchanged by default."
+msgstr ""
+"يُطلب الرمز فقط من المستخدم الذي أكد هاتفه واختار التفعيل. لا يتغير "
+"المستخدمون الحاليون افتراضيًا."
+
+#: admin/views/settings-otp.php:153
+msgid "Validate the setup"
+msgstr "التحقق من الإعداد"
+
+#: admin/views/settings-otp.php:154
+msgid ""
+"Save these settings, then run a real send-and-verify test before enabling "
+"login verification for users."
+msgstr ""
+"احفظ الإعدادات ثم نفّذ اختبار إرسال وتحقق حقيقيًا قبل تفعيلها لدخول المستخدمين."
+
+#: admin/views/settings-otp.php:157
+msgid "Open OTP Test"
+msgstr "فتح اختبار رمز التحقق"
+
+#: admin/views/settings-otp.php:164
+msgid "Save OTP settings"
+msgstr "حفظ إعدادات رمز التحقق"
+
+#: admin/views/system-status.php:12
+msgid "Background processing"
+msgstr "المعالجة في الخلفية"
+
+#: admin/views/system-status.php:13
+msgid "Runtime services used to process queued and retried messages."
+msgstr ""
+"خدمات التشغيل المستخدمة لمعالجة الرسائل في قائمة الانتظار وإعادات المحاولة."
+
+#: admin/views/system-status.php:20
+msgid "Component"
+msgstr "المكوّن"
+
+#: admin/views/system-status.php:22
+msgid "Notes"
+msgstr "ملاحظات"
+
+#: admin/views/system-status.php:30
+msgid "Active"
+msgstr "نشط"
+
+#: admin/views/system-status.php:32
+msgid "Missing"
+msgstr "غير متوفر"
+
+#: admin/views/system-status.php:35
+msgid ""
+"WooCommerce provides Action Scheduler. WP-Cron is used when it is "
+"unavailable."
+msgstr "يوفر ووكومرس مجدول الإجراءات، ويُستخدم WP-Cron عندما لا يكون متاحًا."
+
+#: admin/views/system-status.php:41
+msgid "Disabled by constant"
+msgstr "معطّل بواسطة ثابت برمجي"
+
+#: admin/views/system-status.php:43 admin/views/woocommerce-settings.php:30
+#: src/Modules/WooCommerce/WooCommerceModule.php:78
+msgid "Enabled"
+msgstr "مفعّل"
+
+#: admin/views/system-status.php:46
+msgid "If disabled, configure a server cron job to trigger wp-cron.php."
+msgstr "إذا كان معطّلًا، فأعدّ مهمة مجدولة على الخادم لتشغيل wp-cron.php."
+
+#: admin/views/woocommerce-settings.php:30
+#: src/Modules/WooCommerce/WooCommerceModule.php:79
+msgid "Disabled"
+msgstr "معطّل"
+
+#. translators: %s: Order event label (e.g. New order, Completed)
+#: admin/views/woocommerce-settings.php:39
+#, php-format
+msgid "Send SMS for %s"
+msgstr "إرسال رسالة عند %s"
+
+#: admin/views/woocommerce-settings.php:40
+msgid "Uses the template below when this event occurs."
+msgstr "يستخدم القالب أدناه عند وقوع هذا الحدث."
+
+#: admin/views/woocommerce-settings.php:48
+#: admin/views/woocommerce-settings.php:168
+msgid "Message template"
+msgstr "قالب الرسالة"
+
+#: admin/views/woocommerce-settings.php:53
+#: admin/views/woocommerce-settings.php:173
+msgid "Preview"
+msgstr "معاينة"
+
+#: admin/views/woocommerce-settings.php:71
+msgid "WooCommerce messaging"
+msgstr "رسائل ووكومرس"
+
+#: admin/views/woocommerce-settings.php:72
+msgid "Set the global sender and payment defaults used by order notifications."
+msgstr "حدّد اسم المرسل وطريقة الدفع الافتراضيين لإشعارات الطلبات."
+
+#: admin/views/woocommerce-settings.php:77
+msgid "Enable WooCommerce SMS"
+msgstr "تفعيل رسائل ووكومرس"
+
+#: admin/views/woocommerce-settings.php:78
+msgid "Allow enabled order events to send notifications."
+msgstr "السماح لأحداث الطلبات المفعّلة بإرسال الإشعارات."
+
+#: admin/views/woocommerce-settings.php:103
+msgid "Customer notifications"
+msgstr "إشعارات العملاء"
+
+#: admin/views/woocommerce-settings.php:104
+msgid "Expand only the order event you want to configure."
+msgstr "افتح فقط حدث الطلب الذي تريد إعداده."
+
+#: admin/views/woocommerce-settings.php:108
+msgid "Template help"
+msgstr "مساعدة القوالب"
+
+#: admin/views/woocommerce-settings.php:113
+msgid "Insert a variable into the focused template"
+msgstr "إدراج متغير في القالب المحدد"
+
+#: admin/views/woocommerce-settings.php:136
+msgid "Admin notifications"
+msgstr "إشعارات الإدارة"
+
+#: admin/views/woocommerce-settings.php:137
+msgid "Notify a store administrator when a new order is placed."
+msgstr "إشعار مسؤول المتجر عند إنشاء طلب جديد."
+
+#: admin/views/woocommerce-settings.php:145
+#: src/Modules/WooCommerce/WooCommerceSettings.php:87
+msgid "New order #{order_number} from {customer_name}. Total: {order_total}"
+msgstr ""
+"طلب جديد رقم #{order_number} من {customer_name}. الإجمالي: {order_total}"
+
+#: admin/views/woocommerce-settings.php:152
+msgid "New order SMS for admin"
+msgstr "رسالة الطلب الجديد للمسؤول"
+
+#: admin/views/woocommerce-settings.php:153
+msgid "Send one message to the number below for each new order."
+msgstr "إرسال رسالة واحدة إلى الرقم أدناه عند كل طلب جديد."
+
+#: admin/views/woocommerce-settings.php:163
+msgid "Admin phone number"
+msgstr "رقم هاتف المسؤول"
+
+#: admin/views/woocommerce-settings.php:195
+msgid "Additional order statuses"
+msgstr "حالات الطلب الإضافية"
+
+#: admin/views/woocommerce-settings.php:196
+msgid ""
+"Optional notifications for statuses registered by WooCommerce or other "
+"extensions."
+msgstr "إشعارات اختيارية للحالات المسجلة بواسطة ووكومرس أو إضافات أخرى."
+
+#: admin/views/woocommerce-settings.php:212
+msgid "Manual order messaging"
+msgstr "إرسال رسائل الطلبات يدويًا"
+
+#: admin/views/woocommerce-settings.php:213
+msgid ""
+"Manual SMS is available from the Ersaal panel on each WooCommerce order."
+msgstr "يمكن إرسال رسالة يدوية من لوحة إرسال داخل كل طلب ووكومرس."
+
+#: admin/views/woocommerce-settings.php:215
+msgid "Read how it works"
+msgstr "اقرأ طريقة الاستخدام"
+
+#: admin/views/woocommerce-settings.php:221
+msgid "Save WooCommerce settings"
+msgstr "حفظ إعدادات ووكومرس"
+
+#: ersaal.php:71
+msgid "Ersaal SMS is not initialized."
+msgstr "خدمة رسائل إرسال غير مهيأة بعد."
+
+#: src/API/Client.php:62
+msgid "Invalid Base URL configured."
+msgstr "رابط API الأساسي المُعد غير صالح."
+
+#: src/API/Client.php:74
+msgid "Ersaal API requires a secure HTTPS connection."
+msgstr "تتطلب واجهة إرسال البرمجية اتصال HTTPS آمناً."
+
+#: src/API/Client.php:80
+msgid "API Base URL must not contain embedded user credentials."
+msgstr "يجب ألا يتضمن عنوان واجهة API الأساسي بيانات اعتماد المستخدم."
+
+#: src/API/Client.php:85
+msgid "API Key is missing."
+msgstr "مفتاح API غير موجود."
+
+#: src/API/Client.php:117
+msgid "Could not connect to Ersaal. Check the API URL and service status."
+msgstr "تعذر الاتصال بمنصة إرسال. تحقق من رابط API وحالة الخدمة."
+
+#: src/API/Client.php:145
+msgid "Redirects are disabled for security reasons."
+msgstr "عمليات إعادة التوجيه معطّلة لأسباب أمنية."
+
+#: src/API/Client.php:164
+msgid ""
+"Ersaal server returned an internal error. Check the Ersaal service logs."
+msgstr "أعاد خادم إرسال خطأً داخليًا. راجع سجلات خدمة إرسال."
+
+#: src/API/Client.php:166
+msgid "Unexpected API response received."
+msgstr "تم استلام رد غير متوقع من واجهة API."
+
+#: src/API/Client.php:174
+msgid "Authentication failed. Check the API Key."
+msgstr "فشلت المصادقة. تحقق من مفتاح API."
+
+#: src/API/Client.php:181
+msgid "This server IP is not allowed by the Ersaal project."
+msgstr "عنوان IP الخاص بهذا الخادم غير مسموح به في مشروع إرسال."
+
+#: src/API/Client.php:183
+msgid "The Ersaal project is inactive."
+msgstr "مشروع إرسال غير نشط."
+
+#: src/API/Client.php:185
+msgid "Authentication failed or access forbidden."
+msgstr "فشلت المصادقة أو أن الوصول غير مسموح."
+
+#: src/Core/Plugin.php:91
+msgid ""
+"Ersaal SMS Gateway: The PHP mbstring extension is not installed. Standard "
+"UTF-8 fallbacks are in use, but installing php-mbstring is recommended for "
+"optimal Arabic SMS processing."
+msgstr ""
+"بوابة إرسال للرسائل القصيرة: امتداد PHP mbstring غير مثبت. تُستخدم بدائل "
+"UTF-8 القياسية، ويُوصى بتثبيت php-mbstring لتحسين معالجة الرسائل العربية."
+
+#. translators: %s: Message ID
+#: src/Jobs/MessageJob.php:97
+#, php-format
+msgid "Ersaal SMS accepted. Message ID: %s"
+msgstr "قبلت منصة إرسال الرسالة. معرّف الرسالة: %s"
+
+#. translators: %s: Message ID
+#: src/Jobs/MessageJob.php:97
+msgid "Ersaal SMS accepted."
+msgstr "قبلت منصة إرسال الرسالة."
+
+#. translators: %s: Error message
+#: src/Jobs/MessageJob.php:122
+#, php-format
+msgid "Unexpected internal error: %s"
+msgstr "خطأ داخلي غير متوقع: %s"
+
+#. translators: %s: Failure reason
+#: src/Jobs/MessageJob.php:188
+#, php-format
+msgid "Ersaal SMS failed: %s"
+msgstr "فشلت رسالة إرسال: %s"
+
+#: src/Modules/Dashboard/DashboardModule.php:44
+#: src/Modules/Dashboard/DashboardModule.php:45
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:60
+msgid "Ersaal SMS"
+msgstr "رسائل إرسال"
+
+#: src/Modules/Help/HelpModule.php:43 src/Modules/Help/HelpModule.php:44
+msgid "Help & User Guide"
+msgstr "المساعدة ودليل الاستخدام"
+
+#: src/Modules/Logs/LogsModule.php:45
+msgid "Ersaal Logs"
+msgstr "سجلات إرسال"
+
+#: src/Modules/Logs/LogsModule.php:78
+msgid "Copied"
+msgstr "تم النسخ"
+
+#: src/Modules/Logs/LogsModule.php:81
+msgid ""
+"Are you sure you want to delete this log? This only deletes the local record."
+msgstr "هل أنت متأكد من حذف هذا السجل؟ سيُحذف السجل المحلي فقط."
+
+#: src/Modules/Logs/LogsModule.php:96
+msgid "Updated"
+msgstr "آخر تحديث"
+
+#: src/Modules/ManualSend/ManualSendHandler.php:32
+msgid "Invalid security token."
+msgstr "رمز الأمان غير صالح."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:36
+msgid "Insufficient capabilities."
+msgstr "ليست لديك الصلاحيات الكافية."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:84
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:46
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:132
+#: src/PublicApi/SmsFacade.php:81
+msgid "Message text is required."
+msgstr "نص الرسالة مطلوب."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:117
+msgid "Unexpected idempotency key conflict."
+msgstr "حدث تعارض غير متوقع في مفتاح منع التكرار."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:137
+msgid "Log not found after execution."
+msgstr "لم يُعثر على السجل بعد التنفيذ."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:154
+msgid "An unexpected internal error occurred."
+msgstr "حدث خطأ داخلي غير متوقع."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:166
+msgid "Message accepted by Ersaal platform."
+msgstr "قبلت منصة إرسال الرسالة."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:232
+#: src/Modules/ManualSend/ManualSendHandler.php:238
+msgid "No valid subscription allows sending this message."
+msgstr "لا يوجد اشتراك صالح يسمح بإرسال هذه الرسالة."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:234
+msgid "Insufficient wallet balance to send this message."
+msgstr "الرصيد غير كافٍ لإرسال الرسالة باستخدام المحفظة."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:242
+msgid "Sender ID is invalid or not approved for this project."
+msgstr "اسم المرسل غير صالح أو غير معتمد لهذا المشروع."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:246
+msgid "Please review the phone number and message details."
+msgstr "يرجى مراجعة رقم الهاتف وبيانات الرسالة."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:250
+msgid "Authentication with Ersaal failed. Check the API key."
+msgstr "تعذرت المصادقة مع منصة إرسال. راجع مفتاح API."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:254
+msgid "The server IP address is not allowed by the Ersaal project."
+msgstr "عنوان IP الخاص بالخادم غير مسموح به في مشروع إرسال."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:258
+msgid "Request limit exceeded. Try again later."
+msgstr "تم تجاوز الحد المسموح للطلبات. حاول لاحقًا."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:262
+msgid "The Ersaal request could not be completed."
+msgstr "تعذر إكمال الطلب مع منصة إرسال."
+
+#: src/Modules/ManualSend/ManualSendHandler.php:265
+msgid "An unexpected error occurred while sending the message."
+msgstr "حدث خطأ غير متوقع أثناء إرسال الرسالة."
+
+#: src/Modules/ManualSend/ManualSendModule.php:93
+#: src/Modules/OTP/OTPAdminController.php:73
+#: src/Modules/OTP/OTPUserProfile.php:52
+msgid "Sending..."
+msgstr "جارٍ الإرسال..."
+
+#: src/Modules/ManualSend/ManualSendModule.php:95
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:47
+msgid "An unexpected error occurred."
+msgstr "حدث خطأ غير متوقع."
+
+#: src/Modules/ManualSend/ManualSendModule.php:96
+msgid "Message accepted by Ersaal."
+msgstr "قبلت منصة إرسال الرسالة."
+
+#: src/Modules/ManualSend/ManualSendModule.php:97
+msgid "Message could not be sent."
+msgstr "تعذر إرسال الرسالة."
+
+#: src/Modules/OTP/OTPAdminController.php:32
+msgid "OTP"
+msgstr "رمز التحقق"
+
+#: src/Modules/OTP/OTPAdminController.php:75
+#: src/Modules/OTP/OTPUserProfile.php:54
+msgid "Verifying..."
+msgstr "جارٍ التحقق..."
+
+#. translators: %s: Wait time in seconds
+#: src/Modules/OTP/OTPAdminController.php:78
+#, php-format
+msgid "You can request a new code in %s seconds."
+msgstr "يمكنك طلب رمز جديد خلال %s ثانية."
+
+#: src/Modules/OTP/OTPAdminController.php:79 src/Modules/OTP/OTPService.php:229
+msgid "The OTP request could not be completed."
+msgstr "تعذر إكمال طلب رمز التحقق."
+
+#: src/Modules/OTP/OTPAdminController.php:87
+msgid "User ID"
+msgstr "معرّف المستخدم"
+
+#: src/Modules/OTP/OTPAdminController.php:89
+msgid "Error code"
+msgstr "رمز الخطأ"
+
+#: src/Modules/OTP/OTPAdminController.php:90
+msgid "Error message"
+msgstr "رسالة الخطأ"
+
+#. translators: %s: Wait time in seconds
+#: src/Modules/OTP/OTPAdminController.php:138
+#, php-format
+msgid "Use the active code or wait %s seconds before requesting another."
+msgstr "استخدم الرمز النشط أو انتظر %s ثانية قبل طلب آخر."
+
+#. translators: %s: Masked phone number
+#: src/Modules/OTP/OTPAdminController.php:164
+#: src/Modules/OTP/OTPUserProfile.php:329
+#, php-format
+msgid "A verification code was sent to %s."
+msgstr "تم إرسال رمز تحقق إلى %s."
+
+#: src/Modules/OTP/OTPAdminController.php:175
+msgid "This OTP test has expired. Send a new code."
+msgstr "انتهى اختبار رمز التحقق. أرسل رمزًا جديدًا."
+
+#: src/Modules/OTP/OTPAdminController.php:198
+msgid "OTP verified successfully. The code cannot be used again."
+msgstr "تم التحقق بنجاح، ولا يمكن استخدام الرمز مرة أخرى."
+
+#: src/Modules/OTP/OTPAdminController.php:205
+msgid "You are not allowed to test OTP."
+msgstr "لا تملك صلاحية اختبار رمز التحقق."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:42
+msgid ""
+"Additional verification is required. Sign in through the WordPress login "
+"page."
+msgstr "يلزم تحقق إضافي. سجّل الدخول من صفحة ووردبريس."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:54
+msgid "We could not start the verification step. Please try again later."
+msgstr "تعذر بدء خطوة التحقق. حاول لاحقًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:77
+msgid "Additional verification is required."
+msgstr "يلزم تحقق إضافي."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:100
+msgid "This verification session is invalid or has expired. Sign in again."
+msgstr "جلسة التحقق غير صالحة أو منتهية. سجّل الدخول مجددًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:108
+msgid "Verification is no longer available for this account. Sign in again."
+msgstr "لم يعد التحقق متاحًا لهذا الحساب. سجّل الدخول مجددًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:118
+msgid "The verification form expired. Refresh the page and try again."
+msgstr "انتهت صلاحية نموذج التحقق. حدّث الصفحة وحاول مجددًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:136
+msgid "The verification code expired. Request a new code."
+msgstr "انتهت صلاحية رمز التحقق. اطلب رمزًا جديدًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:153
+msgid "This verification session ended. Sign in again to request a new code."
+msgstr "انتهت جلسة التحقق. سجّل الدخول مجددًا لطلب رمز جديد."
+
+#. translators: %s: Wait time in seconds
+#: src/Modules/OTP/OTPLoginTwoFactor.php:179
+#, php-format
+msgid "Wait %s seconds before requesting a new code."
+msgstr "انتظر %s ثانية قبل طلب رمز جديد."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:188
+msgid "We could not send a new code. Please wait and try again."
+msgstr "تعذر إرسال رمز جديد. انتظر وحاول مجددًا."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:200
+msgid "A new verification code was sent."
+msgstr "تم إرسال رمز تحقق جديد."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:205
+msgid "Verify your sign-in"
+msgstr "تحقق من تسجيل دخولك"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:207
+#: src/Modules/OTP/OTPLoginTwoFactor.php:233
+msgid "Back to login"
+msgstr "العودة إلى تسجيل الدخول"
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:216
+msgid "Enter your verification code"
+msgstr "أدخل رمز التحقق"
+
+#. translators: %s: Masked phone number
+#: src/Modules/OTP/OTPLoginTwoFactor.php:219
+#, php-format
+msgid "We sent a one-time code to %s."
+msgstr "أرسلنا رمز تحقق لمرة واحدة إلى %s."
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:229
+msgid "Verify and sign in"
+msgstr "تحقق وسجّل الدخول"
+
+#: src/Modules/OTP/OTPLogRepository.php:38
+msgid "Unable to create OTP activity log."
+msgstr "تعذر إنشاء سجل نشاط رمز التحقق."
+
+#: src/Modules/OTP/OTPService.php:34 src/Modules/OTP/OTPService.php:81
+msgid "OTP is disabled in Ersaal settings."
+msgstr "رمز التحقق معطل في إعدادات Ersaal."
+
+#: src/Modules/OTP/OTPService.php:60
+msgid "Ersaal did not return an OTP reference."
+msgstr "لم تُرجع Ersaal مرجعًا لرمز التحقق."
+
+#: src/Modules/OTP/OTPService.php:205
+msgid "Too many OTP requests. Please wait before trying again."
+msgstr "طلبات رمز التحقق كثيرة جدًا. انتظر قبل المحاولة مجددًا."
+
+#: src/Modules/OTP/OTPService.php:208
+msgid "OTP authentication failed. Check the Ersaal connection settings."
+msgstr "فشلت مصادقة رمز التحقق. راجع إعدادات اتصال Ersaal."
+
+#: src/Modules/OTP/OTPService.php:211
+msgid ""
+"OTP is unavailable because the wallet or OTP subscription balance is "
+"insufficient."
+msgstr "رمز التحقق غير متاح لعدم كفاية رصيد المحفظة أو الباقة."
+
+#: src/Modules/OTP/OTPService.php:214
+msgid "The OTP service is temporarily unavailable. Please try again later."
+msgstr "خدمة رمز التحقق غير متاحة مؤقتًا. حاول لاحقًا."
+
+#: src/Modules/OTP/OTPService.php:217
+msgid "The verification code has expired or was already used."
+msgstr "انتهت صلاحية الرمز أو سبق استخدامه."
+
+#: src/Modules/OTP/OTPService.php:220
+msgid "The verification code is incorrect."
+msgstr "رمز التحقق غير صحيح."
+
+#: src/Modules/OTP/OTPService.php:223
+msgid ""
+"An active verification code already exists for this phone. Use it or wait "
+"until it expires."
+msgstr "يوجد رمز تحقق نشط لهذا الهاتف. استخدمه أو انتظر انتهاء صلاحيته."
+
+#: src/Modules/OTP/OTPService.php:226
+msgid "The OTP sender is invalid or unavailable for this phone provider."
+msgstr "مرسل رمز التحقق غير صالح أو غير متاح لمزود هذا الهاتف."
+
+#: src/Modules/OTP/OTPService.php:231
+msgid "An unexpected OTP error occurred."
+msgstr "حدث خطأ غير متوقع في رمز التحقق."
+
+#: src/Modules/OTP/OTPUserProfile.php:53 src/Modules/OTP/OTPUserProfile.php:172
+msgid "Verify phone"
+msgstr "تحقق من الهاتف"
+
+#: src/Modules/OTP/OTPUserProfile.php:55 src/Modules/OTP/OTPUserProfile.php:165
+msgid "Resend code"
+msgstr "إعادة إرسال الرمز"
+
+#: src/Modules/OTP/OTPUserProfile.php:56 src/Modules/OTP/OTPUserProfile.php:142
+msgid "Use this number"
+msgstr "استخدام هذا الرقم"
+
+#: src/Modules/OTP/OTPUserProfile.php:57
+msgid "Loading number..."
+msgstr "جارٍ تحميل الرقم..."
+
+#: src/Modules/OTP/OTPUserProfile.php:59 src/Modules/OTP/OTPUserProfile.php:132
+msgid "Not verified"
+msgstr "غير مؤكد"
+
+#: src/Modules/OTP/OTPUserProfile.php:60
+msgid "Verify the new phone before enabling login 2FA."
+msgstr "تحقق من الهاتف الجديد قبل تفعيل التحقق بخطوتين عند الدخول."
+
+#: src/Modules/OTP/OTPUserProfile.php:61
+msgid ""
+"The verified phone can now be used for login 2FA. Enable it, then save the "
+"profile."
+msgstr ""
+"يمكن الآن استخدام الهاتف المؤكد للتحقق بخطوتين عند الدخول. فعّله ثم احفظ "
+"الملف الشخصي."
+
+#: src/Modules/OTP/OTPUserProfile.php:62
+msgid "The phone verification request could not be completed."
+msgstr "تعذر إكمال طلب التحقق من الهاتف."
+
+#: src/Modules/OTP/OTPUserProfile.php:87
+msgid "Ersaal Security"
+msgstr "أمان Ersaal"
+
+#: src/Modules/OTP/OTPUserProfile.php:88
+msgid ""
+"Confirm the account phone, verify it with Ersaal, then choose whether to "
+"protect WordPress login."
+msgstr ""
+"أكد هاتف الحساب وتحقق منه عبر Ersaal، ثم اختر ما إذا كنت تريد حماية تسجيل "
+"دخول ووردبريس."
+
+#: src/Modules/OTP/OTPUserProfile.php:91
+msgid "Phone verified"
+msgstr "الهاتف مؤكد"
+
+#: src/Modules/OTP/OTPUserProfile.php:93
+msgid "Setup incomplete"
+msgstr "الإعداد غير مكتمل"
+
+#: src/Modules/OTP/OTPUserProfile.php:99
+msgid "OTP service is currently disabled."
+msgstr "خدمة رمز التحقق معطلة حاليًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:101
+msgid ""
+"The phone can be entered now, but verification requires OTP to be enabled."
+msgstr "يمكن إدخال الهاتف الآن، لكن التحقق منه يتطلب تفعيل خدمة رمز التحقق."
+
+#: src/Modules/OTP/OTPUserProfile.php:103
+msgid "Open Ersaal OTP settings"
+msgstr "فتح إعدادات رمز التحقق في Ersaal"
+
+#: src/Modules/OTP/OTPUserProfile.php:105
+msgid "Ask an administrator to enable OTP in Ersaal settings."
+msgstr "اطلب من المسؤول تفعيل رمز التحقق في إعدادات Ersaal."
+
+#: src/Modules/OTP/OTPUserProfile.php:116
+msgid "Account identity"
+msgstr "هوية الحساب"
+
+#: src/Modules/OTP/OTPUserProfile.php:118
+msgid ""
+"This identifies the WordPress account only. Ersaal sends OTP by SMS, not "
+"email."
+msgstr ""
+"هذه البيانات تعرّف حساب ووردبريس فقط. ترسل Ersaal رمز التحقق عبر الرسائل "
+"النصية وليس البريد الإلكتروني."
+
+#: src/Modules/OTP/OTPUserProfile.php:121
+msgid "Account"
+msgstr "الحساب"
+
+#: src/Modules/OTP/OTPUserProfile.php:122
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: src/Modules/OTP/OTPUserProfile.php:130
+#: src/Modules/OTP/OTPUserProfile.php:147
+msgid "OTP phone"
+msgstr "هاتف رمز التحقق"
+
+#: src/Modules/OTP/OTPUserProfile.php:138
+msgid "Suggested phone"
+msgstr "رقم مقترح"
+
+#: src/Modules/OTP/OTPUserProfile.php:140
+msgid ""
+"We found this number in the WooCommerce billing details for this account. It "
+"is not verified yet."
+msgstr ""
+"وجدنا هذا الرقم في بيانات فوترة WooCommerce لهذا الحساب. لم يتم التحقق منه "
+"بعد."
+
+#: src/Modules/OTP/OTPUserProfile.php:151
+msgid ""
+"Changing it clears verification and turns off login 2FA until the new number "
+"is verified."
+msgstr ""
+"يؤدي تغيير الرقم إلى إزالة حالة التحقق وتعطيل التحقق بخطوتين عند تسجيل "
+"الدخول حتى تأكيد الرقم الجديد."
+
+#. translators: %s: Formatted verification date and time
+#: src/Modules/OTP/OTPUserProfile.php:158
+#, php-format
+msgid "Verified on %s."
+msgstr "تم التحقق في %s."
+
+#: src/Modules/OTP/OTPUserProfile.php:181
+msgid "Login two-factor authentication"
+msgstr "التحقق بخطوتين عند تسجيل الدخول"
+
+#: src/Modules/OTP/OTPUserProfile.php:186
+msgid ""
+"Login OTP is currently disabled by wp-config.php. Phone verification remains "
+"available."
+msgstr ""
+"رمز التحقق عند الدخول معطل حاليًا عبر wp-config.php. يظل التحقق من الهاتف "
+"متاحًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:188
+msgid ""
+"Login 2FA is disabled globally by an administrator. Phone verification "
+"remains available."
+msgstr ""
+"عطّل المسؤول التحقق بخطوتين عند الدخول على مستوى الموقع. يظل التحقق من الهاتف "
+"متاحًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:193
+msgid "Enable login 2FA"
+msgstr "تفعيل التحقق بخطوتين عند الدخول"
+
+#: src/Modules/OTP/OTPUserProfile.php:196
+msgid "Verify your phone number before enabling login 2FA."
+msgstr "تحقق من رقم هاتفك قبل تفعيل التحقق بخطوتين عند الدخول."
+
+#: src/Modules/OTP/OTPUserProfile.php:198
+msgid ""
+"Login 2FA cannot be enabled until the global login OTP setting is available."
+msgstr "لا يمكن تفعيل التحقق بخطوتين حتى يصبح إعداد رمز الدخول العام متاحًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:200
+msgid ""
+"Require a verification code after the WordPress password for this account."
+msgstr "اطلب رمز تحقق بعد كلمة مرور ووردبريس لهذا الحساب."
+
+#: src/Modules/OTP/OTPUserProfile.php:292
+msgid "No suggested phone is available for this account."
+msgstr "لا يوجد رقم هاتف مقترح لهذا الحساب."
+
+#: src/Modules/OTP/OTPUserProfile.php:297
+msgid ""
+"The suggested phone was added. Send a code to verify it before enabling "
+"login 2FA."
+msgstr ""
+"أُضيف الرقم المقترح. أرسل رمزًا للتحقق منه قبل تفعيل التحقق بخطوتين عند الدخول."
+
+#: src/Modules/OTP/OTPUserProfile.php:311
+msgid ""
+"A code is already active for this phone. Enter it before requesting another."
+msgstr "يوجد رمز نشط لهذا الهاتف. أدخله قبل طلب رمز آخر."
+
+#: src/Modules/OTP/OTPUserProfile.php:341
+msgid "This phone verification has expired. Send a new code."
+msgstr "انتهت جلسة التحقق من الهاتف. أرسل رمزًا جديدًا."
+
+#: src/Modules/OTP/OTPUserProfile.php:365
+msgid ""
+"Phone verified successfully. Save the profile to keep any login OTP "
+"preference."
+msgstr "تم تأكيد الهاتف. احفظ الملف الشخصي للاحتفاظ بتفضيل رمز الدخول."
+
+#: src/Modules/OTP/OTPUserProfile.php:377
+msgid "You are not allowed to verify this phone."
+msgstr "لا تملك صلاحية التحقق من هذا الهاتف."
+
+#: src/Modules/OTP/OTPValidator.php:17
+msgid "Invalid OTP context."
+msgstr "سياق رمز التحقق غير صالح."
+
+#: src/Modules/OTP/OTPValidator.php:26
+msgid "Invalid or missing OTP reference."
+msgstr "مرجع رمز التحقق مفقود أو غير صالح."
+
+#: src/Modules/OTP/OTPValidator.php:35
+msgid "Enter the verification code sent to your phone."
+msgstr "أدخل رمز التحقق المرسل إلى هاتفك."
+
+#: src/Modules/Settings/SettingsModule.php:64
+msgid "The connection test could not be completed."
+msgstr "تعذر إكمال اختبار الاتصال."
+
+#. translators: %s: Ersaal project name
+#: src/Modules/Settings/SettingsModule.php:141
+#, php-format
+msgid "Connected successfully! Project: %s"
+msgstr "تم الاتصال بنجاح! المشروع: %s"
+
+#: src/Modules/Settings/SettingsModule.php:143
+msgid "Connected successfully!"
+msgstr "تم الاتصال بنجاح!"
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:84
+msgid "Phone:"
+msgstr "الهاتف:"
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:88
+msgid "Payment Type:"
+msgstr "طريقة الدفع:"
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:95
+msgid "Message:"
+msgstr "الرسالة:"
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:119
+msgid "Invalid order ID."
+msgstr "معرّف الطلب غير صالح."
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:124
+msgid "You do not have permission to edit this order."
+msgstr "ليس لديك صلاحية تعديل هذا الطلب."
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:137
+msgid "Order not found."
+msgstr "لم يُعثر على الطلب."
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:142
+msgid "Customer billing phone is missing."
+msgstr "رقم هاتف فوترة العميل غير موجود."
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:148
+msgid "Invalid customer phone number for SMS delivery."
+msgstr "رقم هاتف العميل غير صالح لإرسال الرسائل النصية."
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:167
+msgid "Ersaal SMS Scheduled manually."
+msgstr "جرت جدولة رسالة إرسال يدويًا."
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:169
+msgid "Message scheduled for sending."
+msgstr "تمت جدولة الرسالة للإرسال."
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:175
+msgid "Failed to schedule SMS message. Please check the Ersaal logs."
+msgstr "تعذرت جدولة الرسالة النصية. يرجى مراجعة سجلات إرسال."
+
+#: src/Modules/WooCommerce/OrderEventHandler.php:210
+msgid "Customer billing phone is missing or invalid."
+msgstr "رقم هاتف فوترة العميل غير موجود أو غير صالح."
+
+#: src/Modules/WooCommerce/TemplateEngine.php:11
+msgid "Customer"
+msgstr "العميل"
+
+#: src/Modules/WooCommerce/WooCommerceModule.php:77
+msgid "Preview appears as you type."
+msgstr "تظهر المعاينة أثناء الكتابة."
+
+#: src/Modules/WooCommerce/WooCommerceModule.php:80
+msgid "Focus a message template before inserting a variable."
+msgstr "حدّد قالب رسالة قبل إدراج متغير."
+
+#: src/Modules/WooCommerce/WooCommerceSettings.php:95
+msgid ""
+"Hello {customer_name}, we received your order #{order_number}. Thank you for "
+"choosing {site_name}."
+msgstr ""
+"مرحباً {customer_name}، تم استلام طلبك رقم #{order_number}. شكراً لتعاملك مع "
+"{site_name}."
+
+#: src/Modules/WooCommerce/WooCommerceSettings.php:97
+msgid "Your order #{order_number} is now being processed."
+msgstr "طلبك رقم #{order_number} قيد التجهيز حالياً."
+
+#: src/Modules/WooCommerce/WooCommerceSettings.php:99
+msgid ""
+"Your order #{order_number} has been completed. Thank you for choosing "
+"{site_name}."
+msgstr "تم إكمال طلبك رقم #{order_number}. شكراً لتعاملك مع {site_name}."
+
+#: src/Modules/WooCommerce/WooCommerceSettings.php:101
+msgid "Your order #{order_number} has been cancelled."
+msgstr "تم إلغاء الطلب رقم #{order_number}."
+
+#: src/PublicApi/SmsFacade.php:63
+msgid "The SMS idempotency key is invalid."
+msgstr "مفتاح منع تكرار رسالة SMS غير صالح."
+
+#: src/PublicApi/SmsFacade.php:71
+msgid "Ersaal SMS is not configured."
+msgstr "خدمة رسائل إرسال غير مضبوطة."
+
+#: src/PublicApi/SmsFacade.php:126
+msgid "The SMS request could not be queued."
+msgstr "تعذر وضع طلب رسالة SMS في قائمة الانتظار."
+
+#: src/Services/ConnectionStatusService.php:49
+msgid "Unknown Project"
+msgstr "مشروع غير معروف"
+
+#: src/Services/PhoneValidator.php:32
+msgid ""
+"Invalid phone number. Enter a Libyana or Almadar mobile number starting with "
+"091, 092, 093, or 094."
+msgstr ""
+"رقم الهاتف غير صالح. أدخل رقم ليبيانا أو المدار يبدأ بـ 091 أو 092 أو 093 أو "
+"094."
+
+#: src/Storage/LogRepository.php:68
+msgid "Unable to create message log."
+msgstr "تعذر إنشاء سجل الرسالة."

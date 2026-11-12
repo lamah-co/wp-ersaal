@@ -3,7 +3,7 @@
  * Plugin Name: Ersaal SMS Gateway
  * Plugin URI: https://getersaal.com/
  * Description: Official Ersaal SMS Gateway integration for WordPress & WooCommerce. Send SMS notifications, verify phone numbers via OTP, and enable 2FA login for Libyan networks.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Requires at least: 6.0
  * Requires PHP: 8.1
  * Author: Lamah
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('ERSAAL_VERSION', '1.3.1');
+define('ERSAAL_VERSION', '1.3.2');
 define('ERSAAL_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ERSAAL_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ERSAAL_PLUGIN_FILE', __FILE__);

@@ -7,6 +7,21 @@ on:
     branches: [ main, master ]
 
 jobs:
+  release-package:
+    name: Release Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Translation Tools
+        run: sudo apt-get update && sudo apt-get install -y gettext
+      - name: Check Arabic Catalog
+        run: msgfmt --check --check-format --statistics languages/ersaal-sms-gateway-ar.po -o /tmp/ersaal-ar.mo
+      - name: Build Release ZIP
+        run: bash bin/build-release.sh
+      - name: Verify Release Package
+        run: python3 tests/release/check-package.py dist-release/wp-ersaal.zip
+
   php-lint:
     name: PHP Syntax Check (${{ matrix.php }})
     runs-on: ubuntu-latest

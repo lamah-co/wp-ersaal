@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.2] - 2026-11-12
+
+### Fixed
+- Included bundled Arabic translations and updated them for current plugin strings.
+- Preserved required admin styles and scripts in release packages.
+- Broadened Ersaal admin page detection for shared styles and compatibility notices.
+
+### Changed
+- Unified local and GitHub release packaging with checks for runtime files and Arabic catalogs.
+- Updated plugin banners, icons, screenshots, and RTL screenshot variants.
+
 ## [1.3.1] - 2026-10-14
 
 ### Fixed
