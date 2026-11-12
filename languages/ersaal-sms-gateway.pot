@@ -1,1052 +1,2017 @@
+# Copyright (C) 2026 Lamah
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ersaal SMS Gateway 1.1.0\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2026-08-10 00:00+0000\n"
-"PO-Revision-Date: 2026-08-10 00:00+0000\n"
-"Last-Translator: Ersaal Team\n"
-"Language-Team: Arabic\n"
-"Language: \n"
+"Project-Id-Version: Ersaal SMS Gateway 1.3.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ersaal-sms-gateway\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Domain: ersaal\n"
+"POT-Creation-Date: 2026-11-12T11:03:23+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ersaal-sms-gateway\n"
 
-#: admin/views/logs.php:121
-msgid "%s active filter"
-msgid_plural "%s active filters"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+#. Plugin Name of the plugin
+#: ersaal.php
+msgid "Ersaal SMS Gateway"
+msgstr ""
 
-#: admin/views/logs.php:212
-msgid "%s item"
-msgid_plural "%s items"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+#. Plugin URI of the plugin
+#: ersaal.php
+msgid "https://getersaal.com/"
+msgstr ""
 
-#: admin/LogsPage.php:63
+#. Description of the plugin
+#: ersaal.php
+msgid "Official Ersaal SMS Gateway integration for WordPress & WooCommerce. Send SMS notifications, verify phone numbers via OTP, and enable 2FA login for Libyan networks."
+msgstr ""
+
+#. Author of the plugin
+#: ersaal.php
+msgid "Lamah"
+msgstr ""
+
+#. Author URI of the plugin
+#: ersaal.php
+msgid "https://lamah.com/"
+msgstr ""
+
+#: admin/DashboardPage.php:27
+#: admin/HelpPage.php:11
+#: admin/LogsPage.php:20
+#: src/Modules/Settings/SettingsModule.php:132
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:114
+msgid "Unauthorized"
+msgstr ""
+
+#: admin/LogsPage.php:64
+msgid "Log deleted successfully."
+msgstr ""
+
+#: admin/LogsPage.php:66
+msgid "Unable to delete selected log."
+msgstr ""
+
+#. translators: %s: Number of logs deleted
+#: admin/LogsPage.php:76
+#, php-format
 msgid "%s log deleted successfully."
 msgid_plural "%s logs deleted successfully."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
-#: admin/views/logs.php:181
+#: admin/LogsPage.php:78
+msgid "Unable to delete selected logs."
+msgstr ""
+
+#: admin/LogsPage.php:116
+#: admin/views/manual-send.php:136
+#: src/Modules/Logs/LogsModule.php:83
+#: src/Modules/OTP/OTPAdminController.php:81
+msgid "Log ID"
+msgstr ""
+
+#: admin/LogsPage.php:116
+#: admin/views/dashboard.php:135
+#: admin/views/dashboard.php:214
+#: admin/views/logs.php:137
+#: admin/views/logs.php:229
+#: admin/views/manual-send.php:132
+#: admin/views/otp-logs.php:67
+#: admin/views/otp-logs.php:123
+#: admin/views/system-status.php:21
+#: src/Modules/Logs/LogsModule.php:84
+#: src/Modules/OTP/OTPAdminController.php:83
+msgid "Status"
+msgstr ""
+
+#: admin/LogsPage.php:116
+#: admin/views/dashboard.php:216
+#: admin/views/logs.php:148
+#: src/Modules/Logs/LogsModule.php:85
+msgid "Source"
+msgstr ""
+
+#: admin/LogsPage.php:116
+#: src/Modules/Logs/LogsModule.php:86
+msgid "Source ID"
+msgstr ""
+
+#: admin/LogsPage.php:116
+msgid "Source event"
+msgstr ""
+
+#: admin/LogsPage.php:117
+#: src/Modules/Logs/LogsModule.php:88
+msgid "Masked phone"
+msgstr ""
+
+#: admin/LogsPage.php:117
+#: admin/views/dashboard.php:217
+#: admin/views/logs.php:232
+#: admin/views/logs.php:327
+#: admin/views/manual-send.php:80
+msgid "Message"
+msgstr ""
+
+#: admin/LogsPage.php:117
+#: admin/views/manual-send.php:128
+#: src/Modules/Logs/LogsModule.php:89
+msgid "Message ID"
+msgstr ""
+
+#: admin/LogsPage.php:117
+#: admin/views/manual-send.php:140
+#: src/Modules/Logs/LogsModule.php:90
+msgid "Parts"
+msgstr ""
+
+#: admin/LogsPage.php:117
+#: src/Modules/Logs/LogsModule.php:91
+msgid "Cost"
+msgstr ""
+
+#: admin/LogsPage.php:118
+#: src/Modules/Logs/LogsModule.php:92
+msgid "Attempts"
+msgstr ""
+
+#: admin/LogsPage.php:118
+#: src/Modules/Logs/LogsModule.php:93
+#: src/Modules/OTP/OTPAdminController.php:88
+msgid "HTTP code"
+msgstr ""
+
+#: admin/LogsPage.php:118
+#: src/Modules/Logs/LogsModule.php:94
+msgid "API error"
+msgstr ""
+
+#: admin/LogsPage.php:118
+#: src/Modules/OTP/OTPAdminController.php:91
+msgid "Created at"
+msgstr ""
+
+#: admin/LogsPage.php:118
+#: src/Modules/OTP/OTPAdminController.php:92
+msgid "Updated at"
+msgstr ""
+
+#: admin/SettingsPage.php:23
+msgid "General Settings"
+msgstr ""
+
+#: admin/SettingsPage.php:24
+msgid "Advanced"
+msgstr ""
+
+#: admin/SettingsPage.php:25
+msgid "System Status"
+msgstr ""
+
+#: admin/SettingsPage.php:35
+#: admin/views/dashboard.php:248
+#: src/Modules/Settings/SettingsModule.php:77
+#: src/Modules/Settings/SettingsModule.php:78
+msgid "Settings"
+msgstr ""
+
+#: admin/SettingsPage.php:36
+msgid "Manage API connection, defaults, and system preferences."
+msgstr ""
+
+#: admin/SettingsPage.php:41
+#: admin/views/manual-send.php:31
+msgid "Need help?"
+msgstr ""
+
+#: admin/SettingsPage.php:46
+msgid "Settings sections"
+msgstr ""
+
+#: admin/ui.php:87
+#: admin/ui.php:123
+#: admin/views/logs.php:140
+#: admin/views/woocommerce-settings.php:15
+msgid "Processing"
+msgstr ""
+
+#: admin/ui.php:88
+#: admin/views/dashboard.php:170
+#: admin/views/logs.php:101
+#: admin/views/logs.php:141
+#: admin/views/manual-send.php:133
+msgid "Accepted"
+msgstr ""
+
+#: admin/ui.php:89
+msgid "Delivered"
+msgstr ""
+
+#: admin/ui.php:90
+#: admin/views/dashboard.php:30
+#: admin/views/otp-logs.php:10
+msgid "Sent"
+msgstr ""
+
+#: admin/ui.php:91
+#: admin/views/logs.php:142
+msgid "Retry scheduled"
+msgstr ""
+
+#: admin/ui.php:92
+msgid "Queued"
+msgstr ""
+
+#: admin/ui.php:93
+msgid "Pending"
+msgstr ""
+
+#: admin/ui.php:94
+#: admin/views/dashboard.php:34
+#: admin/views/dashboard.php:175
+#: admin/views/logs.php:106
+#: admin/views/logs.php:143
+#: admin/views/otp-logs.php:14
+msgid "Failed"
+msgstr ""
+
+#: admin/ui.php:95
+#: admin/views/logs.php:144
+msgid "Error"
+msgstr ""
+
+#: admin/ui.php:96
+msgid "Rejected"
+msgstr ""
+
+#: admin/ui.php:97
+#: admin/views/dashboard.php:33
+#: admin/views/otp-logs.php:13
+msgid "Expired"
+msgstr ""
+
+#: admin/ui.php:98
+msgid "Unknown"
+msgstr ""
+
+#: admin/ui.php:122
+#: admin/views/woocommerce-settings.php:14
+msgid "New order"
+msgstr ""
+
+#: admin/ui.php:124
+#: admin/views/woocommerce-settings.php:16
+msgid "Completed"
+msgstr ""
+
+#: admin/ui.php:125
+#: admin/views/woocommerce-settings.php:17
+msgid "Cancelled"
+msgstr ""
+
+#: admin/ui.php:151
+msgid "Manual"
+msgstr ""
+
+#: admin/ui.php:152
+#: src/Modules/WooCommerce/WooCommerceSettings.php:17
+msgid "WooCommerce"
+msgstr ""
+
+#. translators: %s: Order ID
+#: admin/ui.php:166
+#, php-format
+msgid "Order #%s"
+msgstr ""
+
+#: admin/views/dashboard.php:28
+#: admin/views/dashboard.php:72
+#: admin/views/manual-send.php:20
+msgid "Not available"
+msgstr ""
+
+#: admin/views/dashboard.php:31
+#: admin/views/dashboard.php:115
+#: admin/views/otp-logs.php:11
+#: src/Modules/OTP/OTPUserProfile.php:58
+#: src/Modules/OTP/OTPUserProfile.php:132
+msgid "Verified"
+msgstr ""
+
+#: admin/views/dashboard.php:32
+#: admin/views/otp-logs.php:12
+msgid "Invalid"
+msgstr ""
+
+#: admin/views/dashboard.php:35
+#: admin/views/otp-logs.php:15
+msgid "Rate limited"
+msgstr ""
+
+#: admin/views/dashboard.php:36
+#: admin/views/otp-logs.php:16
+#: admin/views/settings-otp.php:42
+msgid "Unavailable"
+msgstr ""
+
+#: admin/views/dashboard.php:39
+#: admin/views/otp-logs.php:19
+msgid "Admin test"
+msgstr ""
+
+#: admin/views/dashboard.php:40
+#: admin/views/otp-logs.php:20
+msgid "Profile verification"
+msgstr ""
+
+#: admin/views/dashboard.php:41
+#: admin/views/otp-logs.php:21
+msgid "WordPress login"
+msgstr ""
+
+#: admin/views/dashboard.php:42
+#: admin/views/otp-logs.php:22
+msgid "Developer integration"
+msgstr ""
+
+#: admin/views/dashboard.php:48
+#: src/Modules/Dashboard/DashboardModule.php:55
+#: src/Modules/Dashboard/DashboardModule.php:56
+msgid "Dashboard"
+msgstr ""
+
+#: admin/views/dashboard.php:49
+msgid "Monitor connection readiness, SMS delivery, and OTP verification activity."
+msgstr ""
+
+#: admin/views/dashboard.php:54
+#: admin/views/dashboard.php:245
+#: admin/views/logs.php:202
+#: admin/views/manual-send.php:25
+#: admin/views/manual-send.php:114
+#: src/Modules/ManualSend/ManualSendModule.php:60
+#: src/Modules/ManualSend/ManualSendModule.php:61
+#: src/Modules/ManualSend/ManualSendModule.php:94
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:100
+msgid "Send SMS"
+msgstr ""
+
+#: admin/views/dashboard.php:62
+msgid "Ersaal Connection"
+msgstr ""
+
+#: admin/views/dashboard.php:65
+#: admin/views/settings-otp.php:42
+msgid "Connected"
+msgstr ""
+
+#: admin/views/dashboard.php:65
+msgid "Not connected"
+msgstr ""
+
+#: admin/views/dashboard.php:71
+#: admin/views/manual-send.php:54
+msgid "Project"
+msgstr ""
+
+#: admin/views/dashboard.php:75
+msgid "Project status"
+msgstr ""
+
+#: admin/views/dashboard.php:79
+#: admin/views/manual-send.php:55
+#: admin/views/manual-send.php:104
+#: admin/views/woocommerce-settings.php:93
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:91
+msgid "Subscription"
+msgstr ""
+
+#: admin/views/dashboard.php:86
+#: admin/views/settings-general.php:18
+msgid "Connection settings"
+msgstr ""
+
+#: admin/views/dashboard.php:91
+msgid "Connection needs attention"
+msgstr ""
+
+#: admin/views/dashboard.php:100
+msgid "OTP today"
+msgstr ""
+
+#: admin/views/dashboard.php:101
+msgid "Safe local metrics for one-time password requests and verification attempts."
+msgstr ""
+
+#: admin/views/dashboard.php:104
+#: admin/views/otp-logs.php:57
+msgid "Run OTP Test"
+msgstr ""
+
+#: admin/views/dashboard.php:105
+#: admin/views/settings-otp.php:158
+msgid "View OTP activity"
+msgstr ""
+
+#: admin/views/dashboard.php:110
+msgid "Codes sent"
+msgstr ""
+
+#: admin/views/dashboard.php:112
+msgid "Initiated today"
+msgstr ""
+
+#: admin/views/dashboard.php:117
+msgid "Successful checks"
+msgstr ""
+
+#: admin/views/dashboard.php:120
+msgid "Unsuccessful"
+msgstr ""
+
+#: admin/views/dashboard.php:122
+msgid "Failed, invalid, or expired"
+msgstr ""
+
+#: admin/views/dashboard.php:125
+msgid "Verification rate"
+msgstr ""
+
+#: admin/views/dashboard.php:127
+msgid "Verified attempts today"
+msgstr ""
+
+#: admin/views/dashboard.php:136
+#: admin/views/otp-logs.php:76
+#: admin/views/otp-logs.php:125
+#: src/Modules/OTP/OTPAdminController.php:84
+msgid "Workflow"
+msgstr ""
+
+#: admin/views/dashboard.php:137
+#: admin/views/dashboard.php:215
+#: admin/views/logs.php:231
+#: admin/views/otp-logs.php:126
+#: src/Modules/OTP/OTPAdminController.php:85
+msgid "Phone"
+msgstr ""
+
+#: admin/views/dashboard.php:138
+#: admin/views/dashboard.php:218
+#: admin/views/logs.php:234
+#: admin/views/otp-logs.php:128
+#: src/Modules/Logs/LogsModule.php:95
+msgid "Created"
+msgstr ""
+
+#: admin/views/dashboard.php:159
+msgid "Today’s activity"
+msgstr ""
+
+#: admin/views/dashboard.php:160
+msgid "A current snapshot of local message records."
+msgstr ""
+
+#: admin/views/dashboard.php:165
+msgid "Messages today"
+msgstr ""
+
+#: admin/views/dashboard.php:167
+#: admin/views/logs.php:139
+#: admin/views/otp-logs.php:69
+msgid "All statuses"
+msgstr ""
+
+#: admin/views/dashboard.php:172
+msgid "Accepted by Ersaal"
+msgstr ""
+
+#: admin/views/dashboard.php:177
+msgid "Failed or errored"
+msgstr ""
+
+#: admin/views/dashboard.php:180
+msgid "Retrying"
+msgstr ""
+
+#: admin/views/dashboard.php:182
+msgid "Processing or scheduled"
+msgstr ""
+
+#: admin/views/dashboard.php:190
+msgid "Recent activity"
+msgstr ""
+
+#: admin/views/dashboard.php:191
+msgid "The latest messages across manual and WooCommerce sources."
+msgstr ""
+
+#: admin/views/dashboard.php:195
+msgid "View all logs"
+msgstr ""
+
+#: admin/views/dashboard.php:204
+msgid "No activity yet"
+msgstr ""
+
+#: admin/views/dashboard.php:205
+#: admin/views/logs.php:197
+msgid "Messages sent through Ersaal will appear here."
+msgstr ""
+
+#: admin/views/dashboard.php:207
+msgid "Send your first SMS"
+msgstr ""
+
+#: admin/views/dashboard.php:241
+msgid "Quick actions"
+msgstr ""
+
+#: admin/views/dashboard.php:246
+#: admin/views/otp-test.php:12
+#: src/Modules/OTP/OTPAdminController.php:40
+#: src/Modules/OTP/OTPAdminController.php:41
+msgid "OTP Test"
+msgstr ""
+
+#: admin/views/dashboard.php:247
+msgid "View logs"
+msgstr ""
+
+#. translators: %s: Log entry ID
+#: admin/views/logs.php:47
+#, php-format
+msgid "Log #%s"
+msgstr ""
+
+#: admin/views/logs.php:67
+#: src/Modules/Logs/LogsModule.php:46
+msgid "Logs"
+msgstr ""
+
+#: admin/views/logs.php:68
+msgid "Track SMS activity and troubleshoot requests."
+msgstr ""
+
+#: admin/views/logs.php:82
+msgid "Export CSV"
+msgstr ""
+
+#: admin/views/logs.php:93
+msgid "Log summary"
+msgstr ""
+
+#: admin/views/logs.php:96
+msgid "Total"
+msgstr ""
+
+#: admin/views/logs.php:98
+msgid "All recorded requests"
+msgstr ""
+
+#: admin/views/logs.php:103
+msgid "Received by Ersaal"
+msgstr ""
+
+#: admin/views/logs.php:108
+msgid "Needs attention"
+msgstr ""
+
+#: admin/views/logs.php:111
+msgid "Retries"
+msgstr ""
+
+#: admin/views/logs.php:113
+msgid "Scheduled again"
+msgstr ""
+
+#: admin/views/logs.php:121
+msgid "Find messages"
+msgstr ""
+
+#: admin/views/logs.php:122
+msgid "Search by reference, then narrow the results only when needed."
+msgstr ""
+
+#. translators: %s: Number of active filters
+#: admin/views/logs.php:126
+#, php-format
+msgid "%s active filter"
+msgid_plural "%s active filters"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/views/logs.php:133
+msgid "Search"
+msgstr ""
+
+#: admin/views/logs.php:134
+msgid "Log ID, message ID, order or phone"
+msgstr ""
+
+#: admin/views/logs.php:150
+msgid "All sources"
+msgstr ""
+
+#: admin/views/logs.php:157
+#: src/Modules/Logs/LogsModule.php:87
+msgid "Event"
+msgstr ""
+
+#: admin/views/logs.php:159
+msgid "All events"
+msgstr ""
+
+#: admin/views/logs.php:166
+msgid "From"
+msgstr ""
+
+#: admin/views/logs.php:170
+msgid "To"
+msgstr ""
+
+#: admin/views/logs.php:174
+#: admin/views/otp-logs.php:85
+msgid "Apply filters"
+msgstr ""
+
+#: admin/views/logs.php:176
+#: admin/views/otp-logs.php:87
+msgid "Reset"
+msgstr ""
+
+#: admin/views/logs.php:186
+msgid "Message activity"
+msgstr ""
+
+#. translators: %s: Number of matching records
+#: admin/views/logs.php:188
+#, php-format
 msgid "%s matching record"
 msgid_plural "%s matching records"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
 
-#: admin/views/manual-send.php:129 admin/views/dashboard.php:93 admin/views/logs.php:97 admin/views/logs.php:136 admin/ui.php:48
-msgid "Accepted"
+#: admin/views/logs.php:196
+msgid "No messages match these filters"
 msgstr ""
 
-#: admin/views/dashboard.php:95
-msgid "Accepted by Ersaal"
+#: admin/views/logs.php:196
+msgid "No messages yet"
 msgstr ""
 
-#: admin/views/logs.php:229
-msgid "Actions"
+#: admin/views/logs.php:197
+msgid "Reset the filters or broaden your search."
 msgstr ""
 
-#: admin/views/system-status.php:27
-msgid "Active"
-msgstr ""
-
-#: admin/views/dashboard.php:83
-msgid "A current snapshot of local message records."
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:190
-msgid "Additional order statuses"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:132
-msgid "Admin notifications"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:159
-msgid "Admin phone number"
-msgstr ""
-
-#: admin/SettingsPage.php:23
-msgid "Advanced"
-msgstr ""
-
-#: admin/views/logs.php:153
-msgid "All events"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:74
-msgid "Allow enabled order events to send notifications."
-msgstr ""
-
-#: admin/views/logs.php:94
-msgid "All recorded requests"
-msgstr ""
-
-#: admin/views/logs.php:145
-msgid "All sources"
-msgstr ""
-
-#: admin/views/dashboard.php:90 admin/views/logs.php:134
-msgid "All statuses"
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendModule.php:85
-msgid "An unexpected error occurred."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:151
-msgid "An unexpected internal error occurred."
-msgstr ""
-
-#: admin/views/settings-general.php:22
-msgid "API base URL"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:93 admin/LogsPage.php:101
-msgid "API error"
-msgstr ""
-
-#: admin/views/settings-general.php:30
-msgid "API key"
-msgstr ""
-
-#: src/API/Client.php:53
-msgid "API Key is missing."
+#: admin/views/logs.php:200
+msgid "Reset filters"
 msgstr ""
 
 #: admin/views/logs.php:210
-msgid "Apply"
-msgstr ""
-
-#: admin/views/logs.php:168
-msgid "Apply filters"
-msgstr ""
-
-#: admin/views/logs.php:210
-msgid "Are you sure you want to delete selected logs?"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:80
-msgid "Are you sure you want to delete this log? This only deletes the local record."
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:91 admin/LogsPage.php:101
-msgid "Attempts"
-msgstr ""
-
-#: src/API/Client.php:126
-msgid "Authentication failed. Check the API Key."
-msgstr ""
-
-#: src/API/Client.php:137
-msgid "Authentication failed or access forbidden."
-msgstr ""
-
-#: admin/views/system-status.php:9
-msgid "Background processing"
-msgstr ""
-
-#: admin/views/settings-general.php:31
-msgid "Bearer token for the connected Ersaal project."
-msgstr ""
-
-#: admin/views/logs.php:205
 msgid "Bulk action"
 msgstr ""
 
-#: admin/views/logs.php:207
+#: admin/views/logs.php:212
 msgid "Bulk actions"
 msgstr ""
 
-#: admin/views/woocommerce-settings.php:14 admin/ui.php:86
-msgid "Cancelled"
-msgstr ""
-
-#: admin/views/manual-send.php:79 admin/views/woocommerce-settings.php:223
-msgid "Characters"
-msgstr ""
-
-#: admin/views/settings-advanced.php:14
-msgid "Choose whether local Ersaal data should remain after the plugin is deleted."
-msgstr ""
-
-#: admin/views/logs.php:300
-msgid "Close details"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:13 admin/ui.php:85
-msgid "Completed"
-msgstr ""
-
-#: admin/views/system-status.php:17
-msgid "Component"
-msgstr ""
-
-#: admin/views/dashboard.php:47
-msgid "Connected"
-msgstr ""
-
-#: src/Modules/Settings/SettingsModule.php:101
-msgid "Connected successfully!"
-msgstr ""
-
-#: src/Modules/Settings/SettingsModule.php:99
-msgid "Connected successfully! Project: %s"
-msgstr ""
-
-#: admin/views/dashboard.php:73
-msgid "Connection needs attention"
-msgstr ""
-
-#: admin/views/settings-general.php:15 admin/views/dashboard.php:68
-msgid "Connection settings"
-msgstr ""
-
-#: admin/views/settings-general.php:50
-msgid "Connection test"
-msgstr ""
-
-#: admin/views/settings-general.php:16
-msgid "Connect this WordPress site to the intended Ersaal project."
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:77
-msgid "Copied"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:79 admin/views/logs.php:307
-msgid "Copy message"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:78 admin/views/logs.php:251
-msgid "Copy message ID"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:90 admin/LogsPage.php:100
-msgid "Cost"
-msgstr ""
-
-#: src/API/Client.php:84
-msgid "Could not connect to Ersaal. Check the API URL and service status."
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:94 admin/views/dashboard.php:143 admin/views/logs.php:228
-msgid "Created"
-msgstr ""
-
-#: admin/LogsPage.php:101
-msgid "Created at"
-msgstr ""
-
-#: src/Modules/WooCommerce/TemplateEngine.php:11
-msgid "Customer"
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:164
-msgid "Customer billing phone is missing."
-msgstr ""
-
-#: src/Modules/WooCommerce/OrderEventHandler.php:204
-msgid "Customer billing phone is missing or invalid."
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:99
-msgid "Customer notifications"
-msgstr ""
-
-#: src/Modules/Dashboard/DashboardModule.php:54 src/Modules/Dashboard/DashboardModule.php:55 admin/views/dashboard.php:30
-msgid "Dashboard"
-msgstr ""
-
-#: admin/views/settings-general.php:36
-msgid "Defined in wp-config.php and cannot be changed here."
-msgstr ""
-
-#: admin/views/logs.php:208
+#: admin/views/logs.php:213
 msgid "Delete"
 msgstr ""
 
-#: admin/views/settings-advanced.php:19
-msgid "Delete all local data on uninstall"
+#: admin/views/logs.php:215
+msgid "Are you sure you want to delete selected logs?"
 msgstr ""
 
-#: admin/views/logs.php:263
-msgid "Delete log"
+#: admin/views/logs.php:215
+msgid "Apply"
 msgstr ""
 
-#: admin/ui.php:49
-msgid "Delivered"
+#. translators: %s: Number of log items
+#: admin/views/logs.php:218
+#, php-format
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/views/logs.php:226
+msgid "Select all"
 msgstr ""
 
-#: admin/views/logs.php:227
+#: admin/views/logs.php:230
+#: admin/views/otp-logs.php:127
+#: src/Modules/OTP/OTPAdminController.php:86
+msgid "Reference"
+msgstr ""
+
+#: admin/views/logs.php:233
 msgid "Delivery"
 msgstr ""
 
-#: admin/views/logs.php:262
+#: admin/views/logs.php:235
+#: admin/views/otp-logs.php:129
+msgid "Actions"
+msgstr ""
+
+#: admin/views/logs.php:257
+#: src/Modules/Logs/LogsModule.php:79
+msgid "Copy message ID"
+msgstr ""
+
+#. translators: 1: Message parts count, 2: Send attempts count
+#: admin/views/logs.php:264
+#, php-format
+msgid "Parts %1$s · Attempts %2$s"
+msgstr ""
+
+#. translators: %s: number of subscription parts consumed
+#: admin/views/logs.php:271
+#, php-format
+msgid "%s part(s)"
+msgstr ""
+
+#: admin/views/logs.php:284
+#: admin/views/otp-logs.php:148
 msgid "Details"
 msgstr ""
 
-#: admin/views/woocommerce-settings.php:27 admin/views/woocommerce-settings.php:228
-msgid "Disabled"
+#: admin/views/logs.php:285
+msgid "Delete log"
 msgstr ""
 
-#: admin/views/system-status.php:38
-msgid "Disabled by constant"
+#: admin/views/logs.php:295
+msgid "Logs pagination"
 msgstr ""
 
-#: admin/views/woocommerce-settings.php:27 admin/views/woocommerce-settings.php:227 admin/views/system-status.php:40
-msgid "Enabled"
+#: admin/views/logs.php:300
+#: admin/views/otp-logs.php:161
+msgid "Previous"
 msgstr ""
 
-#: admin/views/woocommerce-settings.php:73
-msgid "Enable WooCommerce SMS"
+#: admin/views/logs.php:301
+#: admin/views/otp-logs.php:162
+msgid "Next"
 msgstr ""
 
-#: admin/views/manual-send.php:80 admin/views/woocommerce-settings.php:225
+#: admin/views/logs.php:321
+#: admin/views/otp-logs.php:174
+msgid "Log details"
+msgstr ""
+
+#: admin/views/logs.php:322
+#: admin/views/otp-logs.php:175
+msgid "Close details"
+msgstr ""
+
+#: admin/views/logs.php:329
+#: src/Modules/Logs/LogsModule.php:80
+msgid "Copy message"
+msgstr ""
+
+#: admin/views/manual-send.php:26
+msgid "Send one message through the connected Ersaal project."
+msgstr ""
+
+#: admin/views/manual-send.php:39
+msgid "Ersaal is not connected"
+msgstr ""
+
+#: admin/views/manual-send.php:43
+msgid "Open connection settings"
+msgstr ""
+
+#: admin/views/manual-send.php:52
+msgid "Ready to send"
+msgstr ""
+
+#. translators: %s: SMS balance amount
+#: admin/views/manual-send.php:60
+#, php-format
+msgid "SMS balance: %s"
+msgstr ""
+
+#: admin/views/manual-send.php:67
+msgid "No available SMS balance or subscription"
+msgstr ""
+
+#: admin/views/manual-send.php:68
+msgid "The API may reject this message until the project has an eligible SMS payment source."
+msgstr ""
+
+#: admin/views/manual-send.php:74
+msgid "Recipient"
+msgstr ""
+
+#: admin/views/manual-send.php:76
+#: admin/views/otp-test.php:47
+#: admin/views/woocommerce-settings.php:165
+#: src/Modules/OTP/OTPUserProfile.php:150
+msgid "Libyana or Almadar: 091 / 092 / 093 / 094"
+msgstr ""
+
+#: admin/views/manual-send.php:83
+#: src/Modules/WooCommerce/WooCommerceModule.php:74
+msgid "Characters"
+msgstr ""
+
+#: admin/views/manual-send.php:84
+#: src/Modules/WooCommerce/WooCommerceModule.php:76
 msgid "Encoding"
 msgstr ""
 
-#: admin/views/settings-general.php:38
+#: admin/views/manual-send.php:85
+#: src/Modules/WooCommerce/WooCommerceModule.php:75
+msgid "Estimated parts"
+msgstr ""
+
+#: admin/views/manual-send.php:91
+msgid "Payment and advanced options"
+msgstr ""
+
+#: admin/views/manual-send.php:96
+#: admin/views/woocommerce-settings.php:86
+msgid "Sender ID"
+msgstr ""
+
+#: admin/views/manual-send.php:98
+msgid "Use an approved Sender ID for this project."
+msgstr ""
+
+#: admin/views/manual-send.php:101
+#: admin/views/woocommerce-settings.php:90
+msgid "Payment type"
+msgstr ""
+
+#: admin/views/manual-send.php:103
+#: admin/views/woocommerce-settings.php:92
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:90
+msgid "Wallet"
+msgstr ""
+
+#: admin/views/manual-send.php:145
+msgid "View in logs"
+msgstr ""
+
+#: admin/views/otp-logs.php:53
+#: src/Modules/OTP/OTPAdminController.php:48
+#: src/Modules/OTP/OTPAdminController.php:49
+msgid "OTP Activity"
+msgstr ""
+
+#: admin/views/otp-logs.php:54
+msgid "Review OTP requests and verification outcomes without exposing codes or full phone numbers."
+msgstr ""
+
+#: admin/views/otp-logs.php:58
+msgid "View SMS logs"
+msgstr ""
+
+#: admin/views/otp-logs.php:62
+msgid "Filter OTP Activity"
+msgstr ""
+
+#: admin/views/otp-logs.php:78
+msgid "All workflows"
+msgstr ""
+
+#: admin/views/otp-logs.php:94
+msgid "OTP Activity Summary"
+msgstr ""
+
+#: admin/views/otp-logs.php:96
+msgid "Total records"
+msgstr ""
+
+#: admin/views/otp-logs.php:105
+msgid "OTP activity records"
+msgstr ""
+
+#. translators: %s: Number of matching records
+#: admin/views/otp-logs.php:107
+#, php-format
+msgid "Showing %s matching record"
+msgid_plural "Showing %s matching records"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/views/otp-logs.php:115
+msgid "No OTP activity yet"
+msgstr ""
+
+#: admin/views/otp-logs.php:116
+msgid "Run an OTP test or verify a user phone to create the first safe activity record."
+msgstr ""
+
+#: admin/views/otp-logs.php:124
+#: src/Modules/OTP/OTPAdminController.php:82
+msgid "Action"
+msgstr ""
+
+#: admin/views/otp-logs.php:137
+#: admin/views/otp-test.php:36
+msgid "Verify"
+msgstr ""
+
+#: admin/views/otp-logs.php:137
+#: admin/views/otp-test.php:35
+msgid "Send"
+msgstr ""
+
+#: admin/views/otp-logs.php:157
+msgid "OTP activity pagination"
+msgstr ""
+
+#: admin/views/otp-test.php:13
+msgid "Send a real verification code and confirm the complete OTP flow."
+msgstr ""
+
+#: admin/views/otp-test.php:16
+msgid "OTP settings"
+msgstr ""
+
+#: admin/views/otp-test.php:21
+msgid "This uses your real Ersaal account"
+msgstr ""
+
+#: admin/views/otp-test.php:22
+msgid "A successful send can consume wallet balance or an OTP subscription unit. Verification codes are never written to WordPress logs."
+msgstr ""
+
+#: admin/views/otp-test.php:28
+msgid "Verify a phone number"
+msgstr ""
+
+#: admin/views/otp-test.php:29
+msgid "Complete both steps to confirm the sender, billing source, and verification endpoint."
+msgstr ""
+
+#: admin/views/otp-test.php:31
+msgid "Ready"
+msgstr ""
+
+#: admin/views/otp-test.php:34
+msgid "OTP test steps"
+msgstr ""
+
+#: admin/views/otp-test.php:37
+msgid "Complete"
+msgstr ""
+
+#: admin/views/otp-test.php:44
+msgid "Phone number"
+msgstr ""
+
+#: admin/views/otp-test.php:48
+msgid "The activity log keeps only a masked version and a one-way fingerprint."
+msgstr ""
+
+#: admin/views/otp-test.php:52
+#: src/Modules/OTP/OTPAdminController.php:72
+#: src/Modules/OTP/OTPUserProfile.php:51
+#: src/Modules/OTP/OTPUserProfile.php:164
+msgid "Send verification code"
+msgstr ""
+
+#: admin/views/otp-test.php:59
+#: src/Modules/OTP/OTPLoginTwoFactor.php:225
+#: src/Modules/OTP/OTPUserProfile.php:169
+msgid "Verification code"
+msgstr ""
+
+#: admin/views/otp-test.php:64
+#: src/Modules/OTP/OTPAdminController.php:74
+msgid "Verify code"
+msgstr ""
+
+#: admin/views/otp-test.php:65
+#: src/Modules/OTP/OTPAdminController.php:76
+#: src/Modules/OTP/OTPLoginTwoFactor.php:230
+msgid "Send a new code"
+msgstr ""
+
+#: admin/views/otp-test.php:72
+msgid "OTP flow verified"
+msgstr ""
+
+#: admin/views/otp-test.php:73
+msgid "The code was accepted once and the local test state was removed."
+msgstr ""
+
+#: admin/views/otp-test.php:74
+msgid "Run another test"
+msgstr ""
+
+#: admin/views/settings-advanced.php:16
+msgid "Uninstall behavior"
+msgstr ""
+
+#: admin/views/settings-advanced.php:17
+msgid "Choose whether local Ersaal data should remain after the plugin is deleted."
+msgstr ""
+
+#: admin/views/settings-advanced.php:22
+msgid "Delete all local data on uninstall"
+msgstr ""
+
+#: admin/views/settings-advanced.php:23
+msgid "Removes saved settings and SMS logs when the plugin is deleted."
+msgstr ""
+
+#: admin/views/settings-advanced.php:32
+msgid "Permanent deletion"
+msgstr ""
+
+#: admin/views/settings-advanced.php:33
+msgid "When enabled, the local logs and settings cannot be recovered after uninstalling the plugin."
+msgstr ""
+
+#: admin/views/settings-advanced.php:39
+#: admin/views/settings-general.php:65
+msgid "Save settings"
+msgstr ""
+
+#: admin/views/settings-general.php:19
+msgid "Connect this WordPress site to the intended Ersaal project."
+msgstr ""
+
+#: admin/views/settings-general.php:25
+msgid "API base URL"
+msgstr ""
+
+#: admin/views/settings-general.php:26
+msgid "The Ersaal Gateway endpoint used for API requests."
+msgstr ""
+
+#: admin/views/settings-general.php:33
+msgid "API key"
+msgstr ""
+
+#: admin/views/settings-general.php:34
+msgid "Bearer token for the connected Ersaal project."
+msgstr ""
+
+#: admin/views/settings-general.php:39
+msgid "Defined in wp-config.php and cannot be changed here."
+msgstr ""
+
+#: admin/views/settings-general.php:41
 msgid "Enter your Bearer Token"
 msgstr ""
 
-#: admin/views/logs.php:139 admin/ui.php:55
-msgid "Error"
+#: admin/views/settings-general.php:43
+msgid "The API key is set. Keep ******** to retain the existing key."
 msgstr ""
 
-#: admin/views/dashboard.php:44
-msgid "Ersaal Connection"
+#: admin/views/settings-general.php:53
+msgid "Connection test"
 msgstr ""
 
-#: admin/views/manual-send.php:36
-msgid "Ersaal is not connected"
+#: admin/views/settings-general.php:54
+msgid "Verify the currently saved credentials before configuring messaging."
+msgstr ""
+
+#: admin/views/settings-general.php:57
+msgid "Test connection"
+msgstr ""
+
+#: admin/views/settings-otp.php:18
+msgid "One-time passwords"
+msgstr ""
+
+#: admin/views/settings-otp.php:19
+msgid "Use Ersaal to send and verify short-lived codes. OTP stays off until you enable it."
+msgstr ""
+
+#: admin/views/settings-otp.php:24
+msgid "Enable OTP services"
+msgstr ""
+
+#: admin/views/settings-otp.php:25
+msgid "Allows OTP tests, user phone verification, and developer integrations."
+msgstr ""
+
+#: admin/views/settings-otp.php:36
+msgid "OTP service status"
+msgstr ""
+
+#: admin/views/settings-otp.php:37
+msgid "Live project and OTP capacity values reported by the connected Ersaal API."
+msgstr ""
+
+#: admin/views/settings-otp.php:41
+msgid "Connection"
+msgstr ""
+
+#: admin/views/settings-otp.php:45
+msgid "OTP balance"
+msgstr ""
+
+#: admin/views/settings-otp.php:46
+#: admin/views/settings-otp.php:50
+msgid "Not reported"
+msgstr ""
+
+#: admin/views/settings-otp.php:49
+msgid "OTP limit"
+msgstr ""
+
+#: admin/views/settings-otp.php:54
+msgid "OTP service availability could not be confirmed. Review Connection settings before enabling a login challenge."
+msgstr ""
+
+#: admin/views/settings-otp.php:56
+msgid "The API reports no available OTP subscription units. Choose wallet payment or update the Ersaal subscription."
+msgstr ""
+
+#: admin/views/settings-otp.php:62
+msgid "OTP defaults"
+msgstr ""
+
+#: admin/views/settings-otp.php:63
+msgid "These values are sent to Ersaal when a new verification code is requested."
+msgstr ""
+
+#: admin/views/settings-otp.php:69
+msgid "Sender name"
+msgstr ""
+
+#: admin/views/settings-otp.php:70
+msgid "Use an active, approved sender from the connected Ersaal project."
+msgstr ""
+
+#: admin/views/settings-otp.php:77
+msgid "Payment source"
+msgstr ""
+
+#: admin/views/settings-otp.php:78
+msgid "Choose the wallet or the OTP units in your subscription."
+msgstr ""
+
+#: admin/views/settings-otp.php:81
+msgid "Wallet balance"
+msgstr ""
+
+#: admin/views/settings-otp.php:82
+msgid "OTP subscription"
+msgstr ""
+
+#: admin/views/settings-otp.php:88
+msgid "Code length"
+msgstr ""
+
+#: admin/views/settings-otp.php:89
+msgid "Ersaal supports four- or six-digit codes."
+msgstr ""
+
+#: admin/views/settings-otp.php:92
+msgid "4 digits"
+msgstr ""
+
+#: admin/views/settings-otp.php:93
+msgid "6 digits"
+msgstr ""
+
+#: admin/views/settings-otp.php:99
+msgid "Code lifetime"
+msgstr ""
+
+#: admin/views/settings-otp.php:100
+msgid "Expired and successfully used codes cannot be verified again."
+msgstr ""
+
+#. translators: %s: number of minutes
+#: admin/views/settings-otp.php:106
+#, php-format
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/views/settings-otp.php:114
+msgid "Message language"
+msgstr ""
+
+#: admin/views/settings-otp.php:115
+msgid "Automatic follows the current WordPress locale."
+msgstr ""
+
+#: admin/views/settings-otp.php:118
+msgid "Automatic"
+msgstr ""
+
+#: admin/views/settings-otp.php:119
+msgid "Arabic"
+msgstr ""
+
+#: admin/views/settings-otp.php:120
+msgid "English"
+msgstr ""
+
+#: admin/views/settings-otp.php:128
+msgid "WordPress login verification"
+msgstr ""
+
+#: admin/views/settings-otp.php:129
+msgid "Adds a second step after a user enters a valid WordPress username and password."
+msgstr ""
+
+#: admin/views/settings-otp.php:134
+msgid "Login OTP is disabled by wp-config.php"
+msgstr ""
+
+#: admin/views/settings-otp.php:135
+msgid "Remove ERSAAL_DISABLE_LOGIN_OTP or set it to false after resolving the emergency."
+msgstr ""
+
+#: admin/views/settings-otp.php:141
+msgid "Allow OTP for WordPress login"
+msgstr ""
+
+#: admin/views/settings-otp.php:142
+msgid "Only users with a verified phone who opt in are challenged. Existing users remain unchanged by default."
+msgstr ""
+
+#: admin/views/settings-otp.php:153
+msgid "Validate the setup"
+msgstr ""
+
+#: admin/views/settings-otp.php:154
+msgid "Save these settings, then run a real send-and-verify test before enabling login verification for users."
+msgstr ""
+
+#: admin/views/settings-otp.php:157
+msgid "Open OTP Test"
+msgstr ""
+
+#: admin/views/settings-otp.php:164
+msgid "Save OTP settings"
+msgstr ""
+
+#: admin/views/system-status.php:12
+msgid "Background processing"
+msgstr ""
+
+#: admin/views/system-status.php:13
+msgid "Runtime services used to process queued and retried messages."
+msgstr ""
+
+#: admin/views/system-status.php:20
+msgid "Component"
+msgstr ""
+
+#: admin/views/system-status.php:22
+msgid "Notes"
+msgstr ""
+
+#: admin/views/system-status.php:30
+msgid "Active"
+msgstr ""
+
+#: admin/views/system-status.php:32
+msgid "Missing"
+msgstr ""
+
+#: admin/views/system-status.php:35
+msgid "WooCommerce provides Action Scheduler. WP-Cron is used when it is unavailable."
+msgstr ""
+
+#: admin/views/system-status.php:41
+msgid "Disabled by constant"
+msgstr ""
+
+#: admin/views/system-status.php:43
+#: admin/views/woocommerce-settings.php:30
+#: src/Modules/WooCommerce/WooCommerceModule.php:78
+msgid "Enabled"
+msgstr ""
+
+#: admin/views/system-status.php:46
+msgid "If disabled, configure a server cron job to trigger wp-cron.php."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:30
+#: src/Modules/WooCommerce/WooCommerceModule.php:79
+msgid "Disabled"
+msgstr ""
+
+#. translators: %s: Order event label (e.g. New order, Completed)
+#: admin/views/woocommerce-settings.php:39
+#, php-format
+msgid "Send SMS for %s"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:40
+msgid "Uses the template below when this event occurs."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:48
+#: admin/views/woocommerce-settings.php:168
+msgid "Message template"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:53
+#: admin/views/woocommerce-settings.php:173
+msgid "Preview"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:71
+msgid "WooCommerce messaging"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:72
+msgid "Set the global sender and payment defaults used by order notifications."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:77
+msgid "Enable WooCommerce SMS"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:78
+msgid "Allow enabled order events to send notifications."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:103
+msgid "Customer notifications"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:104
+msgid "Expand only the order event you want to configure."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:108
+msgid "Template help"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:113
+msgid "Insert a variable into the focused template"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:136
+msgid "Admin notifications"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:137
+msgid "Notify a store administrator when a new order is placed."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:145
+#: src/Modules/WooCommerce/WooCommerceSettings.php:87
+msgid "New order #{order_number} from {customer_name}. Total: {order_total}"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:152
+msgid "New order SMS for admin"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:153
+msgid "Send one message to the number below for each new order."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:163
+msgid "Admin phone number"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:195
+msgid "Additional order statuses"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:196
+msgid "Optional notifications for statuses registered by WooCommerce or other extensions."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:212
+msgid "Manual order messaging"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:213
+msgid "Manual SMS is available from the Ersaal panel on each WooCommerce order."
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:215
+msgid "Read how it works"
+msgstr ""
+
+#: admin/views/woocommerce-settings.php:221
+msgid "Save WooCommerce settings"
+msgstr ""
+
+#: ersaal.php:71
+msgid "Ersaal SMS is not initialized."
+msgstr ""
+
+#: src/API/Client.php:62
+msgid "Invalid Base URL configured."
+msgstr ""
+
+#: src/API/Client.php:74
+msgid "Ersaal API requires a secure HTTPS connection."
+msgstr ""
+
+#: src/API/Client.php:80
+msgid "API Base URL must not contain embedded user credentials."
+msgstr ""
+
+#: src/API/Client.php:85
+msgid "API Key is missing."
+msgstr ""
+
+#: src/API/Client.php:117
+msgid "Could not connect to Ersaal. Check the API URL and service status."
+msgstr ""
+
+#: src/API/Client.php:145
+msgid "Redirects are disabled for security reasons."
+msgstr ""
+
+#: src/API/Client.php:164
+msgid "Ersaal server returned an internal error. Check the Ersaal service logs."
+msgstr ""
+
+#: src/API/Client.php:166
+msgid "Unexpected API response received."
+msgstr ""
+
+#: src/API/Client.php:174
+msgid "Authentication failed. Check the API Key."
+msgstr ""
+
+#: src/API/Client.php:181
+msgid "This server IP is not allowed by the Ersaal project."
+msgstr ""
+
+#: src/API/Client.php:183
+msgid "The Ersaal project is inactive."
+msgstr ""
+
+#: src/API/Client.php:185
+msgid "Authentication failed or access forbidden."
+msgstr ""
+
+#: src/Core/Plugin.php:91
+msgid "Ersaal SMS Gateway: The PHP mbstring extension is not installed. Standard UTF-8 fallbacks are in use, but installing php-mbstring is recommended for optimal Arabic SMS processing."
+msgstr ""
+
+#. translators: %s: Message ID
+#: src/Jobs/MessageJob.php:97
+#, php-format
+msgid "Ersaal SMS accepted. Message ID: %s"
+msgstr ""
+
+#. translators: %s: Message ID
+#: src/Jobs/MessageJob.php:97
+msgid "Ersaal SMS accepted."
+msgstr ""
+
+#. translators: %s: Error message
+#: src/Jobs/MessageJob.php:122
+#, php-format
+msgid "Unexpected internal error: %s"
+msgstr ""
+
+#. translators: %s: Failure reason
+#: src/Jobs/MessageJob.php:188
+#, php-format
+msgid "Ersaal SMS failed: %s"
+msgstr ""
+
+#: src/Modules/Dashboard/DashboardModule.php:44
+#: src/Modules/Dashboard/DashboardModule.php:45
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:60
+msgid "Ersaal SMS"
+msgstr ""
+
+#: src/Modules/Help/HelpModule.php:43
+#: src/Modules/Help/HelpModule.php:44
+msgid "Help & User Guide"
 msgstr ""
 
 #: src/Modules/Logs/LogsModule.php:45
 msgid "Ersaal Logs"
 msgstr ""
 
-#: src/API/Client.php:116
-msgid "Ersaal server returned an internal error. Check the Ersaal service logs."
+#: src/Modules/Logs/LogsModule.php:78
+msgid "Copied"
 msgstr ""
 
-#: src/Modules/Dashboard/DashboardModule.php:43 src/Modules/Dashboard/DashboardModule.php:44 src/Modules/WooCommerce/ManualOrderSmsBox.php:34
-msgid "Ersaal SMS"
+#: src/Modules/Logs/LogsModule.php:81
+msgid "Are you sure you want to delete this log? This only deletes the local record."
 msgstr ""
 
-#: src/Jobs/MessageJob.php:84
-msgid "Ersaal SMS accepted."
-msgstr ""
-
-#: src/Jobs/MessageJob.php:84
-msgid "Ersaal SMS accepted. Message ID: %s"
-msgstr ""
-
-#: src/Jobs/MessageJob.php:91 src/Jobs/MessageJob.php:94 src/Jobs/MessageJob.php:97 src/Jobs/MessageJob.php:110 src/Jobs/MessageJob.php:144
-msgid "Ersaal SMS failed: %s"
-msgstr ""
-
-#: ersaal.php:3
-msgid "Ersaal SMS Gateway"
-msgstr ""
-
-#: ersaal.php:4
-msgid "Ersaal SMS Gateway integration for WordPress and WooCommerce."
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:183
-msgid "Ersaal SMS Scheduled manually."
-msgstr ""
-
-#: admin/views/manual-send.php:81 admin/views/woocommerce-settings.php:224
-msgid "Estimated parts"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:86 admin/views/logs.php:151
-msgid "Event"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:100
-msgid "Expand only the order event you want to configure."
-msgstr ""
-
-#: admin/ui.php:57
-msgid "Expired"
-msgstr ""
-
-#: admin/views/logs.php:78
-msgid "Export CSV"
-msgstr ""
-
-#: admin/views/dashboard.php:98 admin/views/logs.php:102 admin/views/logs.php:138 admin/ui.php:54
-msgid "Failed"
-msgstr ""
-
-#: admin/views/dashboard.php:100
-msgid "Failed or errored"
-msgstr ""
-
-#: admin/views/logs.php:117
-msgid "Find messages"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:229
-msgid "Focus a message template before inserting a variable."
-msgstr ""
-
-#: admin/views/logs.php:160
-msgid "From"
-msgstr ""
-
-#: admin/SettingsPage.php:22
-msgid "General Settings"
-msgstr ""
-
-#: src/Modules/Help/HelpModule.php:43 src/Modules/Help/HelpModule.php:44
-msgid "Help & User Guide"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:92 admin/LogsPage.php:101
-msgid "HTTP code"
-msgstr ""
-
-#: admin/views/system-status.php:43
-msgid "If disabled, configure a server cron job to trigger wp-cron.php."
-msgstr ""
-
-#: admin/views/manual-send.php:72
-msgid "Include the country code, for example +21891XXXXXXX."
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:109
-msgid "Insert a variable into the focused template"
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:32
-msgid "Insufficient capabilities."
-msgstr ""
-
-#: src/API/Client.php:48
-msgid "Invalid Base URL configured."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:70
-msgid "Invalid phone number."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:28
-msgid "Invalid security token."
-msgstr ""
-
-#: admin/views/logs.php:43
-msgid "Log #%s"
-msgstr ""
-
-#: admin/LogsPage.php:52
-msgid "Log deleted successfully."
-msgstr ""
-
-#: admin/views/logs.php:299
-msgid "Log details"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:82 admin/LogsPage.php:99 admin/views/manual-send.php:132
-msgid "Log ID"
-msgstr ""
-
-#: admin/views/logs.php:129
-msgid "Log ID, message ID, order or phone"
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:134
-msgid "Log not found after execution."
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:46 admin/views/logs.php:63
-msgid "Logs"
-msgstr ""
-
-#: admin/views/logs.php:273
-msgid "Logs pagination"
-msgstr ""
-
-#: admin/views/logs.php:89
-msgid "Log summary"
-msgstr ""
-
-#: admin/SettingsPage.php:35
-msgid "Manage API connection, defaults, and system preferences."
-msgstr ""
-
-#: admin/views/logs.php:146 admin/ui.php:70
-msgid "Manual"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:207
-msgid "Manual order messaging"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:208
-msgid "Manual SMS is available from the Ersaal panel on each WooCommerce order."
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:87 admin/LogsPage.php:100
-msgid "Masked phone"
-msgstr ""
-
-#: admin/LogsPage.php:100 admin/views/manual-send.php:76 admin/views/dashboard.php:142 admin/views/logs.php:226 admin/views/logs.php:305
-msgid "Message"
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:69
-msgid "Message:"
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendModule.php:86
-msgid "Message accepted by Ersaal."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:163
-msgid "Message accepted by Ersaal platform."
-msgstr ""
-
-#: admin/views/logs.php:180
-msgid "Message activity"
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendModule.php:87
-msgid "Message could not be sent."
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:88 admin/LogsPage.php:100 admin/views/manual-send.php:124
-msgid "Message ID"
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:185
-msgid "Message scheduled for sending."
-msgstr ""
-
-#: admin/views/dashboard.php:129 admin/views/logs.php:191
-msgid "Messages sent through Ersaal will appear here."
-msgstr ""
-
-#: admin/views/dashboard.php:88
-msgid "Messages today"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:44 admin/views/woocommerce-settings.php:163
-msgid "Message template"
-msgstr ""
-
-#: admin/views/system-status.php:29
-msgid "Missing"
-msgstr ""
-
-#: admin/views/dashboard.php:31
-msgid "Monitor connection readiness and today’s messaging activity."
-msgstr ""
-
-#: admin/views/manual-send.php:28 admin/SettingsPage.php:40
-msgid "Need help?"
-msgstr ""
-
-#: admin/views/logs.php:104
-msgid "Needs attention"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:11 admin/ui.php:83
-msgid "New order"
-msgstr ""
-
-#: src/Modules/WooCommerce/WooCommerceSettings.php:87 admin/views/woocommerce-settings.php:141
-msgid "New order #{order_number} from {customer_name}. Total: {order_total}"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:148
-msgid "New order SMS for admin"
-msgstr ""
-
-#: admin/views/logs.php:279
-msgid "Next"
-msgstr ""
-
-#: admin/views/dashboard.php:128
-msgid "No activity yet"
-msgstr ""
-
-#: admin/views/manual-send.php:63
-msgid "No available SMS balance or subscription"
-msgstr ""
-
-#: admin/views/logs.php:190
-msgid "No messages match these filters"
-msgstr ""
-
-#: admin/views/logs.php:190
-msgid "No messages yet"
-msgstr ""
-
-#: admin/views/manual-send.php:17 admin/views/dashboard.php:25 admin/views/dashboard.php:54
-msgid "Not available"
-msgstr ""
-
-#: admin/views/dashboard.php:47
-msgid "Not connected"
-msgstr ""
-
-#: admin/views/system-status.php:19
-msgid "Notes"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:133
-msgid "Notify a store administrator when a new order is placed."
-msgstr ""
-
-#: admin/views/manual-send.php:40
-msgid "Open connection settings"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:191
-msgid "Optional notifications for statuses registered by WooCommerce or other extensions."
-msgstr ""
-
-#: admin/views/logs.php:45
-msgid "Order #%s"
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:157
-msgid "Order not found."
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:89 admin/LogsPage.php:100 admin/views/manual-send.php:136
-msgid "Parts"
-msgstr ""
-
-#: admin/views/logs.php:256
-msgid "Parts %1$s · Attempts %2$s"
-msgstr ""
-
-#: admin/views/manual-send.php:87
-msgid "Payment and advanced options"
-msgstr ""
-
-#: admin/views/manual-send.php:97 admin/views/woocommerce-settings.php:86
-msgid "Payment type"
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:62
-msgid "Payment Type:"
-msgstr ""
-
-#: admin/ui.php:53
-msgid "Pending"
-msgstr ""
-
-#: admin/views/settings-advanced.php:29
-msgid "Permanent deletion"
-msgstr ""
-
-#: admin/views/dashboard.php:140 admin/views/logs.php:225
-msgid "Phone"
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:58
-msgid "Phone:"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:49 admin/views/woocommerce-settings.php:168
-msgid "Preview"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:226
-msgid "Preview appears as you type."
-msgstr ""
-
-#: admin/views/logs.php:278
-msgid "Previous"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:12 admin/views/logs.php:135 admin/ui.php:47 admin/ui.php:84
-msgid "Processing"
-msgstr ""
-
-#: admin/views/dashboard.php:105
-msgid "Processing or scheduled"
-msgstr ""
-
-#: admin/views/manual-send.php:51 admin/views/dashboard.php:53
-msgid "Project"
-msgstr ""
-
-#: admin/views/dashboard.php:57
-msgid "Project status"
-msgstr ""
-
-#: admin/ui.php:52
-msgid "Queued"
-msgstr ""
-
-#: admin/views/dashboard.php:166
-msgid "Quick actions"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:210
-msgid "Read how it works"
-msgstr ""
-
-#: admin/views/manual-send.php:49
-msgid "Ready to send"
-msgstr ""
-
-#: admin/views/logs.php:99
-msgid "Received by Ersaal"
-msgstr ""
-
-#: admin/views/dashboard.php:113
-msgid "Recent activity"
-msgstr ""
-
-#: admin/views/manual-send.php:70
-msgid "Recipient"
-msgstr ""
-
-#: admin/views/logs.php:224
-msgid "Reference"
-msgstr ""
-
-#: admin/ui.php:56
-msgid "Rejected"
-msgstr ""
-
-#: admin/views/settings-advanced.php:20
-msgid "Removes saved settings and SMS logs when the plugin is deleted."
-msgstr ""
-
-#: admin/views/logs.php:170
-msgid "Reset"
-msgstr ""
-
-#: admin/views/logs.php:194
-msgid "Reset filters"
-msgstr ""
-
-#: admin/views/logs.php:191
-msgid "Reset the filters or broaden your search."
-msgstr ""
-
-#: admin/views/logs.php:107
-msgid "Retries"
-msgstr ""
-
-#: admin/views/dashboard.php:103
-msgid "Retrying"
-msgstr ""
-
-#: admin/views/logs.php:137 admin/ui.php:51
-msgid "Retry scheduled"
-msgstr ""
-
-#: admin/views/system-status.php:10
-msgid "Runtime services used to process queued and retried messages."
-msgstr ""
-
-#: admin/views/settings-general.php:62 admin/views/settings-advanced.php:36
-msgid "Save settings"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:216
-msgid "Save WooCommerce settings"
-msgstr ""
-
-#: admin/views/logs.php:109
-msgid "Scheduled again"
-msgstr ""
-
-#: admin/views/logs.php:128
-msgid "Search"
-msgstr ""
-
-#: admin/views/logs.php:118
-msgid "Search by reference, then narrow the results only when needed."
-msgstr ""
-
-#: admin/views/logs.php:220
-msgid "Select all"
-msgstr ""
-
-#: admin/views/manual-send.php:92 admin/views/woocommerce-settings.php:82
-msgid "Sender ID"
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:239
-msgid "Sender ID is invalid or not approved for this project."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendModule.php:83
-msgid "Sending..."
-msgstr ""
-
-#: admin/views/manual-send.php:23
-msgid "Send one message through the connected Ersaal project."
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:149
-msgid "Send one message to the number below for each new order."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendModule.php:50 src/Modules/ManualSend/ManualSendModule.php:51 src/Modules/ManualSend/ManualSendModule.php:84 src/Modules/WooCommerce/ManualOrderSmsBox.php:74 admin/views/manual-send.php:22 admin/views/manual-send.php:110 admin/views/dashboard.php:36 admin/views/dashboard.php:170 admin/views/logs.php:196
-msgid "Send SMS"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:35
-msgid "Send SMS for %s"
-msgstr ""
-
-#: admin/views/dashboard.php:131
-msgid "Send your first SMS"
-msgstr ""
-
-#: admin/ui.php:50
-msgid "Sent"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:68
-msgid "Set the global sender and payment defaults used by order notifications."
-msgstr ""
-
-#: src/Modules/Settings/SettingsModule.php:46 src/Modules/Settings/SettingsModule.php:47 admin/views/dashboard.php:172 admin/SettingsPage.php:34
-msgid "Settings"
-msgstr ""
-
-#: admin/SettingsPage.php:45
-msgid "Settings sections"
-msgstr ""
-
-#: admin/views/manual-send.php:56
-msgid "SMS balance: %s"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:84 admin/LogsPage.php:99 admin/views/dashboard.php:141 admin/views/logs.php:143
-msgid "Source"
-msgstr ""
-
-#: admin/LogsPage.php:99
-msgid "Source event"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:85 admin/LogsPage.php:99
-msgid "Source ID"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:83 admin/LogsPage.php:99 admin/views/manual-send.php:128 admin/views/dashboard.php:139 admin/views/logs.php:132 admin/views/logs.php:223 admin/views/system-status.php:18
-msgid "Status"
-msgstr ""
-
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:65 admin/views/manual-send.php:52 admin/views/manual-send.php:100 admin/views/woocommerce-settings.php:89 admin/views/dashboard.php:61
-msgid "Subscription"
-msgstr ""
-
-#: admin/SettingsPage.php:24
-msgid "System Status"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:104
-msgid "Template help"
-msgstr ""
-
-#: admin/views/settings-general.php:54
-msgid "Test connection"
-msgstr ""
-
-#: admin/views/settings-general.php:40
-msgid "The API key is set. Keep ******** to retain the existing key."
-msgstr ""
-
-#: admin/views/manual-send.php:64
-msgid "The API may reject this message until the project has an eligible SMS payment source."
-msgstr ""
-
-#: admin/views/settings-general.php:89
-msgid "The connection test could not be completed."
-msgstr ""
-
-#: admin/views/settings-general.php:23
-msgid "The Ersaal Gateway endpoint used for API requests."
-msgstr ""
-
-#: src/API/Client.php:135
-msgid "The Ersaal project is inactive."
-msgstr ""
-
-#: admin/views/dashboard.php:114
-msgid "The latest messages across manual and WooCommerce sources."
-msgstr ""
-
-#: src/API/Client.php:133
-msgid "This server IP is not allowed by the Ersaal project."
-msgstr ""
-
-#: admin/views/logs.php:164
-msgid "To"
-msgstr ""
-
-#: admin/views/dashboard.php:82
-msgid "Today’s activity"
-msgstr ""
-
-#: admin/views/logs.php:92
-msgid "Total"
-msgstr ""
-
-#: admin/views/logs.php:64
-msgid "Track SMS activity and troubleshoot requests."
-msgstr ""
-
-#: src/Storage/LogRepository.php:61
-msgid "Unable to create message log."
-msgstr ""
-
-#: admin/LogsPage.php:54
-msgid "Unable to delete selected log."
-msgstr ""
-
-#: admin/LogsPage.php:65
-msgid "Unable to delete selected logs."
-msgstr ""
-
-#: src/Modules/Settings/SettingsModule.php:91 src/Modules/WooCommerce/ManualOrderSmsBox.php:144 admin/LogsPage.php:20 admin/HelpPage.php:11 admin/DashboardPage.php:24
-msgid "Unauthorized"
-msgstr ""
-
-#: src/API/Client.php:118
-msgid "Unexpected API response received."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:112
-msgid "Unexpected idempotency key conflict."
-msgstr ""
-
-#: src/Jobs/MessageJob.php:108
-msgid "Unexpected internal error: %s"
-msgstr ""
-
-#: admin/views/settings-advanced.php:13
-msgid "Uninstall behavior"
-msgstr ""
-
-#: admin/ui.php:58
-msgid "Unknown"
-msgstr ""
-
-#: src/Services/ConnectionStatusService.php:40
-msgid "Unknown Project"
-msgstr ""
-
-#: src/Modules/Logs/LogsModule.php:95
+#: src/Modules/Logs/LogsModule.php:96
 msgid "Updated"
 msgstr ""
 
-#: admin/LogsPage.php:101
-msgid "Updated at"
+#: src/Modules/ManualSend/ManualSendHandler.php:32
+msgid "Invalid security token."
 msgstr ""
 
-#: admin/views/manual-send.php:94
-msgid "Use an approved Sender ID for this project."
+#: src/Modules/ManualSend/ManualSendHandler.php:36
+msgid "Insufficient capabilities."
 msgstr ""
 
-#: admin/views/woocommerce-settings.php:36
-msgid "Uses the template below when this event occurs."
+#: src/Modules/ManualSend/ManualSendHandler.php:84
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:46
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:132
+#: src/PublicApi/SmsFacade.php:81
+msgid "Message text is required."
 msgstr ""
 
-#: admin/views/settings-general.php:51
-msgid "Verify the currently saved credentials before configuring messaging."
+#: src/Modules/ManualSend/ManualSendHandler.php:117
+msgid "Unexpected idempotency key conflict."
 msgstr ""
 
-#: admin/views/dashboard.php:118
-msgid "View all logs"
+#: src/Modules/ManualSend/ManualSendHandler.php:137
+msgid "Log not found after execution."
 msgstr ""
 
-#: admin/views/manual-send.php:141
-msgid "View in logs"
+#: src/Modules/ManualSend/ManualSendHandler.php:154
+msgid "An unexpected internal error occurred."
 msgstr ""
 
-#: admin/views/dashboard.php:171
-msgid "View logs"
+#: src/Modules/ManualSend/ManualSendHandler.php:166
+msgid "Message accepted by Ersaal platform."
 msgstr ""
 
-#: src/Modules/WooCommerce/ManualOrderSmsBox.php:64 admin/views/manual-send.php:99 admin/views/woocommerce-settings.php:88
-msgid "Wallet"
+#: src/Modules/ManualSend/ManualSendHandler.php:232
+#: src/Modules/ManualSend/ManualSendHandler.php:238
+msgid "No valid subscription allows sending this message."
 msgstr ""
 
-#: admin/views/settings-advanced.php:30
-msgid "When enabled, the local logs and settings cannot be recovered after uninstalling the plugin."
-msgstr ""
-
-#: src/Modules/WooCommerce/WooCommerceSettings.php:17 admin/views/logs.php:147 admin/ui.php:71
-msgid "WooCommerce"
-msgstr ""
-
-#: admin/views/woocommerce-settings.php:67
-msgid "WooCommerce messaging"
-msgstr ""
-
-#: admin/views/system-status.php:32
-msgid "WooCommerce provides Action Scheduler. WP-Cron is used when it is unavailable."
-msgstr ""
-
-#: src/Modules/ManualSend/ManualSendHandler.php:231
+#: src/Modules/ManualSend/ManualSendHandler.php:234
 msgid "Insufficient wallet balance to send this message."
 msgstr ""
 
-#: src/Modules/ManualSend/ManualSendHandler.php:259
-msgid "The Ersaal request could not be completed."
+#: src/Modules/ManualSend/ManualSendHandler.php:242
+msgid "Sender ID is invalid or not approved for this project."
 msgstr ""
 
-#: src/Modules/ManualSend/ManualSendHandler.php:247
+#: src/Modules/ManualSend/ManualSendHandler.php:246
+msgid "Please review the phone number and message details."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:250
 msgid "Authentication with Ersaal failed. Check the API key."
 msgstr ""
 
-#: src/Modules/ManualSend/ManualSendHandler.php:255
+#: src/Modules/ManualSend/ManualSendHandler.php:254
+msgid "The server IP address is not allowed by the Ersaal project."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:258
 msgid "Request limit exceeded. Try again later."
 msgstr ""
 
 #: src/Modules/ManualSend/ManualSendHandler.php:262
+msgid "The Ersaal request could not be completed."
+msgstr ""
+
+#: src/Modules/ManualSend/ManualSendHandler.php:265
 msgid "An unexpected error occurred while sending the message."
 msgstr ""
 
-#: src/Modules/ManualSend/ManualSendHandler.php:251
-msgid "The server IP address is not allowed by the Ersaal project."
+#: src/Modules/ManualSend/ManualSendModule.php:93
+#: src/Modules/OTP/OTPAdminController.php:73
+#: src/Modules/OTP/OTPUserProfile.php:52
+msgid "Sending..."
 msgstr ""
 
-#: src/Modules/ManualSend/ManualSendHandler.php:229 src/Modules/ManualSend/ManualSendHandler.php:235
-msgid "No valid subscription allows sending this message."
+#: src/Modules/ManualSend/ManualSendModule.php:95
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:47
+msgid "An unexpected error occurred."
 msgstr ""
 
-#: src/Modules/ManualSend/ManualSendHandler.php:79 src/Modules/WooCommerce/ManualOrderSmsBox.php:95 src/Modules/WooCommerce/ManualOrderSmsBox.php:152
-msgid "Message text is required."
+#: src/Modules/ManualSend/ManualSendModule.php:96
+msgid "Message accepted by Ersaal."
 msgstr ""
 
-#: src/Modules/ManualSend/ManualSendHandler.php:243
-msgid "Please review the phone number and message details."
+#: src/Modules/ManualSend/ManualSendModule.php:97
+msgid "Message could not be sent."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:32
+msgid "OTP"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:75
+#: src/Modules/OTP/OTPUserProfile.php:54
+msgid "Verifying..."
+msgstr ""
+
+#. translators: %s: Wait time in seconds
+#: src/Modules/OTP/OTPAdminController.php:78
+#, php-format
+msgid "You can request a new code in %s seconds."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:79
+#: src/Modules/OTP/OTPService.php:229
+msgid "The OTP request could not be completed."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:87
+msgid "User ID"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:89
+msgid "Error code"
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:90
+msgid "Error message"
+msgstr ""
+
+#. translators: %s: Wait time in seconds
+#: src/Modules/OTP/OTPAdminController.php:138
+#, php-format
+msgid "Use the active code or wait %s seconds before requesting another."
+msgstr ""
+
+#. translators: %s: Masked phone number
+#: src/Modules/OTP/OTPAdminController.php:164
+#: src/Modules/OTP/OTPUserProfile.php:329
+#, php-format
+msgid "A verification code was sent to %s."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:175
+msgid "This OTP test has expired. Send a new code."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:198
+msgid "OTP verified successfully. The code cannot be used again."
+msgstr ""
+
+#: src/Modules/OTP/OTPAdminController.php:205
+msgid "You are not allowed to test OTP."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:42
+msgid "Additional verification is required. Sign in through the WordPress login page."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:54
+msgid "We could not start the verification step. Please try again later."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:77
+msgid "Additional verification is required."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:100
+msgid "This verification session is invalid or has expired. Sign in again."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:108
+msgid "Verification is no longer available for this account. Sign in again."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:118
+msgid "The verification form expired. Refresh the page and try again."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:136
+msgid "The verification code expired. Request a new code."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:153
+msgid "This verification session ended. Sign in again to request a new code."
+msgstr ""
+
+#. translators: %s: Wait time in seconds
+#: src/Modules/OTP/OTPLoginTwoFactor.php:179
+#, php-format
+msgid "Wait %s seconds before requesting a new code."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:188
+msgid "We could not send a new code. Please wait and try again."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:200
+msgid "A new verification code was sent."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:205
+msgid "Verify your sign-in"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:207
+#: src/Modules/OTP/OTPLoginTwoFactor.php:233
+msgid "Back to login"
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:216
+msgid "Enter your verification code"
+msgstr ""
+
+#. translators: %s: Masked phone number
+#: src/Modules/OTP/OTPLoginTwoFactor.php:219
+#, php-format
+msgid "We sent a one-time code to %s."
+msgstr ""
+
+#: src/Modules/OTP/OTPLoginTwoFactor.php:229
+msgid "Verify and sign in"
+msgstr ""
+
+#: src/Modules/OTP/OTPLogRepository.php:38
+msgid "Unable to create OTP activity log."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:34
+#: src/Modules/OTP/OTPService.php:81
+msgid "OTP is disabled in Ersaal settings."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:60
+msgid "Ersaal did not return an OTP reference."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:205
+msgid "Too many OTP requests. Please wait before trying again."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:208
+msgid "OTP authentication failed. Check the Ersaal connection settings."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:211
+msgid "OTP is unavailable because the wallet or OTP subscription balance is insufficient."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:214
+msgid "The OTP service is temporarily unavailable. Please try again later."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:217
+msgid "The verification code has expired or was already used."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:220
+msgid "The verification code is incorrect."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:223
+msgid "An active verification code already exists for this phone. Use it or wait until it expires."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:226
+msgid "The OTP sender is invalid or unavailable for this phone provider."
+msgstr ""
+
+#: src/Modules/OTP/OTPService.php:231
+msgid "An unexpected OTP error occurred."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:53
+#: src/Modules/OTP/OTPUserProfile.php:172
+msgid "Verify phone"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:55
+#: src/Modules/OTP/OTPUserProfile.php:165
+msgid "Resend code"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:56
+#: src/Modules/OTP/OTPUserProfile.php:142
+msgid "Use this number"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:57
+msgid "Loading number..."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:59
+#: src/Modules/OTP/OTPUserProfile.php:132
+msgid "Not verified"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:60
+msgid "Verify the new phone before enabling login 2FA."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:61
+msgid "The verified phone can now be used for login 2FA. Enable it, then save the profile."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:62
+msgid "The phone verification request could not be completed."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:87
+msgid "Ersaal Security"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:88
+msgid "Confirm the account phone, verify it with Ersaal, then choose whether to protect WordPress login."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:91
+msgid "Phone verified"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:93
+msgid "Setup incomplete"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:99
+msgid "OTP service is currently disabled."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:101
+msgid "The phone can be entered now, but verification requires OTP to be enabled."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:103
+msgid "Open Ersaal OTP settings"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:105
+msgid "Ask an administrator to enable OTP in Ersaal settings."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:116
+msgid "Account identity"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:118
+msgid "This identifies the WordPress account only. Ersaal sends OTP by SMS, not email."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:121
+msgid "Account"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:122
+msgid "Email"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:130
+#: src/Modules/OTP/OTPUserProfile.php:147
+msgid "OTP phone"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:138
+msgid "Suggested phone"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:140
+msgid "We found this number in the WooCommerce billing details for this account. It is not verified yet."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:151
+msgid "Changing it clears verification and turns off login 2FA until the new number is verified."
+msgstr ""
+
+#. translators: %s: Formatted verification date and time
+#: src/Modules/OTP/OTPUserProfile.php:158
+#, php-format
+msgid "Verified on %s."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:181
+msgid "Login two-factor authentication"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:186
+msgid "Login OTP is currently disabled by wp-config.php. Phone verification remains available."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:188
+msgid "Login 2FA is disabled globally by an administrator. Phone verification remains available."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:193
+msgid "Enable login 2FA"
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:196
+msgid "Verify your phone number before enabling login 2FA."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:198
+msgid "Login 2FA cannot be enabled until the global login OTP setting is available."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:200
+msgid "Require a verification code after the WordPress password for this account."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:292
+msgid "No suggested phone is available for this account."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:297
+msgid "The suggested phone was added. Send a code to verify it before enabling login 2FA."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:311
+msgid "A code is already active for this phone. Enter it before requesting another."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:341
+msgid "This phone verification has expired. Send a new code."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:365
+msgid "Phone verified successfully. Save the profile to keep any login OTP preference."
+msgstr ""
+
+#: src/Modules/OTP/OTPUserProfile.php:377
+msgid "You are not allowed to verify this phone."
+msgstr ""
+
+#: src/Modules/OTP/OTPValidator.php:17
+msgid "Invalid OTP context."
+msgstr ""
+
+#: src/Modules/OTP/OTPValidator.php:26
+msgid "Invalid or missing OTP reference."
+msgstr ""
+
+#: src/Modules/OTP/OTPValidator.php:35
+msgid "Enter the verification code sent to your phone."
+msgstr ""
+
+#: src/Modules/Settings/SettingsModule.php:64
+msgid "The connection test could not be completed."
+msgstr ""
+
+#. translators: %s: Ersaal project name
+#: src/Modules/Settings/SettingsModule.php:141
+#, php-format
+msgid "Connected successfully! Project: %s"
+msgstr ""
+
+#: src/Modules/Settings/SettingsModule.php:143
+msgid "Connected successfully!"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:84
+msgid "Phone:"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:88
+msgid "Payment Type:"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:95
+msgid "Message:"
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:119
+msgid "Invalid order ID."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:124
+msgid "You do not have permission to edit this order."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:137
+msgid "Order not found."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:142
+msgid "Customer billing phone is missing."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:148
+msgid "Invalid customer phone number for SMS delivery."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:167
+msgid "Ersaal SMS Scheduled manually."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:169
+msgid "Message scheduled for sending."
+msgstr ""
+
+#: src/Modules/WooCommerce/ManualOrderSmsBox.php:175
+msgid "Failed to schedule SMS message. Please check the Ersaal logs."
+msgstr ""
+
+#: src/Modules/WooCommerce/OrderEventHandler.php:210
+msgid "Customer billing phone is missing or invalid."
+msgstr ""
+
+#: src/Modules/WooCommerce/TemplateEngine.php:11
+msgid "Customer"
+msgstr ""
+
+#: src/Modules/WooCommerce/WooCommerceModule.php:77
+msgid "Preview appears as you type."
+msgstr ""
+
+#: src/Modules/WooCommerce/WooCommerceModule.php:80
+msgid "Focus a message template before inserting a variable."
 msgstr ""
 
 #: src/Modules/WooCommerce/WooCommerceSettings.php:95
@@ -1065,764 +2030,26 @@ msgstr ""
 msgid "Your order #{order_number} has been cancelled."
 msgstr ""
 
-#: admin/views/otp-logs.php:75
-msgid "%s activity"
-msgid_plural "%s activities"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
-
-#: admin/views/settings-otp.php:75
-msgid "%s minute"
-msgid_plural "%s minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
-
-#: admin/views/settings-otp.php:63
-msgid "4 digits"
-msgstr ""
-
-#: admin/views/settings-otp.php:64
-msgid "6 digits"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:180
-msgid "A code is already active for this phone. Enter it before requesting another."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:189
-msgid "A new verification code was sent."
-msgstr ""
-
-#: admin/views/otp-test.php:19
-msgid "A successful send can consume wallet balance or an OTP subscription unit. Verification codes are never written to WordPress logs."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:197 src/Modules/OTP/OTPAdminController.php:141
-msgid "A verification code was sent to %s."
-msgstr ""
-
-#: admin/views/otp-logs.php:88
-msgid "Action"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:75
-msgid "Additional verification is required."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:42
-msgid "Additional verification is required. Sign in through the WordPress login page."
-msgstr ""
-
-#: admin/views/settings-otp.php:97
-msgid "Adds a second step after a user enters a valid WordPress username and password."
-msgstr ""
-
-#: admin/views/otp-logs.php:16 admin/views/dashboard.php:36
-msgid "Admin test"
-msgstr ""
-
-#: admin/views/otp-logs.php:57
-msgid "All workflows"
-msgstr ""
-
-#: admin/views/settings-otp.php:109
-msgid "Allow OTP for WordPress login"
-msgstr ""
-
-#: admin/views/settings-otp.php:22
-msgid "Allows OTP tests, user phone verification, and developer integrations."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:211
-msgid "An active verification code already exists for this phone. Use it or wait until it expires."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:103
-msgid "An administrator must enable OTP in Ersaal settings before this phone can be verified."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:219
-msgid "An unexpected OTP error occurred."
-msgstr ""
-
-#: admin/views/settings-otp.php:87
-msgid "Arabic"
-msgstr ""
-
-#: admin/views/settings-otp.php:86
-msgid "Automatic"
-msgstr ""
-
-#: admin/views/settings-otp.php:83
-msgid "Automatic follows the current WordPress locale."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:196 src/Modules/OTP/OTPLoginTwoFactor.php:219
-msgid "Back to login"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:86
-msgid "Changing this number removes its verified status and turns off login OTP until the new number is verified."
-msgstr ""
-
-#: admin/views/settings-otp.php:49
-msgid "Choose the wallet or the OTP units in your subscription."
-msgstr ""
-
-#: admin/views/otp-logs.php:66
-msgid "Clear"
-msgstr ""
-
-#: admin/views/settings-otp.php:59
-msgid "Code length"
-msgstr ""
-
-#: admin/views/settings-otp.php:70
-msgid "Code lifetime"
-msgstr ""
-
-#: admin/views/dashboard.php:107
-msgid "Codes sent"
-msgstr ""
-
-#: admin/views/otp-test.php:34
-msgid "Complete"
-msgstr ""
-
-#: admin/views/otp-test.php:26
-msgid "Complete both steps to confirm the sender, billing source, and verification endpoint."
-msgstr ""
-
-#: admin/views/otp-logs.php:19 admin/views/dashboard.php:39
-msgid "Developer integration"
-msgstr ""
-
-#: admin/views/settings-otp.php:21
-msgid "Enable OTP services"
-msgstr ""
-
-#: admin/views/settings-otp.php:88
-msgid "English"
-msgstr ""
-
-#: src/Modules/OTP/OTPValidator.php:16
-msgid "Enter a valid phone number including the country code."
-msgstr ""
-
-#: src/Modules/OTP/OTPValidator.php:43
-msgid "Enter the verification code sent to your phone."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:205
-msgid "Enter your verification code"
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:60
-msgid "Ersaal did not return an OTP reference."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:72
-msgid "Ersaal phone verification"
-msgstr ""
-
-#: admin/views/settings-otp.php:60
-msgid "Ersaal supports four- or six-digit codes."
-msgstr ""
-
-#: admin/views/settings-otp.php:71
-msgid "Expired and successfully used codes cannot be verified again."
-msgstr ""
-
-#: admin/views/dashboard.php:119
-msgid "Failed, invalid, or expired"
-msgstr ""
-
-#: admin/views/otp-logs.php:105
-msgid "HTTP %s"
-msgstr ""
-
-#: admin/views/otp-test.php:43
-msgid "Include the country code. The activity log keeps only a masked version and a one-way fingerprint."
-msgstr ""
-
-#: admin/views/dashboard.php:109
-msgid "Initiated today"
-msgstr ""
-
-#: admin/views/otp-logs.php:9 admin/views/dashboard.php:29
-msgid "Invalid"
-msgstr ""
-
-#: src/Modules/OTP/OTPValidator.php:25
-msgid "Invalid OTP context."
-msgstr ""
-
-#: src/Modules/OTP/OTPValidator.php:34
-msgid "Invalid or missing OTP reference."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:108
-msgid "Login OTP"
-msgstr ""
-
-#: admin/views/settings-otp.php:102
-msgid "Login OTP is disabled by wp-config.php"
-msgstr ""
-
-#: admin/views/settings-otp.php:82
-msgid "Message language"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:76
-msgid "Mobile phone"
-msgstr ""
-
-#: admin/views/dashboard.php:46
-msgid "Monitor connection readiness, SMS delivery, and OTP verification activity."
-msgstr ""
-
-#: admin/views/otp-logs.php:80
-msgid "No OTP activity yet"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:83
-msgid "Not verified"
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:31
-msgid "OTP"
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:47 src/Modules/OTP/OTPAdminController.php:48 admin/views/otp-logs.php:34
-msgid "OTP Activity"
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:39 src/Modules/OTP/OTPAdminController.php:40 admin/views/otp-test.php:9 admin/views/dashboard.php:245
-msgid "OTP Test"
-msgstr ""
-
-#: admin/views/otp-logs.php:114
-msgid "OTP activity pagination"
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:196
-msgid "OTP authentication failed. Check the Ersaal connection settings."
-msgstr ""
-
-#: admin/views/settings-otp.php:33
-msgid "OTP defaults"
-msgstr ""
-
-#: admin/views/otp-test.php:66
-msgid "OTP flow verified"
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:34 src/Modules/OTP/OTPService.php:79
-msgid "OTP is disabled in Ersaal settings."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:199
-msgid "OTP is unavailable because the wallet or OTP subscription balance is insufficient."
-msgstr ""
-
-#: admin/views/otp-test.php:13
-msgid "OTP settings"
-msgstr ""
-
-#: admin/views/settings-otp.php:53
-msgid "OTP subscription"
-msgstr ""
-
-#: admin/views/otp-test.php:31
-msgid "OTP test steps"
-msgstr ""
-
-#: admin/views/dashboard.php:97
-msgid "OTP today"
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:174
-msgid "OTP verified successfully. The code cannot be used again."
-msgstr ""
-
-#: admin/views/settings-otp.php:15
-msgid "One-time passwords"
-msgstr ""
-
-#: admin/views/settings-otp.php:110
-msgid "Only users with a verified phone who opt in are challenged. Existing users remain unchanged by default."
-msgstr ""
-
-#: admin/views/settings-otp.php:125
-msgid "Open OTP Test"
-msgstr ""
-
-#: admin/views/settings-otp.php:48
-msgid "Payment source"
-msgstr ""
-
-#: admin/views/otp-test.php:41
-msgid "Phone number"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:232
-msgid "Phone verified successfully. Save the profile to keep any login OTP preference."
-msgstr ""
-
-#: admin/views/otp-logs.php:17 admin/views/dashboard.php:37
-msgid "Profile verification"
-msgstr ""
-
-#: admin/views/otp-logs.php:12 admin/views/dashboard.php:32
-msgid "Rate limited"
-msgstr ""
-
-#: admin/views/otp-test.php:28
-msgid "Ready"
-msgstr ""
-
-#: admin/views/otp-logs.php:74
-msgid "Recent OTP activity"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:113
-msgid "Require a verification code after my WordPress password"
-msgstr ""
-
-#: admin/views/otp-logs.php:35
-msgid "Review OTP requests and verification outcomes without exposing codes or full phone numbers."
-msgstr ""
-
-#: admin/views/otp-logs.php:38 admin/views/dashboard.php:101
-msgid "Run OTP Test"
-msgstr ""
-
-#: admin/views/otp-logs.php:81
-msgid "Run an OTP test or verify a user phone to create the first safe activity record."
-msgstr ""
-
-#: admin/views/otp-test.php:68
-msgid "Run another test"
-msgstr ""
-
-#: admin/views/dashboard.php:98
-msgid "Safe local metrics for one-time password requests and verification attempts."
-msgstr ""
-
-#: admin/views/settings-otp.php:132
-msgid "Save OTP settings"
-msgstr ""
-
-#: admin/views/settings-otp.php:122
-msgid "Save these settings, then run a real send-and-verify test before enabling login verification for users."
-msgstr ""
-
-#: admin/views/otp-logs.php:99 admin/views/otp-test.php:32
-msgid "Send"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:216 src/Modules/OTP/OTPAdminController.php:75 admin/views/otp-test.php:59
-msgid "Send a new code"
-msgstr ""
-
-#: admin/views/otp-test.php:10
-msgid "Send a real verification code and confirm the complete OTP flow."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:50 src/Modules/OTP/OTPUserProfile.php:92 src/Modules/OTP/OTPAdminController.php:71 admin/views/otp-test.php:46
-msgid "Send verification code"
-msgstr ""
-
-#: admin/views/settings-otp.php:40
-msgid "Sender name"
-msgstr ""
-
-#: admin/views/dashboard.php:114
-msgid "Successful checks"
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:217 src/Modules/OTP/OTPAdminController.php:77
-msgid "The OTP request could not be completed."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:214
-msgid "The OTP sender is invalid or unavailable for this phone provider."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:202
-msgid "The OTP service is temporarily unavailable. Please try again later."
-msgstr ""
-
-#: admin/views/otp-test.php:67
-msgid "The code was accepted once and the local test state was removed."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:55
-msgid "The phone verification request could not be completed."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:129
-msgid "The verification code expired. Request a new code."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:205
-msgid "The verification code has expired or was already used."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:208
-msgid "The verification code is incorrect."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:111
-msgid "The verification form expired. Refresh the page and try again."
-msgstr ""
-
-#: admin/views/settings-otp.php:34
-msgid "These values are sent to Ersaal when a new verification code is requested."
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:151
-msgid "This OTP test has expired. Send a new code."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:115
-msgid "This opt-in applies only to this user and requires a verified phone. The administrator can disable login OTP globally."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:208
-msgid "This phone verification has expired. Send a new code."
-msgstr ""
-
-#: admin/views/otp-test.php:18
-msgid "This uses your real Ersaal account"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:144
-msgid "This verification session ended. Sign in again to request a new code."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:97
-msgid "This verification session is invalid or has expired. Sign in again."
-msgstr ""
-
-#: src/Modules/OTP/OTPService.php:193
-msgid "Too many OTP requests. Please wait before trying again."
-msgstr ""
-
-#: src/Modules/OTP/OTPLogRepository.php:34
-msgid "Unable to create OTP activity log."
-msgstr ""
-
-#: admin/views/otp-logs.php:13 admin/views/dashboard.php:33
-msgid "Unavailable"
-msgstr ""
-
-#: admin/views/dashboard.php:117
-msgid "Unsuccessful"
-msgstr ""
-
-#: admin/views/settings-otp.php:16
-msgid "Use Ersaal to send and verify short-lived codes. OTP stays off until you enable it."
-msgstr ""
-
-#: admin/views/settings-otp.php:41
-msgid "Use an active, approved sender from the connected Ersaal project."
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:116
-msgid "Use the active code or wait %s seconds before requesting another."
-msgstr ""
-
-#: admin/views/settings-otp.php:121
-msgid "Validate the setup"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:211 src/Modules/OTP/OTPUserProfile.php:96 admin/views/otp-test.php:53
-msgid "Verification code"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:104
-msgid "Verification is no longer available for this account. Sign in again."
-msgstr ""
-
-#: admin/views/dashboard.php:122
-msgid "Verification rate"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:54 src/Modules/OTP/OTPUserProfile.php:81 admin/views/otp-logs.php:8 admin/views/dashboard.php:28 admin/views/dashboard.php:112
-msgid "Verified"
-msgstr ""
-
-#: admin/views/dashboard.php:124
-msgid "Verified attempts today"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:88
-msgid "Verified on %s."
-msgstr ""
-
-#: admin/views/otp-logs.php:99 admin/views/otp-test.php:33
-msgid "Verify"
-msgstr ""
-
-#: admin/views/otp-test.php:25
-msgid "Verify a phone number"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:215
-msgid "Verify and sign in"
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:73 admin/views/otp-test.php:58
-msgid "Verify code"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:52 src/Modules/OTP/OTPUserProfile.php:99
-msgid "Verify phone"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:194
-msgid "Verify your sign-in"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:53 src/Modules/OTP/OTPAdminController.php:74
-msgid "Verifying..."
-msgstr ""
-
-#: admin/views/dashboard.php:102 admin/views/settings-otp.php:126
-msgid "View OTP activity"
-msgstr ""
-
-#: admin/views/otp-logs.php:39
-msgid "View SMS logs"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:168
-msgid "Wait %s seconds before requesting a new code."
-msgstr ""
-
-#: admin/views/settings-otp.php:52
-msgid "Wallet balance"
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:177
-msgid "We could not send a new code. Please wait and try again."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:54
-msgid "We could not start the verification step. Please try again later."
-msgstr ""
-
-#: src/Modules/OTP/OTPLoginTwoFactor.php:206
-msgid "We sent a one-time code to %s."
-msgstr ""
-
-#: admin/views/otp-logs.php:18 admin/views/dashboard.php:38
-msgid "WordPress login"
-msgstr ""
-
-#: admin/views/settings-otp.php:96
-msgid "WordPress login verification"
-msgstr ""
-
-#: admin/views/otp-logs.php:55 admin/views/otp-logs.php:89 admin/views/dashboard.php:133
-msgid "Workflow"
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:181
-msgid "You are not allowed to test OTP."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:243
-msgid "You are not allowed to verify this phone."
-msgstr ""
-
-#: src/Modules/OTP/OTPAdminController.php:76
-msgid "You can request a new code in %s seconds."
-msgstr ""
-
-#: admin/views/settings-otp.php:103
-msgid "Remove ERSAAL_DISABLE_LOGIN_OTP or set it to false after resolving the emergency."
-msgstr ""
-
-#: admin/views/settings-otp.php:38
-msgid "Connection"
-msgstr ""
-
-#: admin/views/settings-otp.php:34
-msgid "Live project and OTP capacity values reported by the connected Ersaal API."
-msgstr ""
-
-#: admin/views/settings-otp.php:43 admin/views/settings-otp.php:47
-msgid "Not reported"
-msgstr ""
-
-#: admin/views/settings-otp.php:42
-msgid "OTP balance"
-msgstr ""
-
-#: admin/views/settings-otp.php:46
-msgid "OTP limit"
-msgstr ""
-
-#: admin/views/settings-otp.php:51
-msgid "OTP service availability could not be confirmed. Review Connection settings before enabling a login challenge."
-msgstr ""
-
-#: admin/views/settings-otp.php:33
-msgid "OTP service status"
-msgstr ""
-
-#: admin/views/settings-otp.php:53
-msgid "The API reports no available OTP subscription units. Choose wallet payment or update the Ersaal subscription."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:121
-msgid "Account"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:116
-msgid "Account identity"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:105
-msgid "Ask an administrator to enable OTP in Ersaal settings."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:88
-msgid "Confirm the account phone, verify it with Ersaal, then choose whether to protect WordPress login."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:122
-msgid "Email"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:187
-msgid "Enable login 2FA"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:87
-msgid "Ersaal Security"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:57
-msgid "Loading number..."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:192
-msgid "Login 2FA cannot be enabled until the global login OTP setting is available."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:182
-msgid "Login 2FA is disabled globally by an administrator. Phone verification remains available."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:180
-msgid "Login OTP is currently disabled by wp-config.php. Phone verification remains available."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:175
-msgid "Login two-factor authentication"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:286
-msgid "No suggested phone is available for this account."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:130 src/Modules/OTP/OTPUserProfile.php:147
-msgid "OTP phone"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:99 tests/manual/test_otp_profile_enrollment.php:51
-msgid "OTP service is currently disabled."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:103
-msgid "Open Ersaal OTP settings"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:91
-msgid "Phone verified"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:194
-msgid "Require a verification code after the WordPress password for this account."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:55 src/Modules/OTP/OTPUserProfile.php:159
-msgid "Resend code"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:93
-msgid "Setup incomplete"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:138
-msgid "Suggested phone"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:101
-msgid "The phone can be entered now, but verification requires OTP to be enabled."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:291
-msgid "The suggested phone was added. Send a code to verify it before enabling login 2FA."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:61
-msgid "The verified phone can now be used for login 2FA. Enable it, then save the profile."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:118
-msgid "This identifies the WordPress account only. Ersaal sends OTP by SMS, not email."
-msgstr ""
-
-#: admin/views/manual-send.php:72 admin/views/otp-test.php:44
-#: admin/views/woocommerce-settings.php:161
-#: src/Modules/OTP/OTPUserProfile.php:150
-msgid "Libyana or Almadar: 091 / 092 / 093 / 094"
-msgstr ""
-
-#: src/Services/PhoneValidator.php:29
-msgid "Invalid phone number. Enter a Libyana or Almadar mobile number starting with 091, 092, 093, or 094."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:56 src/Modules/OTP/OTPUserProfile.php:142
-msgid "Use this number"
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:60
-msgid "Verify the new phone before enabling login 2FA."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:190
-msgid "Verify your phone number before enabling login 2FA."
-msgstr ""
-
-#: src/Modules/OTP/OTPUserProfile.php:140
-msgid "We found this number in the WooCommerce billing details for this account. It is not verified yet."
-msgstr ""
-
-#: ersaal.php:66
-msgid "Ersaal SMS is not initialized."
-msgstr ""
-
-#: src/PublicApi/SmsFacade.php:45
+#: src/PublicApi/SmsFacade.php:63
 msgid "The SMS idempotency key is invalid."
 msgstr ""
 
-#: src/PublicApi/SmsFacade.php:53
+#: src/PublicApi/SmsFacade.php:71
 msgid "Ersaal SMS is not configured."
 msgstr ""
 
-#: src/PublicApi/SmsFacade.php:112
+#: src/PublicApi/SmsFacade.php:126
 msgid "The SMS request could not be queued."
+msgstr ""
+
+#: src/Services/ConnectionStatusService.php:49
+msgid "Unknown Project"
+msgstr ""
+
+#: src/Services/PhoneValidator.php:32
+msgid "Invalid phone number. Enter a Libyana or Almadar mobile number starting with 091, 092, 093, or 094."
+msgstr ""
+
+#: src/Storage/LogRepository.php:68
+msgid "Unable to create message log."
 msgstr ""

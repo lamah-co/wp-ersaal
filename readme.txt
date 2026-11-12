@@ -4,7 +4,7 @@ Tags: sms, woocommerce, ersaal, otp, notifications
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,12 +41,16 @@ This plugin connects to the external Ersaal SMS Gateway API to send SMS notifica
 
 == Installation ==
 
-1. Upload the `ersaal` folder to the `/wp-content/plugins/` directory, or install directly through the WordPress Plugins screen.
+1. Upload the `ersaal-sms-gateway` folder to the `/wp-content/plugins/` directory, or install directly through the WordPress Plugins screen.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Navigate to **Ersaal SMS -> Settings** to configure your API URL and Token.
 4. Test the API connection to confirm project readiness.
 
 == Frequently Asked Questions ==
+
+= How do I use the Arabic interface? =
+
+Select Arabic under Settings > General > Site Language, or in your WordPress user profile for the administration interface. Arabic translations are included in the plugin package; no separate translation download is required.
 
 = Do I need an Ersaal account? =
 Yes. You need an active account and API Bearer Token from [Ersaal](https://getersaal.com/).
@@ -62,12 +66,19 @@ No. OTP features and Login Two-Factor Authentication (2FA) are opt-in and disabl
 
 == Screenshots ==
 
-1. Ersaal SMS Dashboard overview.
+1. Ersaal SMS Dashboard and live delivery telemetry.
 2. WooCommerce automated SMS notification settings.
 3. Manual SMS composition with live character counter.
 4. Detailed SMS activity logs and filters.
+5. Dedicated OTP activity logs and verification records.
 
 == Changelog ==
+
+= 1.3.2 =
+* Fixed missing bundled Arabic translations and updated translations for current plugin strings.
+* Fixed release packaging to retain required admin styles and scripts.
+* Improved Ersaal admin page detection for shared styles and compatibility notices.
+* Updated plugin banners, icons, and screenshots, including RTL variants.
 
 = 1.3.1 =
 * Resolved security, stability, compatibility, and build issues (#23-#32).
